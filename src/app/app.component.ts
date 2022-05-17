@@ -60,8 +60,14 @@ export class AppComponent implements OnInit, OnDestroy {
     private _translateService: TranslateService
   ) {
     // Get the application main menu
-    this.menu = menu;
-
+    
+    //Get Nav option from local storage
+    const menuLocal = localStorage.getItem("credentialsKey");
+    const jsonCreds = JSON.parse(menuLocal)
+    if(jsonCreds){
+    this.menu = jsonCreds.nav;
+    }
+  
     // Register the menu to the menu service
     this._coreMenuService.register('main', this.menu);
 
