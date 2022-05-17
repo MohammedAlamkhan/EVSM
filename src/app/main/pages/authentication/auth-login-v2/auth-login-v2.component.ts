@@ -85,15 +85,15 @@ export class AuthLoginV2Component implements OnInit {
 
 
     let loginContext = {
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password
+      userEmailId: this.loginForm.value.email,
+      userPassword: this.loginForm.value.password
     }
 
     this.auth.login(loginContext).subscribe(
       (res) => {
         if (
-          res.accessToken != null
-          && res.accessToken !== undefined) {
+          res.fcmToken != null
+          && res.fcmToken !== undefined) {
           this._router.navigate(['home'], { replaceUrl: true })
         }
         else {

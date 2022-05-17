@@ -2,26 +2,21 @@ import { Role } from "app/auth/models";
 import {Pagination} from '../Models/Pagination';
 
 export class UserDetails {
-
-    userId: number;
-    roles: Role;
-    fullName: string;
     emailId: string;
-    mobileNo: string;
-    userType: string;
-    designation: string;
-    username: string;
-    password: string
-    accessToken: string
-    refreshToken: string
-    expireDateTime: Date;
-    enabled: boolean;
-    status: boolean;
-    authorities: any;
-    accountNonExpired: boolean;
-    accountNonLocked: boolean;
-    credentialsNonExpired: boolean
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    fcmToken: string;
+    deviceId: string;
+    defaultPage: string;
+    createdDate: string;
+    modifiedDate: string;
+    nav: any;
+    objectAccess:any;
+    roleGroupAndAccount:any;
     }
+
+
     export class Response {
         responseCode : string;
         message: string;

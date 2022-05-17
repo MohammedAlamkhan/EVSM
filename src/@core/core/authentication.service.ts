@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
 
 
 export interface LoginContext {
-  email: string;
-  password: string;
+  userEmailId: string;
+  userPassword: string;
 }
 const credentialsKey = 'credentialsKey';
 const serverTokenKey = '';
@@ -42,8 +42,8 @@ export class AuthenticationService {
       .pipe(
         tap(x => {
           if (
-            x.accessToken != null
-            && x.accessToken !== undefined) {
+            x.fcmToken != null
+            && x.fcmToken !== undefined) {
             this.setCredentials(x);
           }
           else
@@ -67,6 +67,7 @@ export class AuthenticationService {
     this._credentials = credentials;
     localStorage.setItem(credentialsKey, JSON.stringify(credentials));
   }
+  
   unSetCredentials(): void {
     this._credentials = null;
     localStorage.removeItem(credentialsKey);
@@ -81,7 +82,7 @@ export class AuthenticationService {
   }
 
   refresh(): Observable<UserDetails> {
-    const refreshToken = this._credentials.refreshToken;
+    const refreshToken = this._credentials.fcmToken;
     return this.httpClient.get<UserDetails>(environment.baseApiUrl + this.userAuthRefreshEndpoint + '/' +refreshToken )
     .pipe(
       tap(response => {
@@ -96,7 +97,7 @@ export class AuthenticationService {
   // refresh() {
   //   return this.httpClient.post<UserDetails>(environment.baseApiUrl + this.userAuthRefreshEndpoint,
   //     {
-  //       Token: this._credentials.accessToken,
+  //       Token: this._credentials.fcmToken,
   //       RefreshToken: this._credentials.refreshToken
   //     }
   //   ).pipe(

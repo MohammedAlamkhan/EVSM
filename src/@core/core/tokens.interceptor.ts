@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError} from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 
@@ -21,8 +21,8 @@ export class TokensInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     
-    if (this.authService.getCredentials != null && this.authService.getCredentials.accessToken && request.headers.getAll('authorization') == null) {
-      request = this.addToken(request, this.authService.getCredentials.accessToken);
+    if (this.authService.getCredentials != null && this.authService.getCredentials.fcmToken && request.headers.getAll('authorization') == null) {
+      request= this.addToken(request, this.authService.getCredentials.fcmToken);
     }
 
     return next.handle(request).pipe(catchError(error => {
@@ -32,7 +32,7 @@ export class TokensInterceptor implements HttpInterceptor {
       } else {
         return throwError(error);
       }
-    }));
+    }))as Observable<HttpEvent<any>>;
   }
 
   private addToken(request: HttpRequest<any>, token: string) {
@@ -52,8 +52,8 @@ export class TokensInterceptor implements HttpInterceptor {
       return this.authService.refresh().pipe(
         switchMap((credentials: any) => {
           this.isRefreshing = false;
-          this.refreshTokenSubject.next(credentials.accessToken);
-          return next.handle(this.addToken(request, credentials.accessToken));
+          this.refreshTokenSubject.next(credentials.fcmToken);
+          return next.handle(this.addToken(request, credentials.fcmToken));
         }));
 
     } else {
