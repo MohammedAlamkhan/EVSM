@@ -1,0 +1,204 @@
+<div class="container">
+    <div id="pdfTable" #pdfTable>
+        <table class="table tborder">
+            <tbody>
+                <tr>
+                    <td>Name of the Site:</td>
+                    <td>Product Type</td>
+                </tr>
+                <tr>
+                    <td>Address:</td>
+                    <td>Quantity:</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Infra Type:</td>
+                </tr>
+                <tr>
+                    <td>Customer’s Name:</td>
+                    <td>Survey Date: _____ / ______ / _____ </td>
+                </tr>
+                <tr>
+                    <td>Contact Person at site: </td>
+                    <td>Contact No.: </td>
+                </tr>
+                <tr>
+                    <td>Latitude:</td>
+                    <td>Longitude:</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table tborder ">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-nowrap">Sr. No.</th>
+                    <th scope="col" class="text-nowrap">Check Points</th>
+                    <th>Requirement/Recommendation </th>
+                    <th scope="col" class="text-nowrap">Tick (√)</th>
+                    <th>Remark</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="2">1</td>
+                    <td rowspan="2">Earthing</td>
+                    <td>Proper earthing available at customer end for earthing the charger
+                        (Measure voltage if possible) Permissible Neutral to Earth Voltage
+                        difference less than 2 V
+                    </td>
+                    <td> </td>
+                    <td> </td>
+                </tr>
+                <tr>
+                    <td>Supply & Installation of EARTHINGS Pit for AC/DC Charger by Exicom</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td rowspan="2">2</td>
+                    <td rowspan="2">DB with MCB</td>
+                    <td>
+                        DB with MCB Rating 4 Pole 32 Amps with 3 Phase Power connection within 3 meter distance from AC
+                        charger to be provided by Customer
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        DB with MCB Rating 4 Pole 63 Amps with 3 Phase Power connection within 3 meter distance from DC
+                        charger to be provided by Customer
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td rowspan="2">3</td>
+                    <td rowspan="2">Installation of AC Charger</td>
+                    <td>
+                        Construction of CC base, MS Stand, fixing & powering of AC charger by
+                        Exicom
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        Installation & Powering of AC charger on Wall Mount by Exicom
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td rowspan="2">4</td>
+                    <td rowspan="2">
+                        Installation of DC Charger
+                    </td>
+                    <td>
+                        Supply, Installation & Powering of DC Charger with MS stand on existing
+                        CC floor by Exicom
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        Installation & Powering of DC Charger by Exicom on constructed CC Base
+                        (700x600x300 mm) By Customer
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td rowspan="2">5</td>
+                    <td rowspan="2">
+                        Charger protectors (Optional –To be Billed Separately)
+                    </td>
+                    <td>
+                        Supply & Installation of Rubber Wheel Stopper (1600 Length X 160 Width
+                        X 100 Height) X 1 No. per EV Charger for Protection
+
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        Supply & Installation of Bollards (4.5" Dia & 36" Height) X 2 Nos. on
+                        existing CC floor
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>6</td>
+                    <td>
+                        Tentative
+                        Installation
+                        Date
+                    </td>
+                    <td>
+                        Check by what time all the things required will be made available by the
+                        client
+
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <div class="">
+            <u class="font-weight-bolder"> Remark (If Any): </u>
+            <table class="w-100 border-none tx-border">
+                <tbody>
+                    <tr>
+                        <td>Remark Here!</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="">
+            <u class="font-weight-bolder mb-2"> Drawing Layout for Charger: </u>
+            <table class="table tborder ">
+                <tbody>
+                    <tr>
+                        <td><u>Exicom Tasks (With completion date)</u></td>
+                        <td><u>Customer Tasks </u> (With Completion date)</td>
+                    </tr>
+                    <tr style="height: 150px;">
+                        <td>data1 </td>
+                        <td> data2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>
+                        <p>Exicom Rep Name: </p>
+                        <p>Employee Code:</p>
+                        <p>Signature: </p>
+                    </td>
+                    <td>
+                        <p>Customer Rep Name: </p>
+                        <p></p>
+                        <p>Signature:</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-primary" (click)="downloadAsPDF()">Export To PDF</button>
+</div>

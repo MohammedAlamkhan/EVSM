@@ -1,0 +1,276 @@
+<div class="content-wrapper">
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
+    <div class="content-body">
+        <section class="users-list-wrapper">
+            <div class="card">
+                <div class="card-body" style="padding: 5px ;">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-sm-6 ">
+                                <h5>Details </h5>
+                            </div>
+                            <div class="col-sm-6 text-right p-0">
+                                <a routerLink="/edit-irf" class="btn btn-light btn-sm">
+                                    <i data-feather="edit"></i> Generate Bulk IRF
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="row px-1">
+                        <div class="card-body ">
+                            <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
+                                <h6 class="pl-1"> Information
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row px-2">
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray"> SO Total Qty </span></td>
+                                            <td> {{sOTotalQty}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Client </span></td>
+                                            <td>{{client}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Invoice number </span></td>
+                                            <td>{{invoiceNumber}}</td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td><span class="text-gray">other 1</span></td>
+                                            <td>wertrtrt</td>
+                                        </tr> -->
+                                        <!-- <tr>
+                                            <td><span class="text-gray">other 3</span></td>
+                                            <td>Under Warranty</td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-6 px-2">
+                            <div class="table-responsive">
+                                <table class="table table-sm ">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray"> Billed Asset Qty</span></td>
+                                            <td>{{billedAssetQty}} </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Sales order creation date</span></td>
+                                            <td>{{salesOrderCreationDate}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Invoice date </span></td>
+                                            <td>{{invoiceDate}}</td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td><span class="text-gray">other2</span></td>
+                                            <td>TEST_MAHARSSITE</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">other 3</span></td>
+                                            <td>sfsdg fgfh fhfh</td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row px-1">
+                        <div class="card-body">
+                            <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
+                                <h6 class="ml-1">Dispatched item detail
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row px-1">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="table-responsive border">
+                                    <div *ngIf="loading"><app-spinner></app-spinner></div>
+                                    <p-table [value]="assests" [lazy]="true" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+                                                (onLazyLoad)="loadData($event)" responsiveLayout="scroll" 
+                                                dataKey="salesOrder.salesOrderId" [paginator]="true" [rows]="noOfRows"
+                                                [totalRecords]="totalRecords">
+                                                <ng-template pTemplate="header">
+                                                    <tr class="bg-white">
+                                                    
+                                                        <!-- <th scope="col"  field="salesOrderId" class="text-nowrap">Sr.No.</th> 
+                                                        <th scope="col"  field="salesOrderNo" class="text-nowrap">Sales Order No.</th>
+                                                        <th scope="col"  field="totalQuantity" class="text-nowrap">Qty</th>
+                                                        <th scope="col"  field="clients.clientName" class="text-nowrap">Client</th>
+                                                        <th scope="col" pSortableColumn="orderCreateDate" field="orderCreateDate" class="text-nowrap">Sales Order Creation Date</th> -->
+                                                        
+                                                        <!-- <th scope="col" field="" class="text-nowrap"> Sr. No.</th> -->
+                                                        <th scope="col" field="assetSerialNumber">Asset Serial Number</th>
+                                                        <th scope="col" field="sites.siteName" class="text-nowrap">Site Name</th>
+                                                        <th scope="col" field="clients.clientName" class="text-nowrap">Client</th>
+                                                        <th scope="col" field="sites.customerName" class="text-nowrap">Customer </th>
+                                                        <th scope="col" field="partCode" class="text-nowrap">Part Code</th>
+                                                        <th scope="col" field="assestDescription" > Asset Description </th>
+                                                        <th scope="col" field="warrantyStatus" >Warranty Status </th>
+                                                        <th scope="col" field="irf_status" class="text-nowrap"> IRF </th>
+                                                        <th scope="col" field="survey_status" class="text-nowrap">Survey </th>
+                                                        <th scope="col" field="installation_status" class="text-nowrap">Installation </th>
+                                                        <th scope="col" field="commission_status" >Commissioning </th>
+                                                        <th scope="col" field="created_date" class="text-nowrap">Created Date </th>
+                                                    
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-aseet>
+                                                   
+                                                    <tr>
+                                                        <!-- <td>{{aseet.salesOrderId}}</td>
+                                                        <td><a routerLink="/sales/sales-details" class="no-st-text-b">{{aseet.salesOrderNo}}</a></td>
+                                                        <td class="no-st-text-b">{{aseet.totalQuantity}}</td>
+                                                        <td class="no-st-text-b">{{aseet.clients.clientName}}</td>
+                                                        <td class="no-st-text-b">{{aseet.orderCreateDate}}</td> -->
+
+                                                        <td class="no-st-text-b">{{aseet.assetSerialNumber}}</td>
+                                                        <td class="no-st-text-b">{{aseet.sites.siteName}}</td>
+                                                        <td class="no-st-text-b">{{aseet.clients.clientName}}</td>
+                                                        <td class="no-st-text-b">{{aseet.sites.customerName}}</td>
+                                                        <td class="no-st-text-b">{{aseet.partCode}}</td>
+                                                        <td class="no-st-text-b">{{aseet.assestDescription}}</td>
+                                                        <td class="no-st-text-b">
+                                                            <span class="badge bg-success">{{aseet.warrantyStatus === 'Y' ? 'Yes':'No'}}</span></td>
+                                                        <td><input class="form-check-input1 ml-0" type="checkbox" disabled></td>
+                                                        <td><input class="form-check-input1 ml-0" type="checkbox" disabled></td>
+                                                        <td><input class="form-check-input1 ml-0" type="checkbox" disabled></td>
+                                                        <td><input class="form-check-input1 ml-0" type="checkbox" disabled> </td>
+                                                        <td class="no-st-text-b">{{aseet.created_date}}</td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                    <!-- <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="text-nowrap"> Sr. No.</th>
+                                                <th scope="col" class="text-nowrap">Asset Serial Number</th>
+                                                <th scope="col" class="text-nowrap">Site Name</th>
+
+                                                <th scope="col" class="text-nowrap">Client</th>
+                                                <th scope="col" class="text-nowrap">Customer </th>
+                                                <th scope="col" class="text-nowrap">Part Code</th>
+                                                <th scope="col" class="text-nowrap"> Asset Description </th>
+                                                <th scope="col" class="text-nowrap">Warranty Status </th>
+                                                <th scope="col" class="text-nowrap"> IRF </th>
+                                                <th scope="col" class="text-nowrap">Survey </th>
+                                                <th scope="col" class="text-nowrap">Installation </th>
+                                                <th scope="col" class="text-nowrap">Commissioning </th>
+                                                <th scope="col" class="text-nowrap">Created Date </th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014
+                                                    </a>
+                                                </td>
+                                                <td class="no-st-text-b">Delhi</td>
+                                                <td class="no-st-text-b">Shefali</td>
+                                                <td class="no-st-text-b">Shefali</td>
+                                                <td class="no-st-text-b">12345</td>
+                                                <td class="no-st-text-b">Galdjkjdsf</td>
+                                                <td class="no-st-text-b"><span class="badge bg-success">Yes</span></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
+                                                <td class="no-st-text-b">23-03-2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2</th>
+                                                <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014
+                                                    </a>
+                                                </td>
+                                                <td class="no-st-text-b">Delhi</td>
+                                                <td class="no-st-text-b">Shefali</td>
+                                                <td class="no-st-text-b">Shefali</td>
+                                                <td class="no-st-text-b">12345</td>
+                                                <td class="no-st-text-b">Galdjkjdsf</td>
+                                                <td class="no-st-text-b"><span class="badge bg-success">Yes</span></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
+                                                <td class="no-st-text-b">23-03-2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">3</th>
+                                                <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014
+                                                    </a>
+                                                </td>
+                                                <td class="no-st-text-b">Delhi</td>
+                                                <td class="no-st-text-b">Shefali</td>
+                                                <td class="no-st-text-b">Shefali</td>
+                                                <td class="no-st-text-b">12345</td>
+                                                <td class="no-st-text-b">Galdjkjdsf</td>
+                                                <td class="no-st-text-b"><span class="badge bg-success">Yes</span></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
+                                                <td class="no-st-text-b">23-03-2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">4</th>
+                                                <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014
+                                                    </a>
+                                                </td>
+                                                <td class="no-st-text-b">Delhi</td>
+                                                <td class="no-st-text-b">Shefali</td>
+                                                <td class="no-st-text-b">Shefali</td>
+                                                <td class="no-st-text-b">12345</td>
+                                                <td class="no-st-text-b">Galdjkjdsf</td>
+                                                <td class="no-st-text-b"><span class="badge bg-success">Yes</span></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
+                                                <td class="no-st-text-b">23-03-2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">5</th>
+                                                <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014
+                                                    </a>
+                                                </td>
+                                                <td class="no-st-text-b">Delhi</td>
+                                                <td class="no-st-text-b">Shefali</td>
+                                                <td class="no-st-text-b">Shefali</td>
+                                                <td class="no-st-text-b">12345</td>
+                                                <td class="no-st-text-b">Galdjkjdsf</td>
+                                                <td class="no-st-text-b"><span class="badge bg-success">Yes</span></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
+                                                <td class="no-st-text-b">23-03-2022</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,115 @@
+// ./node_modules/@angular/material/prebuilt-themes/indigo-pink.css
+// @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '@core/scss/core.scss';
+@import './assets/scss/styles';
+@import "../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
+@import "../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
+@import "../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fa-regular.scss";
+@import "../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss";
+@import '@core/scss/angular/libs/flatpickr.component.scss';
+
+
+.mt-4vvvvawqqq {
+	float:left;
+    margin-top: .50rem!important;
+	width:90%;
+    border-top: solid 2px #ffe594!important;
+}
+.mt-4vvvv2aa {
+    margin-top: 0rem!important;
+    margin-bottom: 0.75rem !important;
+    border-top: solid 2px #ffe594!important;
+    
+}
+.blue-clr{
+	color:#0444e8!important;
+	
+}
+.card{
+    border-radius: 0px !important;
+    margin-bottom: 0.75rem !important;
+    padding: 2px !important;
+}
+.card-body-padding {
+    padding: 0.5rem;
+}
+
+.card-body-padding-top{
+    padding-top: 3px;
+}
+.card .card-header {
+    padding: 0.5rem !important;
+}
+.table td{
+    font-size: 12px !important;
+}
+.table th, .table td {
+    padding: 0.32rem 1rem !important;
+}
+
+.table thead th, .table tfoot th {
+    text-transform: capitalize !important;
+}
+.border-bottom-dc{
+    border-bottom: 1px solid #ffe594;
+}
+.border-top-dc{
+    border-top: 1px solid #ffe594;
+}
+.them-font-color {
+    color: #f5b800;
+}
+.them-bg-color {
+    background-color: #fae8b1;
+}
+
+.modal .modal-header .close {
+    padding: 0.2rem 0.52rem !important; 
+    right: 17px !important;
+    top: 3px !important;
+}
+.link-color{
+    color: #6e6b7b;
+}
+// date flatpiker
+
+// .form-control {
+//     height: 2.222rem !important;
+// }
+.ng2-flatpickr-input {
+    height: 2.142rem;
+    padding: 0.188rem 0.857rem;
+    font-size: 0.857rem;
+    line-height: 1;
+    border-radius: 0.357rem;
+
+}
+
+.custom-file-label {
+    line-height: 0 !important;
+    height: 2rem !important;
+}
+.custom-file-label:after {
+    height: 2rem !important;
+    line-height: 13px !important;
+}
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+    content: "" !important;
+}
+.custom-file-label::after {
+    position: none !important;
+    height: 0 !important;
+    padding: 0 !important;
+    line-height: 0 !important;
+    content: "" !important;
+}
+.tborder{
+    border-top: none;
+}
+.fa-calendar{
+    position: absolute;
+    top: 31px;
+    right: 19px;
+    color: #bbbabd;
+    opacity: 1;
+}

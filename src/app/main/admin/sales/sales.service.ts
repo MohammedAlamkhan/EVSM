@@ -1,0 +1,68 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment';
+import { EMPTY, Observable, Subject, BehaviorSubject } from 'rxjs';
+import { catchError, retryWhen, scan, tap } from 'rxjs/operators';
+import { SalesObject, SalesRoot } from '../../../Models/Sales';
+import { NotificationService as Notify } from '../../../shared/services/notification.service';
+import { NotificationType } from 'app/Models/NotificationMessage';
+import { AppConstants } from 'app/shared/AppConstants';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SalesService {
+  private readonly closeSalesOrderUrl: string = 'salesOrder/closeSalesOrder';
+  private readonly openSalesOrderUrl: string = 'salesOrder/openSalesOrder';
+  private readonly salesDetailsUrl: string = 'salesOrder/salesOrderNo/';
+  private readonly assetListUrl: string = 'assests/items/';
+
+
+  salesInformation$ = new BehaviorSubject<any>(null);
+  constructor(private httpClient: HttpClient
+    , private notify: Notify) { }
+
+  public getCloseSalesOrder(params?: any): Observable<SalesRoot> {
+    return this.httpClient.get<SalesRoot>(environment.baseApiUrl + this.closeSalesOrderUrl, { params: params })
+    .pipe(
+      tap((x) => {
+        this.salesInformation$.next(x);
+      }),
+    );
+  }
+
+  public getOpenSalesOrder(params?: any): Observable<SalesRoot> {
+    return this.httpClient.get<SalesRoot>(environment.baseApiUrl + this.openSalesOrderUrl, { params: params })
+    .pipe(
+      tap((x) => {
+        this.salesInformation$.next(x);
+      }),
+    );
+  }
+
+  getSalesDetails(soNumber: string): Observable<any> {
+    return this.httpClient.get<Observable<any>>(environment.baseApiUrl + this.salesDetailsUrl + soNumber)
+      .pipe(
+        retryWhen((err) => err.pipe(
+          scan((count) => {
+            if (count > 5) {
+              throw err;
+            }
+          })
+        )),
+        tap((x) => {
+          this.salesInformation$.next(x);
+        }),
+        catchError((x: HttpErrorResponse) => {
+          this.notify.show(AppConstants.ApiErrorMessage, NotificationType.Error);
+          return EMPTY;
+        }
+        )
+      )
+  }
+
+  public getSalesInformation(params?: any): Observable<SalesObject> {
+    return this.httpClient.get<SalesObject>(environment.baseApiUrl + this.assetListUrl, { params: params });
+
+  }
+}

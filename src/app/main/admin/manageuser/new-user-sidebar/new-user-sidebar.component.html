@@ -1,0 +1,121 @@
+<div class="slideout-content">
+  <!-- Modal to add new user starts-->
+  <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
+    <div class="modal-dialog">
+      <form [formGroup]="userForm" class="add-new-user modal-content pt-0" (ngSubmit)="submit()">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          (click)="toggleSidebar('new-user-sidebar')">
+          ×
+        </button>
+        <div class="modal-header mb-1">
+          <h5 class="modal-title" id="exampleModalLabel">New User</h5>
+        </div>
+        <div class="modal-body flex-grow-1">
+          <div class="form-group">
+            <label class="form-label" for="fullName">Full Name</label>
+            <input type="text" formControlName="fullName" [class.is-invalid]="userForm.get('fullName').errors && (userForm.get('fullName').touched || userForm.get('fullName').dirty)" class="form-control dt-full-name" id="basic-icon-default-fullname"
+              placeholder="Enter Your Full Name" name="user-fullname" 
+               />
+            <span *ngIf="userForm.get('fullName').errors && (userForm.get('fullName').touched || userForm.get('fullName').dirty)" class="invalid-form">
+              <small class="form-text text-danger">This field is required !</small>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="userRoleId">User Role</label>
+            <select formControlName="userRoleId" [class.is-invalid]="userForm.get('userRoleId').errors && (userForm.get('userRoleId').touched || userForm.get('userRoleId').dirty)" id="user-role" class="form-control">
+
+              <option value="">Select</option>
+              <option value="1">Admin</option>
+              <option value="2">Engineer</option>
+            </select>
+            <span *ngIf="userForm.get('userRoleId').errors && (userForm.get('userRoleId').touched || userForm.get('userRoleId').dirty)" class="invalid-form">
+              <small class="form-text text-danger">This field is required !</small>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input type="text" formControlName="email" [class.is-invalid]="userForm.get('email').errors && (userForm.get('email').touched || userForm.get('email').dirty)" [class.is-invalid]="userForm.get('email').errors && (userForm.get('email').touched || userForm.get('email').dirty)" id="basic-icon-default-email" class="form-control dt-email"
+              placeholder="admin@example.com" 
+               name="user-email" 
+               />
+               
+               <span *ngIf="userForm.get('email').errors && (userForm.get('email').touched || userForm.get('email').dirty)" class="invalid-form">
+                
+                <span *ngIf="userForm.get('email').errors?.required" class="invalid-form">
+                  <small class="form-text text-danger">This field is required !</small>
+                </span>
+
+                <span *ngIf="userForm.get('email').errors?.email" class="invalid-form">
+                  <small class="form-text text-danger">Email is invalid !</small>
+                </span>
+                </span>
+             
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">Password </label>
+            <input type="password" formControlName="password" [class.is-invalid]="userForm.get('password').errors && (userForm.get('password').touched || userForm.get('password').dirty)" id="basic-icon-default-password" class="form-control dt-password"
+              placeholder="*********"  name="user-password"/>
+              <span *ngIf="userForm.get('password').errors && (userForm.get('password').touched || userForm.get('password').dirty)" class="invalid-form">
+                <small class="form-text text-danger">This field is required !</small>
+              </span>
+
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="mobileNo">Mobile Number</label>
+            <input type="number" formControlName="mobileNo" [class.is-invalid]="userForm.get('mobileNo').errors && (userForm.get('mobileNo').touched || userForm.get('mobileNo').dirty)" id="basic-icon-default-mobile" class="form-control dt-mobile" placeholder="9999100200"
+               name="user-mobile"
+               maxlength="10" />
+               <span *ngIf="userForm.get('mobileNo').errors && (userForm.get('mobileNo').touched || userForm.get('mobileNo').dirty)" class="invalid-form">
+                <small class="form-text text-danger">This field is required !</small>
+              </span>
+
+          </div>
+          <div class="form-group mb-2">
+            <label class="form-label" for="userTypeId">Select User Type</label>
+            <select formControlName="userTypeId" id="user-plan" [class.is-invalid]="userForm.get('userTypeId').errors && (userForm.get('userTypeId').touched || userForm.get('userTypeId').dirty)" class="form-control">
+              <option value="">Select</option>
+              <option value="E">Exicom User</option>
+              <option value="O">Other User</option>
+            </select>
+            <span *ngIf="userForm.get('userTypeId').errors && (userForm.get('userTypeId').touched || userForm.get('userTypeId').dirty)" class="invalid-form">
+              <small class="form-text text-danger">This field is required !</small>
+            </span>
+           </div>
+
+          <!-- <div class=" mb-2 d-flex">
+            <div class="custom-radio mr-2">
+
+              <label class="custom-control-label" >
+                <input type="radio" value="1" formControlName="isActive" >
+                  <span>Active</span>
+              </label>&nbsp; &nbsp; &nbsp;
+
+              <label class="custom-control-label">
+                <input type="radio" value="0" formControlName="isActive" >
+                  <span>InActive</span>
+              </label>
+              <input type="radio"  value="1"  class="custom-control-input" />
+              <label class="custom-control-label" >Active</label> 
+            </div>
+            
+          </div> -->
+          <div class=" mb-2 d-flex">
+            <input type="checkbox" formControlName="isActive" [class.is-invalid]="userForm.get('isActive').errors && (userForm.get('isActive').touched || userForm.get('isActive').dirty)" name="myCheckbox">
+            <label class="form-label" for="isActive">&nbsp; Is Active</label>
+          </div>
+
+          <button type="submit" [disabled]="userForm.invalid" class="btn btn-primary mr-1" rippleEffect>Submit</button>
+          <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar('new-user-sidebar')"
+            rippleEffect>
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Modal to add new user Ends-->
+</div>

@@ -1,0 +1,163 @@
+<div class="content-wrapper">
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
+    <div class="content-body">
+        <section class="users-list-wrapper" style="margin-bottom: -10px;">
+            <div class="card  them-bg-color">
+                <div class="card-body" style="padding: 5px;">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <h4 class="mb-0">Client Asset List </h4>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="row d-flex sur-continer mr-0">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-3 sur">
+                                    <h5 class="text-primary">Survey: 129</h5>
+                                </div>
+                                <div class="col-sm-3 sur">
+                                    <h5 class="text-primary">Installation: 300</h5>
+                                </div>
+                                <div class=" col-sm-4 sur">
+                                    <h5 class="text-primary">Commissioning: 550</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body p-0 pl-0 ">
+                        <button type="button" class="btn btn-outline-primary" rippleEffect (click)="toggleTata()">Tata
+                            Motors (200)</button>
+                        <button type="button" class="btn btn-outline-secondary " rippleEffect (click)="toggleMg()">MG
+                            Motors (50)</button>
+                        <button type="button" class="btn btn-outline-info" rippleEffect (click)="toggleMg()"> JBM infra
+                            (51)</button>
+                        <button type="button" class="btn btn-outline-danger " rippleEffect (click)="toggleMg()">Amplus
+                            (100)</button>
+                        <button type="button" class="btn btn-outline-secondary " rippleEffect (click)="toggleMg()">Flat
+                            Motors</button>
+                        <button type="button" class="btn btn-outline-success " rippleEffect (click)="toggleMg()">Maruti
+                            Suzuki</button>
+                    </div>
+                    <div *ngIf="isTataShow" class="table-responsive border">
+                        <table class="table mb-0 ">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="text-nowrap"> Sr. No.</th>
+                                    <th scope="col" class="text-nowrap">Asset Serial Number</th>
+                                    <th scope="col" class="text-nowrap">Sales Order No</th>
+                                    <th scope="col" class="text-nowrap">Site Name</th>
+                                    <th scope="col" class="text-nowrap">Client</th>
+                                    <th scope="col" class="text-nowrap">Part Code</th>
+                                    <th scope="col" class="text-nowrap"> Asset Description </th>
+                                    <th scope="col" class="text-nowrap">Warranty Status </th>
+                                    <th scope="col" class="text-nowrap"> IRF </th>
+                                    <th scope="col" class="text-nowrap">Survey </th>
+                                    <th scope="col" class="text-nowrap">Installation </th>
+                                    <th scope="col" class="text-nowrap">Commissioning </th>
+                                    <th scope="col" class="text-nowrap">Created Date </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014
+                                        </a>
+                                    </td>
+
+                                    <td class="no-st-text-b">So-1324</td>
+                                    <td class="no-st-text-b">Delhi</td>
+                                    <td class="no-st-text-b">Shefali</td>
+                                    <td class="no-st-text-b">12345</td>
+                                    <td class="no-st-text-b">Galdjkjdsf</td>
+                                    <!-- <td class="no-st-text-b"><span class="badge bg-success">Yes</span>
+                                    </td> -->
+                                    <td> <a routerLink="/commission-form"> <i data-feather="flag"
+                                                class="font-medium-4 text-danger"></i> </a> </td>
+                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                    <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
+                                    <td class="no-st-text-b">23-03-2022</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014 </a>
+                                    </td>
+                                    <td class="no-st-text-b">So-1324</td>
+                                    <td class="no-st-text-b">Delhi</td>
+                                    
+                                    <td class="no-st-text-b">Shefali</td>
+                                    <td class="no-st-text-b">12345</td>
+                                    <td class="no-st-text-b">Galdjkjdsf</td>
+                                    <!-- <td class="no-st-text-b"><span class="badge bg-success">Yes</span>
+                                    </td> -->
+                                    <td> <a routerLink="/commission-form"> <i data-feather="flag"
+                                                class="font-medium-4 text-success"></i> </a> </td>
+                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                    <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
+                                    <td class="no-st-text-b">23-03-2022</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div *ngIf="isMgShow" class="table-responsive border">
+                        <table class="table mb-0 ">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="text-nowrap"> Sr. No.</th>
+                                    <th scope="col" class="text-nowrap">Asset Serial Number</th>
+                                    <th scope="col" class="text-nowrap">Sales Order No</th>
+                                    <th scope="col" class="text-nowrap">Site Name</th>
+                                    <th scope="col" class="text-nowrap">Client</th>
+                                    <th scope="col" class="text-nowrap">Part Code</th>
+                                    <th scope="col" class="text-nowrap"> Asset Description </th>
+                                    <th scope="col" class="text-nowrap">Warranty Status </th>
+                                    <th scope="col" class="text-nowrap"> IRF </th>
+                                    <th scope="col" class="text-nowrap">Survey </th>
+                                    <th scope="col" class="text-nowrap">Installation </th>
+                                    <th scope="col" class="text-nowrap">Commissioning </th>
+                                    <th scope="col" class="text-nowrap">Created Date </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014
+                                        </a>
+                                    </td>
+                                    <td class="no-st-text-b">So-1324</td>
+             
+                                    <td class="no-st-text-b">Delhi</td>
+                                    <td class="no-st-text-b">Shefali</td>
+                                    <td class="no-st-text-b">12345</td>
+                                    <td class="no-st-text-b">Galdjkjdsf</td>
+                                    <!-- <td class="no-st-text-b"><span class="badge bg-success">Yes</span>
+                                    </td> -->
+                                    <td> <a routerLink="/commission-form"> <i data-feather="flag"
+                                                class="font-medium-4 text-success"></i> </a> </td>
+                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                    <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
+                                    <td class="no-st-text-b">23-03-2022</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

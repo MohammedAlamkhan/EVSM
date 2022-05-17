@@ -1,0 +1,195 @@
+<div class="container">
+    <div id="pdfTable" #pdfTable>
+        <p class="text-center">
+            <u>Customer Details</u>
+        </p>
+        <table class="table tborder">
+            <tbody>
+                <tr>
+                    <td>Customer</td>
+                    <td colspan="2"> </td>
+                </tr>
+                <tr style="height: 25px">
+                    <td rowspan="2"> Address </td>
+                    <td colspan="2"> </td>
+                </tr>
+                <tr>
+                    <td> City</td>
+                    <td> Pin</td>
+                </tr>
+                <tr>
+                    <td>Customer Mobile No.</td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>Customer Email ID</td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>Product Serial No.</td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>Commissioning Date </td>
+                    <td colspan="2"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="text-center font-weight-bolder">
+            <u>Visual Inspection </u>
+        </p>
+        <table class="table tborder">
+            <tr>
+                <th>Check Points </th>
+                <th>Requirement </th>
+                <th> Remark </th>
+            </tr>
+            <tbody>
+                <tr>
+                    <td scope="col" class="text-nowrap">Perform Visual Inspection</td>
+                    <td>A service technician will inspect the EV Charger to ensure
+                        that all system components are undamaged and clean</td>
+                    <td> </td>
+                </tr>
+
+                <tr>
+                    <td> Indicator Display</td>
+                    <td> Available and working </td>
+                    <td> </td>
+                </tr>
+                <tr>
+                    <td>Accessibility </td>
+                    <td>Power control switch (on/off) is easily accessible</td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td>Charger marking plate</td>
+                    <td>Stickers should be there for system info i.e. Model no.
+                        Serial no, etc. </td>
+                    <td></td>
+                </tr>
+
+
+            </tbody>
+        </table>
+
+        <p class="text-center font-weight-bolder">
+            <u>Mains Input Parameter </u>
+        </p>
+        <table class="table tborder">
+            <tr>
+                <th scope="col" class="text-nowrap">Parameter</th>
+                <th scope="col" class="text-nowrap">Recommended Value </th>
+                <th scope="col" class="text-nowrap"> Actual Value </th>
+            </tr>
+            <tbody>
+                <tr>
+                    <td>EB N-E voltage(No Load,
+                        Charger MCB/RCD OFF) </td>
+                    <td>Voltage should be ≤ 2V </td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>EB N-E voltage(with Load,
+                        Charger MCB/RCD ON) </td>
+                    <td>Voltage should be ≤ 2V </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>EB Phase to N Voltage </td>
+                    <td>Voltage should be b/w 200 – 250VAC
+                        Nominal Voltage is 230VAC </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="text-center font-weight-bolder"> <u>Check Points </u> </p>
+        <table class="table tborder">
+            <tr>
+                <th scope="col" class="text-nowrap">Check Points </th>
+                <th scope="col" class="text-nowrap">Remarks </th>
+            </tr>
+            <tbody>
+                <tr>
+                    <td scope="col" class="text-nowrap">
+                        Installation & commissioning of the charger, starting of the
+                        charger through RFiD card
+                    </td>
+
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td> <i> Plugged In </i> App download, registration and demonstration to customer </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Communication verification between App and Charger</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Demonstration of charging operation with Vehicle </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td> Training on basic troubleshooting & complaint logging process with Customer care no.
+                        details </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table tborder">
+            <tbody>
+                <tr>
+                    <td colspan="2"> Two RFID Key Handover to Customer Name & Mobile Number </td>
+                </tr>
+                <tr>
+                    <td colspan="2"> Remarks </td>
+                </tr>
+                <tr>
+                    <td height="54" width="218">
+                        Customer Name
+                        <p>&nbsp;</p>
+                        Signature
+                    </td>
+                    <td height="54" width="218">
+                        Engineer Name
+                        <p>&nbsp;</p>
+                        Signature
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <ol>
+            <li>Check for Healthy Input Power Supply/Vehicle Charging</li>
+        </ol>
+        <table width="100%" class="mb-1">
+            <tbody>
+                <tr>
+                    <td height="154">Input Power Image</td>
+                    <td height="154">Earthing Value Image</td>
+                    <td height="154">App Activation Image</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table width="100%" class="my-1">
+            <tbody>
+                <tr>
+                    <td height="154">Vehicle Testing Image</td>
+                    <td height="154">Software Upd Image</td>
+                    <td height="154">Commissioning Report</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <button class="btn btn-primary" (click)="downloadAsPDF()">Export To PDF</button>
+</div>

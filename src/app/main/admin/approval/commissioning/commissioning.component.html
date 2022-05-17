@@ -1,0 +1,134 @@
+<div class="content-wrapper container-xxl p-0 ">
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
+    <div class="content-body shadow ">
+        <section id="basic-tabs-components">
+            <div class="row match-height">
+                <div class=" col-lg-12 ">
+                    <!-- <core-card-snippet [snippetCode]="_snippetCodeBasicTab"> -->
+                    <div class="card-body bg-white p-0 ">
+                        <ul ngbNav #nav="ngbNav" class="nav-tabs tb-border mb-0">
+
+                            <li ngbNavItem>
+                                <a ngbNavLink class=" "> Commissioning</a>
+                                <ng-template ngbNavContent>
+                                    <div class="table-responsive">
+                                        <table class="table border-left bordeer-right">
+                                            <thead class="mb-0 bg-white">
+                                                <tr class="bg-white">
+                                                    <th scope="col" class="text-nowrap">IRF Request No. </th>
+                                                    <th scope="col" class="text-nowrap">Commissioning Case No. </th>
+                                                    <th scope="col" class="text-nowrap">Installation Created Date </th>
+                                                    <th scope="col" class="text-nowrap">Request Type </th>
+                                                    <th scope="col" class="text-nowrap"> Client </th>
+                                                    <th scope="col" class="text-nowrap">Customer Name </th>
+                                                    <th scope="col" class="text-nowrap">Contact No. </th>
+                                                    <th scope="col" class="text-nowrap">Email Id</th>
+                                                    <th scope="col" class="text-nowrap">Charger Type </th>
+                                                    <th scope="col" class="text-nowrap">Asset Serial No. </th>
+                                                    <th scope="col" class="text-nowrap">Action </th>
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><a routerLink="/irf-details" class="no-st-text-b link-color">IRF001</a></td>
+                                                    <td> <a routerLink="/commission-details" class="no-st-text-b font-weight-bold">2345789  </a>                                                   </td>
+                                                    <td> 20 -04-2022 </td>
+                                                    <td class="text-nowrap">Case Approval</td>
+                                                    <td>Tata </td>
+                                                    <td>Vehnn</td>
+                                                    <td>9876543212</td>
+                                                    <td>example@test.com</td>
+                                                    <td> Ac001 </td>
+                                                    <td> 123456 </td>
+                                                    <td class="d-flex">
+                                                        <button type="button" class="btn btn-light btn-sm mx-1 d-flex"
+                                                            (click)="modalOpenSM(modalSM)" data-toggle="modal"
+                                                            data-target="#modal-default"> <i data-feather="file-text"
+                                                                class="mr-1"></i> Assign </button>
+
+                                                        <button type="button" class="btn btn-light btn-sm d-flex"
+                                                            (click)="modalOpenSM2(modalSM2)" data-toggle="modal"
+                                                            data-target="#modal-default"><i data-feather="check-square"
+                                                                class="mr-1"></i> Approval/Moderate
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                   
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </ng-template>
+                            </li>
+                        </ul>
+                        <div [ngbNavOutlet]="nav" class=""></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!-- Modal -->
+<ng-template #modalSM let-modal>
+    <div class="modal-header bg-dark" style="padding: 5px;">
+        <h5 class="modal-title text-white" id="myModalLabel160">Assign Service Order</h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <div class="form-group">
+            <label>Assign To</label>
+            <select class="form-control  form-control-sm model-w-s mt-2">
+                <option>Select</option>
+                <option>Option 1</option>
+                <option>Option 2</option>
+
+            </select>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger " (click)="modal.close('Accept click')">Close</button>
+        <button type="button" class="btn btn-success " (click)="modal.close('Accept click')">Save Changes</button>
+    </div>
+</ng-template>
+<!-- / Modal -->
+
+
+
+<!-- Modal2 -->
+<ng-template #modalSM2 let-modal>
+    <div class="modal-header bg-dark" style="padding: 5px;">
+        <h5 class="modal-title text-white" id="myModalLabel160">Approval For</h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <div class="row ml-0">
+            <div class="col-lg-12">
+                <label for="basicTextarea">Remarks</label>
+                <fieldset class="form-group">
+                    <textarea class="form-control" id="basicTextarea" rows="2" placeholder="Textarea"></textarea>
+                </fieldset>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Action</label>
+                    <select class="form-control form-control-sm  model-w-s">
+                        <option>Select</option>
+                        <option>Approve</option>
+                        <option>Reject</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger " (click)="modal.close('Accept click')">Close</button>
+        <button type="button" class="btn btn-success " (click)="modal.close('Accept click')">Save </button>
+    </div>
+</ng-template>
+<!-- / Modal2 -->

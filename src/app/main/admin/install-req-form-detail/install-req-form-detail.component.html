@@ -1,0 +1,645 @@
+<div class="content-wrapper">
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
+    <div class="content-body">
+        <section class="users-list-wrapper">
+            <div class="card">
+                <div class="card-body" style="padding: 5px ;">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-sm-3">
+                                <h5>Installation Details </h5>
+                            </div>
+                            <div class="col-sm-9 text-right p-0">
+                                <a routerLink="/Installation-commissioning-pdf" class="btn btn-outline-warning btn-sm mx-1">
+                                    <i data-feather="file-plus"></i> Generate Installation Report
+                                </a>
+                                <a class="btn btn-outline-warning  text-warning btn-sm mx-1"  (click)="modalOpenSM(modalSM)" data-toggle="modal"
+                                data-target="#modal-default">
+                                    <i data-feather="file-text"></i> Assign
+                                </a>
+                                
+                                <a class="btn btn-outline-warning text-warning  btn-sm mr-1 " (click)="modalOpenSM2(modalSM2)" data-toggle="modal" 
+                                data-target="#modal-default">
+                                    <i data-feather="check-square"></i> Approve / <i data-feather="x-square"></i> Reject
+                                </a>
+
+                                <a routerLink="/install-req-form" class="btn btn-outline-primary btn-sm">
+                                    <i data-feather="edit"></i> Edit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <form>
+                        <div class="card-body card-body-padding-top">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h5 class="card-titleb blue-clr "> Customer Details</h5>
+                                </div>
+                            </div>
+                            <div class="row p-0 hd-mgr12">
+                                <div class="col-lg-6">
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table border-bottom">
+                                                <tr>
+                                                    <td width="60%"><span class="text-gray">IRF Request
+                                                            Number </span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="60%"><span class="text-gray">Service
+                                                            Request Number </span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                               
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-6">
+
+
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table border-bottom">
+
+                                                <tr>
+                                                    <td width="40%"><span class="text-gray">Customer
+                                                        </span></td>
+                                                    <td>Lorem Ipsum</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="40%"><span class="text-gray">Customer
+                                                            Code </span></td>
+                                                    <td>Lorem Ipsum</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12  ">
+                                    <h5 class="card-titleb blue-clr "> Asset Details
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row p-0 hd-mgr12">
+                                <div class="col-lg-6">
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table border-bottom">
+                                                <tr>
+                                                    <td width="40%"><span class="text-gray">Type Of
+                                                            Charger </span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="40%"><span class="text-gray">Model Number
+                                                        </span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="40%"><span class="text-gray">Date of
+                                                            Dispatch </span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table border-bottom">
+                                                <tr>
+                                                    <td width="40%"><span class="text-gray">Serial
+                                                            Number
+                                                        </span></td>
+                                                    <td>Lorem Ipsum</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="40%"><span class="text-gray">Date of
+                                                            Delivery </span></td>
+                                                    <td>Lorem Ipsum</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h5 class="card-titleb blue-clr "> Installation Details
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row p-0 hd-mgr12">
+                                <div class="col-lg-6">
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table border-bottom">
+                                                <tr>
+                                                    <td width="40%"><span class="text-gray">Installation
+                                                            Address </span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="text-gray">City</span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="text-gray">Installation Date</span>
+                                                    </td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="text-gray">Site Name</span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="text-gray">Contact Person at
+                                                            Site</span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="text-gray">Alternate Contact Number
+                                                        </span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="text-gray">Installation
+                                                            Status</span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="text-gray">Cable Size</span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table border-bottom">
+                                                <tr>
+                                                    <td width="50%"><span class="text-gray">Pin Code
+                                                        </span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="40%"><span class="text-gray">State</span>
+                                                    </td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="text-gray">Point of
+                                                            Installation</span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="text-gray">Site ID
+                                                        </span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                <tr>
+                                                    <td><span class="text-gray">Contact Number
+                                                        </span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="text-gray">Installation Type</span>
+                                                    </td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="text-gray">Installed By (vendor
+                                                            Name)</span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="text-gray">Cable Length Used (in
+                                                            meters)</span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive-sm">
+                                        <table class="table border-bottom mb-0 ">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="text-nowrap"> Description </th>
+                                                    <th scope="col" class="text-nowrap">Responsibility </th>
+                                                    <th scope="col" class="text-nowrap">DC001 Charger </th>
+                                                    <th scope="col" class="text-nowrap">AC001 Charger </th>
+                                                    <th scope="col" class="text-nowrap">Type 2 EV Charger </th>
+                                                    <th scope="col" class="text-nowrap">Remarks </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="p-0 m-0">
+                                                <tr>
+                                                    <th class="dark-heading"> Total Charger Supplied</th>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="dark-heading"> Charger Mounting Type</th>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="dark-heading"> Civil Foundation Status</th>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="dark-heading"> MCB with DB Box</th>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="dark-heading"> Cabling Status from DB to Charger</th>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="dark-heading"> Total Cable Consumed</th>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="dark-heading">Earthling Status</th>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="dark-heading"> Canopy Status</th>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="dark-heading"> Canopy Type</th>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem Ipsum </td>
+                                                    <td> Lorem </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 ">
+                                    <h5 class="card-titleb blue-clr"> Upload Image for Reference
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row p-0 hd-mgr12">
+                                <div class="col-lg-6">
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table border-bottom">
+
+                                                <tr>
+                                                    <td width="40%"><span class="text-gray">Installation
+                                                            Report
+                                                        </span></td>
+                                                    <td>
+                                                  
+                                                        <div class="input-group-append input-group-sm  ">
+                                                            <div class="input-group-append">
+                                                                <button class="btn btn-outline-secondary"
+                                                                    id="basic-addon2">
+                                                                    <i data-feather="download"
+                                                                        class="mr-1"></i>
+                                                                        Download File
+                                                                </button>
+                                                                <p class="small mb-0">file1.jpg,
+                                                                  </p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="40%"><span class="text-gray">Cabling
+                                                            Picture
+                                                        </span></td>
+                                                    <td>
+                              
+
+                                                        <div class="input-group-append input-group-sm  ">
+                                                            <div class="input-group-append">
+                                                                <button class="btn btn-outline-secondary"
+                                                                    id="basic-addon2">
+                                                                    <i data-feather="download"
+                                                                        class="mr-1"></i>
+                                                                        Download File
+                                                                </button>
+                                                                <p class="small mb-0">file1.jpg,
+                                                                  </p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table border-bottom">
+
+                                                <tr>
+                                                    <td width="40%"><span class="text-gray">Charger
+                                                            Picture
+                                                        </span></td>
+                                                    <td>
+                                                     
+                                                        <div class="input-group-append input-group-sm  ">
+                                                            <div class="input-group-append">
+                                                                <button class="btn btn-outline-secondary"
+                                                                    id="basic-addon2">
+                                                                    <i data-feather="download"
+                                                                        class="mr-1"></i>
+                                                                        Download File
+                                                                </button>
+                                                                <p class="small mb-0">file1.jpg,
+                                                                  </p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="40%"><span class="text-gray">MCB Picture
+                                                        </span></td>
+                                                    <td>
+                                                
+                                                        <div class="input-group-append input-group-sm  ">
+                                                            <div class="input-group-append">
+                                                                <button class="btn btn-outline-secondary"
+                                                                    id="basic-addon2">
+                                                                    <i data-feather="download"
+                                                                        class="mr-1"></i>
+                                                                        Download File
+                                                                </button>
+                                                                <p class="small mb-0">file1.jpg,
+                                                                  </p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h5 class="card-titleb blue-clr"> Remarks (If Any)
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row p-0 hd-mgr12">
+                                <div class="col-lg-12">
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table border-bottom">
+                                                <tr>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row p-0 hd-mgr12">
+                                <div class="col-lg-6 ">
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table border-bottom">
+                                                <tr>
+                                                    <td><span class="text-gray">
+                                                            <h5 class="card-titleb">Exicom Tasks (With
+                                                                completion date)
+                                                            </h5>
+                                                        </span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="text-gray">Lorem Ipsum is simply
+                                                        </span></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 ">
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive">
+                                            <table class="table border-bottom">
+                                                <tr>
+                                                    <td>
+                                                        <span class="text-gray">
+                                                            <h5 class="card-titleb">Customer Tasks (With completion
+                                                                date) </h5>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="text-gray">Lorem Ipsum is simply
+                                                        </span></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row p-0 hd-mgr12">
+                                <div class="col-lg-6">
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive">
+                                            <table class="table border-bottom">
+                                                <tr >
+                                                    <td><span class="text-gray">Engineer Name
+                                                        </span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="text-gray">Employee
+                                                            Code</span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="text-gray">Signature
+                                                        </span></td>
+                                                    <td class="pt-0">
+                                                     
+                                                        <div class="input-group-append input-group-sm  ">
+                                                            <div class="input-group-append">
+                                                                <button class="btn btn-outline-secondary"
+                                                                    id="basic-addon2">
+                                                                    <i data-feather="download"
+                                                                        class="mr-1"></i>
+                                                                        Download File
+                                                                </button>
+                                                                <p class="small mb-0">file1.jpg,
+                                                                  </p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table border-bottom">
+                                                <tr>
+                                                    <td  ><span  class="text-gray">Customer
+                                                            Representative
+                                                            Name </span></td>
+                                                    <td>Lorem Ipsum is simply</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="text-gray">Signature
+                                                        </span></td>
+                                                    <td class="pt-0">
+                                                  
+                                                        <div class="input-group-append input-group-sm  ">
+                                                            <div class="input-group-append">
+                                                                <button class="btn btn-outline-secondary"
+                                                                    id="basic-addon2">
+                                                                    <i data-feather="download"
+                                                                        class="mr-1"></i>
+                                                                        Download File
+                                                                </button>
+                                                                <p class="small mb-0">file1.jpg,
+                                                                  </p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<ng-template #modalSM let-modal>
+    <div class="modal-header bg-dark" style="padding: 5px;">
+        <h5 class="modal-title text-white" id="myModalLabel160">Assign Service Order</h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <div class="form-group">
+            <label>Assign To</label>
+            <select class="form-control  form-control-sm model-w-s mt-2">
+                <option>Select</option>
+                <option>Option 1</option>
+                <option>Option 2</option>
+
+            </select>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger " (click)="modal.close('Accept click')">Close</button>
+        <button type="button" class="btn btn-success " (click)="modal.close('Accept click')">Save Changes</button>
+    </div>
+</ng-template>
+<!-- / Modal -->
+
+
+
+<!-- Modal2 -->
+<ng-template #modalSM2 let-modal>
+    <div class="modal-header bg-dark" style="padding: 5px;">
+        <h5 class="modal-title text-white" id="myModalLabel160">Approval For</h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <div class="row ml-0">
+            <div class="col-lg-12">
+                <label for="basicTextarea">Remarks</label>
+                <fieldset class="form-group">
+                    <textarea class="form-control" id="basicTextarea" rows="2" placeholder="Textarea"></textarea>
+                </fieldset>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Action</label>
+                    <select class="form-control form-control-sm  model-w-s">
+                        <option>Select</option>
+                        <option>Approve</option>
+                        <option>Reject</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger " (click)="modal.close('Accept click')">Close</button>
+        <button type="button" class="btn btn-success " (click)="modal.close('Accept click')">Save </button>
+    </div>
+</ng-template>
+<!-- / Modal2 -->

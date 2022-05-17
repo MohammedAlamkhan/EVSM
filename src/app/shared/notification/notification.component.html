@@ -1,0 +1,9 @@
+
+<i class="fas fa-exclamation-circle notification-icon" *ngIf="data.type === ErrorNotificationType"></i>
+<i class="fas fa-exclamation-triangle notification-icon" *ngIf="data.type === WarningNotificationType"></i>
+<i class="fas fa-bell notification-icon" *ngIf="data.type === InfoNotificationType"></i>
+<span class="notification-message" >{{data.notification}}</span>
+<button mat-button class="pull-right notification-button" (click)="snackBar.dismiss()" color="accent">Close</button>
+
+
+

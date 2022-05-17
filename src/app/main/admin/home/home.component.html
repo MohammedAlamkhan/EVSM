@@ -1,0 +1,36 @@
+<section id="bar-and-hori-bar-charts">
+    <div class="row">
+      <!-- Bar Chart Start -->
+      <div class="col-12">
+        <div class="card">
+          <div
+            class="card-header d-flex justify-content-between align-items-sm-center align-items-start flex-sm-row flex-column"
+          >
+            <div class="header-left">
+              <h4 class="card-title">Latest Statistics</h4>
+            </div>
+            <div class="header-right d-flex align-items-center mt-sm-0 mt-1">
+              <i class="font-medium-2" data-feather="calendar"></i>
+              <ng2-flatpickr [config]="DateRangeOptions" name="DateRange"></ng2-flatpickr>
+            </div>
+          </div>
+          <div class="card-body">
+            <div id="chartjs-bar-chart" class="chartjs-bar-chart">
+              <canvas
+                baseChart
+                #barChartRef
+                height="400"
+                [datasets]="barChart.datasets"
+                [labels]="barChart.labels"
+                [options]="barChart.options"
+                [legend]="barChart.legend"
+                [chartType]="barChart.chartType"
+                disabled
+              >
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
