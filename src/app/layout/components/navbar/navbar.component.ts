@@ -31,7 +31,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public currentSkin: string;
   public prevSkin: string;
 
-  public currentUser: User;
+  public currentUser: any;
 
   public languageOptions: any;
   public navigation: any;
@@ -42,6 +42,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   @HostBinding('class.navbar-static-style-on-scroll')
   public windowScrolled = false;
+  userName: any;
+  userRole: any;
 
   // Add .navbar-static-style-on-scroll on scroll using HostListener & HostBinding
   @HostListener('window:scroll', [])
@@ -178,7 +180,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     // get the currentUser details from localStorage
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.currentUser = JSON.parse(localStorage.getItem('credentialsKey'));
+    if(this.currentUser){
+      this.userName = this.currentUser.fullname;
+      this.userRole = this.currentUser.roleGroupAndAccount.roleGroup;
+    }
 
     // Subscribe to the config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
