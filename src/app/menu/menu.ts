@@ -34,6 +34,14 @@ export const menu: CoreMenu[] = [
     url: 'irf'
   },
   {
+    id: 'accounts',
+    name: 'Accounts',
+    translate: 'MENU.SAMPLE',
+    type: 'item',
+    icon: 'bookmark',
+    url: 'accounts'
+  },
+  {
     id: 'request',
     name: 'Inbox',
     translate: 'MENU.SAMPLE',

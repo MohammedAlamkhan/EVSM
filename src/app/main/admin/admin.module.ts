@@ -25,6 +25,7 @@ import { EvReportPdfComponent } from './ev-report-pdf/ev-report-pdf.component';
 import { SurveyPdfComponent } from './survey-pdf/survey-pdf.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { IrfModule } from './irf/irf.module';
+import { AccountModule } from './accounts/accounts.module';
 import { HomeModule } from './home/home.module';
 const routes: Routes = [
   {
@@ -114,6 +115,7 @@ const routes: Routes = [
     Ng2FlatpickrModule,
     FileUploadModule,
     IrfModule,
+    AccountModule,
     HomeModule
   ],
 
