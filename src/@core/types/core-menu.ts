@@ -1,7 +1,7 @@
 // prettier-ignore
 export interface CoreMenuItem {
     id           : string;
-    title        : string;
+    name        : string;
     url?         : string;
     type         : 'section' | 'collapsible' | 'item';
     role?        : Array<string>;

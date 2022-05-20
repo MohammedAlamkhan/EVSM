@@ -85,7 +85,7 @@ export class AuthLoginV2Component implements OnInit {
 
 
     let loginContext = {
-      userEmailId: this.loginForm.value.email,
+      userId: this.loginForm.value.email,
       userPassword: this.loginForm.value.password
     }
 

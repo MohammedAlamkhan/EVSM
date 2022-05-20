@@ -3,7 +3,7 @@ import { CoreMenu } from '@core/types'
 export const menu: CoreMenu[] = [
   {
     id: 'home',
-    title: 'Home',
+    name: 'Home',
     translate: 'MENU.SAMPLE',
     type: 'item',
     icon: 'home',
@@ -11,7 +11,7 @@ export const menu: CoreMenu[] = [
   },
   {
     id: 'sales',
-    title: 'Sales-Order',
+    name: 'Sales-Order',
     translate: 'MENU.SAMPLE',
     type: 'item',
     icon: 'credit-card',
@@ -19,7 +19,7 @@ export const menu: CoreMenu[] = [
   },
   {
     id: 'assets',
-    title: 'Assets',
+    name: 'Assets',
     translate: 'MENU.SAMPLE',
     type: 'item',
     icon: 'slack',
@@ -27,7 +27,7 @@ export const menu: CoreMenu[] = [
   },
   {
     id: 'irf',
-    title: 'IRF',
+    name: 'IRF',
     translate: 'MENU.SAMPLE',
     type: 'item',
     icon: 'bookmark',
@@ -35,14 +35,14 @@ export const menu: CoreMenu[] = [
   },
   {
     id: 'request',
-    title: 'Inbox',
+    name: 'Inbox',
     translate: 'MENU.SAMPLE',
     type: 'collapsible',
     icon: 'grid',
     children: [
       // {
       //   id: 'irf',
-      //   title: 'IRF',
+      //   name: 'IRF',
       //   translate: 'MENU.SAMPLE',
       //   type: 'item',
       //   icon: 'circle',
@@ -50,7 +50,7 @@ export const menu: CoreMenu[] = [
       // },
       {
         id: 'survey',
-        title: 'Survey',
+        name: 'Survey',
         translate: 'MENU.SAMPLE',
         type: 'item',
         icon: 'circle',
@@ -58,7 +58,7 @@ export const menu: CoreMenu[] = [
       },
       {
         id: 'installation',
-        title: 'Installation',
+        name: 'Installation',
         translate: 'MENU.SAMPLE',
         type: 'item',
         icon: 'circle',
@@ -66,7 +66,7 @@ export const menu: CoreMenu[] = [
       },
       {
         id: 'commissioning',
-        title: 'Commissioning',
+        name: 'Commissioning',
         translate: 'MENU.SAMPLE',
         type: 'item',
         icon: 'circle',
@@ -76,7 +76,7 @@ export const menu: CoreMenu[] = [
   },
   {
     id: 'approval',
-    title: 'Manage Request',
+    name: 'Manage Request',
     translate: 'MENU.SAMPLE',
     type: 'collapsible',
     icon: 'check-square',
@@ -84,7 +84,7 @@ export const menu: CoreMenu[] = [
      
       {
         id: 'approval-survey',
-        title: 'Survey',
+        name: 'Survey',
         translate: 'MENU.SAMPLE',
         type: 'item',
         icon: 'circle',
@@ -92,7 +92,7 @@ export const menu: CoreMenu[] = [
       },
       {
         id: 'installation',
-        title: 'Installation',
+        name: 'Installation',
         translate: 'MENU.SAMPLE',
         type: 'item',
         icon: 'circle',
@@ -100,7 +100,7 @@ export const menu: CoreMenu[] = [
       },
       {
         id: 'commissioning',
-        title: 'Commissioning',
+        name: 'Commissioning',
         translate: 'MENU.SAMPLE',
         type: 'item',
         icon: 'circle',
@@ -111,7 +111,7 @@ export const menu: CoreMenu[] = [
   },
   {
     id: 'reports',
-    title: 'Report',
+    name: 'Report',
     translate: 'MENU.SAMPLE',
     type: 'item',
     icon: 'layers',
@@ -119,7 +119,7 @@ export const menu: CoreMenu[] = [
   },
   {
     id: 'manage-user',
-    title: 'Manage User',
+    name: 'Manage User',
     translate: 'MENU.SAMPLE',
     type: 'item',
     icon: 'users',
@@ -127,7 +127,7 @@ export const menu: CoreMenu[] = [
   },
   {
     id: 'logout',
-    title: 'Logout',
+    name: 'Logout',
     translate: 'MENU.SAMPLE',
     type: 'item',
     icon: 'log-out',

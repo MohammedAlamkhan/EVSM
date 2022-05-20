@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
 
 
 export interface LoginContext {
-  userEmailId: string;
-  userPassword: string;
+  userId: string;
+  password: string;
 }
 const credentialsKey = 'credentialsKey';
 const serverTokenKey = '';
