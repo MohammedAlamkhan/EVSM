@@ -28,7 +28,7 @@ export class AuthenticationService {
     }
   }
 
-  readonly loginEndpoint: string = 'generate-token';
+  readonly loginEndpoint: string = 'login';
 
 
   get servertoken() {
