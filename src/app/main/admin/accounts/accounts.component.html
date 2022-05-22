@@ -23,58 +23,26 @@
                                         <th scope="col" class="text-nowrap">Sr. No.</th>
                                         <th scope="col" class="text-nowrap">Account Name</th>
                                         <th scope="col" class="text-nowrap">SAP Customer Number</th>
-                                        <th scope="col" class="text-nowrap">Parent Customer</th>
-                                        <th scope="col" class="text-nowrap"> Billing State Name</th>
-                                        <th scope="col" class="text-nowrap"> Phone Number</th>
-                                        <th scope="col" class="text-nowrap"> Owner </th>
-                                        <th scope="col" class="text-nowrap"> Created Date </th>
-                                        <th scope="col" class="text-nowrap"> Action </th>
+                                        <th scope="col" class="text-nowrap">Customer</th>
+                                        <th scope="col" class="text-nowrap">Billing State Name</th>
+                                        <th scope="col" class="text-nowrap">Phone Number</th>
+                                        <th scope="col" class="text-nowrap">Owner</th>
+                                        <th scope="col" class="text-nowrap">Created Date</th>
+                                        <th scope="col" class="text-nowrap">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td><a routerLink="/accounts-details" class="no-st-text-b font-weight-bold">	ZTE-WEST BENGAL </a> </td>
-                                        <td>ZTE-WB</td>
-                                        <td><a routerLink="/comp-assets" class="no-st-text-b link-color">ZTE</a> </td>
-                                        <td>West Bengal</td>
-                                        <td>+91 123456789</td>
-                                        <td>SFDC Administrator</td>
-                                        <td>26-12-2020 21:24:57</td>
-                                        <td> <button type="button" class="btn   btn-outline-secondary btn-sm pl-3 pr-3"> <i class="fas fa-edit" aria-hidden="true"></i> Edit</button></td>                      
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td><a routerLink="/accounts-details" class="no-st-text-b font-weight-bold">	ZTE-WEST BENGAL </a> </td>
-                                        <td>ZTE-WB</td>
-                                        <td><a routerLink="/comp-assets" class="no-st-text-b link-color">ZTE</a> </td>
-                                        <td>West Bengal</td>
-                                        <td>+91 123456789</td>
-                                        <td>SFDC Administrator</td>
-                                        <td>26-12-2020 21:24:57</td>
-                                        <td> <button type="button" class="btn   btn-outline-secondary btn-sm pl-3 pr-3"> <i class="fas fa-edit" aria-hidden="true"></i> Edit</button></td>                      
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td><a routerLink="/accounts-details" class="no-st-text-b font-weight-bold">	ZTE-WEST BENGAL </a> </td>
-                                        <td>ZTE-WB</td>
-                                        <td><a routerLink="/comp-assets" class="no-st-text-b link-color">ZTE</a> </td>
-                                        <td>West Bengal</td>
-                                        <td>+91 123456789</td>
-                                        <td>SFDC Administrator</td>
-                                        <td>26-12-2020 21:24:57</td>
-                                        <td> <button type="button" class="btn   btn-outline-secondary btn-sm pl-3 pr-3"> <i class="fas fa-edit" aria-hidden="true"></i> Edit</button></td>                      
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td><a routerLink="/accounts-details" class="no-st-text-b font-weight-bold">	ZTE-WEST BENGAL </a> </td>
-                                        <td>ZTE-WB</td>
-                                        <td><a routerLink="/comp-assets" class="no-st-text-b link-color">ZTE</a> </td>
-                                        <td>West Bengal</td>
-                                        <td>+91 123456789</td>
-                                        <td>SFDC Administrator</td>
-                                        <td>26-12-2020 21:24:57</td>
-                                        <td> <button type="button" class="btn   btn-outline-secondary btn-sm pl-3 pr-3"> <i class="fas fa-edit" aria-hidden="true"></i> Edit</button></td>                      
+                                    <tr *ngFor="let account of accounts.content; let i=index;"
+                                                    class="bm-tr">
+                                                    <td class="bd-top">{{ i+1 }}</td>
+                                                    <td class="bd-top">{{ account?.name }}</td>
+                                                    <td class="bd-top">{{ account?.sapCode }}</td>
+                                                    <td class="bd-top">{{ account?.customer }}</td>
+                                                    <td class="bd-top">{{ account?.billingStateName }}</td>
+                                                    <td class="bd-top">{{ account?.contactPersonPhone }}</td>
+                                                    <td class="bd-top">{{ account?.ownerName }}</td>
+                                                    <td class="bd-top">{{ account?.createdDate | date:'short':'IST' }}</td>
+                                                    <td> <button type="button" class="btn   btn-outline-secondary btn-sm pl-3 pr-3"> <i class="fas fa-edit" aria-hidden="true"></i> Edit</button></td>                      
                                     </tr>
                                 </tbody>
                             </table>

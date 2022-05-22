@@ -29,130 +29,106 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body p-0 pl-0 ">
-                        <button type="button" class="btn btn-outline-primary" rippleEffect (click)="toggleTata()">Tata
-                            Motors (200)</button>
-                        <button type="button" class="btn btn-outline-secondary " rippleEffect (click)="toggleMg()">MG
-                            Motors (50)</button>
-                        <button type="button" class="btn btn-outline-info" rippleEffect (click)="toggleMg()"> JBM infra
-                            (51)</button>
-                        <button type="button" class="btn btn-outline-danger " rippleEffect (click)="toggleMg()">Amplus
-                            (100)</button>
-                        <button type="button" class="btn btn-outline-secondary " rippleEffect (click)="toggleMg()">Flat
-                            Motors</button>
-                        <button type="button" class="btn btn-outline-success " rippleEffect (click)="toggleMg()">Maruti
-                            Suzuki</button>
-                    </div>
-                    <div *ngIf="isTataShow" class="table-responsive border">
+                    <div class="table-responsive border">
                         <table class="table mb-0 ">
                             <thead>
                                 <tr>
-                                    <th scope="col" class="text-nowrap"> Sr. No.</th>
+                                    <th scope="col" class="text-nowrap">Sr. No.</th>
                                     <th scope="col" class="text-nowrap">Asset Serial Number</th>
                                     <th scope="col" class="text-nowrap">Sales Order No</th>
                                     <th scope="col" class="text-nowrap">Site Name</th>
                                     <th scope="col" class="text-nowrap">Client</th>
                                     <th scope="col" class="text-nowrap">Part Code</th>
-                                    <th scope="col" class="text-nowrap"> Asset Description </th>
-                                    <th scope="col" class="text-nowrap">Warranty Status </th>
-                                    <th scope="col" class="text-nowrap"> IRF </th>
-                                    <th scope="col" class="text-nowrap">Survey </th>
-                                    <th scope="col" class="text-nowrap">Installation </th>
-                                    <th scope="col" class="text-nowrap">Commissioning </th>
-                                    <th scope="col" class="text-nowrap">Created Date </th>
+                                    <th scope="col" class="text-nowrap">Asset Description</th>
+                                    <th scope="col" class="text-nowrap">Warranty Status</th>
+                                    <th scope="col" class="text-nowrap">IRF</th>
+                                    <th scope="col" class="text-nowrap">Survey</th>
+                                    <th scope="col" class="text-nowrap">Installation</th>
+                                    <th scope="col" class="text-nowrap">Commissioning</th>
+                                    <th scope="col" class="text-nowrap">Created Date</th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014
-                                        </a>
+                                <tr *ngFor="let asset of assets.content; let i=index;" class="bm-tr">      
+                                    <td class="bd-top">{{ i+1 }}</td>
+                                    <td><a routerLink="/comp-assets" class="no-st-text-b">{{ asset?.serialNo }}</a></td>
+                                    <td class="bd-top">{{ asset?.salesOrderId }}</td>
+                                    <td class="bd-top">{{ asset?.siteName }}</td>
+                                    <td class="bd-top">{{ asset?.accountName }}</td>
+                                    <td class="bd-top">{{ asset?.productName }}</td>
+                                    <td class="bd-top">{{ asset?.productDescription }}</td>
+                                    <td *ngIf="asset.warrantyStatus"> <a routerLink="/commission-form"> <i data-feather="flag"
+                                        class="font-medium-4 text-success"></i> </a> </td>
+                                    <td *ngIf="!asset.warrantyStatus"> <a routerLink="/commission-form"> <i data-feather="flag"
+                                        class="font-medium-4 text-danger"></i> </a> </td>
+                                    <td>
+                                        <button
+                                            class="btn btn-sm btn-primary btn-touchspin btn-touchspin-down"
+                                            [disabled]="true"
+                                            [ngClass]="{
+                                            'btn-default': asset.irfStatusName == '',
+                                            'btn-secondary': asset.irfStatusName == 'notRequired',
+                                            'btn-success': asset.irfStatusName == 'completed',
+                                            'btn-danger': asset.irfStatusName == 'inProcess'
+                                            }"
+                                            >
+                                            <span *ngIf="asset.isIrfGenerated" data-feather="check"></span>
+                                            <span *ngIf="!asset.isIrfGenerated" data-feather="x"></span>
+                                        </button>
                                     </td>
 
-                                    <td class="no-st-text-b">So-1324</td>
-                                    <td class="no-st-text-b">Delhi</td>
-                                    <td class="no-st-text-b">Shefali</td>
-                                    <td class="no-st-text-b">12345</td>
-                                    <td class="no-st-text-b">Galdjkjdsf</td>
-                                    <!-- <td class="no-st-text-b"><span class="badge bg-success">Yes</span>
-                                    </td> -->
-                                    <td> <a routerLink="/commission-form"> <i data-feather="flag"
-                                                class="font-medium-4 text-danger"></i> </a> </td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
-                                    <td class="no-st-text-b">23-03-2022</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014 </a>
+                                    <td>
+                                        <button
+                                            class="btn btn-sm btn-primary btn-touchspin btn-touchspin-down"
+                                            [disabled]="true"
+                                            [ngClass]="{
+                                            'btn-default': asset.surveyStatusName == '',
+                                            'btn-secondary': asset.surveyStatusName == 'notRequired',
+                                            'btn-success': asset.surveyStatusName == 'completed',
+                                            'btn-danger': asset.surveyStatusName == 'inProcess'
+                                            }"
+                                            >
+                                            <span *ngIf="asset.isSurveyGenerated" data-feather="check"></span>
+                                            <span *ngIf="!asset.isSurveyGenerated" data-feather="x"></span>
+                                        </button>
                                     </td>
-                                    <td class="no-st-text-b">So-1324</td>
-                                    <td class="no-st-text-b">Delhi</td>
-                                    
-                                    <td class="no-st-text-b">Shefali</td>
-                                    <td class="no-st-text-b">12345</td>
-                                    <td class="no-st-text-b">Galdjkjdsf</td>
-                                    <!-- <td class="no-st-text-b"><span class="badge bg-success">Yes</span>
-                                    </td> -->
-                                    <td> <a routerLink="/commission-form"> <i data-feather="flag"
-                                                class="font-medium-4 text-success"></i> </a> </td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
-                                    <td class="no-st-text-b">23-03-2022</td>
-                                </tr>
 
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div *ngIf="isMgShow" class="table-responsive border">
-                        <table class="table mb-0 ">
-                            <thead>
-                                <tr>
-                                    <th scope="col" class="text-nowrap"> Sr. No.</th>
-                                    <th scope="col" class="text-nowrap">Asset Serial Number</th>
-                                    <th scope="col" class="text-nowrap">Sales Order No</th>
-                                    <th scope="col" class="text-nowrap">Site Name</th>
-                                    <th scope="col" class="text-nowrap">Client</th>
-                                    <th scope="col" class="text-nowrap">Part Code</th>
-                                    <th scope="col" class="text-nowrap"> Asset Description </th>
-                                    <th scope="col" class="text-nowrap">Warranty Status </th>
-                                    <th scope="col" class="text-nowrap"> IRF </th>
-                                    <th scope="col" class="text-nowrap">Survey </th>
-                                    <th scope="col" class="text-nowrap">Installation </th>
-                                    <th scope="col" class="text-nowrap">Commissioning </th>
-                                    <th scope="col" class="text-nowrap">Created Date </th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014
-                                        </a>
+                                    <td>
+                                        <button
+                                            class="btn btn-sm btn-primary btn-touchspin btn-touchspin-down"
+                                            [disabled]="true"
+                                            [ngClass]="{
+                                            'btn-default': asset.installationStatusName == '',
+                                            'btn-secondary': asset.installationStatusName == 'notRequired',
+                                            'btn-success': asset.installationStatusName == 'completed',
+                                            'btn-danger': asset.installationStatusName == 'inProcess'
+                                            }"
+                                            >
+                                            <span *ngIf="asset.isInstallationGenerated" data-feather="check"></span>
+                                            <span *ngIf="!asset.isInstallationGenerated" data-feather="x"></span>
+                                        </button>
                                     </td>
-                                    <td class="no-st-text-b">So-1324</td>
-             
-                                    <td class="no-st-text-b">Delhi</td>
-                                    <td class="no-st-text-b">Shefali</td>
-                                    <td class="no-st-text-b">12345</td>
-                                    <td class="no-st-text-b">Galdjkjdsf</td>
-                                    <!-- <td class="no-st-text-b"><span class="badge bg-success">Yes</span>
-                                    </td> -->
-                                    <td> <a routerLink="/commission-form"> <i data-feather="flag"
-                                                class="font-medium-4 text-success"></i> </a> </td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
-                                    <td class="no-st-text-b">23-03-2022</td>
+
+                                    <td>
+                                        <button
+                                            class="btn btn-sm btn-primary btn-touchspin btn-touchspin-down"
+                                            [disabled]="true"
+                                            [ngClass]="{
+                                            'btn-default': asset.commissioningStatusName == '',
+                                            'btn-secondary': asset.commissioningStatusName == 'notRequired',
+                                            'btn-success': asset.commissioningStatusName == 'completed',
+                                            'btn-danger': asset.commissioningStatusName == 'inProcess'
+                                            }"
+                                            >
+                                            <span *ngIf="asset.isCommissioningGenerated" data-feather="check"></span>
+                                            <span *ngIf="!asset.isCommissioningGenerated" data-feather="x"></span>
+                                        </button>
+                                    </td>
+
+                                    <td class="bd-top">{{ asset?.createdDate | date:'short':'IST' }}</td>                
                                 </tr>
+
                             </tbody>
                         </table>
                     </div>
