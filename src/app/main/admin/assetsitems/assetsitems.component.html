@@ -41,8 +41,8 @@
                                     <th scope="col" class="text-nowrap">Part Code</th>
                                     <th scope="col" class="text-nowrap">Asset Description</th>
                                     <th scope="col" class="text-nowrap">Warranty Status</th>
-                                    <th scope="col" class="text-nowrap">IRF</th>
-                                    <th scope="col" class="text-nowrap">Survey</th>
+                                    <th scope="col" class="text-nowrap">     IRF     </th>
+                                    <th scope="col" class="text-nowrap">    Survey   </th>
                                     <th scope="col" class="text-nowrap">Installation</th>
                                     <th scope="col" class="text-nowrap">Commissioning</th>
                                     <th scope="col" class="text-nowrap">Created Date</th>
@@ -126,7 +126,7 @@
                                         </button>
                                     </td>
 
-                                    <td class="bd-top">{{ asset?.createdDate | date:'short':'IST' }}</td>                
+                                    <td class="bd-top">{{ asset?.createdDate | date:'medium':'IST' }}</td>                
                                 </tr>
 
                             </tbody>
