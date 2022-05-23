@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { AssetsService } from './assetsitems.service'
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-assetsitems',
   templateUrl: './assetsitems.component.html',
@@ -8,8 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class AssetsitemsComponent implements OnInit {
 public contentHeader :object;
 assets:any;
+loading: boolean = false;
 
-  constructor() { }
+  constructor(private assetsService: AssetsService ,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     // content header
@@ -36,93 +39,17 @@ assets:any;
         ]
       }
     };
-    this.assets =  {
-      "content": [
-          {
-              "salesOrderId": null,
-              "isInstallationGenerated": false,
-              "isIrfGenerated": false,
-              "statusName": "Purchased",
-              "createdByPhone": "9999999999",
-              "irfStatusId": 4,
-              "id": 1,
-              "modifiedByName": "System Admin",
-              "serialNo": "DO2110391180009",
-              "sapDeliveryDocumentNumber": null,
-              "productId": 1,
-              "dateOfDeliveryExpiryDate": null,
-              "installationStatusId": 4,
-              "ownerName": "System Admin",
-              "amcPurchaseOrderNumber": null,
-              "irfStatusName": "",
-              "modifiedDate": "2022-05-22T11:42:24.000+00:00",
-              "warrantyFromDateOfInstallationInMonth": null,
-              "amcStartDate": null,
-              "statusId": 5,
-              "accountId": 2,
-              "commissioningStatusName": "completed",
-              "plant": null,
-              "modifiedbyPhone": "9999999999",
-              "installationStatusName": "notRequired",
-              "productName": "HE518294",
-              "purchaseDate": null,
-              "amcExpiryDate": null,
-              "amcPeriod": null,
-              "siteName": null,
-              "accountName": "TATA Power Company Ltd",
-              "createByName": "System Admin",
-              "purchaseOrderDate": null,
-              "surveyStatusName": "inProcess",
-              "commissioningStatusId": 4,
-              "installDate": null,
-              "isCommissioningGenerated": false,
-              "manualId": "DO2110391180009#HE518294",
-              "salesOrderNo": null,
-              "createdDate": "2022-05-22T11:42:24.000+00:00",
-              "installExpiryDate": null,
-              "surveyStatusId": 4,
-              "sapCode": "TATA",
-              "isSurveyGenerated": true,
-              "salesDocNumber": null,
-              "amcPurchaseOrderDate": null,
-              "warrantyExpiryDate": null,
-              "purchaseOrderNumber": null,
-              "sapMaterialDocumentNumber": null,
-              "siteId": null,
-              "warrantyFromDateOfDeliveryInMonth": null,
-              "ownerPhone": "9999999999",
-              "remarks": null,
-              "productDescription": "Product Description dummy data",
-              "warrantyStatus": false
-          }
-      ],
-      "pageable": {
-          "sort": {
-              "empty": true,
-              "sorted": false,
-              "unsorted": true
-          },
-          "offset": 0,
-          "pageSize": 20,
-          "pageNumber": 0,
-          "paged": true,
-          "unpaged": false
-      },
-      "totalPages": 1,
-      "totalElements": 1,
-      "last": true,
-      "size": 20,
-      "number": 0,
-      "sort": {
-          "empty": true,
-          "sorted": false,
-          "unsorted": true
-      },
-      "first": true,
-      "numberOfElements": 1,
-      "empty": false
-  };
-  
+  this.loadData();
+  }
+
+  loadData() {
+    this.loading = true;
+    this.assets =   this.assetsService.getAssetsInformation({}).subscribe(
+      (data) => {
+        this.assets = data.content;
+        this.loading = false;
+      }
+    )
   }
 
 }
