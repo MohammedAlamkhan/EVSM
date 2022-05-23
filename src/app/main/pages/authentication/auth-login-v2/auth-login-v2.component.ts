@@ -85,7 +85,7 @@ export class AuthLoginV2Component implements OnInit {
 
 
     let loginContext = {
-      userId: this.loginForm.value.email,
+      userId: this.loginForm.value.phone,
       password: this.loginForm.value.password
     }
 
@@ -135,7 +135,7 @@ export class AuthLoginV2Component implements OnInit {
 
   createForm(): void {
     this.loginForm = this._formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.minLength(10)]],
       password: ['', Validators.required]
     });
   }
