@@ -13,7 +13,7 @@ export class SalesComponent implements OnInit {
   public contentHeader: object;
   noOfRows: number=10;
   salesOrder : any;
-  totalRecords: number=1;
+  totalRecords: number;
   cols: any[];
   loading: boolean = false;
 
