@@ -44,7 +44,7 @@ loading: boolean = false;
 
   loadData() {
     this.loading = true;
-    this.assets =   this.assetsService.getAssetsInformation({}).subscribe(
+    this.assets =   this.assetsService.getAssetsInformation().subscribe(
       (data) => {
         this.assets = data.content;
         this.loading = false;

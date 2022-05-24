@@ -51,7 +51,7 @@
                             </thead>
                             <tbody>
 
-                                <tr *ngFor="let asset of assets.content; let i=index;" class="bm-tr">      
+                                <tr *ngFor="let asset of assets; let i=index;" class="bm-tr">      
                                     <td class="bd-top">{{ i+1 }}</td>
                                     <td><a routerLink="/comp-assets" class="no-st-text-b">{{ asset?.serialNo }}</a></td>
                                     <td class="bd-top">{{ asset?.salesOrderId }}</td>
