@@ -21,8 +21,8 @@ export class TokensInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     
-    if (this.authService.getCredentials != null && this.authService.getCredentials.fcmToken && request.headers.getAll('authorization') == null) {
-      request= this.addToken(request, this.authService.getCredentials.fcmToken);
+    if (this.authService.getCredentials != null && this.authService.getCredentials.token && request.headers.getAll('authorization') == null) {
+      request= this.addToken(request, this.authService.getCredentials.token);
     }
 
     return next.handle(request).pipe(catchError(error => {
@@ -52,8 +52,8 @@ export class TokensInterceptor implements HttpInterceptor {
       return this.authService.refresh().pipe(
         switchMap((credentials: any) => {
           this.isRefreshing = false;
-          this.refreshTokenSubject.next(credentials.fcmToken);
-          return next.handle(this.addToken(request, credentials.fcmToken));
+          this.refreshTokenSubject.next(credentials.token);
+          return next.handle(this.addToken(request, credentials.token));
         }));
 
     } else {

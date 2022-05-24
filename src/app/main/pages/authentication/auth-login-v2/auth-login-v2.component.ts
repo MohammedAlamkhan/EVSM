@@ -92,8 +92,8 @@ export class AuthLoginV2Component implements OnInit {
     this.auth.login(loginContext).subscribe(
       (res) => {
         if (
-          res.fcmToken != null
-          && res.fcmToken !== undefined) {
+          res.token != null
+          && res.token !== undefined) {
           this._router.navigate(['home'], { replaceUrl: true })
         }
         else {
