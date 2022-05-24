@@ -10,7 +10,9 @@ export class AssetsitemsComponent implements OnInit {
 public contentHeader :object;
 assets:any;
 loading: boolean = false;
-
+noOfRows: number=10;
+totalRecords: number;
+cols: any[];
   constructor(private assetsService: AssetsService ,
     private route: ActivatedRoute) { }
 
@@ -47,6 +49,7 @@ loading: boolean = false;
     this.assets =   this.assetsService.getAssetsInformation().subscribe(
       (data) => {
         this.assets = data.content;
+        this.totalRecords = data.content.length;
         this.loading = false;
       }
     )
