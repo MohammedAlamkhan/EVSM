@@ -1,53 +1,53 @@
 <div class="content-wrapper container-xxl p-0 ">
-    <!-- <div *ngIf="loading"><app-spinner></app-spinner></div> -->
-    <div class="row">
-        <div class="col-sm-9">
-            <app-content-header [contentHeader]="contentHeader"></app-content-header>
-        </div>
-        <div class="col-sm-3">
-            <button class="btn btn-primary ml-1" rippleEffect >
-                <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i
-                ><span class="d-none d-sm-inline-block">+New Account</span>
-              </button>
-        </div>
-      </div>
-   
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
     <div class="content-body shadow ">
         <section id="basic-tabs-components">
             <div class="row match-height">
                 <div class=" col-lg-12 ">
                     <div class="card-body bg-white p-0 ">
-                        <div class="table-responsive border ">
-                            <table class="table mb-0 ">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" class="text-nowrap">Sr. No.</th>
-                                        <th scope="col" class="text-nowrap">Account Name</th>
-                                        <th scope="col" class="text-nowrap">SAP Customer Number</th>
-                                        <th scope="col" class="text-nowrap">Customer</th>
-                                        <th scope="col" class="text-nowrap">Billing State Name</th>
-                                        <th scope="col" class="text-nowrap">Phone Number</th>
-                                        <th scope="col" class="text-nowrap">Owner</th>
-                                        <th scope="col" class="text-nowrap">Created Date</th>
-                                        <th scope="col" class="text-nowrap">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let account of accounts; let i=index;"
-                                                    class="bm-tr">
-                                                    <td class="bd-top">{{ i+1 }}</td>
-                                                    <td class="bd-top">{{ account?.name }}</td>
-                                                    <td class="bd-top">{{ account?.sapCode }}</td>
-                                                    <td class="bd-top">{{ account?.customer }}</td>
-                                                    <td class="bd-top">{{ account?.billingStateName }}</td>
-                                                    <td class="bd-top">{{ account?.contactPersonPhone }}</td>
-                                                    <td class="bd-top">{{ account?.ownerName }}</td>
-                                                    <td class="bd-top">{{ account?.createdDate | date:'medium':'IST' }}</td>
-                                                    <td> <button type="button" class="btn   btn-outline-secondary btn-sm pl-3 pr-3"> <i class="fas fa-edit" aria-hidden="true"></i> Edit</button></td>                      
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <ul ngbNav #nav="ngbNav" class="nav-tabs tb-border mb-0">
+                            <li ngbNavItem>
+                                <ng-template ngbNavContent>
+                                    <div class="table-responsive border">
+                                        <p-table [value]="accounts" [lazy]="false" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+                                         responsiveLayout="scroll" 
+                                        dataKey="id" [paginator]="true" [rows]="noOfRows"
+                                        [totalRecords]="totalRecords">
+                                        <ng-template pTemplate="header">
+                                            <!-- [rowsPerPageOptions]="[5,10,15]"  data.SalesOrder[0].clients.clientName-->
+                                            <tr class="bg-white">
+                                                <th scope="col" >Sr. No.</th>
+                                                <th scope="col" >Account Name</th>
+                                                <th scope="col" >SAP Customer Number</th>
+                                                <th scope="col" >Customer</th>
+                                                <th scope="col" >Billing State Name</th>
+                                                <th scope="col" >Phone Number</th>
+                                                <th scope="col" >Owner</th>
+                                                <th scope="col" >Created Date</th>
+                                                <th scope="col" >Action</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-account let-rowIndex="rowIndex">
+                                           
+                                            <tr>
+                                                <td class="bd-top">{{ rowIndex }}</td>
+                                                <td class="bd-top">{{ account?.name }}</td>
+                                                <td class="bd-top">{{ account?.sapCode }}</td>
+                                                <td class="bd-top">{{ account?.customer }}</td>
+                                                <td class="bd-top">{{ account?.billingStateName }}</td>
+                                                <td class="bd-top">{{ account?.contactPersonPhone }}</td>
+                                                <td class="bd-top">{{ account?.ownerName }}</td>
+                                                <td class="bd-top">{{ account?.createdDate | date:'medium':'IST' }}</td>
+                                                <td> <button type="button" class="btn   btn-outline-secondary btn-sm pl-3 pr-3"> <i class="fas fa-edit" aria-hidden="true"></i> Edit</button></td>                      
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                    </div>
+                                    
+                                </ng-template>
+                            </li>
+                        </ul>
+                        <div [ngbNavOutlet]="nav" class=""></div>
                     </div>
                 </div>
             </div>

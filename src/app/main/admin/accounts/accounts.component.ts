@@ -9,6 +9,8 @@ export class AccountComponent implements OnInit {
   public contentHeader: object
   accounts: any;
   loading: boolean = false;
+  noOfRows: number=10;
+  totalRecords: number;
 
 
   constructor(private accountsService: AccountsService) { }
@@ -35,6 +37,7 @@ export class AccountComponent implements OnInit {
     this.accounts =   this.accountsService.getAccountsInformation().subscribe(
       (data) => {
         this.accounts = data.content;
+        this.totalRecords = data.content.length;
         this.loading = false;
       }
     )
