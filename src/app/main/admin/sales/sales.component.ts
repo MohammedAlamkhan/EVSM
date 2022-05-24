@@ -11,9 +11,9 @@ import {SalesService} from '../sales/sales.service';
 })
 export class SalesComponent implements OnInit {
   public contentHeader: object;
-  noOfRows: number = 9;
-  salesOrder : SalesOrder[];
-  totalRecords: number;
+  noOfRows: number=10;
+  salesOrder : any;
+  totalRecords: number=1;
   cols: any[];
   loading: boolean = false;
 
@@ -37,29 +37,28 @@ export class SalesComponent implements OnInit {
         ]
       }
     };
-    this.loading = true;
+    this.loadDataForOpen();
   }
 
-  loadData(event: LazyLoadEvent) {
-    this.loading = true;
-    this.salesService.getOpenSalesOrder({ lazyEvent: JSON.stringify(event) }).subscribe(
+  loadDataForOpen() {
+    this.loading = false;
+    this.salesService.getOpenSalesOrder().subscribe(
       (data) => {
-        this.salesOrder = data.salesOrder;
-        this.totalRecords = data.totalRecords;
+        this.salesOrder = data.content;
+        this.totalRecords = data.content.length;
         this.loading = false;
       }
     )
 
   }
 
-  loadDataForClose(event: LazyLoadEvent) {
+  loadDataForClose() {
     ;
-    this.loading = true;
-    this.salesService.getCloseSalesOrder({ lazyEvent: JSON.stringify(event) }).subscribe(
+    this.loading = false;
+    this.salesService.getCloseSalesOrder().subscribe(
       (data) => {
-        ;
-        this.salesOrder = data.salesOrder;
-        this.totalRecords = data.totalRecords;
+        this.salesOrder = data.content;
+        this.totalRecords = data.content.length;
         this.loading = false;
       }
     )
