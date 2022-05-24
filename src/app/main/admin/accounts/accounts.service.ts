@@ -8,7 +8,7 @@ import { NotificationService as Notify } from '../../../shared/services/notifica
   providedIn: 'root'
 })
 export class AccountsService {
-  private readonly assetListUrl: string = 'account?page=0&size=10&sort=id.DESC';
+  private readonly assetListUrl: string = 'account';
 
 
   salesInformation$ = new BehaviorSubject<any>(null);
@@ -17,8 +17,8 @@ export class AccountsService {
 
 
 
-  public getAccountsInformation(params?: any): Observable<any> {
-    return this.httpClient.get<any>(environment.baseApiUrl + this.assetListUrl, { params: params,  withCredentials: true });
+  public getAccountsInformation(): Observable<any> {
+    return this.httpClient.get<any>(environment.baseApiUrl + this.assetListUrl);
 
   }
 }

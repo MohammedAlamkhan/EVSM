@@ -27,12 +27,12 @@ export class AccountComponent implements OnInit {
         ]
       }
     };
-    this.loadData();
+   this.loadData();
   }
 
   loadData() {
     this.loading = true;
-    this.accounts =   this.accountsService.getAccountsInformation({}).subscribe(
+    this.accounts =   this.accountsService.getAccountsInformation().subscribe(
       (data) => {
         this.accounts = data.content;
         this.loading = false;

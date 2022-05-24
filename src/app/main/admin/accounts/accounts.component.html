@@ -1,5 +1,5 @@
 <div class="content-wrapper container-xxl p-0 ">
-    <div *ngIf="loading"><app-spinner></app-spinner></div>
+    <!-- <div *ngIf="loading"><app-spinner></app-spinner></div> -->
     <div class="row">
         <div class="col-sm-9">
             <app-content-header [contentHeader]="contentHeader"></app-content-header>
@@ -33,7 +33,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let account of accounts.content; let i=index;"
+                                    <tr *ngFor="let account of accounts; let i=index;"
                                                     class="bm-tr">
                                                     <td class="bd-top">{{ i+1 }}</td>
                                                     <td class="bd-top">{{ account?.name }}</td>
