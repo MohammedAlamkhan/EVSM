@@ -11,14 +11,14 @@
                                     <strong>{{asset?.serialNo}} </strong>
                                 </h5>
                             </div>
-                            <div class="col-sm-6 text-right">
+                            <!-- <div class="col-sm-6 text-right">
                                 <a routerLink="/single-irf"  class="btn btn-light btn-sm mx-1">
                                     <i data-feather="edit"></i> Generate IRF</a>
-                                <!-- <button type="button" class="btn btn-light btn-sm" data-toggle="modal"
+                                <button type="button" class="btn btn-light btn-sm" data-toggle="modal"
                                     (click)="modalOpenDefault(modalDefault)" data-target="#modal-xl">
                                     <i data-feather="edit"></i> Edit
-                                </button> -->
-                            </div>
+                                </button>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -56,10 +56,6 @@
                                             <td>{{asset?.siteId}}</td>
                                         </tr>
                                         <tr>
-                                            <td><span class="text-gray">Primary Account</span></td>
-                                            <td>XXXXXXXXXXX</td>
-                                        </tr>
-                                        <tr>
                                             <td><span class="text-gray">Warranty</span></td>
                                             <td *ngIf="asset.warrantyStatus===1">Under Warranty</td>
                                             <td *ngIf="asset.warrantyStatus===0">Out of Warranty</td>
@@ -69,8 +65,8 @@
                                             <td>{{asset?.remarks}}</td>
                                         </tr>
                                         <tr>
-                                            <td><span class="text-gray">Customer</span></td>
-                                            <td>XXXXXXXXXXX</td>
+                                            <td><span class="text-gray">Sales Order No. </span></td>
+                                            <td>{{asset?.salesOrderNo}} </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -82,7 +78,7 @@
                                     <tbody>
                                         <tr>
                                             <td><span class="text-gray"> Part Code</span></td>
-                                            <td>XXXXXXXXXXX
+                                            <td>{{asset?.productName}}
                                             </td>
                                         </tr>
                                         <tr>
@@ -100,11 +96,7 @@
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Status </span></td>
-                                            <td>XXXXXXXXXXX </td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="text-gray">Sales Order No. </span></td>
-                                            <td>{{asset?.salesOrderNo}} </td>
+                                            <td>{{asset?.statusName}} </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -127,7 +119,7 @@
                                             <td><span class="text-gray">
 
                                                     PO No</span></td>
-                                            <td> XXXXXXXXXXX</td>
+                                            <td> {{asset?.purchaseOrderNumber}}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">SAP Delivery Document No </span></td>
@@ -146,7 +138,7 @@
                                         <tr>
                                             <td><span class="text-gray">
                                                     PO Date</span></td>
-                                            <td> XXXXXXXXXXX</td>
+                                            <td> {{asset?.purchaseOrderDate}}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">SAP Material Document No </span></td>
@@ -173,19 +165,19 @@
                                     <tbody>
                                         <tr>
                                             <td><span class="text-gray">Delivery Date</span></td>
-                                            <td>07-02-2022</td>
+                                            <td>{{asset?.deliveryDate}}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Warranty from DOD(months)</span></td>
-                                            <td>23 </td>
+                                            <td>{{asset?.warrantyFromDateOfDeliveryInMonth}} </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">DOD Expiration Date </span></td>
-                                            <td>06-02-2024</td>
+                                            <td>{{asset?.dateOfDeliveryExpiryDate}}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Warranty Expiry Date </span></td>
-                                            <td>{{asset?.dateOfDeliveryExpiryDate}} </td>
+                                            <td>{{asset?.warrantyExpiryDate}} </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -198,17 +190,17 @@
                                         <tr>
                                             <td><span class="text-gray">
                                                     Install Date</span></td>
-                                            <td>22-02-2022
+                                            <td>{{asset?.installDate}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Warranty from Installation Date(months) </span>
                                             </td>
-                                            <td>2 </td>
+                                            <td>{{asset?.warrantyFromDateOfInstallationInMonth}} </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Install Expiry Date </span></td>
-                                            <td> {{asset?.installDate}}</td>
+                                            <td> {{asset?.installExpiryDate}}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Warranty Status </span></td>
@@ -289,7 +281,12 @@
                                         <tr>
                                             <td><span class="text-gray">
                                                     Created By </span></td>
-                                            <td> {{asset?.createdByPhone}}</td>
+                                            <td> {{asset?.createByName}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                    Created Date </span></td>
+                                            <td> {{asset?.createdDate}}</td>
                                         </tr>
 
 
@@ -306,6 +303,11 @@
                                             <td><span class="text-gray">
                                                     Last Modified By </span></td>
                                             <td> {{asset?.modifiedByName}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                    Last Modified Date </span></td>
+                                            <td> {{asset?.modifiedDate}}</td>
                                         </tr>
 
                                     </tbody>
