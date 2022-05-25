@@ -116,7 +116,7 @@
                                                     <tr>
                                                         <td>{{aseet.id}}</td>
                                                         <!-- <a  [routerLink]="['/statuscount', dataItem.id]">{{data.promoId}}</a> -->
-                                                        <td><a [routerLink]="['/sales/sales-details',aseet.salesOrderNo]" class="no-st-text-b">{{aseet.manualId}}</a></td>
+                                                        <td><a (click)="passSalesData(rowIndex)" [routerLink]="['/sales/sales-details',aseet.salesOrderNo]" class="no-st-text-b">{{aseet.manualId}}</a></td>
                                                         <td class="no-st-text-b">{{aseet.totalQuantity}}</td>
                                                         <td class="no-st-text-b">{{aseet.AccountName}}</td>
                                                         <td class="no-st-text-b">{{aseet.createdDate | date:'medium':'IST' }}</td>

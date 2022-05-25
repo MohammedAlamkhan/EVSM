@@ -16,7 +16,7 @@ export class SalesService {
   private readonly openSalesOrderUrl: string = 'salesorder/bystatus/Open';
   private readonly salesDetailsUrl: string = 'salesOrder/salesOrderNo/';
   private readonly assetListUrl: string = 'assests/items/';
-
+  public selectedSalesOrder:any;
 
   salesInformation$ = new BehaviorSubject<any>(null);
   constructor(private httpClient: HttpClient

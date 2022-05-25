@@ -18,6 +18,7 @@ export class SalesDetailsComponent implements OnInit, OnDestroy {
   salesOrderId: string;
   singleRowSalesDetails : any[];
   sOTotalQty: string;
+  salesOrder: any;
   ; client: string
     ; invoiceNumber: string
     ; billedAssetQty: string
@@ -56,50 +57,20 @@ export class SalesDetailsComponent implements OnInit, OnDestroy {
       }
     };
     this.loading = true;
-    this.getSalesDetails();
+    this.loadData({});
 
 
   }
 
 
 
-  getSalesDetails() {
-    let salesOrder = this.salesOrderNo;
-    this.sales.getSalesDetails(salesOrder)
-      .pipe(
-        takeUntil(this.unsubscribe$),
-        tap((x) => {
-          this.sOTotalQty = x.totalQuantity
-            ; this.client = x.clients.clientName
-            ; this.invoiceNumber = x.invoiceNo
-            ; this.billedAssetQty = x.totalBilledAssest
-            ; this.salesOrderCreationDate = x.orderCreateDate
-            ; this.invoiceDate = x.invoiceDate
-        })
-      ).subscribe();
-  }
+
 
   loadData(event: LazyLoadEvent) {
     this.loading = true;
-    this.sales.salesInformation$.subscribe(
-      (data) => {
-        if (data !== null && data !== undefined && data.salesOrder !== undefined && data.salesOrder !== null) {
-          this.singleRowSalesDetails = data.salesOrder.filter(x => x.salesOrderNo == this.salesOrderNo);
-          this.salesOrderId = this.singleRowSalesDetails[0].salesOrderId;
-          this.sales.getSalesInformation({ salesOrderId: this.salesOrderId, lazyEvent: JSON.stringify(event) }).subscribe(
-            (data) => {
-              console.log(data);
-              this.assests = data.assests;
-              this.totalRecords = data.totalRecords;
-              this.loading = false;
-            }
-          )
-        }
-
-      }
-    )
-   
-
+    this.salesOrder=this.sales.selectedSalesOrder
+    this.totalRecords = 1;
+    this.loading = false;
   }
 
   ngOnDestroy(): void {

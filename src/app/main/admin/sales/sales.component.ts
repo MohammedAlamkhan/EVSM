@@ -40,6 +40,10 @@ export class SalesComponent implements OnInit {
     this.loadDataForOpen();
   }
 
+  passSalesData(index){
+    this.salesService.selectedSalesOrder = this.salesOrder[index];
+  }
+
   loadDataForOpen() {
     this.loading = false;
     this.salesService.getOpenSalesOrder().subscribe(
