@@ -44,6 +44,11 @@ cols: any[];
   this.loadData();
   }
 
+
+  passAssetData(index){
+    this.assetsService.selectedAsset = this.assets[index];
+  }
+
   loadData() {
     this.loading = true;
     this.assets =   this.assetsService.getAssetsInformation().subscribe(

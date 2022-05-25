@@ -9,6 +9,7 @@ import { NotificationService as Notify } from '../../../shared/services/notifica
 })
 export class AssetsService {
   private readonly assetListUrl: string = 'asset';
+  public selectedAsset:any;
 
 
   salesInformation$ = new BehaviorSubject<any>(null);

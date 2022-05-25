@@ -34,8 +34,8 @@
                         <li ngbNavItem>
                             <ng-template ngbNavContent>
                                 <div class="table-responsive border">
-                                    <p-table [value]="assets" [lazy]="false" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
-                                    responsiveLayout="scroll" 
+                                    <p-table [value]="assets" [lazy]="false" styleClass="p-datatable-gridlines p-datatable-striped"
+                                    responsiveLayout="scroll"   [style]="{width:'1500px'}"
                                     dataKey="id" [paginator]="true" [rows]="noOfRows"
                                     [totalRecords]="totalRecords">
                                     <ng-template pTemplate="header">
@@ -59,16 +59,16 @@
                                     <ng-template pTemplate="body" let-asset let-rowIndex="rowIndex">
                                       
                                        <tr>
-                                           <td class="bd-top">{{ rowIndex }}</td>
+                                           <td >{{ rowIndex+1 }}</td>
                                            <td><a routerLink="/comp-assets" class="no-st-text-b">{{ asset?.serialNo }}</a></td>
-                                           <td class="bd-top">{{ asset?.salesOrderId }}</td>
-                                           <td class="bd-top">{{ asset?.siteName }}</td>
-                                           <td class="bd-top">{{ asset?.accountName }}</td>
-                                           <td class="bd-top">{{ asset?.productName }}</td>
-                                           <td class="bd-top">{{ asset?.productDescription }}</td>
-                                           <td *ngIf="asset.warrantyStatus"> <a routerLink="/commission-form"> <i data-feather="flag"
+                                           <td >{{ asset?.salesOrderId }}</td>
+                                           <td >{{ asset?.siteName }}</td>
+                                           <td >{{ asset?.accountName }}</td>
+                                           <td >{{ asset?.productName }}</td>
+                                           <td >{{ asset?.productDescription }}</td>
+                                           <td *ngIf="asset.warrantyStatus===1"> <a (click)="passAssetData(rowIndex)" routerLink="/commission-form"> <i data-feather="flag"
                                                class="font-medium-4 text-success"></i> </a> </td>
-                                           <td *ngIf="!asset.warrantyStatus"> <a routerLink="/commission-form"> <i data-feather="flag"
+                                           <td *ngIf="asset.warrantyStatus===0"> <a routerLink="/commission-form"> <i data-feather="flag"
                                                class="font-medium-4 text-danger"></i> </a> </td>
                                            <td>
                                                <button
@@ -134,7 +134,7 @@
                                                </button>
                                            </td>
                                     
-                                           <td class="bd-top">{{ asset?.createdDate | date:'medium':'IST' }}</td> 
+                                           <td >{{ asset?.createdDate | date:'medium':'IST' }}</td> 
                                        </tr>
                                     </ng-template>
                                     </p-table>

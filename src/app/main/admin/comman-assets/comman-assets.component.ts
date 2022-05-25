@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FlatpickrOptions } from 'ng2-flatpickr';
-
+import { AssetsService } from '../assetsitems/assetsitems.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-comman-assets',
@@ -15,8 +15,9 @@ export class CommanAssetsComponent implements OnInit {
     altInput: true,
     dateFormat:'d.m.Y H:i'
   };
+  asset: any;
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private assetsService: AssetsService,private modalService: NgbModal) { }
   modalOpenDefault(modalDefault) {
     this.modalService.open(modalDefault, {
       centered: true
@@ -47,6 +48,9 @@ export class CommanAssetsComponent implements OnInit {
         ]
       }
     };
+
+    this.asset=   this.assetsService.selectedAsset;
+  
   }
 
 }

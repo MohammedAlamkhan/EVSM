@@ -8,7 +8,7 @@
                         <div class="row align-items-center">
                             <div class="col-sm-6">
                                 <h5 class="card-titleb ">Asset Serial Number :
-                                    <strong> 23feb2022-E069014</strong>
+                                    <strong>{{asset?.serialNo}} </strong>
                                 </h5>
                             </div>
                             <div class="col-sm-6 text-right">
@@ -44,32 +44,33 @@
                                         <tr>
                                             <td><span class="text-gray">
                                                     Asset Serial Number </span></td>
-                                            <td> 23feb2022-E069014</td>
+                                            <td> {{asset?.serialNo}}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Account </span></td>
-                                            <td>BTAcount_01102021
+                                            <td>{{asset?.accountName}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Site ID </span></td>
-                                            <td>17feb2022</td>
+                                            <td>{{asset?.siteId}}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Primary Account</span></td>
-                                            <td>wertrtrt</td>
+                                            <td>XXXXXXXXXXX</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Warranty</span></td>
-                                            <td>Under Warranty</td>
+                                            <td *ngIf="asset.warrantyStatus===1">Under Warranty</td>
+                                            <td *ngIf="asset.warrantyStatus===0">Out of Warranty</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Remarks</span></td>
-                                            <td>dfsdgg fgfh</td>
+                                            <td>{{asset?.remarks}}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Customer</span></td>
-                                            <td>Vhnn</td>
+                                            <td>XXXXXXXXXXX</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -81,29 +82,29 @@
                                     <tbody>
                                         <tr>
                                             <td><span class="text-gray"> Part Code</span></td>
-                                            <td>E069014
+                                            <td>XXXXXXXXXXX
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray"> Asset Description</span></td>
-                                            <td>Contact Crimp DC O/P Socket </td>
+                                            <td>{{asset?.productDescription}}</td>
                                         </tr>
                                    
                                         <tr>
                                             <td><span class="text-gray">Exchange/Site Name</span></td>
-                                            <td>TEST_MAHARSSITE</td>
+                                            <td>{{asset?.siteName}}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Plant </span></td>
-                                            <td>sfsdg </td>
+                                            <td>{{asset?.plant}} </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Status </span></td>
-                                            <td>Installed </td>
+                                            <td>XXXXXXXXXXX </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Sales Order No. </span></td>
-                                            <td>SO-001 </td>
+                                            <td>{{asset?.salesOrderNo}} </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -126,11 +127,11 @@
                                             <td><span class="text-gray">
 
                                                     PO No</span></td>
-                                            <td> 23feb2022-E069014</td>
+                                            <td> XXXXXXXXXXX</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">SAP Delivery Document No </span></td>
-                                            <td>BTAcount_01102021
+                                            <td>{{asset?.sapDeliveryDocumentNumber}}
                                             </td>
                                         </tr>
 
@@ -145,11 +146,11 @@
                                         <tr>
                                             <td><span class="text-gray">
                                                     PO Date</span></td>
-                                            <td> E069014</td>
+                                            <td> XXXXXXXXXXX</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">SAP Material Document No </span></td>
-                                            <td>dsff
+                                            <td>{{asset?.sapMaterialDocumentNumber}}
                                             </td>
                                         </tr>
 
@@ -184,7 +185,7 @@
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Warranty Expiry Date </span></td>
-                                            <td>21-04-2022 </td>
+                                            <td>{{asset?.dateOfDeliveryExpiryDate}} </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -207,11 +208,11 @@
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Install Expiry Date </span></td>
-                                            <td> 21-04-2022</td>
+                                            <td> {{asset?.installDate}}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Warranty Status </span></td>
-                                            <td>Yes </td>
+                                            <td>{{asset?.warrantyStatus}} </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -233,15 +234,15 @@
                                         <tr>
                                             <td><span class="text-gray">
                                                     AMC PO No</span></td>
-                                            <td>23feb2022-E069014</td>
+                                            <td>{{asset?.amcPurchaseOrderNumber}}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">AMC Start Date</span></td>
-                                            <td>BTAcount_01102021 </td>
+                                            <td>{{asset?.amcStartDate}} </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">AMC Period (months) </span></td>
-                                            <td>0</td>
+                                            <td>{{asset?.amcPeriod}}</td>
                                         </tr>
 
                                     </tbody>
@@ -256,16 +257,16 @@
                                             <td><span class="text-gray">
 
                                                     AMC PO Date</span></td>
-                                            <td>E069014
+                                            <td>{{asset?.amcPurchaseOrderDate}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">AMC Expiry Date </span></td>
-                                            <td>Contact Crimp DC O/P Socket </td>
+                                            <td>{{asset?.amcExpiryDate}} </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">AMC Status </span></td>
-                                            <td> Components</td>
+                                            <td> {{asset?.amcStatus}}</td>
                                         </tr>
 
                                     </tbody>
@@ -288,7 +289,7 @@
                                         <tr>
                                             <td><span class="text-gray">
                                                     Created By </span></td>
-                                            <td> Rohit , 23-02-2022 16:13:11</td>
+                                            <td> {{asset?.createdByPhone}}</td>
                                         </tr>
 
 
@@ -304,7 +305,7 @@
                                         <tr>
                                             <td><span class="text-gray">
                                                     Last Modified By </span></td>
-                                            <td> Rohit , 23-02-2022 16:13:11</td>
+                                            <td> {{asset?.modifiedByName}}</td>
                                         </tr>
 
                                     </tbody>
