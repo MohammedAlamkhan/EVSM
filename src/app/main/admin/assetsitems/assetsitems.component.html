@@ -35,7 +35,7 @@
                             <ng-template ngbNavContent>
                                 <div class="table-responsive border">
                                     <p-table [value]="assets" [lazy]="false" styleClass="p-datatable-gridlines p-datatable-striped"
-                                    responsiveLayout="scroll"   [style]="{width:'1500px'}"
+                                    responsiveLayout="scroll"   [style]="{width:'2000px'}"
                                     dataKey="id" [paginator]="true" [rows]="noOfRows"
                                     [totalRecords]="totalRecords">
                                     <ng-template pTemplate="header">
@@ -60,13 +60,13 @@
                                       
                                        <tr>
                                            <td >{{ rowIndex+1 }}</td>
-                                           <td><a routerLink="/comp-assets" class="no-st-text-b">{{ asset?.serialNo }}</a></td>
+                                           <td ><a (click)="passAssetData(rowIndex)" routerLink="/comp-assets" class="no-st-text-b">{{ asset?.serialNo }}</a></td>
                                            <td >{{ asset?.salesOrderId }}</td>
                                            <td >{{ asset?.siteName }}</td>
                                            <td >{{ asset?.accountName }}</td>
                                            <td >{{ asset?.productName }}</td>
                                            <td >{{ asset?.productDescription }}</td>
-                                           <td *ngIf="asset.warrantyStatus===1"> <a (click)="passAssetData(rowIndex)" routerLink="/commission-form"> <i data-feather="flag"
+                                           <td *ngIf="asset.warrantyStatus===1"> <a routerLink="/commission-form"> <i data-feather="flag"
                                                class="font-medium-4 text-success"></i> </a> </td>
                                            <td *ngIf="asset.warrantyStatus===0"> <a routerLink="/commission-form"> <i data-feather="flag"
                                                class="font-medium-4 text-danger"></i> </a> </td>
