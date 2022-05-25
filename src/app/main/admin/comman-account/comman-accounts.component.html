@@ -8,7 +8,7 @@
                         <div class="row align-items-center">
                             <div class="col-sm-6">
                                 <h5 class="card-titleb ">Account Name :
-                                    <strong>{{account?.sapCode}} </strong>
+                                    <strong>{{account?.name}} </strong>
                                 </h5>
                             </div>
                         </div>
@@ -36,25 +36,20 @@
                                         <tr>
                                             <td><span class="text-gray">
                                                     Account Name </span></td>
-                                            <td> {{account?.sapCode}}</td>
+                                            <td> {{account?.name}}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Type</span></td>
-                                            <td>{{account?.accountName}}
+                                            <td>{{account?.accountTypeName}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Description </span></td>
-                                            <td>{{account?.siteId}}</td>
+                                            <td>{{account?.description}}</td>
                                         </tr>
                                         <tr>
-                                            <td><span class="text-gray">Category</span></td>
-                                            <td>XXXXXXXXXXX</td>    
-                                        </tr>
-                                        <tr>
-                                            <td><span class="text-gray">Parent Account</span></td>
-                                            <td *ngIf="account.warrantyStatus===1">Under Warranty</td>
-                                            <td *ngIf="account.warrantyStatus===0">Out of Warranty</td>
+                                            <td><span class="text-gray">Contact Person Name </span></td>
+                                            <td>{{account?.contactPersonName}} </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -65,26 +60,21 @@
                                 <table class="table table-sm ">
                                     <tbody>
                                         <tr>
-                                            <td><span class="text-gray">Email</span></td>
-                                            <td>XXXXXXXXXXX
-                                            </td>
-                                        </tr>
-                                        <tr>
                                             <td><span class="text-gray">SAP Customer Number</span></td>
-                                            <td>{{account?.productDescription}}</td>
+                                            <td>{{account?.sapCode}}</td>
                                         </tr>
                                    
                                         <tr>
                                             <td><span class="text-gray">Owner</span></td>
-                                            <td>{{account?.siteName}}</td>
+                                            <td>{{account?.ownerName}}</td>
                                         </tr>
                                         <tr>
-                                            <td><span class="text-gray">Phone </span></td>
-                                            <td>{{account?.plant}} </td>
+                                            <td><span class="text-gray">Contact Person Phone </span></td>
+                                            <td>{{account?.contactPersonPhone}} </td>
                                         </tr>
                                         <tr>
-                                            <td><span class="text-gray">Parent Customer </span></td>
-                                            <td>XXXXXXXXXXX </td>
+                                            <td><span class="text-gray">Contact Person Email ID </span></td>
+                                            <td>{{account?.contactPersonEmail}} </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -107,16 +97,16 @@
                                             <td><span class="text-gray">
 
                                                     Address</span></td>
-                                            <td> XXXXXXXXXXX</td>
+                                            <td> {{account?.billingAddress}}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Street </span></td>
-                                            <td>{{account?.sapDeliveryDocumentNumber}}
+                                            <td>{{account?.billingStreet}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">City </span></td>
-                                            <td>{{account?.sapDeliveryDocumentNumber}}
+                                            <td>{{account?.billingCity}}
                                             </td>
                                         </tr>
 
@@ -129,19 +119,20 @@
                                 <table class="table table-sm ">
                                     <tbody>
                                         <tr>
-                                            <td><span class="text-gray">
-                                                   Country</span></td>
-                                            <td> XXXXXXXXXXX</td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="text-gray">STate </span></td>
-                                            <td>{{account?.sapMaterialDocumentNumber}}
+                                            <td><span class="text-gray">State </span></td>
+                                            <td>{{account?.billingStateName}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">
+                                                   Country</span></td>
+                                            <td> {{account?.billingCountry}}</td>
+                                        </tr>
+                                      
+                                        <tr>
+                                            <td><span class="text-gray">
                                                    PinCode</span></td>
-                                            <td> XXXXXXXXXXX</td>
+                                            <td> {{account?.billingPincode}}</td>
                                         </tr>
 
                                     </tbody>
@@ -152,7 +143,7 @@
 
                     <div class="card-body">
                         <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
-                            <h6 class="ml-1">Shopping Address Information
+                            <h6 class="ml-1">Shipping Address Information
                             </h6>
                         </div>
                     </div>
@@ -163,15 +154,15 @@
                                     <tbody>
                                         <tr>
                                             <td><span class="text-gray">Address</span></td>
-                                            <td>07-02-2022</td>
+                                            <td>{{account?.shippingAddress}}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Street</span></td>
-                                            <td>23 </td>
+                                            <td>{{account?.shippingStreet}} </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">City</span></td>
-                                            <td>06-02-2024</td>
+                                            <td>{{account?.shippingCity}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -184,17 +175,17 @@
                                         <tr>
                                             <td><span class="text-gray">
                                                  Country</span></td>
-                                            <td>22-02-2022
+                                            <td>{{account?.shippingCountry}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">State </span>
                                             </td>
-                                            <td>2 </td>
+                                            <td>{{account?.shippingStateName}} </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">PinCode </span></td>
-                                            <td> {{account?.installDate}}</td>
+                                            <td> {{account?.shippingPincode}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -216,7 +207,12 @@
                                         <tr>
                                             <td><span class="text-gray">
                                                     Created By</span></td>
-                                            <td>{{account?.amcPurchaseOrderNumber}}</td>
+                                            <td>{{account?.createByName}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                    Created Date </span></td>
+                                            <td> {{account?.createdDate}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -230,49 +226,15 @@
                                             <td><span class="text-gray">
 
                                                     Last Modified By</span></td>
-                                            <td>{{account?.amcPurchaseOrderDate}}
+                                            <td>{{account?.modifiedByName}}
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                    Last Modified Date </span></td>
+                                            <td> {{account?.modifiedDate}}</td>
+                                        </tr>
                                      </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                        <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
-                            <h6 class="ml-1">System Information
-                            </h6>
-                        </div>
-                    </div>
-                    <div class="row px-2">
-                        <div class="col-6">
-                            <div class="table-responsive">
-                                <table class="table table-sm">
-                                    <tbody>
-                                        <tr>
-                                            <td><span class="text-gray">
-                                                    Created By </span></td>
-                                            <td> {{account?.createdByPhone}}</td>
-                                        </tr>
-
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="table-responsive">
-                                <table class="table table-sm">
-                                    <tbody>
-
-                                        <tr>
-                                            <td><span class="text-gray">
-                                                    Last Modified By </span></td>
-                                            <td> {{account?.modifiedByName}}</td>
-                                        </tr>
-
-                                    </tbody>
                                 </table>
                             </div>
                         </div>

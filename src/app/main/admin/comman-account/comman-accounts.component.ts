@@ -35,7 +35,7 @@ export class CommanAccountsComponent implements OnInit {
           {
             name: 'Home',
             isLink: true,
-            link: '/sales'
+            link: '/accounts'
           },
           // {
           // name: 'Sales',
