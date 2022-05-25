@@ -1,0 +1,443 @@
+<div class="content-wrapper">
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
+    <div class="content-body">
+        <section class="users-list-wrapper">
+            <div class="card">
+                <div class="card-body" style="padding: 5px ;">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-sm-6">
+                                <h5 class="card-titleb ">Account Name :
+                                    <strong>{{account?.sapCode}} </strong>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Details</h4>
+                    </div>
+                    <div class="card-body">
+                        <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
+                            <h6 class="ml-1"> Account Information
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row px-2">
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm ">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                    Account Name </span></td>
+                                            <td> {{account?.sapCode}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Type</span></td>
+                                            <td>{{account?.accountName}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Description </span></td>
+                                            <td>{{account?.siteId}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Category</span></td>
+                                            <td>XXXXXXXXXXX</td>    
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Parent Account</span></td>
+                                            <td *ngIf="account.warrantyStatus===1">Under Warranty</td>
+                                            <td *ngIf="account.warrantyStatus===0">Out of Warranty</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-6 px-2">
+                            <div class="table-responsive">
+                                <table class="table table-sm ">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">Email</span></td>
+                                            <td>XXXXXXXXXXX
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">SAP Customer Number</span></td>
+                                            <td>{{account?.productDescription}}</td>
+                                        </tr>
+                                   
+                                        <tr>
+                                            <td><span class="text-gray">Owner</span></td>
+                                            <td>{{account?.siteName}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Phone </span></td>
+                                            <td>{{account?.plant}} </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Parent Customer </span></td>
+                                            <td>XXXXXXXXXXX </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
+                            <h6 class="ml-1">Billing Address Information
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row px-2">
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm ">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">
+
+                                                    Address</span></td>
+                                            <td> XXXXXXXXXXX</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Street </span></td>
+                                            <td>{{account?.sapDeliveryDocumentNumber}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">City </span></td>
+                                            <td>{{account?.sapDeliveryDocumentNumber}}
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm ">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                   Country</span></td>
+                                            <td> XXXXXXXXXXX</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">STate </span></td>
+                                            <td>{{account?.sapMaterialDocumentNumber}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                   PinCode</span></td>
+                                            <td> XXXXXXXXXXX</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
+                            <h6 class="ml-1">Shopping Address Information
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row px-2">
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm ">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">Address</span></td>
+                                            <td>07-02-2022</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Street</span></td>
+                                            <td>23 </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">City</span></td>
+                                            <td>06-02-2024</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                 Country</span></td>
+                                            <td>22-02-2022
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">State </span>
+                                            </td>
+                                            <td>2 </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">PinCode </span></td>
+                                            <td> {{account?.installDate}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
+                            <h6 class="ml-1">System Information
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row px-2">
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                    Created By</span></td>
+                                            <td>{{account?.amcPurchaseOrderNumber}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">
+
+                                                    Last Modified By</span></td>
+                                            <td>{{account?.amcPurchaseOrderDate}}
+                                            </td>
+                                        </tr>
+                                     </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
+                            <h6 class="ml-1">System Information
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row px-2">
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                    Created By </span></td>
+                                            <td> {{account?.createdByPhone}}</td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <tbody>
+
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                    Last Modified By </span></td>
+                                            <td> {{account?.modifiedByName}}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<ng-template #modalDefault let-modal>
+    <div class="modal-header bg-dark" style="padding: 5px;">
+        <h5 class="modal-title text-white" id="exampleModalCenterTitle">Edit Account</h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" ngbAutofocus>
+        <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
+            <h6 class="pl-1"> Account Information</h6>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form>
+                    <div class="row hd-mgr12">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="name"> Serial Number <span class="text-danger">*</span></label>
+                                <input type="name" class="form-control form-control-sm" placeholder="2342345676787989"
+                                    disabled="" side>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label>Part Code <span class="text-danger">*</span></label>
+                                <select class="form-control select2 form-control-sm" style="width: 100%;" disabled>
+                                    <option selected="selected">Alabama</option>
+                                    <option>Alaska</option>
+                                    <option>California</option>
+                                    <option>Delaware</option>
+                                    <option>Tennessee</option>
+                                    <option>Texas</option>
+                                    <option>Washington</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label>Account <span class="text-danger">*</span></label>
+                                <select class="form-control form-control-sm select2" style="width: 100%;">
+                                    <option selected="selected">Alabama</option>
+                                    <option>Alaska</option>
+                                    <option>California</option>
+                                    <option>Delaware</option>
+                                    <option>Tennessee</option>
+                                    <option>Texas</option>
+                                    <option>Washington</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row hd-mgr12">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label>Primary Account</label>
+                                <select class="form-control form-control-sm select2" style="width: 100%;">
+                                    <option selected="selected">Alabama</option>
+                                    <option>Alaska</option>
+                                    <option>California</option>
+                                    <option>Delaware</option>
+                                    <option>Tennessee</option>
+                                    <option>Texas</option>
+                                    <option>Washington</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 ">
+                            <div class="form-group">
+                                <label>Site</label>
+                                <select class="form-control form-control-sm select2" style="width: 100%;">
+                                    <option selected="selected">Alabama</option>
+                                    <option>Alaska</option>
+                                    <option>California</option>
+                                    <option>Delaware</option>
+                                    <option>Tennessee</option>
+                                    <option>Texas</option>
+                                    <option>Washington</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4  ">
+                            <div class="form-group">
+                                <label> Status</label>
+                                <select class="form-control form-control-sm select2" style="width: 100%;">
+                                    <option selected="selected">Alabama</option>
+                                    <option>Alaska</option>
+                                    <option>California</option>
+                                    <option>Delaware</option>
+                                    <option>Tennessee</option>
+                                    <option>Texas</option>
+                                    <option>Washington</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row hd-mgr12">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="name"> Remarks </label>
+                                <textarea name="textarea" id="textarea" cols="45" rows="2" class="form-control form-control-sm"
+                                    placeholder="Please Enter" ></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
+                    <h6 class="ml-1"> Delivery Details
+                    </h6>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="name">Delivery Date
+                            </label>
+                            <!-- <input type="name" class="form-control form-control-sm" placeholder="22-4-2022"> -->
+                            <ng2-flatpickr [ngClass]="'firstsecond'" [config]="basicDateOptions" name="basicDate"></ng2-flatpickr>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="password"> Install Date
+                            </label>
+                            <!-- <input type="text" class="form-control form-control-sm" placeholder="22-6-2022"> -->
+                            <ng2-flatpickr [ngClass]="'firstsecond'" [config]="basicDateOptions" name="basicDate"></ng2-flatpickr>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="name">Warranty from DOD(months)
+                            </label>
+                            <input type="name" class="form-control form-control-sm" placeholder="23">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                                <label for="name" >Warranty from Install (months)</label>
+                            <input type="name" class="form-control form-control-sm" placeholder="2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Accept click')" rippleEffect>
+            Save Changes
+        </button>
+        <button type="button" class="btn btn-danger" (click)="modal.close('Accept click')" rippleEffect>
+           Close
+        </button>
+    </div>
+</ng-template>

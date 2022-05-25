@@ -27,6 +27,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { IrfModule } from './irf/irf.module';
 import { AccountModule } from './accounts/accounts.module';
 import { HomeModule } from './home/home.module';
+import { CommanAccountsComponent } from './comman-account/comman-accounts.component';
 const routes: Routes = [
   {
     path: 'irf-details',
@@ -37,6 +38,11 @@ const routes: Routes = [
     path: 'comp-assets',
     component: CommanAssetsComponent,
     data: { animation: 'assets' }
+  },
+  {
+    path: 'comp-accounts',
+    component: CommanAccountsComponent,
+    data: { animation: 'accounts' }
   },
   {
     path: 'survey-form',
@@ -89,6 +95,7 @@ const routes: Routes = [
   declarations: [
     IrfDetailsComponent,
     CommanAssetsComponent,
+    CommanAccountsComponent,
     SurveyFormComponent,
     SurveyDetailsComponent,
     InstallReqFormDetailComponent,

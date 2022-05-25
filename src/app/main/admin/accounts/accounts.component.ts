@@ -32,6 +32,10 @@ export class AccountComponent implements OnInit {
    this.loadData();
   }
 
+  passAccountData(index){
+    this.accountsService.selectedAccount = this.accounts[index];
+  }
+
   loadData() {
     this.loading = true;
     this.accounts =   this.accountsService.getAccountsInformation().subscribe(
