@@ -10,23 +10,23 @@
                             <div class="col-lg-3 col-sm-6">
                                 <div class="form-group">
                                     <label for="name">SO Order Number </label>
-                                    <input type="name" formControlName="soNumber" class="form-control form-control-sm"
-                                        placeholder="2342345676787989">
+                                    <input type="name" formControlName="salesOrderNo" class="form-control form-control-sm"
+                                        placeholder="Sales Order Number">
 
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="form-group">
                                     <label for="password"> Request Raised by</label>
-                                    <input type="text" formControlName="requestRaisedby"
-                                        class="form-control form-control-sm" placeholder="03929488754u">
+                                    <input type="text" formControlName="ownerName"
+                                        class="form-control form-control-sm" placeholder="Raised By">
 
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="form-group">
                                     <label for="name">Date of Assignment </label>
-                                    <p-calendar formControlName="dateOfAssignment" [class.is-invalid]="irfCreationForm.get('dateOfAssignment')
+                                    <p-calendar formControlName="dateOfAssignment" ngDefaultControl [class.is-invalid]="irfCreationForm.get('dateOfAssignment')
                                         .errors && (irfCreationForm.get('dateOfAssignment').touched || irfCreationForm.get('dateOfAssignment')
                                         .dirty)" dateFormat="dd-mm-yy"></p-calendar>
                                     <span
@@ -39,7 +39,7 @@
                             <div class="col-lg-3 col-sm-6">
                                 <div class="form-group">
                                     <label for="name">Tentative Plan Date</label>
-                                    <p-calendar formControlName="tentativePlanDate" [class.is-invalid]="irfCreationForm.get('tentativePlanDate')
+                                    <p-calendar formControlName="tentativePlanDate" ngDefaultControl  [class.is-invalid]="irfCreationForm.get('tentativePlanDate')
                                         .errors && (irfCreationForm.get('tentativePlanDate').touched || irfCreationForm.get('tentativePlanDate')
                                         .dirty)" dateFormat="dd-mm-yy"></p-calendar>
                                     <span
@@ -63,11 +63,11 @@
                                     <label for="name">Customer Name
 
                                     </label>
-                                    <input type="name" formControlName="customerName" [class.is-invalid]="irfCreationForm.get('customerName')
-                                    .errors && (irfCreationForm.get('customerName').touched || irfCreationForm.get('customerName')
+                                    <input type="name" formControlName="AccountName" [class.is-invalid]="irfCreationForm.get('AccountName')
+                                    .errors && (irfCreationForm.get('AccountName').touched || irfCreationForm.get('AccountName')
                                     .dirty)" class="form-control form-control-sm" placeholder="Please Enter">
                                     <span
-                                        *ngIf="irfCreationForm.get('customerName').errors && (irfCreationForm.get('customerName').touched || irfCreationForm.get('customerName').dirty)"
+                                        *ngIf="irfCreationForm.get('AccountName').errors && (irfCreationForm.get('AccountName').touched || irfCreationForm.get('AccountName').dirty)"
                                         class="invalid-form">
                                         <small class="form-text text-danger">This field is required !</small>
                                     </span>

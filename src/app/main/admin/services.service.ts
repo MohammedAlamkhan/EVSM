@@ -12,14 +12,13 @@ import { AppConstants } from 'app/shared/AppConstants';
   providedIn: 'root'
 })
 export class ServicesService {
- private readonly bulkIrfUrl = 'irf/addBulkIrf';
+ private readonly bulkIrfUrl = 'irf/bulk';
  getInformationListUrl : string = 'installation/'
 
   constructor(private httpClient: HttpClient
     , private notify: Notify) { }
 
     postBulkIrf(context: any): Observable<any> {
-      debugger;
       return this.httpClient.post<any>(environment.baseApiUrl + this.bulkIrfUrl, context)
         .pipe(
           tap((x) => {

@@ -24,12 +24,19 @@ export class SalesService {
 
 
     public getOpenSalesOrder(params?: any): Observable<any> {
-      return this.httpClient.get<any>(environment.baseApiUrl + this.openSalesOrderUrl);
-  
+      return this.httpClient.get<any>(environment.baseApiUrl + this.openSalesOrderUrl)
+      .pipe(
+        tap((x) => {
+          this.salesInformation$.next(x);
+        }),
+      );
     }
     public getCloseSalesOrder(params?: any): Observable<any> {
-      return this.httpClient.get<any>(environment.baseApiUrl + this.closeSalesOrderUrl);
-  
+      return this.httpClient.get<any>(environment.baseApiUrl + this.closeSalesOrderUrl).pipe(
+        tap((x) => {
+          this.salesInformation$.next(x);
+        }),
+      );
     }
 
 

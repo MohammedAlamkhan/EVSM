@@ -16,13 +16,6 @@ import { ServicesService as Admin } from '../../admin/services.service';
   encapsulation: ViewEncapsulation.None
 })
 export class EditIrfComponent implements OnInit, OnDestroy {
-  public contentHeader: object;
-  irfCreationForm: FormGroup;
-  unsubscribe$ = new Subject<void>();
-  holdSalesDetails: any;
-  arrayWorkActivityControls: { workId: number, workDescription: string }[] = [];
-  credentials:any;
-
   constructor(private fb: FormBuilder,
     private sales: SalesService,
     private notify: Notify,
@@ -30,6 +23,13 @@ export class EditIrfComponent implements OnInit, OnDestroy {
     private admin : Admin) {
 
   }
+  public contentHeader: object;
+  irfCreationForm: FormGroup;
+  unsubscribe$ = new Subject<void>();
+  holdSalesDetails: any;
+  arrayWorkActivityControls: { workId: number, workDescription: string }[] = [];
+  credentials:any;
+  SelectedSalesOrderData = this.sales.selectedSalesOrder;
 
   isHeading: boolean = false
   isVisit: boolean = false
@@ -38,7 +38,7 @@ export class EditIrfComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    debugger;
+    
     // content header
     this.contentHeader = {
       headerTitle: 'Installation Requistion Form',
@@ -75,36 +75,28 @@ export class EditIrfComponent implements OnInit, OnDestroy {
       takeUntil(this.unsubscribe$),
       tap(x => this.manageInstAndCommisioningControls())
     ).subscribe();
-    this.sales.salesInformation$.subscribe(
-      (data) => {
-        if (data !== undefined && data !== null) {
-          this.holdSalesDetails = data;
-          this.setValuesFromSalesOrder();
-        }
-        (err) => {
-          this.notify.show(AppConstants.ApiErrorMessage, NotificationType.Error);
-          this.router.navigate(['/pages/miscellaneous/not-authorized']);
-        }
-      }
-    )
+    this.holdSalesDetails = this.sales.selectedSalesOrder;
+    this.setValuesFromSalesOrder();
   }
 
   setValuesFromSalesOrder(): void {
     console.log(this.holdSalesDetails);
-    this.accessIrfForm['soNumber'].patchValue(this.holdSalesDetails.salesOrderNo);
-    this.accessIrfForm['requestRaisedby'].patchValue(this.credentials.fullName);
-    this.accessIrfForm['customerName'].patchValue(this.holdSalesDetails.customerName);
+    this.accessIrfForm['dateOfAssignment'].patchValue(new Date ());
+    this.accessIrfForm['tentativePlanDate'].patchValue(new Date ());
+    this.accessIrfForm['salesOrderNo'].patchValue(this.holdSalesDetails.salesOrderNo);
+    this.accessIrfForm['ownerName'].patchValue(this.credentials.ownerName);
+    this.accessIrfForm['AccountName'].patchValue(this.holdSalesDetails.AccountName);
     this.accessIrfForm['address'].patchValue(this.holdSalesDetails.address);
     this.accessIrfForm['pONoAndDate'].patchValue(this.holdSalesDetails.poNo + ' ' + this.holdSalesDetails.poDate);
-    this.accessIrfForm['contactPersonName'].patchValue(this.holdSalesDetails.customerName);
-    this.accessIrfForm['contactNumber'].patchValue(this.holdSalesDetails.customerPersonMobileNo);
-    this.accessIrfForm['emailId'].patchValue(this.holdSalesDetails.customerPersonEmailId);
+    this.accessIrfForm['contactPersonName'].patchValue(this.holdSalesDetails.ownerName);
+    this.accessIrfForm['contactNumber'].patchValue("");
+    this.accessIrfForm['emailId'].patchValue("");
 
   }
   disableFields(): void {
-    this.accessIrfForm['soNumber'].disable();
-    this.accessIrfForm['requestRaisedby'].disable();
-    this.accessIrfForm['customerName'].disable();
+    this.accessIrfForm['salesOrderNo'].disable();
+    this.accessIrfForm['ownerName'].disable();
+    this.accessIrfForm['AccountName'].disable();
     this.accessIrfForm['address'].disable();
     this.accessIrfForm['pONoAndDate'].disable();
     this.accessIrfForm['contactPersonName'].disable();
@@ -118,44 +110,62 @@ export class EditIrfComponent implements OnInit, OnDestroy {
     let yourIrfCreationDate = new Date();
     const yourWorkActivities =  this.accessTrFormArray.value.map(x=>{
       const container = {};
-      container["workId"]=+x.workId,
-      container["exicomScopeFlag"]=x.exicomScope == true ? 'Y':'N',
-      container["customerScopeFlag"]=x.customerScope == true ? 'Y':'N',
-      container["makeModelDesciption"]=x.specification == undefined || null ? '':x.specification,
+      container["irfWorkListId"]=+x.workId,
+      container["isExicomScope"]=x.exicomScope == true ? true:false,
+      container["isCustomerScope"]=x.customerScope == true ? true:false,
+      container["makeModelDescription"]=x.specification == undefined || null ? '':x.specification,
       container["maxNoOfVisit"]=x.maxNoOfVisit == undefined || null ? '':x.maxNoOfVisit,
-      container["extraVisitCharge"]=x.extraCharge == undefined || null ? '':x.extraCharge
+      container["extraVisitCharge"]=x.extraCharge == undefined || null ? '':x.extraCharge,
+      container["salesOrderId"]=x.salesOrderId,
+      container["requestRaisedById"]=x.requestRaisedById
       return container;
     })  
     console.log(yourWorkActivities);
     let requestBodyToSend = {
-      assestId: 0,
-      userId: this.credentials.userId,
-      salesOrderId: this.holdSalesDetails.salesOrderId,
-      requestRaisedBy: this.credentials.userId,
-      dateOfAssignment:  yourDateOfAssignment.toISOString(),  // dateOfAssignment "2022-04-29T06:25:16.015Z",
-      tentativePlanDate: yourTentativePlanDate.toISOString(),
-      installationActivity:  this.accessIrfForm['activityTypeInstallation'].value == true ? 'I':'N',
-      commissionActivity: this.accessIrfForm['activityTypeCommisioning'].value == true ? 'I':'N',
-      surveyActivity: this.accessIrfForm['activityTypeSurvey'].value == true ? 'I':'N',
-      otherVisitActivity: this.accessIrfForm['activityOtherVisit'].value == true ? 'I':'N',
-      otherVisitDescription:this.accessIrfForm['otherVisit'].value  ,
-      irfGenratedBy: this.credentials.userId,
-      irfCreationDate: yourIrfCreationDate.toISOString(),
-      saveStatus: "D",
-      status: "A",
-      irfWorks: yourWorkActivities
+      // assestId: 0,
+      // userId: this.credentials.userId,
+       // irfGenratedBy: this.credentials.userId,
+      // irfCreationDate: yourIrfCreationDate.toISOString(),
+      // saveStatus: "D",
+      // status: "A",
+      // otherVisitActivity: this.accessIrfForm['activityOtherVisit'].value == true ? 'I':'N',
+      // otherVisitDescription:this.accessIrfForm['otherVisit'].value  ,
+      dateOfAssignment:  this.formatDate(yourDateOfAssignment),
+      tentativePlanDate: this.formatDate(yourTentativePlanDate),
+      surveyRequired: this.accessIrfForm['activityTypeSurvey'].value == true ?  true:false,
+      installationRequired:  this.accessIrfForm['activityTypeInstallation'].value == true ? true:false,
+      commissioningRequired: this.accessIrfForm['activityTypeCommisioning'].value == true ? true:false,
+      salesOrderId: this.holdSalesDetails.salesOrderId ? this.holdSalesDetails.salesOrderId:"",
+      requestRaisedById: "dummy",
+      circleId: 1, 
+      irfWorkList: yourWorkActivities
     }
       
       return requestBodyToSend
   }
+
+  formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+ 
   createMainForm(): void {
 
     this.irfCreationForm = this.fb.group({
-      soNumber: [''],
-      requestRaisedby: [''],
+      salesOrderNo: [''],
+      ownerName: [''],
       dateOfAssignment: ['', [Validators.required]],
       tentativePlanDate: ['', [Validators.required]],
-      customerName: ['', [Validators.required]],
+      AccountName: ['', [Validators.required]],
       address: ['', [Validators.required]],
       pONoAndDate: ['', [Validators.required]],
       contactPersonName: ['', [Validators.required]],
@@ -262,7 +272,7 @@ export class EditIrfComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    debugger;
+    
     this.admin.postBulkIrf(this.createDataToSend()).pipe(
       takeUntil(this.unsubscribe$)
     ).subscribe();
@@ -401,7 +411,6 @@ export class EditIrfComponent implements OnInit, OnDestroy {
     this.accessTrFormArray.removeAt(this.accessTrFormArray.value.findIndex(x => x.label === 'Electric Vehicle for Testing'));
   }
   patchLabelsValue(position: number, val: string) {
-    debugger;
     this.accessTrFormArray.controls[position].get('label')?.patchValue(val);
     let k = this.arrayWorkActivityControls.filter(x => x.workDescription === val)
     if (k !== null && k !== undefined) {
