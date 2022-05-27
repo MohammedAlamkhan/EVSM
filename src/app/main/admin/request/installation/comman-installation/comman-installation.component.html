@@ -1,0 +1,900 @@
+<div class="content-wrapper">
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
+    <div class="content-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Details</h4>
+                    </div>
+                    <div class="card-body">
+                        <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
+                            <h6 class="ml-1"> IRF Details
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row px-2">
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm ">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                IRF Request Number </span></td>
+                                            <td> {{installation?.name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Request Raised by</span></td>
+                                            <td>{{installation?.installationTypeName}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-6 px-2">
+                            <div class="table-responsive">
+                                <table class="table table-sm ">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">Date of Assignment</span></td>
+                                            <td>{{installation?.sapCode}}</td>
+                                        </tr>
+                                   
+                                        <tr>
+                                            <td><span class="text-gray">Tentative Plan Date</span></td>
+                                            <td>{{installation?.ownerName}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
+                            <h6 class="ml-1">Purchase Order Details
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row px-2">
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm ">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">
+
+                                                    Customer Name</span></td>
+                                            <td> {{installation?.billingAddress}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Address </span></td>
+                                            <td>{{installation?.billingStreet}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">PO No. & Date </span></td>
+                                            <td>{{installation?.billingCity}}
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm ">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                Contact Person Name </span></td>
+                                            <td>{{installation?.billingStateName}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                Contact Number</span></td>
+                                            <td> {{installation?.billingCountry}}</td>
+                                        </tr>
+                                      
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                Email- Id</span></td>
+                                            <td> {{installation?.billingPincode}}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
+                            <h6 class="ml-1">Charger Details
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row px-2">
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm ">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">Type of Charger</span></td>
+                                            <td>{{installation?.shippingAddress}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Rating of Charger</span></td>
+                                            <td>{{installation?.shippingStreet}} </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                Quantity</span></td>
+                                            <td>{{installation?.shippingCountry}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
+                            <h6 class="ml-1">I & C PO Details
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row px-2">
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                I & C PO Status</span></td>
+                                            <td>{{installation?.createByName}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                I & C PO </span></td>
+                                            <td> {{installation?.createdDate  | date:'medium':'IST' }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">
+
+                                                Quantity</span></td>
+                                            <td>{{installation?.modifiedByName}}
+                                            </td>
+                                        </tr>
+                                     </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="table-responsive-sm all-form-gpf">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <div class="row  mt-1">
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="name" class="font-lb-233444">Work
+                                                    Description
+                                                </label>
+                                                <hr class="mt-4vvvv mb-0">
+                                            </div>
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            <div class="form-group">
+                                                <label for="password"
+                                                    class="font-lb-233444">Exicom Scope
+
+
+                                                </label>
+                                                <hr class="mt-4vvvv mb-0">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-2 text-center">
+                                            <div class="form-group">
+                                                <label for="password"
+                                                    class="font-lb-233444">Customer Scope
+
+                                                </label>
+                                                <hr class="mt-4vvvv mb-0">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="password" class="font-lb-233444">
+                                                    Specification / Make / Model
+
+                                                </label>
+                                                <hr class="mt-4vvvv mb-0">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="password" class="font-lb-233444">
+                                                    Max. No. Of Er. Visits
+
+                                                </label>
+                                                <hr class="mt-4vvvv mb-0">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="password" class="font-lb-233444">
+                                                    Extra Charge/ Visit </label>
+                                                <hr class="mt-4vvvv mb-0">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="check223">
+                                        <div class="row ml-0 mt-1">
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="name" class="text-dark">Site
+                                                        Survey</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+
+                                                    <i class="fas fa-check mr-2"></i>
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+
+                                                    <i class="fas fa-check mr-2"></i>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    Lorem Ipsum
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    Lorem Ipsum
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    Lorem Ipsum
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="check223">
+                                        <div class="row ml-0 mt-1">
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="name"
+                                                        class="text-dark">Installation
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-times mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    Lorem Ipsum
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    Lorem Ipsum
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    Lorem Ipsum
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="check223">
+                                        <div class="row ml-0 mt-1">
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="name"
+                                                        class="text-dark">Commissioning
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    Lorem Ipsum
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    Lorem Ipsum
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    Lorem Ipsum
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="check223">
+                                        <div class="row ml-0 mt-1">
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="name" class="text-dark">Civil
+                                                        Plinth / Stand</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    Lorem Ipsum
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    Lorem Ipsum
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    Lorem Ipsum
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="check223">
+                                        <div class="row ml-0 mt-1">
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="name" class="text-dark">Supply
+                                                        of Input Cable
+
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    Lorem Ipsum
+
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="check223">
+                                        <div class="row ml-0 mt-1">
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="name" class="text-dark">Supply
+                                                        of DB Box
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <<i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    Lorem Ipsum
+
+
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="check223">
+                                        <div class="row ml-0 mt-1">
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="name" class="text-dark">Supply
+                                                        of IP/MCB/MCCB
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    Lorem Ipsum
+
+
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="check223">
+                                        <div class="row ml-0 mt-1">
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="name" class="text-dark">Supply
+                                                        of Energy Meter
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    Lorem Ipsum
+
+
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="check223">
+                                        <div class="row ml-0 mt-1">
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="name" class="text-dark">Supply
+                                                        of Meter Box</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    Lorem Ipsum
+
+
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="check223">
+                                        <div class="row ml-0 mt-1">
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="name" class="text-dark">Supply
+                                                        of Earth Cable </label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    Lorem Ipsum
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2 text-center">
+                                                <div class="form-group">
+                                                    <label for="password" class="text-dark">
+                                                        Exicom Scope</label>
+                                                    <hr class="mt-4vvvv mb-0">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2 text-center">
+                                                <div class="form-group">
+                                                    <label for="password" class="text-dark">
+                                                        Customer Scope</label>
+                                                    <hr class="mt-4vvvv mb-0">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="check223">
+                                        <div class="row ml-0 mt-1">
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="name" class="text-dark">Earthing
+                                                        Pit Material
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+
+                                                    <label for="password" class="text-dark">
+                                                        Installation - Earthing Pit</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="check223">
+                                        <div class="row ml-0 mt-2">
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="name" class="text-dark">Laying /
+                                                        Fixing - Input Cable
+
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+
+                                                    <label for="password" class="text-dark">
+                                                        Installation - Energy Meter</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="check223">
+                                        <div class="row ml-0 mt-0">
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="name"
+                                                        class="text-dark">Installation - DB Box
+
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+
+                                                    <label for="password" class="text-dark">
+                                                        Installation - Meter Box</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="check223">
+                                        <div class="row ml-0 mt-2">
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="name"
+                                                        class="text-dark">Installation - MCB /
+                                                        MCCB
+
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+
+                                                    <label for="password" class="text-dark">
+                                                        Laying / Fixing - Earth Cable</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="check223">
+                                        <div class="row ml-0 mt-0">
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="name" class="text-dark">Fork
+                                                        Lift / Hydra Crane for
+                                                        Charger Mounting
+
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+
+                                                    <label for="password" class="text-dark">
+                                                        Electric Vehicle for Testing</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group text-center">
+                                                    <i class="fas fa-check mr-2"></i>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
