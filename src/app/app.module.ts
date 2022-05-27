@@ -25,6 +25,7 @@ import { AuthLoginV2Component } from './main/pages/authentication/auth-login-v2/
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatButtonModule} from '@angular/material/button';
 import { SharedModule } from './shared/shared.module';
+import { CalendarModule } from 'primeng/calendar';
 
 
 const appRoutes: Routes = [
@@ -83,6 +84,7 @@ const appRoutes: Routes = [
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    CalendarModule,
     BrowserAnimationsModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(FakeDbService, {

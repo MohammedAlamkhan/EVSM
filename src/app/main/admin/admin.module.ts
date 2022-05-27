@@ -27,7 +27,10 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { IrfModule } from './irf/irf.module';
 import { AccountModule } from './accounts/accounts.module';
 import { HomeModule } from './home/home.module';
+import { SharedModule } from './../../shared/shared.module';
+import {CalendarModule} from 'primeng/calendar';
 import { CommanAccountsComponent } from './comman-account/comman-accounts.component';
+import {CommanInstallationsComponent} from './request/installation/comman-installation/comman-installation.component'
 const routes: Routes = [
   {
     path: 'irf-details',
@@ -42,6 +45,11 @@ const routes: Routes = [
   {
     path: 'comp-accounts',
     component: CommanAccountsComponent,
+    data: { animation: 'accounts' }
+  },
+  {
+    path: 'comp-req-installations',
+    component: CommanInstallationsComponent,
     data: { animation: 'accounts' }
   },
   {
@@ -96,6 +104,7 @@ const routes: Routes = [
     IrfDetailsComponent,
     CommanAssetsComponent,
     CommanAccountsComponent,
+    CommanInstallationsComponent,
     SurveyFormComponent,
     SurveyDetailsComponent,
     InstallReqFormDetailComponent,
@@ -108,6 +117,7 @@ const routes: Routes = [
 
   ],
   imports: [
+    CalendarModule,
     SalesModule,
     RequestModule,
     ApprovalModule,
@@ -123,7 +133,8 @@ const routes: Routes = [
     FileUploadModule,
     IrfModule,
     AccountModule,
-    HomeModule
+    HomeModule,
+    SharedModule
   ],
 
 })
