@@ -9,6 +9,7 @@ import { NotificationService as Notify } from '../../../shared/services/notifica
 })
 export class IrfService {
   private readonly assetListUrl: string = 'irf';
+  public irfId;
   public selectedIrf:any;
 
 
@@ -21,5 +22,9 @@ export class IrfService {
   public getIrfInformation(): Observable<any> {
     return this.httpClient.get<any>(environment.baseApiUrl + this.assetListUrl);
 
+  }
+
+  public getIrfInformationById(): Observable<any> {
+    return this.httpClient.get<any>(environment.baseApiUrl + this.assetListUrl + "/" +  this.irfId);
   }
 }

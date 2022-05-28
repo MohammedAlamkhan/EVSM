@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {IrfService} from './../irf/irf.service'
 @Component({
   selector: 'app-irf-details',
   templateUrl: './irf-details.component.html',
@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IrfDetailsComponent implements OnInit {
 public contentHeader : object
-  constructor() { }
+  irf: any;
+  constructor(private irfService: IrfService) { }
 
   ngOnInit(): void {
     // content header
@@ -34,6 +35,8 @@ public contentHeader : object
       ]
       }
     };
+
+    this.irf = this.irfService.selectedIrf;
     }
 
 }

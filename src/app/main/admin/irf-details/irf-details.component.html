@@ -32,11 +32,11 @@
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">IRF Request Number</span>
                                                     </td>
-                                                    <td>Lorem Ipsum is simply</td>
+                                                    <td>{{irf?.manualId}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td><span class="text-gray">Request Raised by</span></td>
-                                                    <td>Lorem Ipsum is simply</td>
+                                                    <td>{{irf?.requestRaisedByName}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td> </td>
@@ -53,11 +53,11 @@
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Date of Assignment </span>
                                                     </td>
-                                                    <td>Lorem Ipsum is simply</td>
+                                                    <td>{{irf?.dateOfAssignment}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td><span class="text-gray">Tentative Plan Date</span></td>
-                                                    <td>Lorem Ipsum is simply</td>
+                                                    <td>{{irf?.tentativePlan}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td> </td>
@@ -80,17 +80,17 @@
                                         <div class="table-responsive-sm">
                                             <table class="table">
                                                 <tr>
-                                                    <td width="40%"><span class="text-gray">
-                                                            Customer Name</span></td>
-                                                    <td>Lorem Ipsum is simply</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span class="text-gray">Address </span></td>
-                                                    <td>Lorem Ipsum is simply</td>
+                                                    <td><span class="text-gray">Customer Name </span></td>
+                                                    <td>{{irf?.accountName}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td><span class="text-gray">PO No. & Date </span></td>
-                                                    <td>Lorem Ipsum is simply</td>
+                                                    <td>{{irf?.poNo}} {{irf?.poDate}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="40%"> <span class="text-gray">Contact Person Name </span>
+                                                    </td>
+                                                    <td>{{irf?.contactPersonName}}</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -99,27 +99,21 @@
                                 <div class="col-lg-6">
                                     <div class="in-table-st11ab p-0">
                                         <div class="table-responsive-sm">
-                                            <table class="table">
-                                             
-                                                <tr>
-                                                    <td width="40%"> <span class="text-gray">Contact Person Name </span>
-                                                    </td>
-                                                    <td>Lorem Ipsum is simply</td>
-                                                </tr>
+                                            <table class="table">    
                                                 <tr>
                                                     <td><span class="text-gray">Contact Number </span></td>
-                                                    <td>Lorem Ipsum is simply</td>
+                                                    <td>{{irf?.contactPersonPhone}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td><span class="text-gray">Email- Id </span></td>
-                                                    <td>Lorem Ipsum is simply</td>
+                                                    <td>{{irf?.contactPersonEmail}}</td>
                                                 </tr>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                  
                                
                                     <div class="col-md-12 border-bottom-dc mb-1">
@@ -127,8 +121,8 @@
                                         </h5>
                                     </div>
                                  
-                            </div>
-                            <div class="row p-0 hd-mgr12">
+                            </div> -->
+                            <!-- <div class="row p-0 hd-mgr12">
                                 <div class="col-lg-6">
                                     <div class="in-table-st11ab p-0">
                                         <div class="table-responsive-sm">
@@ -136,12 +130,12 @@
                                                 
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Type of Charger </span></td>
-                                                    <td>Lorem Ipsum is simply</td>
+                                                    <td>{{irf?.createByName}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Rating of Charger </span>
                                                     </td>
-                                                    <td>Lorem Ipsum is simply</td>
+                                                    <td>{{irf?.createByName}}</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -154,16 +148,16 @@
                                                 
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Quantity </span></td>
-                                                    <td>Lorem Ipsum is simply</td>
+                                                    <td>{{irf?.createByName}}</td>
                                                 </tr>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row"> -->
                         
-                                <div class="col-md-12 border-bottom-dc mb-1">
+                                <!-- <div class="col-md-12 border-bottom-dc mb-1">
                                     <h5 class="card-titleb blue-clr ">I & C PO Details
                                     </h5>
                                 </div>
@@ -176,11 +170,11 @@
                                                 
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">I & C PO Status </span></td>
-                                                    <td>Lorem Ipsum is simply</td>
+                                                    <td>{{irf?.createByName}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">I & C PO </span></td>
-                                                    <td>Lorem Ipsum is simply</td>
+                                                    <td>{{irf?.createByName}}</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -199,7 +193,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row">
                                 <div class="col-md-12 border-bottom-dc mb-1">
                                     <h5 class="card-titleb blue-clr ">Activity Type
@@ -213,11 +207,13 @@
                                             <table class="table">
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Survey </span></td>
-                                                    <td><i data-feather="check"></i></td>
+                                                    <td  *ngIf="irf.isSurveyRequired"><i data-feather="check"></i></td>
+                                                    <td  *ngIf="!irf.isSurveyRequired"><i data-feather="x"></i></td>
                                                 </tr>
                                                 <tr>
                                                     <td><span class="text-gray">Installation </span></td>
-                                                    <td><i data-feather="check"></i></td>
+                                                    <td  *ngIf="irf.isInstallationRequired"><i data-feather="check"></i></td>
+                                                    <td  *ngIf="!irf.isInstallationRequired"><i data-feather="x"></i></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -229,12 +225,14 @@
                                             <table class="table">
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Commissioning </span></td>
-                                                    <td><i data-feather="x"></i></td>
+                                                    <td  *ngIf="irf.isCommissioningRequired"><i data-feather="check"></i></td>
+                                                    <td  *ngIf="!irf.isCommissioningRequired"><i data-feather="x"></i></td>
                                                 </tr>
                                                 <tr>
                                                     <td width="60%"><span class="text-gray">Other Visit (Please Specify) </span>
                                                     </td>
-                                                    <td><i data-feather="x"></i></td>
+                                                    <td  *ngIf="irf.isOtherRequired"><i data-feather="check"></i></td>
+                                                    <td  *ngIf="!irf.isOtherRequired"><i data-feather="x"></i></td>
                                                 </tr>
                                             </table>
                                         </div>
