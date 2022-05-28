@@ -14,6 +14,7 @@ import { AppConstants } from 'app/shared/AppConstants';
 export class ServicesService {
  private readonly bulkIrfUrl = 'irf/bulk';
  getInformationListUrl : string = 'installation/'
+ circleMapUrl: string = 'circle/list'
 
   constructor(private httpClient: HttpClient
     , private notify: Notify) { }
@@ -42,6 +43,11 @@ export class ServicesService {
 getInstallationListInApproval(params?: any):Observable<any>
 {
   return this.httpClient.get<any>(environment.baseApiUrl + this.getInformationListUrl, { params: params });
+}
+
+getCircleMap():Observable<any>
+{
+  return this.httpClient.get<any>(environment.baseApiUrl + this.circleMapUrl);
 }
 
 
