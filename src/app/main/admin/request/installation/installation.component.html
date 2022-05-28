@@ -32,7 +32,7 @@
                                            
                                             <tr>
                                                 <td class="bd-top">{{ rowIndex +1 }}</td>
-                                                <td ><a routerLink="/irf-details" class="no-st-text-b">{{ installation?.irfManualId }}</a></td>
+                                                <td ><a (click)="passIrfData(rowIndex)" routerLink="/irf-details" class="no-st-text-b">{{ installation?.irfManualId }}</a></td>
                                                 <td ><a (click)="passInstallData(rowIndex)" routerLink="/comp-req-installations" class="no-st-text-b">{{ installation?.installationTypeId }}</a></td>
                                             </tr>
                                         </ng-template>

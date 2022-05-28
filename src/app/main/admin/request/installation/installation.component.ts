@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {InstallationService} from './installation.service'
+import {IrfService} from './../../irf/irf.service'
 @Component({
   selector: 'app-installation',
   templateUrl: './installation.component.html',
@@ -11,7 +12,8 @@ public contentHeader : object
   installations: any;
   totalRecords: any;
   noOfRows: number=10;
-  constructor(private installationService: InstallationService) { }
+  irf: any;
+  constructor(private installationService: InstallationService,private irfService: IrfService) { }
 
   ngOnInit(): void {
     this.contentHeader = {
@@ -41,9 +43,19 @@ public contentHeader : object
     }
 
     passInstallData(index){
-      this.installationService.selectedInstall = this.installationService[index];
+      this.installationService.selectedInstall = this.installations[index];
     }
   
+    passIrfData(index){
+      this.irfService.irfId = this.installations[index].irfId;
+      this.irf =   this.irfService.getIrfInformationById().subscribe(
+        (data) => {
+          this.irfService.selectedIrf = data;
+        }
+      )
+    }
+   
+
     loadData() {
       this.loading = true;
       this.installations =   this.installationService.getInstallationInformation().subscribe(
