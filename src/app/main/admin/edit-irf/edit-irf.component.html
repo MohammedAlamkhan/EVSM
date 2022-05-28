@@ -49,7 +49,21 @@
                                     </span>
                                 </div>
                             </div>
+
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="form-group">
+                                    <label for="circleId">Circle:</label>
+                                    <select id="cid" formControlName="circleId" class="form-control">
+                                        <option value="">Select Circle</option>
+                                        <option *ngFor="let circle of circleMap" [value]="circle.id" >{{circle.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
+
+
+                       
+               
                         <!-- Row2 -->
                         <div class="row">
                             <div class="col-md-12 ">
@@ -58,7 +72,7 @@
                             </div>
                         </div>
                         <div class="row ml-0">
-                            <div class="col-lg-2 col-sm-6">
+                            <div class="col-lg-6 col-sm-6">
                                 <div class="form-group">
                                     <label for="name">Customer Name
 
@@ -73,82 +87,16 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-sm-6">
-                                <div class="form-group">
-                                    <label for="password">Address
-                                    </label>
-                                    <input type="fdf" formControlName="address" [class.is-invalid]="irfCreationForm.get('address')
-                                    .errors && (irfCreationForm.get('address').touched || irfCreationForm.get('address')
-                                    .dirty)" class="form-control form-control-sm" placeholder="Please Enter">
-                                    <span
-                                        *ngIf="irfCreationForm.get('address').errors && (irfCreationForm.get('address').touched || irfCreationForm.get('address').dirty)"
-                                        class="invalid-form">
-                                        <small class="form-text text-danger">This field is required !</small>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-2 col-sm-6">
+                       
+                            <div class="col-lg-6 col-sm-6">
                                 <div class="form-group">
                                     <label for="pONoAndDate">PO No. & Date
                                     </label>
                                     <input type="name" formControlName="pONoAndDate"
                                         class="form-control form-control-sm" placeholder="Please Enter">
-                                </div>
+                                    </div>
                             </div>
-                            <div class="col-lg-2 col-sm-6">
-                                <div class="form-group">
-                                    <label for="password">
-                                        Contact Person Name
-                                    </label>
-                                    <input type="fdf" formControlName="contactPersonName" [class.is-invalid]="irfCreationForm.get('contactPersonName')
-                                    .errors && (irfCreationForm.get('contactPersonName').touched || irfCreationForm.get('contactPersonName')
-                                    .dirty)" class="form-control form-control-sm" placeholder="Please Enter">
-                                    <span
-                                        *ngIf="irfCreationForm.get('contactPersonName').errors && (irfCreationForm.get('contactPersonName').touched || irfCreationForm.get('contactPersonName').dirty)"
-                                        class="invalid-form">
-                                        <small class="form-text text-danger">This field is required !</small>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-sm-6">
-                                <div class="form-group">
-                                    <label for="password">
-                                        Contact Number
-                                    </label>
-                                    <input type="fdf" formControlName="contactNumber" [class.is-invalid]="irfCreationForm.get('contactPersonName')
-                                    .errors && (irfCreationForm.get('contactPersonName').touched || irfCreationForm.get('contactPersonName')
-                                    .dirty)" (keypress)="onlyNumber($event)" maxlength="10"
-                                        class="form-control form-control-sm" placeholder="Please Enter">
-                                    <span
-                                        *ngIf="irfCreationForm.get('contactNumber').errors && (irfCreationForm.get('contactNumber').touched || irfCreationForm.get('contactNumber').dirty)"
-                                        class="invalid-form">
-                                        <small class="form-text text-danger">This field is required !</small>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-sm-6">
-                                <div class="form-group">
-                                    <label for="password">
-                                        Email- Id</label>
-                                    <input type="fdf" formControlName="emailId" [class.is-invalid]="irfCreationForm.get('contactPersonName')
-                                    .errors && (irfCreationForm.get('contactPersonName').touched || irfCreationForm.get('contactPersonName')
-                                    .dirty)" class="form-control form-control-sm" placeholder="Please Enter">
-                                    <span
-                                        *ngIf="irfCreationForm.get('emailId').errors && (irfCreationForm.get('emailId').touched || irfCreationForm.get('emailId').dirty)"
-                                        class="invalid-form">
-
-                                        <span *ngIf="irfCreationForm.get('emailId').errors?.required"
-                                            class="invalid-form">
-                                            <small class="form-text text-danger">This field is required !</small>
-                                        </span>
-
-                                        <span *ngIf="irfCreationForm.get('emailId').errors?.email" class="invalid-form">
-                                            <small class="form-text text-danger">Email is invalid !</small>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
+                          
                         </div>
 
                         <!-- Row 3 -->
@@ -255,14 +203,14 @@
                             <div>
                                 <p>Activity Type</p>
                             </div>
-                            <div class="mx-1">
+                            <!-- <div class="mx-1">
                                 <div class="custom-control custom-checkbox">
                                     <input formControlName="activityTypeSurvey" class="custom-control-input"
                                         type="checkbox" id="customCheckbox1" value="option1">
                                     <label for="customCheckbox1" class="custom-control-label pl-1">Survey
                                     </label>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="mx-1">
                                 <div class="custom-control custom-checkbox">
                                     <input formControlName="activityTypeInstallation" class="custom-control-input"
@@ -279,7 +227,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="mx-1">
+                            <!-- <div class="mx-1">
                                 <div class="form-group row d-flex justify-content-between">
                                     <div class="mx-1">
                                         <div class="custom-control custom-checkbox">
@@ -297,7 +245,7 @@
                                             class="form-control form-control-sm" placeholder="Other Viste">
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- Row 5 -->
                         <div class="row ">

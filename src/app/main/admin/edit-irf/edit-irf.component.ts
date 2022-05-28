@@ -16,6 +16,8 @@ import { ServicesService as Admin } from '../../admin/services.service';
   encapsulation: ViewEncapsulation.None
 })
 export class EditIrfComponent implements OnInit, OnDestroy {
+  circleMap: any;
+  circleId: any;
   constructor(private fb: FormBuilder,
     private sales: SalesService,
     private notify: Notify,
@@ -77,6 +79,20 @@ export class EditIrfComponent implements OnInit, OnDestroy {
     ).subscribe();
     this.holdSalesDetails = this.sales.selectedSalesOrder;
     this.setValuesFromSalesOrder();
+
+    this.getCircleMap();
+
+    
+  }
+
+  getCircleMap(){
+   this.admin.getCircleMap().subscribe(
+      (data) => {
+        this.circleMap = data;
+        console.log("ZZZZZZZZZZ");
+        console.log(this.circleMap);
+      }
+    )
   }
 
   setValuesFromSalesOrder(): void {
@@ -87,7 +103,7 @@ export class EditIrfComponent implements OnInit, OnDestroy {
     this.accessIrfForm['ownerName'].patchValue(this.credentials.ownerName);
     this.accessIrfForm['AccountName'].patchValue(this.holdSalesDetails.AccountName);
     this.accessIrfForm['address'].patchValue(this.holdSalesDetails.address);
-    this.accessIrfForm['pONoAndDate'].patchValue(this.holdSalesDetails.poNo + ' ' + this.holdSalesDetails.poDate);
+    this.accessIrfForm['pONoAndDate'].patchValue(this.holdSalesDetails.poNo + ' ' +  this.formatDate(this.holdSalesDetails.poDate));
     this.accessIrfForm['contactPersonName'].patchValue(this.holdSalesDetails.ownerName);
     this.accessIrfForm['contactNumber'].patchValue("");
     this.accessIrfForm['emailId'].patchValue("");
@@ -137,7 +153,7 @@ export class EditIrfComponent implements OnInit, OnDestroy {
       commissioningRequired: this.accessIrfForm['activityTypeCommisioning'].value == true ? true:false,
       salesOrderId: this.holdSalesDetails.salesOrderId ? this.holdSalesDetails.salesOrderId:"",
       requestRaisedById: "dummy",
-      circleId: 1, 
+      circleId: (<HTMLInputElement>document.getElementById("cid")).value, 
       irfWorkList: yourWorkActivities
     }
       
@@ -176,6 +192,7 @@ export class EditIrfComponent implements OnInit, OnDestroy {
       activityTypeCommisioning: [false],
       activityOtherVisit: [false],
       otherVisit: [''],
+      circleId: [''],
       trForm: this.fb.array([
         // this.createActivityControls()
       ])
