@@ -631,12 +631,12 @@
                                                             </span></td>
                                                         <td>
                                                             <div class="input-group-append mt-">
-                                                                <button
+                                                                <button (click)="downloadInstallationReport('installationReport')"
                                                                     class="browse input-group-text btn btn-primary fntup-btn"
                                                                     id="basic-addon2"><i
                                                                         class="fas fa-download mr-2"></i> Download
                                                                     File</button>
-                                                                <p class="pt-2 mb-0 pl-2">file1.jpg</p>
+                                                                
 
 
                                                             </div>
@@ -647,12 +647,13 @@
                                                             </span></td>
                                                         <td>
                                                             <div class="input-group-append mt-">
-                                                                <button
+                                                                <button 
+                                                                (click)="downloadInstallationReport('cablingPicture')"
                                                                     class="browse input-group-text btn btn-primary fntup-btn"
                                                                     id="basic-addon2"><i
                                                                         class="fas fa-download mr-2"></i> Download
                                                                     File</button>
-                                                                <p class="pt-2 mb-0 pl-2">file1.jpg</p>
+                                                                
 
 
                                                             </div>
@@ -686,12 +687,12 @@
                                                         <td>
                                                             <div class="input-group-append mt-">
                                                                 <button
+                                                                (click)="downloadInstallationReport('chargerPicture')"
                                                                     class="browse input-group-text btn btn-primary fntup-btn"
                                                                     id="basic-addon2"><i
                                                                         class="fas fa-download mr-2"></i> Download
                                                                     File</button>
-                                                                <p class="pt-2 mb-0 pl-2">file1.jpg</p>
-
+                                                               
 
                                                             </div>
                                                         </td>
@@ -702,11 +703,11 @@
                                                         <td>
                                                             <div class="input-group-append mt-">
                                                                 <button
+                                                                (click)="downloadInstallationReport('mcbPicture')"
                                                                     class="browse input-group-text btn btn-primary fntup-btn"
                                                                     id="basic-addon2"><i
                                                                         class="fas fa-download mr-2"></i> Download
                                                                     File</button>
-                                                                <p class="pt-2 mb-0 pl-2">file1.jpg</p>
 
 
                                                             </div>
@@ -750,7 +751,7 @@
                                                     </tr>
                                                     <tr>
 
-                                                        <td>{{installation?.dummy}}</td>
+                                                        <td>{{installation?.remark}}</td>
                                                     </tr>
 
                                                 </tbody>
@@ -774,81 +775,7 @@
 
 
 
-                            <div class="row p-0 hd-mgr12">
-
-                                <div class="col-lg-6">
-
-
-                                    <div class="in-table-st11ab p-0">
-                                        <div class="table-responsive-sm">
-                                            <table class="table">
-
-                                                <tbody>
-                                                    <tr>
-                                                        <td width="100%" class="pt-3"><span class="text-gray">
-                                                                <h3 class="card-titleb">Exicom Tasks (With completion
-                                                                    date)
-
-                                                                </h3>
-                                                            </span></td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td><span class="text-gray">{{installation?.dummy}}
-
-
-                                                            </span></td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-
-
-
-                                </div>
-
-
-                                <div class="col-lg-6">
-
-
-                                    <div class="in-table-st11ab p-0">
-                                        <div class="table-responsive-sm">
-                                            <table class="table">
-
-                                                <tbody>
-                                                    <tr>
-                                                        <td width="100%" class="pt-3"><span class="text-gray">
-                                                                <h3 class="card-titleb">Customer Tasks (With completion
-                                                                    date)
-
-
-                                                                </h3>
-                                                            </span></td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td><span class="text-gray">{{installation?.dummy}}
-
-
-                                                            </span></td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-
-
-
-                                </div>
-
-
-
-                            </div>
+                            
                             <div class="row p-0 hd-mgr12">
 
                                 <div class="col-lg-6">
@@ -862,25 +789,24 @@
                                                     <tr>
                                                         <td width="50%" class="pt-4"><span class="text-gray">Exicom
                                                                 Representative Name </span></td>
-                                                        <td class="pt-4">{{installation?.dummy}}</td>
+                                                        <td class="pt-4">{{installation?.exicomRepresentativeName}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td width="50%"><span class="text-gray">Employee Code</span>
                                                         </td>
-                                                        <td>{{installation?.dummy}}</td>
+                                                        <td>{{installation?.employeeCode}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td width="50%"><span class="text-gray">Signature </span></td>
                                                         <td class="pt-0">
                                                             <div class="input-group-append mt-1">
                                                                 <button
+                                                                (click)="downloadInstallationReport('engineerSignature')"
                                                                     class="browse input-group-text btn btn-primary fntup-btn"
                                                                     id="basic-addon2"><i
                                                                         class="fas fa-download mr-2"></i> Download
                                                                     File</button>
-                                                                <p class=" pt-2 mb-0 pl-2">file1.jpg</p>
-
-
+                                                              
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -906,7 +832,7 @@
                                                     <tr>
                                                         <td width="50%" class="pt-4"><span class="text-gray">Customer
                                                                 Representative Name </span></td>
-                                                        <td class="pt-4">{{installation?.dummy}}</td>
+                                                        <td class="pt-4">{{installation?.customerRepresentativeName}}</td>
                                                     </tr>
 
                                                     <tr>
@@ -914,11 +840,12 @@
                                                         <td class="pt-0">
                                                             <div class="input-group-append mt-1">
                                                                 <button
+                                                                (click)="downloadInstallationReport('customerSignature')"
                                                                     class="browse input-group-text btn btn-primary fntup-btn"
                                                                     id="basic-addon2"><i
                                                                         class="fas fa-download mr-2"></i> Download
                                                                     File</button>
-                                                                <p class=" pt-2 mb-0 pl-2">file1.jpg</p>
+                                                               
 
 
                                                             </div>

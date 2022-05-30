@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -8,6 +8,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class InstallationService {
   private readonly installationUrl: string = 'installation';
+  private readonly reportDownloadUrl: string = 'file/download'
   public selectedInstall:any;
   public installationId:any;
 
@@ -27,5 +28,13 @@ export class InstallationService {
   public getInstallationInformationById(): Observable<any> {
     return this.httpClient.get<any>(environment.baseApiUrl + this.installationUrl + "/" + this.installationId);
 
+  }
+
+  public downloadInstallationReport(params?:any): Observable<any> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("installationId",params.installationId);
+    queryParams = queryParams.append("file",params.file);
+
+    return this.httpClient.get<any>(environment.baseApiUrl + this.reportDownloadUrl , { params: queryParams });
   }
 }

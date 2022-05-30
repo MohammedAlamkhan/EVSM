@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FlatpickrOptions } from 'ng2-flatpickr';
-import { InstallationService } from '../installation.service'
+import { InstallationService } from '../installation/installation.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-comman-installations',
@@ -91,6 +91,19 @@ export class CommanInstallationsComponent implements OnInit {
       }
       
     });
+  }
+
+  downloadInstallationReport(fileName){
+    const req = {
+      id:  this.installation.id,
+      file : fileName
+    }
+
+    this.installationsService.downloadInstallationReport(req).subscribe(
+      (data) => {
+      }
+    )
+
   }
 
 }
