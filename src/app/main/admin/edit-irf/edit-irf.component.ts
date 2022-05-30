@@ -99,7 +99,7 @@ export class EditIrfComponent implements OnInit, OnDestroy {
     console.log(this.holdSalesDetails);
     this.accessIrfForm['dateOfAssignment'].patchValue(new Date ());
     this.accessIrfForm['tentativePlanDate'].patchValue(new Date ());
-    this.accessIrfForm['salesOrderNo'].patchValue(this.holdSalesDetails.salesOrderNo);
+    this.accessIrfForm['salesOrderNo'].patchValue(this.holdSalesDetails.id);
     this.accessIrfForm['ownerName'].patchValue(this.credentials.ownerName);
     this.accessIrfForm['AccountName'].patchValue(this.holdSalesDetails.AccountName);
     this.accessIrfForm['address'].patchValue(this.holdSalesDetails.address);
@@ -132,7 +132,7 @@ export class EditIrfComponent implements OnInit, OnDestroy {
       container["makeModelDescription"]=x.specification == undefined || null ? '':x.specification,
       container["maxNoOfVisit"]=x.maxNoOfVisit == undefined || null ? '':x.maxNoOfVisit,
       container["extraVisitCharge"]=x.extraCharge == undefined || null ? '':x.extraCharge,
-      container["salesOrderId"]=x.salesOrderId,
+      container["salesOrderId"]=x.id,
       container["requestRaisedById"]=x.requestRaisedById
       return container;
     })  
@@ -151,8 +151,8 @@ export class EditIrfComponent implements OnInit, OnDestroy {
       surveyRequired: this.accessIrfForm['activityTypeSurvey'].value == true ?  true:false,
       installationRequired:  this.accessIrfForm['activityTypeInstallation'].value == true ? true:false,
       commissioningRequired: this.accessIrfForm['activityTypeCommisioning'].value == true ? true:false,
-      salesOrderId: this.holdSalesDetails.salesOrderId ? this.holdSalesDetails.salesOrderId:"",
-      requestRaisedById: "dummy",
+      salesOrderId: (<HTMLInputElement>document.getElementById("SONumber")).value, 
+      requestRaisedById: 1,
       circleId: (<HTMLInputElement>document.getElementById("cid")).value, 
       irfWorkList: yourWorkActivities
     }
