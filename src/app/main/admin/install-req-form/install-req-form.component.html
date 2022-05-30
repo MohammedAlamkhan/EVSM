@@ -20,15 +20,15 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group">
                                         <label for="name">Installation Case Number </label>
-                                        <input formControlName="installationCaseNumber" type="name"  class="form-control form-control-sm"
-                                            placeholder="2342345676787989" disabled>
+                                        <input formControlName="id" type="name"  class="form-control form-control-sm"
+                                             disabled>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group">
                                         <label for="password">Service Request Number</label>
                                         <input formControlName="soNumber"  type="text" class="form-control form-control-sm"
-                                            placeholder="03929488754u" disabled>
+                                             disabled>
                                     </div>
                                 </div>
 
@@ -49,7 +49,7 @@
 
                             </div>
 
-                            <div class="row">
+                            <!-- <div class="row">
                                 <h6 class="card-titleb blue-clr border-bottom-dc">Asset Details</h6>
                             </div>
 
@@ -76,8 +76,8 @@
                                         <div class="d-flex">
                                             <input formControlName="serialNumber" type="name" class="form-control form-control-sm border-radiousf1"
                                                 maxlength="8" placeholder="Please1 Enter">
-                                            <!-- <input formControlName="dateOfDelivery" type="name" class="form-control form-control-sm border-radiousf1a"
-                                                maxlength="16" placeholder="Please2 Enter"> -->
+                                            <input formControlName="dateOfDelivery" type="name" class="form-control form-control-sm border-radiousf1a"
+                                                maxlength="16" placeholder="Please2 Enter">
                                         </div>
 
                                     </div>
@@ -97,7 +97,7 @@
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="row">
                                 <h6 class="card-titleb blue-clr border-bottom-dc">Installation Details</h6>
@@ -108,14 +108,14 @@
                                     <div class="form-group">
                                         <label for="name">Installation Address
                                         </label>
-                                        <input formControlName="installationAddress" type="name" class="form-control form-control-sm"
+                                        <input formControlName="address" type="name" class="form-control form-control-sm"
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group">
                                         <label for="password"> Pin Code</label>
-                                        <input formControlName="pinCode" type="fdf" class="form-control form-control-sm"
+                                        <input formControlName="pincode" type="fdf" class="form-control form-control-sm"
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
@@ -131,7 +131,7 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group">
                                         <label for="password">State</label>
-                                        <input formControlName="state" type="fdf" class="form-control form-control-sm"
+                                        <input formControlName="stateId" type="fdf" class="form-control form-control-sm"
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
@@ -168,7 +168,7 @@
                                     <div class="form-group">
                                         <label for="name">
                                             Name Of the Site </label>
-                                        <input formControlName="nameOfTheSite" type="name" class="form-control form-control-sm"
+                                        <input formControlName="siteName" type="name" class="form-control form-control-sm"
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
@@ -179,7 +179,7 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group">
                                         <label for="password">Site ID</label>
-                                        <input formControlName="siteID" type="fdf" class="form-control form-control-sm"
+                                        <input formControlName="siteId" type="fdf" class="form-control form-control-sm"
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
@@ -233,7 +233,7 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group">
                                         <label for="basicSelect">Installation Type</label>
-                                        <select formControlName="installationType" class="form-control form-control-sm" id="basicSelect" type="text"
+                                        <select formControlName="installationTypeId" class="form-control form-control-sm" id="basicSelect" type="text"
                                             (change)="onChange($event); toggleTable()" >
                                             <option selected>Select Menu</option>
                                             <option value="dc001"> DC Charger</option>
@@ -255,7 +255,7 @@
                                     <div class="form-group">
                                         <label for="name">Installed By (vendor Name)
                                         </label>
-                                        <input formControlName="installedByVendorName" type="name" class="form-control form-control-sm"
+                                        <input formControlName="installedByVendor" type="name" class="form-control form-control-sm"
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
@@ -276,10 +276,12 @@
                                     <div class="form-group">
                                         <label for="password">Cable Length Used (in meters)
                                         </label>
-                                        <input formControlName="cableLengthUsed" type="fdf" class="form-control form-control-sm"
+                                        <input formControlName="cableLength" type="fdf" class="form-control form-control-sm"
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
+
+                              
                             </div>
 
                             <div class="row">
@@ -290,11 +292,11 @@
                                                 <tr>
                                                     <th width="40%" scope="col" class="text-nowrap">Description </th>
                                                     <th scope="col" class="text-nowrap"> Responsibility </th>
-                                                    <th *ngIf="selectedType == 'dc001'" scope="col" class="text-nowrap">
+                                                    <th  scope="col" class="text-nowrap">
                                                         DC Charger </th>
-                                                    <th *ngIf="selectedType == 'ac001'" scope="col" class="text-nowrap">
+                                                    <th scope="col" class="text-nowrap">
                                                         AC001 Charger </th>
-                                                    <th *ngIf="selectedType == 'evcharger'" scope="col"
+                                                    <th scope="col"
                                                         class="text-nowrap"> Type 2 EV Charger </th>
                                                     <th scope="col" class="text-nowrap"> Remarks </th>
                                                 </tr>
@@ -305,13 +307,13 @@
 
                                                 <th class="dark-heading">{{accessTrFormArray.controls[i].get('description')?.value}}</th>
                                                 <td> <input formControlName="responsibility" type="text" class="form-control form-control-sm"></td>
-                                                <td *ngIf="selectedType == 'dc001'"> <input formControlName="installationTypeFromDropDown" type="text"
+                                                <td> <input formControlName="installationTypeFromDropDown" type="text"
                                                         class="form-control form-control-sm"></td>
-                                                <td *ngIf="selectedType == 'ac001'"> <input formControlName="installationTypeFromDropDown" type="text"
+                                                <td> <input formControlName="installationTypeFromDropDown" type="text"
                                                         class="form-control form-control-sm"></td>
-                                                <td *ngIf="selectedType == 'evcharger'"> <input formControlName="installationTypeFromDropDown" type="text"
+                                                <td> <input formControlName="installationTypeFromDropDown" type="text"
                                                         class="form-control form-control-sm"></td>
-                                                <td> <input formControlName="remarks" type="text" class="form-control form-control-sm"></td>
+                                                <td> <input formControlName="remark" type="text" class="form-control form-control-sm"></td>
                                             </tr>
                                       
 
@@ -551,12 +553,12 @@
                                     <div class="form-group">
                                         <label for="password">Remarks
                                         </label>
-                                        <textarea name="textarea" formControlName="remarks" id="textarea" cols="45" rows="2"
+                                        <textarea name="textarea" formControlName="remark" id="textarea" cols="45" rows="2"
                                             class="form-control form-control-sm" placeholder="Please Enter"></textarea>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-lg-6 ">
                                     <div class="form-group  ">
                                         <label for="password" class="card-titleb">
@@ -578,13 +580,13 @@
                                     </div>
                                 </div>
 
-                            </div>                   
+                            </div>                    -->
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="password">Engineer Name
                                         </label>
-                                        <input formControlName="engineerName" type="fdf" class="form-control form-control-sm"
+                                        <input formControlName="exicomRepresentativeName" type="fdf" class="form-control form-control-sm"
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
@@ -648,7 +650,7 @@
                                 </div>
                             </div>
                             <div class="card-footer text-center py-1">
-                                <button type="submit" (click)="saveAsDraft()" class="btn btn-primary mr-4">Save as Draft</button>
+                                <button (click)="saveAsDraft()" class="btn btn-primary mr-4">Save as Draft</button>
                                 <button type="submit"  class="btn btn-primary ">Submit for
                                     Commissioning</button>
                             </div>

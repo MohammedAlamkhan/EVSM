@@ -30,7 +30,7 @@ import { HomeModule } from './home/home.module';
 import { SharedModule } from './../../shared/shared.module';
 import {CalendarModule} from 'primeng/calendar';
 import { CommanAccountsComponent } from './comman-account/comman-accounts.component';
-import {CommanInstallationsComponent} from './request/comman-installation/comman-installation.component'
+import {CommanInstallationsComponent} from './request/comman-installation/comman-installation.component';
 const routes: Routes = [
   {
     path: 'irf-details',
