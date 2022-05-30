@@ -43,7 +43,12 @@ public contentHeader : object
     }
 
     passInstallData(index){
-      this.installationService.selectedInstall = this.installations[index];
+      this.installationService.installationId = this.installations[index].id;
+      this.installationService.getInstallationInformationById().subscribe(
+        (data) => {
+          this.installationService.selectedInstall = data;
+        }
+      )
     }
   
     passIrfData(index){

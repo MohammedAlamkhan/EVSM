@@ -7,8 +7,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class InstallationService {
-  private readonly assetListUrl: string = 'installation';
+  private readonly installationUrl: string = 'installation';
   public selectedInstall:any;
+  public installationId:any;
 
 
   salesInformation$ = new BehaviorSubject<any>(null);
@@ -18,7 +19,13 @@ export class InstallationService {
 
 
   public getInstallationInformation(): Observable<any> {
-    return this.httpClient.get<any>(environment.baseApiUrl + this.assetListUrl);
+    return this.httpClient.get<any>(environment.baseApiUrl + this.installationUrl);
+
+  }
+
+  
+  public getInstallationInformationById(): Observable<any> {
+    return this.httpClient.get<any>(environment.baseApiUrl + this.installationUrl + "/" + this.installationId);
 
   }
 }
