@@ -321,8 +321,11 @@ export class InstallReqFormComponent implements OnInit {
   createActivityControls() {
     return this.fb.group({
       description: [''],
+      installationWorkListId: [''],
       responsibility: [''],
-      installationTypeFromDropDown: [''],
+      AC001Charger: [''],
+      DC001Charger: [''],
+      type2EvCharger: [''],
       remark: [''],
     });
   }
@@ -455,6 +458,22 @@ export class InstallReqFormComponent implements OnInit {
     const req = this.installationForm.value;
     delete req["soNumber"];
 
+    for(let i=0;i<9;i++){
+      delete req.installationWorkRequestList[i].description;
+      req.installationWorkRequestList[i]["installationsId"]=this.holdInstallValue.id;
+    }
+
+    req.installationWorkRequestList[0].installationWorkListId = 9
+    req.installationWorkRequestList[1].installationWorkListId = 4
+    req.installationWorkRequestList[2].installationWorkListId = 5
+    req.installationWorkRequestList[3].installationWorkListId = 7
+    req.installationWorkRequestList[4].installationWorkListId = 1
+    req.installationWorkRequestList[5].installationWorkListId = 8
+    req.installationWorkRequestList[6].installationWorkListId = 6
+    req.installationWorkRequestList[7].installationWorkListId = 2
+    req.installationWorkRequestList[8].installationWorkListId = 3
+
+   
     this.installationService.updateInstallation(req).subscribe(
       (data) => {
       
