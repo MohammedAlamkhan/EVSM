@@ -10,7 +10,7 @@ export class InstallationService {
   private readonly installationUrl: string = 'installation';
   private readonly reportDownloadUrl: string = 'file/download'
   private readonly reportUploadUrl: string = 'file'
-
+  private readonly siteurl='customer/address/search';
   public selectedInstall:any;
   public installationId:any;
 
@@ -30,6 +30,12 @@ export class InstallationService {
   public getInstallationInformationById(): Observable<any> {
     return this.httpClient.get<any>(environment.baseApiUrl + this.installationUrl + "/" + this.installationId);
 
+  }
+
+  public getSiteData(searchquery): Observable<any> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("search", searchquery);
+    return this.httpClient.get<any>(environment.baseApiUrl + this.siteurl, {params: queryParams});
   }
 
 

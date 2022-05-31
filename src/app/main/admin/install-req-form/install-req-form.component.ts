@@ -39,6 +39,152 @@ export class InstallReqFormComponent implements OnInit {
   mcbdcb: any;
   canopyType: any;
   earthingStatus: any;
+  stateMap = [
+    {
+     "stateId": 1,
+     "stateName": "ANDAMAN AND NICOBAR ISLANDS"
+    },
+    {
+     "stateId": 2,
+     "stateName": "ANDHRA PRADESH"
+    },
+    {
+     "stateId": 3,
+     "stateName": "ARUNACHAL PRADESH"
+    },
+    {
+     "stateId": 4,
+     "stateName": "ASSAM"
+    },
+    {
+     "stateId": 5,
+     "stateName": "BIHAR"
+    },
+    {
+     "stateId": 6,
+     "stateName": "CHANDIGARH"
+    },
+    {
+     "stateId": 7,
+     "stateName": "CHATTISGARH"
+    },
+    {
+     "stateId": 8,
+     "stateName": "DADRA AND NAGAR HAVELI AND DAMAN AND DIU"
+    },
+    {
+     "stateId": 9,
+     "stateName": "DELHI"
+    },
+    {
+     "stateId": 10,
+     "stateName": "GOA"
+    },
+    {
+     "stateId": 11,
+     "stateName": "GUJARAT"
+    },
+    {
+     "stateId": 12,
+     "stateName": "HARYANA"
+    },
+    {
+     "stateId": 13,
+     "stateName": "HIMACHAL PRADESH"
+    },
+    {
+     "stateId": 14,
+     "stateName": "JAMMU AND KASHMIR"
+    },
+    {
+     "stateId": 15,
+     "stateName": "JHARKHAND"
+    },
+    {
+     "stateId": 16,
+     "stateName": "KARNATAKA"
+    },
+    {
+     "stateId": 17,
+     "stateName": "KERALA"
+    },
+    {
+     "stateId": 18,
+     "stateName": "LADAKH"
+    },
+    {
+     "stateId": 19,
+     "stateName": "LAKSHADWEEP"
+    },
+    {
+     "stateId": 20,
+     "stateName": "MADHYA PRADESH"
+    },
+    {
+     "stateId": 21,
+     "stateName": "MAHARASHTRA"
+    },
+    {
+     "stateId": 22,
+     "stateName": "MANIPUR"
+    },
+    {
+     "stateId": 23,
+     "stateName": "MEGHALAYA"
+    },
+    {
+     "stateId": 24,
+     "stateName": "MIZORAM"
+    },
+    {
+     "stateId": 25,
+     "stateName": "NAGALAND"
+    },
+    {
+     "stateId": 26,
+     "stateName": "ODISHA"
+    },
+    {
+     "stateId": 27,
+     "stateName": "PUDUCHERRY"
+    },
+    {
+     "stateId": 28,
+     "stateName": "PUNJAB"
+    },
+    {
+     "stateId": 29,
+     "stateName": "RAJASTHAN"
+    },
+    {
+     "stateId": 30,
+     "stateName": "SIKKIM"
+    },
+    {
+     "stateId": 31,
+     "stateName": "TAMIL NADU"
+    },
+    {
+     "stateId": 32,
+     "stateName": "TELANGANA"
+    },
+    {
+     "stateId": 33,
+     "stateName": "TRIPURA"
+    },
+    {
+     "stateId": 34,
+     "stateName": "UTTAR PRADESH"
+    },
+    {
+     "stateId": 35,
+     "stateName": "UTTARAKHAND"
+    },
+    {
+     "stateId": 36,
+     "stateName": "WEST BENGAL"
+    }
+   ]
 
 
   constructor(
@@ -72,7 +218,7 @@ export class InstallReqFormComponent implements OnInit {
       }
     };
     this.createMainForm();
-    this.pushTrForm();
+    this.pushInstallationWorkRequestList();
     this.setDescription();
     this.holdInstallValue = this.installationService.selectedInstall;
     this.holdInstallValue.installationWorkList.forEach(element => {
@@ -151,7 +297,7 @@ export class InstallReqFormComponent implements OnInit {
 
       //   tentativePlanDate: ['', [Validators.required]],
       , emailId: ['', [Validators.required, Validators.email]]
-      , trForm: this.fb.array([
+      , installationWorkRequestList: this.fb.array([
         // this.createActivityControls()
       ])
     })
@@ -161,14 +307,14 @@ export class InstallReqFormComponent implements OnInit {
     return this.installationForm.controls
   }
 
-  get accessTrFormArray(): FormArray {
-    return this.installationForm.controls["trForm"] as FormArray;
+  get accessInstallationWorkRequestListArray(): FormArray {
+    return this.installationForm.controls["installationWorkRequestList"] as FormArray;
 
   }
 
-  pushTrForm() {
+  pushInstallationWorkRequestList() {
     for (let i = 0; i < 9; i++) {
-      this.accessTrFormArray.push(this.createActivityControls());
+      this.accessInstallationWorkRequestListArray.push(this.createActivityControls());
     }
   }
 
@@ -216,27 +362,27 @@ export class InstallReqFormComponent implements OnInit {
 
   setDescription() {
 
-    this.accessTrFormArray.controls[0]?.patchValue(this.totalChargerSupplied);
-    this.accessTrFormArray.controls[0]?.patchValue(this.totalChargerSupplied);
-    this.accessTrFormArray.controls[1]?.patchValue(this.chargerMountingType);
-    this.accessTrFormArray.controls[2]?.patchValue(this.civilFoundationStatus);
-    this.accessTrFormArray.controls[3]?.patchValue(this.mcbdcb);
-    this.accessTrFormArray.controls[4]?.patchValue(this.cablingStatus);
-    this.accessTrFormArray.controls[5]?.patchValue(this.cableConsumed);
-    this.accessTrFormArray.controls[6]?.patchValue(this.earthingStatus);
-    this.accessTrFormArray.controls[7]?.patchValue(this.canopyStatus);
-    this.accessTrFormArray.controls[8]?.patchValue(this.canopyType);
+    this.accessInstallationWorkRequestListArray.controls[0]?.patchValue(this.totalChargerSupplied);
+    this.accessInstallationWorkRequestListArray.controls[0]?.patchValue(this.totalChargerSupplied);
+    this.accessInstallationWorkRequestListArray.controls[1]?.patchValue(this.chargerMountingType);
+    this.accessInstallationWorkRequestListArray.controls[2]?.patchValue(this.civilFoundationStatus);
+    this.accessInstallationWorkRequestListArray.controls[3]?.patchValue(this.mcbdcb);
+    this.accessInstallationWorkRequestListArray.controls[4]?.patchValue(this.cablingStatus);
+    this.accessInstallationWorkRequestListArray.controls[5]?.patchValue(this.cableConsumed);
+    this.accessInstallationWorkRequestListArray.controls[6]?.patchValue(this.earthingStatus);
+    this.accessInstallationWorkRequestListArray.controls[7]?.patchValue(this.canopyStatus);
+    this.accessInstallationWorkRequestListArray.controls[8]?.patchValue(this.canopyType);
 
    
-    this.accessTrFormArray.controls[0].get('description')?.patchValue('Total Charger Supplied');
-    this.accessTrFormArray.controls[1].get('description')?.patchValue('Charger Mounting Type');
-    this.accessTrFormArray.controls[2].get('description')?.patchValue('Civil Foundation Status');
-    this.accessTrFormArray.controls[3].get('description')?.patchValue('MCB with DB Box');
-    this.accessTrFormArray.controls[4].get('description')?.patchValue('Cabling Status from DB to Charger');
-    this.accessTrFormArray.controls[5].get('description')?.patchValue('Total Cable Consumed');
-    this.accessTrFormArray.controls[6].get('description')?.patchValue('Earthling Status');
-    this.accessTrFormArray.controls[7].get('description')?.patchValue('Canopy Status');
-    this.accessTrFormArray.controls[8].get('description')?.patchValue('Canopy Type');
+    this.accessInstallationWorkRequestListArray.controls[0].get('description')?.patchValue('Total Charger Supplied');
+    this.accessInstallationWorkRequestListArray.controls[1].get('description')?.patchValue('Charger Mounting Type');
+    this.accessInstallationWorkRequestListArray.controls[2].get('description')?.patchValue('Civil Foundation Status');
+    this.accessInstallationWorkRequestListArray.controls[3].get('description')?.patchValue('MCB with DB Box');
+    this.accessInstallationWorkRequestListArray.controls[4].get('description')?.patchValue('Cabling Status from DB to Charger');
+    this.accessInstallationWorkRequestListArray.controls[5].get('description')?.patchValue('Total Cable Consumed');
+    this.accessInstallationWorkRequestListArray.controls[6].get('description')?.patchValue('Earthling Status');
+    this.accessInstallationWorkRequestListArray.controls[7].get('description')?.patchValue('Canopy Status');
+    this.accessInstallationWorkRequestListArray.controls[8].get('description')?.patchValue('Canopy Type');
   }
 
   getFile(event: any) {
@@ -279,6 +425,28 @@ export class InstallReqFormComponent implements OnInit {
     )
   }
 
+  getSiteData($event){
+    console.log("key down");
+    console.log($event.target.value);
+    console.log("key up");
+    this.installationService.getSiteData($event.target.value).subscribe(
+      (data) => {
+        console.log(data);
+        let siteData = data[0]
+        this.accessInstallationForm['address'].patchValue(siteData.address);
+        this.accessInstallationForm['emailId'].patchValue(siteData.emailId);
+        this.accessInstallationForm['alternateContactNumber'].patchValue(siteData.alternateContactnumber);
+        // this.accessInstallationForm['customerName'].patchValue(siteData.customerName);
+        this.accessInstallationForm['city'].patchValue(siteData.city);
+        this.accessInstallationForm['pincode'].patchValue(siteData.pincode);
+        this.accessInstallationForm['siteId'].patchValue(siteData.siteId);
+        this.accessInstallationForm['stateId'].patchValue(siteData.stateId);
+        this.accessInstallationForm['siteName'].patchValue(siteData.siteName);
+        this.accessInstallationForm['country'].patchValue(siteData.country);
+        this.accessInstallationForm['contactNumber'].patchValue(siteData.contactNumber);
+      }
+    )
+  }
 
   submit() {
     debugger;
@@ -289,6 +457,8 @@ export class InstallReqFormComponent implements OnInit {
 
     this.installationService.updateInstallation(req).subscribe(
       (data) => {
+      
+
       }
     )
     

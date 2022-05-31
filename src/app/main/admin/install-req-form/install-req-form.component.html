@@ -106,33 +106,40 @@
                             <div class="row">
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group">
+                                        <label for="name">
+                                            Name Of the Site </label>
+                                        <input (keydown)="getSiteData($event)" formControlName="siteName" type="name" class="form-control form-control-sm"
+                                            placeholder="Please Enter">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group">
                                         <label for="name">Installation Address
                                         </label>
-                                        <input formControlName="address" type="name" class="form-control form-control-sm"
+                                        <input  (keydown)="getSiteData($event)" formControlName="address" type="name" class="form-control form-control-sm"
+                                            placeholder="Please Enter">
+                                    </div>
+                                </div>
+                               
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group">
+                                        <label for="password">Site ID</label>
+                                        <input (keydown)="getSiteData($event)" formControlName="siteId" type="fdf" class="form-control form-control-sm"
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label for="password"> Pin Code</label>
-                                        <input formControlName="pincode" type="fdf" class="form-control form-control-sm"
-                                            placeholder="Please Enter">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label for="name">
-                                            City
-                                        </label>
-                                        <input formControlName="city" type="name" class="form-control form-control-sm"
-                                            placeholder="Please Enter">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label for="password">State</label>
                                         <input formControlName="stateId" type="fdf" class="form-control form-control-sm"
                                             placeholder="Please Enter">
+                                    </div> -->
+                                    <div class="form-group">
+                                        <label for="state">State</label>
+                                        <select id="stateid" formControlName="stateId" class="form-control">
+                                            <option value="">Select State</option>
+                                            <option *ngFor="let state of stateMap" [value]="state.stateId" >{{state.stateName}}</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -166,22 +173,25 @@
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group">
-                                        <label for="name">
-                                            Name Of the Site </label>
-                                        <input formControlName="siteName" type="name" class="form-control form-control-sm"
+                                        <label for="password"> Pin Code</label>
+                                        <input formControlName="pincode" type="fdf" class="form-control form-control-sm"
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
+                               
 
                             </div>
 
                             <div class="row">
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group">
-                                        <label for="password">Site ID</label>
-                                        <input formControlName="siteId" type="fdf" class="form-control form-control-sm"
+                                        <label for="name">
+                                            City
+                                        </label>
+                                        <input formControlName="city" type="name" class="form-control form-control-sm"
                                             placeholder="Please Enter">
                                     </div>
+                                   
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group">
@@ -301,11 +311,11 @@
                                                     <th scope="col" class="text-nowrap"> Remarks </th>
                                                 </tr>
                                             </thead>
-                                            <tbody formArrayName="trForm">
-                                                <tr *ngFor="let itemrow of accessTrFormArray.controls; let i=index;"
+                                            <tbody formArrayName="installationWorkRequestList">
+                                                <tr *ngFor="let itemrow of accessInstallationWorkRequestListArray.controls; let i=index;"
                                                 [formGroupName]="i" class="bm-tr">
 
-                                                <th class="dark-heading">{{accessTrFormArray.controls[i].get('description')?.value}}</th>
+                                                <th class="dark-heading">{{accessInstallationWorkRequestListArray.controls[i].get('description')?.value}}</th>
                                                 <td> <input formControlName="responsibility" type="text" class="form-control form-control-sm"></td>
                                                 <td> <input formControlName="installationTypeFromDropDown" type="text"
                                                         class="form-control form-control-sm"></td>
