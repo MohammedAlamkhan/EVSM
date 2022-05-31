@@ -18,6 +18,7 @@ import { SurveyDetailsComponent } from './survey-details/survey-details.componen
 import { InstallReqFormDetailComponent } from './install-req-form-detail/install-req-form-detail.component';
 import { InstallReqFormComponent } from './install-req-form/install-req-form.component';
 import { EditIrfComponent } from './edit-irf/edit-irf.component';
+import { EditAssetIrfComponent } from './edit-assetirf/edit-assetirf.component';
 import { CommissionDetailsComponent } from './commission-details/commission-details.component';
 import { CommissionFormComponent } from './commission-form/commission-form.component';
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
@@ -73,6 +74,11 @@ const routes: Routes = [
     data: { animation: 'editIrf' }
   },
   {
+    path: 'edit-assetirf',
+    component: EditAssetIrfComponent,
+    data: { animation: 'edit-assetirf' }
+  },
+  {
     path: 'install-req-form-details',
     component: InstallReqFormDetailComponent,
     data: { animation: 'install-form-detail' }
@@ -110,6 +116,7 @@ const routes: Routes = [
     InstallReqFormDetailComponent,
     InstallReqFormComponent,
     EditIrfComponent,
+    EditAssetIrfComponent,
     CommissionDetailsComponent,
     CommissionFormComponent,
     EvReportPdfComponent,

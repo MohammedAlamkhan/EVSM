@@ -13,6 +13,7 @@ import { AppConstants } from 'app/shared/AppConstants';
 })
 export class ServicesService {
  private readonly bulkIrfUrl = 'irf/bulk';
+ private readonly singleIrfUrl = 'irf';
  getInformationListUrl : string = 'installation/'
  circleMapUrl: string = 'circle/list'
 
@@ -21,6 +22,27 @@ export class ServicesService {
 
     postBulkIrf(context: any): Observable<any> {
       return this.httpClient.post<any>(environment.baseApiUrl + this.bulkIrfUrl, context)
+        .pipe(
+          tap((x) => {
+            if (x != null && x !== undefined) {
+              this.notify.show("IRF Created Successfully.", NotificationType.Info);
+              
+            }
+          }),
+          catchError((x: HttpErrorResponse) => {
+            if (x.status == AppConstants.HTTPSTATUS_INTERNAL_SERVER_ERROR) {
+              this.notify.show(AppConstants.ApiErrorMessage, NotificationType.Error)
+            }
+            else
+              this.notify.show(AppConstants.ApiErrorMessage, NotificationType.Error);
+              return EMPTY;
+          })
+  
+        );
+    }
+
+    postSingleIrf(context: any): Observable<any> {
+      return this.httpClient.post<any>(environment.baseApiUrl + this.singleIrfUrl, context)
         .pipe(
           tap((x) => {
             if (x != null && x !== undefined) {
