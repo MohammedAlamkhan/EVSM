@@ -8,8 +8,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class InstallationService {
   private readonly installationUrl: string = 'installation';
-  private readonly reportDownloadUrl: string = 'file/download'
-  private readonly reportUploadUrl: string = 'file'
+  private readonly reportDownloadUrl: string = 'installation/file/download'
+  private readonly reportUploadUrl: string = 'installation/file'
   private readonly siteurl: string='customer/address/search';
   private readonly reassignUrl: string = 'installation/reassign';
   private readonly engineerUrl: string = '';
@@ -59,13 +59,14 @@ export class InstallationService {
   }
 
    
-  public uploadInstallationPhotos(body, params?:any, ): Observable<any> {
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("type", params.file);
-    queryParams = queryParams.append("installationId",params.installationId);
-    let headers = new HttpHeaders().set('Content-Type', "Multipart");
+  public uploadInstallationPhotos(file: FormData, params?:any, ): Observable<any> {
+    // let queryParams = new HttpParams();
+    // queryParams = queryParams.append("type", params.file);
+    // queryParams = queryParams.append("installationId",params.installationId);
+    // let headers = new HttpHeaders().set('Content-Type', "Multipart");
+  
     // 'Content-Type':  'Multipart'
-    return this.httpClient.post<any>(environment.baseApiUrl + this.reportUploadUrl, body ,{headers: headers, params: queryParams });
+    return this.httpClient.post<any>(environment.baseApiUrl + this.reportUploadUrl + "?type=" + params.file + "&installationId=" + params.installationId, file);
 
   }
 

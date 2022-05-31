@@ -460,7 +460,7 @@
 
                                                                 </div>
                                                                 <div class="custom-file">
-                                                                    <input type="file" class="custom-file-input"
+                                                                    <input  (change)="uploadImages($event, 'installationReport')" type="file" class="custom-file-input"
                                                                         type="file" ng2FileSelect [uploader]="uploader"
                                                                         id="file-upload-single" />
                                                                     <label class="custom-file-label"> <i
@@ -487,8 +487,8 @@
 
                                                                 </div>
                                                                 <div class="custom-file">
-                                                                    <input type="file" (change)="getFile($event)">
-                                                                   
+                                                                    <input type="file" id="chargerPicture" (change)="uploadImages($event, 'chargerPicture')">
+
                                                                 </div>
                                                             </fieldset>
                                                         </td>
@@ -514,7 +514,7 @@
 
                                                                 </div>
                                                                 <div class="custom-file">
-                                                                    <input  type="file" class="custom-file-input"
+                                                                    <input (change)="uploadImages($event, 'cablingPicture')" type="file" class="custom-file-input"
                                                                         type="file" ng2FileSelect [uploader]="uploader"
                                                                         id="Cabling" />
                                                                     <label class="custom-file-label"> <i
@@ -541,7 +541,7 @@
 
                                                                 </div>
                                                                 <div class="custom-file">
-                                                                    <input  type="file" class="custom-file-input"
+                                                                    <input  (change)="uploadImages($event, 'mcbPicture')" type="file" class="custom-file-input"
                                                                         type="file" ng2FileSelect [uploader]="uploader"
                                                                         id="file-upload-single" />
                                                                     <label class="custom-file-label"> <i
@@ -621,7 +621,7 @@
 
                                         </div>
                                         <div class="custom-file">
-                                            <input  type="file" class="custom-file-input" type="file" ng2FileSelect
+                                            <input (change)="uploadImages($event, 'engineerSignature')"  type="file" class="custom-file-input" type="file" ng2FileSelect
                                                 [uploader]="uploader" id="file-upload-single" />
                                             <label class="custom-file-label"> <i data-feather="upload" class="mr-1"></i>
                                                 Upload File</label>
@@ -651,7 +651,7 @@
 
                                         </div>
                                         <div class="custom-file">
-                                            <input  type="file" class="custom-file-input" type="file" ng2FileSelect
+                                            <input (change)="uploadImages($event, 'customerSignature')"  type="file" class="custom-file-input" type="file" ng2FileSelect
                                                 [uploader]="uploader" id="file-upload-single" />
                                             <label class="custom-file-label"> <i data-feather="upload" class="mr-1"></i>
                                                 Upload File</label>

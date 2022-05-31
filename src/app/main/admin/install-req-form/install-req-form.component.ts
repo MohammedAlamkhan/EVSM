@@ -414,14 +414,23 @@ export class InstallReqFormComponent implements OnInit {
     this.isSaveDraftClicked = true;
   }
 
-  uploadImages(event: any, type){
+
+  fileList = [];
+  uploadImages($event: any, type){
+    if ($event.target.files.length > 0) {
+      for (let i = 0; i < $event.target.files.length; i++) {
+        this.fileList.push($event.target.files[i]);
+      }
+    }
+    let formData = new FormData();
+    formData.append('file', this.fileList[0]);
+
     const qp={
       "installationId":this.holdInstallValue.id,
       "file":type
     }
-
-    const body = event.target.files;
-    this.installationService.uploadInstallationPhotos(body, qp).subscribe(
+  
+    this.installationService.uploadInstallationPhotos(formData, qp).subscribe(
       (data) => {
         
       }
