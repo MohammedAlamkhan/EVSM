@@ -33,6 +33,20 @@ export class CommanInstallationsComponent implements OnInit {
       centered: true
     });
   }
+
+  modalOpenSM(modalSM) {
+    this.modalService.open(modalSM, {
+      centered: true,
+      size: 'sm' // size: 'xs' | 'sm' | 'lg' | 'xl'
+    });
+  }
+  modalOpenSM2(modalSM2) {
+    this.modalService.open(modalSM2, {
+      centered: true,
+      size: 'sm' // size: 'xs' | 'sm' | 'lg' | 'xl'
+    });
+  }
+  
   ngOnInit(): void {
     // content header
     this.contentHeader = {

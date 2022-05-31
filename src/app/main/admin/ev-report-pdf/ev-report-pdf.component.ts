@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-
+import {InstallationService} from './../../admin/request/installation/installation.service'
 declare var require: any;
 
 import * as pdfMake from "pdfmake/build/pdfmake";
@@ -15,6 +15,7 @@ export class EvReportPdfComponent implements OnInit {
   
   @ViewChild('pdfTable')
   pdfTable!: ElementRef;
+  installation: any;
 
   public downloadAsPDF() {
     const pdfTable = this.pdfTable.nativeElement;
@@ -23,9 +24,12 @@ export class EvReportPdfComponent implements OnInit {
     pdfMake.createPdf(documentDefinition).download();
   }
 
-  constructor() { }
+  constructor(private installationsService: InstallationService) { }
 
   ngOnInit(): void {
+    this.installation=   this.installationsService.selectedInstall;
+    console.log("ZZZZZZZZZZZZZZZZZZ");
+    console.log(this.installation)
   }
 
 }
