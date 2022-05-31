@@ -25,6 +25,7 @@ export class CommanInstallationsComponent implements OnInit {
   earthingStatus: any;
   canopyStatus: any;
   canopyType: any;
+  engineerMap: any;
   
 
   constructor(private installationsService: InstallationService,private modalService: NgbModal) { }
@@ -105,7 +106,31 @@ export class CommanInstallationsComponent implements OnInit {
       }
       
     });
+
+    this.getEngineerMap();
   }
+
+  reassign(){
+    const req ={
+      "id":this.installation.id,
+      "engineerId": (<HTMLInputElement>document.getElementById("eid")).value, 
+    }
+    this.installationsService.reassignInstallation(req).subscribe(
+      (data) => {
+      }
+    )
+
+  }
+
+
+  getEngineerMap(){
+    this.installationsService.getEngineerMap().subscribe(
+       (data) => {
+         this.engineerMap = data;
+       }
+     )
+   }
+
 
   downloadInstallationReport(fileName){
     const req = {

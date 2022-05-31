@@ -355,7 +355,7 @@ export class InstallReqFormComponent implements OnInit {
     this.accessInstallationForm['installedByVendor'].patchValue(this.holdInstallValue.installedByVendor);
     this.accessInstallationForm['cableLength'].patchValue(this.holdInstallValue.cableLength);
     this.accessInstallationForm['cableSize'].patchValue(this.holdInstallValue.cableSize);
-    this.accessInstallationForm['responsibility'].patchValue(this.holdInstallValue.dummy);
+    this.accessInstallationForm['responsibility'].patchValue(this.holdInstallValue.responsibility);
     this.accessInstallationForm['remark'].patchValue(this.holdInstallValue.remark);
     this.accessInstallationForm['exicomRepresentativeName'].patchValue(this.holdInstallValue.exicomRepresentativeName);
     this.accessInstallationForm['employeeCode'].patchValue(this.holdInstallValue.employeeCode);

@@ -901,19 +901,17 @@
     </div>
     <div class="modal-body" tabindex="0" ngbAutofocus>
         <div class="form-group">
-            <label>Assign To</label>
-            <select class="form-control  form-control-sm model-w-s mt-2">
-                <option>Select</option>
-                <option>Option 1</option>
-                <option>Option 2</option>
-
+            <label for="circleId">Assign To:</label>
+            <select id="eid" formControlName="engineerId" class="form-control">
+                <option value="">Select</option>
+                <option *ngFor="let engineer of engineerMap" [value]="engineer.id" >{{engineer.name}}</option>
             </select>
         </div>
 
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-danger " (click)="modal.close('Accept click')">Close</button>
-        <button type="button" class="btn btn-success " (click)="modal.close('Accept click')">Save Changes</button>
+        <button type="button" class="btn btn-success " (click)="reassign() ; modal.close('Accept click')">Save Changes</button>
     </div>
 </ng-template>
 <!-- / Modal -->

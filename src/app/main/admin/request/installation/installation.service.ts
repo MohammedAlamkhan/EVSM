@@ -10,7 +10,9 @@ export class InstallationService {
   private readonly installationUrl: string = 'installation';
   private readonly reportDownloadUrl: string = 'file/download'
   private readonly reportUploadUrl: string = 'file'
-  private readonly siteurl='customer/address/search';
+  private readonly siteurl: string='customer/address/search';
+  private readonly reassignUrl: string = 'installation/reassign';
+  private readonly engineerUrl: string = '';
   public selectedInstall:any;
   public installationId:any;
 
@@ -27,9 +29,22 @@ export class InstallationService {
   }
 
   
+  public getEngineerMap(): Observable<any> {
+    return this.httpClient.get<any>(environment.baseApiUrl + this.engineerUrl);
+
+  }
+
   public getInstallationInformationById(): Observable<any> {
     return this.httpClient.get<any>(environment.baseApiUrl + this.installationUrl + "/" + this.installationId);
 
+  }
+  
+
+  public reassignInstallation(searchquery): Observable<any> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", searchquery.id);
+    queryParams = queryParams.append("engineerId", searchquery.engineerId);
+    return this.httpClient.get<any>(environment.baseApiUrl + this.reassignUrl, {params: queryParams});
   }
 
   public getSiteData(searchquery): Observable<any> {
