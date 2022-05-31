@@ -457,6 +457,16 @@ export class InstallReqFormComponent implements OnInit {
     this.installationService.installationId = this.holdInstallValue.id;
     const req = this.installationForm.value;
     delete req["soNumber"];
+    delete req["clientName"];
+    delete req["clientCode"];
+    delete req["installationReport"];
+    delete req["cablingPicture"];
+    delete req["chargerPicture"];
+    delete req["mCBPicture"];
+    delete req["signatureEmployee"];
+    delete req["signatureCustomer"];
+    
+    //need to add email and country in ai key
 
     for(let i=0;i<9;i++){
       delete req.installationWorkRequestList[i].description;
