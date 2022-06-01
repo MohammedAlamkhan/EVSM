@@ -18,6 +18,7 @@ import { ServicesService as Admin } from '../../admin/services.service';
 export class EditIrfComponent implements OnInit, OnDestroy {
   circleMap: any;
   circleId: any;
+  requestRaisedByIdMap: any;
   constructor(private fb: FormBuilder,
     private sales: SalesService,
     private notify: Notify,
@@ -41,6 +42,7 @@ export class EditIrfComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getCircleMap();
+    this.getRequestRaisedByIdMap();
     // content header
     this.contentHeader = {
       headerTitle: 'Installation Requistion Form',
@@ -89,11 +91,18 @@ export class EditIrfComponent implements OnInit, OnDestroy {
    this.admin.getCircleMap().subscribe(
       (data) => {
         this.circleMap = data;
-        console.log("ZZZZZZZZZZ");
-        console.log(this.circleMap);
+     
       }
     )
   }
+
+  getRequestRaisedByIdMap(){
+    this.admin.getRequestRaisedById().subscribe(
+       (data) => {
+         this.requestRaisedByIdMap = data;
+       }
+     )
+   }
 
   setValuesFromSalesOrder(): void {
     console.log(this.holdSalesDetails);
@@ -111,7 +120,7 @@ export class EditIrfComponent implements OnInit, OnDestroy {
   }
   disableFields(): void {
     this.accessIrfForm['salesOrderNo'].disable();
-    this.accessIrfForm['ownerName'].disable();
+    // this.accessIrfForm['ownerName'].disable();
     this.accessIrfForm['AccountName'].disable();
     this.accessIrfForm['address'].disable();
     this.accessIrfForm['pONoAndDate'].disable();
@@ -152,7 +161,7 @@ export class EditIrfComponent implements OnInit, OnDestroy {
       installationRequired:  this.accessIrfForm['activityTypeInstallation'].value == true ? true:false,
       commissioningRequired: this.accessIrfForm['activityTypeCommisioning'].value == true ? true:false,
       salesOrderId: (<HTMLInputElement>document.getElementById("SONumber")).value, 
-      requestRaisedById: 1,
+      requestRaisedById:  (<HTMLInputElement>document.getElementById("oid")).value, 
       circleId: (<HTMLInputElement>document.getElementById("cid")).value, 
       irfWorkList: yourWorkActivities
     }

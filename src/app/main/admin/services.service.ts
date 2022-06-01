@@ -16,6 +16,7 @@ export class ServicesService {
  private readonly singleIrfUrl = 'irf';
  getInformationListUrl : string = 'installation'
  circleMapUrl: string = 'circle/list'
+ requestRaisedByUrl: string = 'contact/list'
 
   constructor(private httpClient: HttpClient
     , private notify: Notify) { }
@@ -74,6 +75,11 @@ getInstallationListInApproval(qp):Observable<any>
 getCircleMap():Observable<any>
 {
   return this.httpClient.get<any>(environment.baseApiUrl + this.circleMapUrl);
+}
+
+getRequestRaisedById():Observable<any>
+{
+  return this.httpClient.get<any>(environment.baseApiUrl + this.requestRaisedByUrl);
 }
 
 
