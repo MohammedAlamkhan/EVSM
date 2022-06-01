@@ -9,7 +9,7 @@
                             <li ngbNavItem>
                                 <ng-template ngbNavContent>
                                     <div class="table-responsive border">
-                                        <p-table [value]="irfs" [lazy]="false" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+                                        <p-table  (onLazyLoad)="loadData($event)" [rowsPerPageOptions]="[5,10,15,20]" [value]="irfs" [lazy]="true" styleClass="p-datatable-gridlines p-datatable-striped"
                                          responsiveLayout="scroll"  [style]="{width:'1500px'}"
                                         dataKey="id" [paginator]="true" [rows]="noOfRows"
                                         [totalRecords]="totalRecords">

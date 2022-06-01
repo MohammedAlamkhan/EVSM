@@ -9,7 +9,7 @@ export class IrfComponent implements OnInit {
   public contentHeader: object
   irfs: any;
   loading: boolean = false;
-  noOfRows: number=10;
+  noOfRows: number=5;
   totalRecords: number;
 
 
@@ -30,7 +30,7 @@ export class IrfComponent implements OnInit {
         ]
       }
     };
-    this.loadData();
+    // this.loadData();
   }
 
   passIrfData(index){
@@ -42,12 +42,16 @@ export class IrfComponent implements OnInit {
   }
 
 
-  loadData() {
+  loadData($event) {
+    const req={
+      "page":$event.first/this.noOfRows,
+      "size":$event.rows
+    }
     this.loading = true;
-    this.irfs =   this.irfService.getIrfInformation().subscribe(
+    this.irfs =   this.irfService.getIrfInformation(req).subscribe(
       (data) => {
         this.irfs = data.content;
-        this.totalRecords = data.content.length;
+        this.totalRecords = data.totalElements;
         this.loading = false;
       }
     )
