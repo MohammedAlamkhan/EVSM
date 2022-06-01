@@ -11,7 +11,7 @@ import {SalesService} from '../sales/sales.service';
 })
 export class SalesComponent implements OnInit {
   public contentHeader: object;
-  noOfRows: number=10;
+  noOfRows: number=5;
   salesOrder : any;
   totalRecords: number;
   cols: any[];
@@ -37,32 +37,40 @@ export class SalesComponent implements OnInit {
         ]
       }
     };
-    this.loadDataForOpen();
+    // this.loadDataForOpen();
   }
 
   passSalesData(index){
     this.salesService.selectedSalesOrder = this.salesOrder[index];
   }
 
-  loadDataForOpen() {
+  loadDataForOpen($event) {
+    const req={
+      "page":$event.first/this.noOfRows,
+      "size":$event.rows
+    }
     this.loading = false;
-    this.salesService.getOpenSalesOrder().subscribe(
+    this.salesService.getOpenSalesOrder(req).subscribe(
       (data) => {
         this.salesOrder = data.content;
-        this.totalRecords = data.content.length;
+        this.totalRecords = data.totalElements;
         this.loading = false;
       }
     )
 
   }
 
-  loadDataForClose() {
-    ;
+
+  loadDataForClose($event) {
+    const req={
+      "page":$event.first/this.noOfRows,
+      "size":$event.rows
+    }   
     this.loading = false;
-    this.salesService.getCloseSalesOrder().subscribe(
+    this.salesService.getCloseSalesOrder(req).subscribe(
       (data) => {
         this.salesOrder = data.content;
-        this.totalRecords = data.content.length;
+        this.totalRecords = data.totalElements;
         this.loading = false;
       }
     )

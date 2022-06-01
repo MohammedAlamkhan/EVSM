@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { EMPTY, Observable, Subject, BehaviorSubject } from 'rxjs';
@@ -23,21 +23,32 @@ export class SalesService {
     , private notify: Notify) { }
 
 
-    public getOpenSalesOrder(params?: any): Observable<any> {
-      return this.httpClient.get<any>(environment.baseApiUrl + this.openSalesOrderUrl)
+    public getOpenSalesOrder(qp): Observable<any> {
+      let queryParams = new HttpParams();
+      queryParams = queryParams.append("page", qp.page);
+      queryParams = queryParams.append("size", qp.size);
+      queryParams = queryParams.append("sort", "id");
+    
+      return this.httpClient.get<any>(environment.baseApiUrl + this.openSalesOrderUrl, {params: queryParams})
       .pipe(
         tap((x) => {
           this.salesInformation$.next(x);
         }),
       );
     }
-    public getCloseSalesOrder(params?: any): Observable<any> {
-      return this.httpClient.get<any>(environment.baseApiUrl + this.closeSalesOrderUrl).pipe(
+    public getCloseSalesOrder(qp): Observable<any> {
+      let queryParams = new HttpParams();
+      queryParams = queryParams.append("page", qp.page);
+      queryParams = queryParams.append("size", qp.size);
+      queryParams = queryParams.append("sort", "id");
+    
+      return this.httpClient.get<any>(environment.baseApiUrl + this.closeSalesOrderUrl, {params: queryParams}).pipe(
         tap((x) => {
           this.salesInformation$.next(x);
         }),
       );
     }
+
 
 
   getSalesDetails(soNumber: string): Observable<any> {
