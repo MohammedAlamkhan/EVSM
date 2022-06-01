@@ -9,7 +9,7 @@ export class AccountComponent implements OnInit {
   public contentHeader: object
   accounts: any;
   loading: boolean = false;
-  noOfRows: number=10;
+  noOfRows: number=5;
   totalRecords: number;
 
 
@@ -29,19 +29,24 @@ export class AccountComponent implements OnInit {
         ]
       }
     };
-   this.loadData();
+  //  this.loadData();
   }
 
   passAccountData(index){
     this.accountsService.selectedAccount = this.accounts[index];
   }
 
-  loadData() {
+  loadData($event) {
+    const req={
+      "page":$event.first/this.noOfRows,
+      "size":$event.rows
+    }
     this.loading = true;
-    this.accounts =   this.accountsService.getAccountsInformation().subscribe(
+    this.accounts =   this.accountsService.getAccountsInformation(req).subscribe(
       (data) => {
+
         this.accounts = data.content;
-        this.totalRecords = data.content.length;
+        this.totalRecords = data.totalElements;
         this.loading = false;
       }
     )
