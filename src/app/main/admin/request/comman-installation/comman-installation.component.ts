@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import { InstallationService } from '../installation/installation.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ServicesService as Admin } from '../../../admin/services.service';
 @Component({
   selector: 'app-comman-installations',
   templateUrl: './comman-installation.component.html',
@@ -26,9 +27,12 @@ export class CommanInstallationsComponent implements OnInit {
   canopyStatus: any;
   canopyType: any;
   engineerMap: any;
+  circleMap: any;
+  approvalRemark: any;
+  approvalAction: any;
   
 
-  constructor(private installationsService: InstallationService,private modalService: NgbModal) { }
+  constructor( private admin : Admin, private installationsService: InstallationService,private modalService: NgbModal) { }
   modalOpenDefault(modalDefault) {
     this.modalService.open(modalDefault, {
       centered: true
@@ -107,7 +111,7 @@ export class CommanInstallationsComponent implements OnInit {
       
     });
 
-    this.getEngineerMap();
+    this.getCircleMap();
   }
 
   reassign(){
@@ -123,10 +127,36 @@ export class CommanInstallationsComponent implements OnInit {
   }
 
 
-  getEngineerMap(){
-    this.installationsService.getEngineerMap().subscribe(
+
+  
+  approveOrReject(){
+    const req ={
+      "id":1,// Approval object id, to be captured, api implementation pending
+      "action": this.approvalAction,
+      "remark":this.approvalRemark
+    
+    }
+    this.installationsService.approveRejectInstallation(req).subscribe(
+      (data) => {
+      }
+    )
+
+  }
+
+
+  getEngineerList($event){
+    const circleId = $event.target.value;
+    this.installationsService.getEngineerMap(circleId).subscribe(
        (data) => {
          this.engineerMap = data;
+       }
+     )
+   }
+
+   getCircleMap(){
+    this.admin.getCircleMap().subscribe(
+       (data) => {
+         this.circleMap = data;
        }
      )
    }

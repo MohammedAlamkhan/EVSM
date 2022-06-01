@@ -12,7 +12,9 @@ export class InstallationService {
   private readonly reportUploadUrl: string = 'installation/file'
   private readonly siteurl: string='customer/address/search';
   private readonly reassignUrl: string = 'installation/reassign';
-  private readonly engineerUrl: string = '';
+  private readonly engineerUrl: string = 'user/engineer/';
+  private readonly toBeApprovedUrl: string = 'tobeapproved/';
+  
   public selectedInstall:any;
   public installationId:any;
 
@@ -29,8 +31,8 @@ export class InstallationService {
   }
 
   
-  public getEngineerMap(): Observable<any> {
-    return this.httpClient.get<any>(environment.baseApiUrl + this.engineerUrl);
+  public getEngineerMap(circleId): Observable<any> {
+    return this.httpClient.get<any>(environment.baseApiUrl + this.engineerUrl + circleId);
 
   }
 
@@ -39,12 +41,16 @@ export class InstallationService {
 
   }
   
+ 
+  public  approveRejectInstallation(req): Observable<any> {
+    return this.httpClient.put<any>(environment.baseApiUrl + this.toBeApprovedUrl + req.id, req);
+  }
 
   public reassignInstallation(searchquery): Observable<any> {
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("id", searchquery.id);
-    queryParams = queryParams.append("engineerId", searchquery.engineerId);
-    return this.httpClient.get<any>(environment.baseApiUrl + this.reassignUrl, {params: queryParams});
+    // let queryParams = new HttpParams();
+    // queryParams = queryParams.append("id", searchquery.id);
+    // queryParams = queryParams.append("engineerId", searchquery.engineerId);
+    return this.httpClient.post<any>(environment.baseApiUrl + this.reassignUrl+"?id="+searchquery.id+"&engineerId="+searchquery.engineerId,null);
   }
 
   public getSiteData(searchquery): Observable<any> {
