@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { EMPTY, Observable, Subject, BehaviorSubject } from 'rxjs';
 import { catchError, retryWhen, scan, tap } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { AppConstants } from 'app/shared/AppConstants';
 export class ServicesService {
  private readonly bulkIrfUrl = 'irf/bulk';
  private readonly singleIrfUrl = 'irf';
- getInformationListUrl : string = 'installation/'
+ getInformationListUrl : string = 'installation'
  circleMapUrl: string = 'circle/list'
 
   constructor(private httpClient: HttpClient
@@ -62,9 +62,13 @@ export class ServicesService {
         );
     }
 
-getInstallationListInApproval(params?: any):Observable<any>
-{
-  return this.httpClient.get<any>(environment.baseApiUrl + this.getInformationListUrl, { params: params });
+getInstallationListInApproval(qp):Observable<any>
+{ let queryParams = new HttpParams();
+  queryParams = queryParams.append("page", qp.page);
+  queryParams = queryParams.append("size", qp.size);
+  queryParams = queryParams.append("sort", "id");
+
+  return this.httpClient.get<any>(environment.baseApiUrl + this.getInformationListUrl, { params: queryParams });
 }
 
 getCircleMap():Observable<any>

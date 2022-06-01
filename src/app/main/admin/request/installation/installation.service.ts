@@ -25,8 +25,13 @@ export class InstallationService {
 
 
 
-  public getInstallationInformation(): Observable<any> {
-    return this.httpClient.get<any>(environment.baseApiUrl + this.installationUrl);
+  public getInstallationInformation(qp): Observable<any> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("page", qp.page);
+    queryParams = queryParams.append("size", qp.size);
+    queryParams = queryParams.append("sort", "id");
+  
+    return this.httpClient.get<any>(environment.baseApiUrl + this.installationUrl, {params: queryParams});
 
   }
 

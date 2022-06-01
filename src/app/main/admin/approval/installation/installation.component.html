@@ -14,9 +14,9 @@
                                         <div *ngIf="loading">
                                             <app-spinner></app-spinner>
                                         </div>
-                                        <p-table [value]="installationList" [lazy]="true"
-                                            styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
-                                            (onLazyLoad)="loadData($event)" responsiveLayout="scroll"
+                                        <p-table  (onLazyLoad)="loadData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="top" [value]="installationList" [lazy]="true"
+                                            styleClass="p-datatable-gridlines p-datatable-striped"
+                                            responsiveLayout="scroll"
                                             dataKey="installationId" [paginator]="true" [rows]="noOfRows"
                                             [totalRecords]="totalRecords">
                                             <ng-template pTemplate="header">

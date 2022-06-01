@@ -11,7 +11,7 @@ import { ServicesService as Admin } from '../../../admin/services.service';
 export class InstallationComponent implements OnInit {
   public contentHeader: object
 
-  noOfRows: number = 9;
+  noOfRows: number = 5;
   installationList : [];
   totalRecords: number;
   cols: any[];
@@ -52,14 +52,17 @@ export class InstallationComponent implements OnInit {
     this.loading = true;
   }
 
-  loadData(event: LazyLoadEvent) {
-    debugger;
+  loadData($event) {
+    const req={
+      "page":$event.first/this.noOfRows,
+      "size":$event.rows
+    }
     this.loading = true;
-    this.admin.getInstallationListInApproval({ lazyEvent: JSON.stringify(event) }).subscribe(
+    this.admin.getInstallationListInApproval(req).subscribe(
       (data) => {
         debugger;
         this.installationList = data.installations;
-        this.totalRecords = data.totalRecords;
+        this.totalRecords = data.totalElements;
         this.loading = false;
       }
     )

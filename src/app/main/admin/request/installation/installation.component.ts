@@ -12,7 +12,7 @@ public contentHeader : object
   loading: boolean=false;
   installations: any;
   totalRecords: any;
-  noOfRows: number=10;
+  noOfRows: number=5;
   irf: any;
   constructor(private installationService: InstallationService,private irfService: IrfService,  private router: Router) { }
 
@@ -40,7 +40,7 @@ public contentHeader : object
       ]
       }
     };
-    this.loadData();
+    // this.loadData();
     }
 
     passInstallData(index){
@@ -77,12 +77,16 @@ public contentHeader : object
     }
    
 
-    loadData() {
+    loadData($event) {
+      const req={
+        "page":$event.first/this.noOfRows,
+        "size":$event.rows
+      }
       this.loading = true;
-      this.installations =   this.installationService.getInstallationInformation().subscribe(
+      this.installations =   this.installationService.getInstallationInformation(req).subscribe(
         (data) => {
           this.installations = data.content;
-          this.totalRecords = data.content.length;
+          this.totalRecords = data.totalElements;
           this.loading = false;
         }
       )
