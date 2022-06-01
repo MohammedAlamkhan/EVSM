@@ -31,7 +31,7 @@
                                            
                                             <tr>
                                                 <td class="bd-top">{{ rowIndex + 1  }}</td>
-                                                <td ><a (click)="passIrfData(rowIndex)" routerLink="/irf-details" class="no-st-text-b">{{ irf?.manualId }}</a></td>
+                                                <td ><a [style]="{color:'blue'}" (click)="passIrfData(rowIndex)" class="no-st-text-b">{{ irf?.manualId }}</a></td>
                                                 <td class="bd-top">{{ irf?.SalesOrderNo }}</td>
                                                 <td ><a (click)="passAssetData(rowIndex)" routerLink="/comp-assets" class="no-st-text-b">{{ irf?.assetSerialNo }}</a></td>
                                                 <td class="bd-top">{{ irf?.statusName }}</td>
