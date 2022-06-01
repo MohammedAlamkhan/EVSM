@@ -10,7 +10,7 @@ export class AssetsitemsComponent implements OnInit {
 public contentHeader :object;
 assets:any;
 loading: boolean = false;
-noOfRows: number=10;
+noOfRows: number=5;
 totalRecords: number;
 cols: any[];
   constructor(private assetsService: AssetsService ,
@@ -41,7 +41,7 @@ cols: any[];
         ]
       }
     };
-  this.loadData();
+  // this.loadData();
   }
 
 
@@ -49,12 +49,16 @@ cols: any[];
     this.assetsService.selectedAsset = this.assets[index];
   }
 
-  loadData() {
+  loadData($event) {
+    const req={
+      "page":$event.first/this.noOfRows,
+      "size":$event.rows
+    }
     this.loading = true;
-    this.assets =   this.assetsService.getAssetsInformation().subscribe(
+    this.assets =   this.assetsService.getAssetsInformation(req).subscribe(
       (data) => {
         this.assets = data.content;
-        this.totalRecords = data.content.length;
+        this.totalRecords = data.totalElements;
         this.loading = false;
       }
     )
