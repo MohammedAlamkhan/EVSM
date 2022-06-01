@@ -40,7 +40,7 @@ export class EditIrfComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    
+    this.getCircleMap();
     // content header
     this.contentHeader = {
       headerTitle: 'Installation Requistion Form',
@@ -80,7 +80,7 @@ export class EditIrfComponent implements OnInit, OnDestroy {
     this.holdSalesDetails = this.sales.selectedSalesOrder;
     this.setValuesFromSalesOrder();
 
-    this.getCircleMap();
+   
 
     
   }

@@ -8,6 +8,7 @@ import { NotificationType } from 'app/Models/NotificationMessage';
 import { AppConstants } from 'app/shared/AppConstants';
 import { Router } from '@angular/router';
 import { ServicesService as Admin } from '../services.service';
+import { AssetsService } from '../assetsitems/assetsitems.service'
 
 @Component({
   selector: 'app-edit-assetirf',
@@ -19,6 +20,7 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
   circleMap: any;
   circleId: any;
   constructor(private fb: FormBuilder,
+    private assetsService: AssetsService,
     private sales: SalesService,
     private notify: Notify,
     private router: Router,
@@ -28,10 +30,10 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
   public contentHeader: object;
   irfCreationForm: FormGroup;
   unsubscribe$ = new Subject<void>();
-  holdSalesDetails: any;
+  holdAssetDetails: any;
   arrayWorkActivityControls: { workId: number, workDescription: string }[] = [];
   credentials:any;
-  SelectedSalesOrderData = this.sales.selectedSalesOrder;
+  SelectedAsset = this.assetsService.selectedAsset;
 
   isHeading: boolean = false
   isVisit: boolean = false
@@ -40,7 +42,7 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    
+    this.getCircleMap();
     // content header
     this.contentHeader = {
       headerTitle: 'Installation Requistion Form',
@@ -77,10 +79,12 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
       takeUntil(this.unsubscribe$),
       tap(x => this.manageInstAndCommisioningControls())
     ).subscribe();
-    this.holdSalesDetails = this.sales.selectedSalesOrder;
-    this.setValuesFromSalesOrder();
+    this.holdAssetDetails = this.assetsService.selectedAsset;
+    console.log("holded asset");
+    console.log( this.holdAssetDetails )
+    this.setValuesFromAsset();
 
-    this.getCircleMap();
+ 
 
     
   }
@@ -95,16 +99,16 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
     )
   }
 
-  setValuesFromSalesOrder(): void {
-    console.log(this.holdSalesDetails);
+  setValuesFromAsset(): void {
+    console.log(this.holdAssetDetails);
     this.accessIrfForm['dateOfAssignment'].patchValue(new Date ());
     this.accessIrfForm['tentativePlanDate'].patchValue(new Date ());
-    this.accessIrfForm['salesOrderNo'].patchValue(this.holdSalesDetails.id);
+    this.accessIrfForm['salesOrderNo'].patchValue(this.holdAssetDetails.id);
     this.accessIrfForm['ownerName'].patchValue(this.credentials.ownerName);
-    this.accessIrfForm['AccountName'].patchValue(this.holdSalesDetails.AccountName);
-    this.accessIrfForm['address'].patchValue(this.holdSalesDetails.address);
-    this.accessIrfForm['pONoAndDate'].patchValue(this.holdSalesDetails.poNo + ' ' +  this.formatDate(this.holdSalesDetails.poDate));
-    this.accessIrfForm['contactPersonName'].patchValue(this.holdSalesDetails.ownerName);
+    this.accessIrfForm['AccountName'].patchValue(this.holdAssetDetails.accountName);
+    this.accessIrfForm['address'].patchValue(this.holdAssetDetails.address);
+    this.accessIrfForm['pONoAndDate'].patchValue(this.holdAssetDetails.purchaseOrderNumber + ' ' +  this.formatDate(this.holdAssetDetails.purchaseOrderDate));
+    this.accessIrfForm['contactPersonName'].patchValue(this.holdAssetDetails.ownerName);
     this.accessIrfForm['contactNumber'].patchValue("");
     this.accessIrfForm['emailId'].patchValue("");
 
