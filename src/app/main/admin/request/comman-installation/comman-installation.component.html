@@ -918,7 +918,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-danger " (click)="modal.close('Accept click')">Close</button>
-        <button type="button" [disabled]="!(installation.ownerName.includes('SCH') && installation.tobeApprovedId!==null)" class="btn btn-success " (click)="reassign() ; modal.close('Accept click')">Save Changes</button>
+        <button type="button" class="btn btn-success " (click)="reassign() ; modal.close('Accept click')">Save Changes</button>
     </div>
 </ng-template>
 <!-- / Modal -->
@@ -957,7 +957,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-danger " (click)="modal.close('Accept click')">Close</button>
-        <button type="button" class="btn btn-success " (click)="approveOrReject() ; modal.close('Accept click')">Save </button>
+        <button type="button"  [disabled]="!(installation.ownerName.includes('SCH') && installation.tobeApprovedId!==null)" class="btn btn-success " (click)="approveOrReject() ; modal.close('Accept click')">Save </button>
     </div>
 </ng-template>
 <!-- / Modal2 -->
