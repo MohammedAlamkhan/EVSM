@@ -131,7 +131,7 @@ export class CommanInstallationsComponent implements OnInit {
   
   approveOrReject(){
     const req ={
-      "id":1,// Approval object id, to be captured, api implementation pending
+      "id":this.installation.tobeApprovedId,
       "action": this.approvalAction,
       "remark":this.approvalRemark
     
