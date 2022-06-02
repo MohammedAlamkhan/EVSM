@@ -116,7 +116,7 @@ export class CommanInstallationsComponent implements OnInit {
 
   reassign(){
     const req ={
-      "id":this.installation.tobeApprovedId,
+      "id":this.installation.id,
       "engineerId": (<HTMLInputElement>document.getElementById("eid")).value, 
     }
     this.installationsService.reassignInstallation(req).subscribe(
