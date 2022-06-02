@@ -85,15 +85,15 @@ export class AuthLoginV2Component implements OnInit {
 
 
     let loginContext = {
-      userId: this.loginForm.value.email,
-      userPassword: this.loginForm.value.password
+      userId: this.loginForm.value.phone,
+      password: this.loginForm.value.password
     }
 
     this.auth.login(loginContext).subscribe(
       (res) => {
         if (
-          res.fcmToken != null
-          && res.fcmToken !== undefined) {
+          res.token != null
+          && res.token !== undefined) {
           this._router.navigate(['home'], { replaceUrl: true })
         }
         else {
@@ -135,7 +135,7 @@ export class AuthLoginV2Component implements OnInit {
 
   createForm(): void {
     this.loginForm = this._formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.minLength(10)]],
       password: ['', Validators.required]
     });
   }

@@ -18,6 +18,7 @@ import { SurveyDetailsComponent } from './survey-details/survey-details.componen
 import { InstallReqFormDetailComponent } from './install-req-form-detail/install-req-form-detail.component';
 import { InstallReqFormComponent } from './install-req-form/install-req-form.component';
 import { EditIrfComponent } from './edit-irf/edit-irf.component';
+import { EditAssetIrfComponent } from './edit-assetirf/edit-assetirf.component';
 import { CommissionDetailsComponent } from './commission-details/commission-details.component';
 import { CommissionFormComponent } from './commission-form/commission-form.component';
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
@@ -25,7 +26,12 @@ import { EvReportPdfComponent } from './ev-report-pdf/ev-report-pdf.component';
 import { SurveyPdfComponent } from './survey-pdf/survey-pdf.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { IrfModule } from './irf/irf.module';
+import { AccountModule } from './accounts/accounts.module';
 import { HomeModule } from './home/home.module';
+import { SharedModule } from './../../shared/shared.module';
+import {CalendarModule} from 'primeng/calendar';
+import { CommanAccountsComponent } from './comman-account/comman-accounts.component';
+import {CommanInstallationsComponent} from './request/comman-installation/comman-installation.component';
 const routes: Routes = [
   {
     path: 'irf-details',
@@ -36,6 +42,16 @@ const routes: Routes = [
     path: 'comp-assets',
     component: CommanAssetsComponent,
     data: { animation: 'assets' }
+  },
+  {
+    path: 'comp-accounts',
+    component: CommanAccountsComponent,
+    data: { animation: 'accounts' }
+  },
+  {
+    path: 'comp-req-installations',
+    component: CommanInstallationsComponent,
+    data: { animation: 'accounts' }
   },
   {
     path: 'survey-form',
@@ -56,6 +72,11 @@ const routes: Routes = [
     path: 'edit-irf',
     component: EditIrfComponent,
     data: { animation: 'editIrf' }
+  },
+  {
+    path: 'edit-assetirf',
+    component: EditAssetIrfComponent,
+    data: { animation: 'edit-assetirf' }
   },
   {
     path: 'install-req-form-details',
@@ -88,11 +109,14 @@ const routes: Routes = [
   declarations: [
     IrfDetailsComponent,
     CommanAssetsComponent,
+    CommanAccountsComponent,
+    CommanInstallationsComponent,
     SurveyFormComponent,
     SurveyDetailsComponent,
     InstallReqFormDetailComponent,
     InstallReqFormComponent,
     EditIrfComponent,
+    EditAssetIrfComponent,
     CommissionDetailsComponent,
     CommissionFormComponent,
     EvReportPdfComponent,
@@ -100,6 +124,7 @@ const routes: Routes = [
 
   ],
   imports: [
+    CalendarModule,
     SalesModule,
     RequestModule,
     ApprovalModule,
@@ -114,7 +139,9 @@ const routes: Routes = [
     Ng2FlatpickrModule,
     FileUploadModule,
     IrfModule,
-    HomeModule
+    AccountModule,
+    HomeModule,
+    SharedModule
   ],
 
 })

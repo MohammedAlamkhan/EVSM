@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import {IrfService} from './irf.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-irf',
   templateUrl: './irf.component.html',
@@ -7,8 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IrfComponent implements OnInit {
   public contentHeader: object
+  irfs: any;
+  loading: boolean = false;
+  noOfRows: number=5;
+  totalRecords: number;
 
-  constructor() { }
+
+  constructor(private irfService: IrfService, private router: Router) { }
   ngOnInit(): void {
     this.contentHeader = {
       headerTitle: 'IRF',
@@ -25,6 +31,41 @@ export class IrfComponent implements OnInit {
         ]
       }
     };
+    // this.loadData();
+  }
+
+  passIrfData(index){
+    this.irfService.irfId = this.irfs[index].id;
+    this.irfService.selectedIrf =  this.irfService.getIrfInformationById().subscribe(
+      (data) => {
+        this.irfService.selectedIrf = data;
+        this.go_next('\irf-details');
+      }
+    )
+  }
+
+  go_next(route){
+    setTimeout(() => {
+        this.loading = false;
+        this.router.navigate([route])
+      }
+      , 1000);
+}
+
+
+  loadData($event) {
+    const req={
+      "page":$event.first/this.noOfRows,
+      "size":$event.rows
+    }
+    this.loading = true;
+    this.irfs =   this.irfService.getIrfInformation(req).subscribe(
+      (data) => {
+        this.irfs = data.content;
+        this.totalRecords = data.totalElements;
+        this.loading = false;
+      }
+    )
   }
 
 }

@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { EMPTY, Observable, Subject, BehaviorSubject } from 'rxjs';
@@ -12,33 +12,44 @@ import { AppConstants } from 'app/shared/AppConstants';
   providedIn: 'root'
 })
 export class SalesService {
-  private readonly closeSalesOrderUrl: string = 'salesOrder/closeSalesOrder';
-  private readonly openSalesOrderUrl: string = 'salesOrder/openSalesOrder';
+  private readonly closeSalesOrderUrl: string = 'salesorder/bystatus/Close';
+  private readonly openSalesOrderUrl: string = 'salesorder/bystatus/Open';
   private readonly salesDetailsUrl: string = 'salesOrder/salesOrderNo/';
   private readonly assetListUrl: string = 'assests/items/';
-
+  public selectedSalesOrder:any;
 
   salesInformation$ = new BehaviorSubject<any>(null);
   constructor(private httpClient: HttpClient
     , private notify: Notify) { }
 
-  public getCloseSalesOrder(params?: any): Observable<SalesRoot> {
-    return this.httpClient.get<SalesRoot>(environment.baseApiUrl + this.closeSalesOrderUrl, { params: params })
-    .pipe(
-      tap((x) => {
-        this.salesInformation$.next(x);
-      }),
-    );
-  }
 
-  public getOpenSalesOrder(params?: any): Observable<SalesRoot> {
-    return this.httpClient.get<SalesRoot>(environment.baseApiUrl + this.openSalesOrderUrl, { params: params })
-    .pipe(
-      tap((x) => {
-        this.salesInformation$.next(x);
-      }),
-    );
-  }
+    public getOpenSalesOrder(qp): Observable<any> {
+      let queryParams = new HttpParams();
+      queryParams = queryParams.append("page", qp.page);
+      queryParams = queryParams.append("size", qp.size);
+      queryParams = queryParams.append("sort", "id");
+    
+      return this.httpClient.get<any>(environment.baseApiUrl + this.openSalesOrderUrl, {params: queryParams})
+      .pipe(
+        tap((x) => {
+          this.salesInformation$.next(x);
+        }),
+      );
+    }
+    public getCloseSalesOrder(qp): Observable<any> {
+      let queryParams = new HttpParams();
+      queryParams = queryParams.append("page", qp.page);
+      queryParams = queryParams.append("size", qp.size);
+      queryParams = queryParams.append("sort", "id");
+    
+      return this.httpClient.get<any>(environment.baseApiUrl + this.closeSalesOrderUrl, {params: queryParams}).pipe(
+        tap((x) => {
+          this.salesInformation$.next(x);
+        }),
+      );
+    }
+
+
 
   getSalesDetails(soNumber: string): Observable<any> {
     return this.httpClient.get<Observable<any>>(environment.baseApiUrl + this.salesDetailsUrl + soNumber)

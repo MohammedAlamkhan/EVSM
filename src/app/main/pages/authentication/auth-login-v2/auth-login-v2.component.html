@@ -31,14 +31,21 @@
 
         <form class="auth-login-form mt-2" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
-            <label class="form-label" for="login-email">Email</label>
-            <input type="text" formControlName="email" class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="admin@demo.com"
-              aria-describedby="login-email" autofocus="" tabindex="1" />
-            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-              <div *ngIf="f.email.errors.required">Email is required</div>
-              <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+            <label class="form-label" for="login-phone">Phone No.</label>
+            <input type="number" formControlName="phone" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" placeholder="9999999999"
+            aria-describedby="login-phone" autofocus="" tabindex="1"
+            />
+            <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+              <div *ngIf="f.phone.errors.required">Phone Number is required</div>
+              <div *ngIf = "f.phone.hasError('minlength') && !f.phone.hasError('required')" class = "alert alert-danger">
+                <span>Phone Number should contain 10 digits</span>
+              </div>  
             </div>
+            <!-- <input type="text" formControlName="email" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="admin@demo.com"
+              aria-describedby="login-email" autofocus="" tabindex="1" /> -->
+           
           </div>
           <div class="form-group">
             <div class="d-flex justify-content-between">

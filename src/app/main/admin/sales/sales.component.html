@@ -96,30 +96,30 @@
                                         </tbody>
                                     </table> -->
                                     <div *ngIf="loading"><app-spinner></app-spinner></div>
-                                    <p-table [value]="salesOrder" [lazy]="true" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
-                                                (onLazyLoad)="loadData($event)" responsiveLayout="scroll" 
-                                                dataKey="salesOrderId" [paginator]="true" [rows]="noOfRows"
+                                    <p-table  (onLazyLoad)="loadDataForOpen($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="top" [value]= "salesOrder" [lazy]="true" styleClass="p-datatable-gridlines p-datatable-striped"
+                                                responsiveLayout="scroll" 
+                                                dataKey="id" [paginator]="true" [rows]="noOfRows"
                                                 [totalRecords]="totalRecords">
                                                 <ng-template pTemplate="header">
                                                     <!-- [rowsPerPageOptions]="[5,10,15]"  data.SalesOrder[0].clients.clientName-->
                                                     <tr class="bg-white">
-                                                        <!-- <th scope="col" pSortableColumn="salesOrderId" field="salesOrderId" class="text-nowrap">Id<p-sortIcon field="salesOrderId"></p-sortIcon></th> -->
-                                                        <th scope="col"  field="salesOrderId" class="text-nowrap">Sr.No.</th> 
+                                                        <!-- <th scope="col" pSortableColumn="id" field="id" class="text-nowrap">Id<p-sortIcon field="id"></p-sortIcon></th> -->
+                                                        <th scope="col"  field="id" class="text-nowrap">Sr.No.</th> 
                                                         <th scope="col"  field="salesOrderNo" class="text-nowrap">Sales Order No.</th>
-                                                        <th scope="col"  field="totalQuantity" class="text-nowrap">Qty</th>
+                                                        <th scope="col"  field="totalQuantity" class="text-nowrap">SO Total Qty</th>
                                                         <th scope="col"  field="clients.clientName" class="text-nowrap">Client</th>
                                                         <th scope="col"  field="orderCreateDate" class="text-nowrap">Sales Order Creation Date</th>
                                                     </tr>
                                                 </ng-template>
-                                                <ng-template pTemplate="body" let-aseet>
+                                                <ng-template pTemplate="body" let-aseet let-rowIndex="rowIndex">
                                                    
                                                     <tr>
-                                                        <td>{{aseet.salesOrderId}}</td>
+                                                        <td>{{aseet.id}}</td>
                                                         <!-- <a  [routerLink]="['/statuscount', dataItem.id]">{{data.promoId}}</a> -->
-                                                        <td><a [routerLink]="['/sales/sales-details',aseet.salesOrderNo]" class="no-st-text-b">{{aseet.salesOrderNo}}</a></td>
+                                                        <td><a (click)="passSalesData(rowIndex)" [routerLink]="['/sales/sales-details',aseet.salesOrderNo]" class="no-st-text-b">{{aseet.manualId}}</a></td>
                                                         <td class="no-st-text-b">{{aseet.totalQuantity}}</td>
-                                                        <td class="no-st-text-b">{{aseet.clients.clientName}}</td>
-                                                        <td class="no-st-text-b">{{aseet.orderCreateDate}}</td>
+                                                        <td class="no-st-text-b">{{aseet.AccountName}}</td>
+                                                        <td class="no-st-text-b">{{aseet.createdDate | date:'medium':'IST' }}</td>
                                                     </tr>
                                                 </ng-template>
                                             </p-table>
@@ -130,16 +130,16 @@
                                 <a ngbNavLink>Close</a>
                                 <ng-template ngbNavContent>
                                     <div class="table-responsive border">
-                                        <p-table [value]="salesOrder" [lazy]="true" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
-                                        (onLazyLoad)="loadDataForClose($event)" responsiveLayout="scroll" 
-                                        dataKey="salesOrderId" [paginator]="true" [rows]="noOfRows"
+                                        <p-table (onLazyLoad)="loadDataForClose($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="top" [value]="salesOrder" [lazy]="true" styleClass="p-datatable-gridlines p-datatable-striped"
+                                         responsiveLayout="scroll" 
+                                        dataKey="id" [paginator]="true" [rows]="noOfRows"
                                         [totalRecords]="totalRecords">
                                         <ng-template pTemplate="header">
                                             <!-- [rowsPerPageOptions]="[5,10,15]"  data.SalesOrder[0].clients.clientName-->
                                             <tr class="bg-white">
-                                                        <th scope="col"  field="salesOrderId" class="text-nowrap">Sr.No.</th> 
+                                                        <th scope="col"  field="id" class="text-nowrap">Sr.No.</th> 
                                                         <th scope="col"  field="salesOrderNo" class="text-nowrap">Sales Order No.</th>
-                                                        <th scope="col"  field="totalQuantity" class="text-nowrap">Qty</th>
+                                                        <th scope="col"  field="totalQuantity" class="text-nowrap">SO Total Qty</th>
                                                         <th scope="col"  field="clients.clientName" class="text-nowrap">Client</th>
                                                         <th scope="col" pSortableColumn="orderCreateDate" field="orderCreateDate" class="text-nowrap">Sales Order Creation Date</th>
                                                 </tr>
@@ -147,12 +147,12 @@
                                         <ng-template pTemplate="body" let-aseet>
                                            
                                             <tr>
-                                                <td>{{aseet.salesOrderId}}</td>
-                                                <td><a [routerLink]="['/sales/sales-details',aseet.salesOrderNo]"  class="no-st-text-b">{{aseet.salesOrderNo}}</a></td>
+                                                <td>{{aseet.id}}</td>
+                                                <!-- <a  [routerLink]="['/statuscount', dataItem.id]">{{data.promoId}}</a> -->
+                                                <td><a [routerLink]="['/sales/sales-details',aseet.salesOrderNo]" class="no-st-text-b">{{aseet.manualId}}</a></td>
                                                 <td class="no-st-text-b">{{aseet.totalQuantity}}</td>
-                                                <td class="no-st-text-b">{{aseet.clients.clientName}}</td>
-                                                <td class="no-st-text-b">{{aseet.orderCreateDate}}</td>
-
+                                                <td class="no-st-text-b">{{aseet.AccountName}}</td>
+                                                <td class="no-st-text-b">{{aseet.createdDate | date:'medium':'IST' }}</td>
                                             </tr>
                                         </ng-template>
                                     </p-table>

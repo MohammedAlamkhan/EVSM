@@ -1,4 +1,5 @@
-<div class="content-wrapper">
+<div class="content-wrapper container-xxl p-0 ">
+    <div *ngIf="loading"><app-spinner></app-spinner></div>
     <app-content-header [contentHeader]="contentHeader"></app-content-header>
     <div class="content-body">
         <section class="users-list-wrapper" style="margin-bottom: -10px;">
@@ -27,135 +28,122 @@
             </div>
         </section>
         <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body p-0 pl-0 ">
-                        <button type="button" class="btn btn-outline-primary" rippleEffect (click)="toggleTata()">Tata
-                            Motors (200)</button>
-                        <button type="button" class="btn btn-outline-secondary " rippleEffect (click)="toggleMg()">MG
-                            Motors (50)</button>
-                        <button type="button" class="btn btn-outline-info" rippleEffect (click)="toggleMg()"> JBM infra
-                            (51)</button>
-                        <button type="button" class="btn btn-outline-danger " rippleEffect (click)="toggleMg()">Amplus
-                            (100)</button>
-                        <button type="button" class="btn btn-outline-secondary " rippleEffect (click)="toggleMg()">Flat
-                            Motors</button>
-                        <button type="button" class="btn btn-outline-success " rippleEffect (click)="toggleMg()">Maruti
-                            Suzuki</button>
-                    </div>
-                    <div *ngIf="isTataShow" class="table-responsive border">
-                        <table class="table mb-0 ">
-                            <thead>
-                                <tr>
-                                    <th scope="col" class="text-nowrap"> Sr. No.</th>
-                                    <th scope="col" class="text-nowrap">Asset Serial Number</th>
-                                    <th scope="col" class="text-nowrap">Sales Order No</th>
-                                    <th scope="col" class="text-nowrap">Site Name</th>
-                                    <th scope="col" class="text-nowrap">Client</th>
-                                    <th scope="col" class="text-nowrap">Part Code</th>
-                                    <th scope="col" class="text-nowrap"> Asset Description </th>
-                                    <th scope="col" class="text-nowrap">Warranty Status </th>
-                                    <th scope="col" class="text-nowrap"> IRF </th>
-                                    <th scope="col" class="text-nowrap">Survey </th>
-                                    <th scope="col" class="text-nowrap">Installation </th>
-                                    <th scope="col" class="text-nowrap">Commissioning </th>
-                                    <th scope="col" class="text-nowrap">Created Date </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014
-                                        </a>
-                                    </td>
-
-                                    <td class="no-st-text-b">So-1324</td>
-                                    <td class="no-st-text-b">Delhi</td>
-                                    <td class="no-st-text-b">Shefali</td>
-                                    <td class="no-st-text-b">12345</td>
-                                    <td class="no-st-text-b">Galdjkjdsf</td>
-                                    <!-- <td class="no-st-text-b"><span class="badge bg-success">Yes</span>
-                                    </td> -->
-                                    <td> <a routerLink="/commission-form"> <i data-feather="flag"
-                                                class="font-medium-4 text-danger"></i> </a> </td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
-                                    <td class="no-st-text-b">23-03-2022</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014 </a>
-                                    </td>
-                                    <td class="no-st-text-b">So-1324</td>
-                                    <td class="no-st-text-b">Delhi</td>
+            <div class=" col-lg-12 ">
+                <div class="card-body bg-white p-0 ">
+                    <ul ngbNav #nav="ngbNav" class="nav-tabs tb-border mb-0">
+                        <li ngbNavItem>
+                            <ng-template ngbNavContent>
+                                <div class="table-responsive border">
+                                    <p-table  (onLazyLoad)="loadData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="top" [value]="assets" [lazy]="true" styleClass="p-datatable-gridlines p-datatable-striped"
+                                    responsiveLayout="scroll"   [style]="{width:'2000px'}"
+                                    dataKey="id" [paginator]="true" [rows]="noOfRows"
+                                    [totalRecords]="totalRecords">
+                                    <ng-template pTemplate="header">
+                                       <!-- [rowsPerPageOptions]="[5,10,15]"  data.SalesOrder[0].clients.clientName-->
+                                       <tr class="bg-white">
+                                           <th scope="col" >Sr. No.</th>
+                                           <th scope="col" >Asset Serial Number</th>
+                                           <th scope="col" >Sales Order No</th>
+                                           <th scope="col" >Site Name</th>
+                                           <th scope="col" >Client</th>
+                                           <th scope="col" >Part Code</th>
+                                           <th scope="col" >Asset Description</th>
+                                           <th scope="col" >Warranty Status</th>
+                                           <th scope="col" >     IRF     </th>
+                                           <th scope="col" >    Survey   </th>
+                                           <th scope="col" >Installation</th>
+                                           <th scope="col" >Commissioning</th>
+                                           <th scope="col" >Created Date</th>
+                                       </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-asset let-rowIndex="rowIndex">
+                                      
+                                       <tr>
+                                           <td >{{ rowIndex+1 }}</td>
+                                           <td ><a (click)="passAssetData(rowIndex)" routerLink="/comp-assets" class="no-st-text-b">{{ asset?.serialNo }}</a></td>
+                                           <td >{{ asset?.salesOrderId }}</td>
+                                           <td >{{ asset?.siteName }}</td>
+                                           <td >{{ asset?.accountName }}</td>
+                                           <td >{{ asset?.productName }}</td>
+                                           <td >{{ asset?.productDescription }}</td>
+                                           <td *ngIf="asset.warrantyStatus===1"> <a routerLink="/commission-form"> <i data-feather="flag"
+                                               class="font-medium-4 text-success"></i> </a> </td>
+                                           <td *ngIf="asset.warrantyStatus===0"> <a routerLink="/commission-form"> <i data-feather="flag"
+                                               class="font-medium-4 text-danger"></i> </a> </td>
+                                           <td>
+                                               <button
+                                                   class="btn btn-sm btn-primary btn-touchspin btn-touchspin-down"
+                                                   [disabled]="true"
+                                                   [ngClass]="{
+                                                   'btn-default': asset.irfStatusName == '',
+                                                   'btn-secondary': asset.irfStatusName == 'notRequired',
+                                                   'btn-success': asset.irfStatusName == 'completed',
+                                                   'btn-danger': asset.irfStatusName == 'inProcess'
+                                                   }"
+                                                   >
+                                                   <span *ngIf="asset.isIrfGenerated" data-feather="check"></span>
+                                                   <span *ngIf="!asset.isIrfGenerated" data-feather="x"></span>
+                                               </button>
+                                           </td>
                                     
-                                    <td class="no-st-text-b">Shefali</td>
-                                    <td class="no-st-text-b">12345</td>
-                                    <td class="no-st-text-b">Galdjkjdsf</td>
-                                    <!-- <td class="no-st-text-b"><span class="badge bg-success">Yes</span>
-                                    </td> -->
-                                    <td> <a routerLink="/commission-form"> <i data-feather="flag"
-                                                class="font-medium-4 text-success"></i> </a> </td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
-                                    <td class="no-st-text-b">23-03-2022</td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div *ngIf="isMgShow" class="table-responsive border">
-                        <table class="table mb-0 ">
-                            <thead>
-                                <tr>
-                                    <th scope="col" class="text-nowrap"> Sr. No.</th>
-                                    <th scope="col" class="text-nowrap">Asset Serial Number</th>
-                                    <th scope="col" class="text-nowrap">Sales Order No</th>
-                                    <th scope="col" class="text-nowrap">Site Name</th>
-                                    <th scope="col" class="text-nowrap">Client</th>
-                                    <th scope="col" class="text-nowrap">Part Code</th>
-                                    <th scope="col" class="text-nowrap"> Asset Description </th>
-                                    <th scope="col" class="text-nowrap">Warranty Status </th>
-                                    <th scope="col" class="text-nowrap"> IRF </th>
-                                    <th scope="col" class="text-nowrap">Survey </th>
-                                    <th scope="col" class="text-nowrap">Installation </th>
-                                    <th scope="col" class="text-nowrap">Commissioning </th>
-                                    <th scope="col" class="text-nowrap">Created Date </th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014
-                                        </a>
-                                    </td>
-                                    <td class="no-st-text-b">So-1324</td>
-             
-                                    <td class="no-st-text-b">Delhi</td>
-                                    <td class="no-st-text-b">Shefali</td>
-                                    <td class="no-st-text-b">12345</td>
-                                    <td class="no-st-text-b">Galdjkjdsf</td>
-                                    <!-- <td class="no-st-text-b"><span class="badge bg-success">Yes</span>
-                                    </td> -->
-                                    <td> <a routerLink="/commission-form"> <i data-feather="flag"
-                                                class="font-medium-4 text-success"></i> </a> </td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
-                                    <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
-                                    <td class="no-st-text-b">23-03-2022</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                           <td>
+                                               <button
+                                                   class="btn btn-sm btn-primary btn-touchspin btn-touchspin-down"
+                                                   [disabled]="true"
+                                                   [ngClass]="{
+                                                   'btn-default': asset.surveyStatusName == '',
+                                                   'btn-secondary': asset.surveyStatusName == 'notRequired',
+                                                   'btn-success': asset.surveyStatusName == 'completed',
+                                                   'btn-danger': asset.surveyStatusName == 'inProcess'
+                                                   }"
+                                                   >
+                                                   <span *ngIf="asset.isSurveyGenerated" data-feather="check"></span>
+                                                   <span *ngIf="!asset.isSurveyGenerated" data-feather="x"></span>
+                                               </button>
+                                           </td>
+                                    
+                                           <td>
+                                               <button
+                                                   class="btn btn-sm btn-primary btn-touchspin btn-touchspin-down"
+                                                   [disabled]="true"
+                                                   [ngClass]="{
+                                                   'btn-default': asset.installationStatusName == '',
+                                                   'btn-secondary': asset.installationStatusName == 'notRequired',
+                                                   'btn-success': asset.installationStatusName == 'completed',
+                                                   'btn-danger': asset.installationStatusName == 'inProcess'
+                                                   }"
+                                                   >
+                                                   <span *ngIf="asset.isInstallationGenerated" data-feather="check"></span>
+                                                   <span *ngIf="!asset.isInstallationGenerated" data-feather="x"></span>
+                                               </button>
+                                           </td>
+                                    
+                                           <td>
+                                               <button
+                                                   class="btn btn-sm btn-primary btn-touchspin btn-touchspin-down"
+                                                   [disabled]="true"
+                                                   [ngClass]="{
+                                                   'btn-default': asset.commissioningStatusName == '',
+                                                   'btn-secondary': asset.commissioningStatusName == 'notRequired',
+                                                   'btn-success': asset.commissioningStatusName == 'completed',
+                                                   'btn-danger': asset.commissioningStatusName == 'inProcess'
+                                                   }"
+                                                   >
+                                                   <span *ngIf="asset.isCommissioningGenerated" data-feather="check"></span>
+                                                   <span *ngIf="!asset.isCommissioningGenerated" data-feather="x"></span>
+                                               </button>
+                                           </td>
+                                    
+                                           <td >{{ asset?.createdDate | date:'medium':'IST' }}</td> 
+                                       </tr>
+                                    </ng-template>
+                                    </p-table>
+                                </div>
+                                
+                            </ng-template>
+                        </li>
+                    </ul>
+                    <div [ngbNavOutlet]="nav" class=""></div>
                 </div>
             </div>
         </div>

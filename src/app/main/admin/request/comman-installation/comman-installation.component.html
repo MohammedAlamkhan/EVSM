@@ -1,0 +1,963 @@
+<div class="content-wrapper">
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
+    <div class="content-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Details</h4>
+                        <div class="col-sm-9 text-right p-0">
+                            <a routerLink="/Installation-commissioning-pdf" class="btn btn-outline-warning btn-sm mx-1">
+                                <i data-feather="file-plus"></i> Generate Installation Report
+                            </a>
+                            <a class="btn btn-outline-warning  text-warning btn-sm mx-1"  (click)="modalOpenSM(modalSM)" data-toggle="modal"
+                            data-target="#modal-default">
+                                <i data-feather="file-text"></i> Assign
+                            </a>
+                            
+                            <a class="btn btn-outline-warning text-warning  btn-sm mr-1 " (click)="modalOpenSM2(modalSM2)" data-toggle="modal" 
+                            data-target="#modal-default">
+                                <i data-feather="check-square"></i> Approve / <i data-feather="x-square"></i> Reject
+                            </a>
+
+                            <a routerLink="/install-req-form" class="btn btn-outline-primary btn-sm">
+                                <i data-feather="edit"></i> Edit
+                            </a>
+                        </div>
+                    </div>
+
+                    <form>
+                        <div class="card-body pt-2">
+
+
+
+
+
+
+                            <div class="row">
+                                <div class="col-lg-12 ">
+
+                                    <h6 class="mt-2"> Customer Details
+
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="row p-0 hd-mgr12">
+
+                                <div class="col-lg-6">
+
+
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td> </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="40%"><span class="text-gray">IRF Request Number
+                                                            </span></td>
+                                                        <td>{{installation?.irfManualId}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="40%"><span class="text-gray">Service Request Number
+                                                            </span></td>
+                                                        <td>{{installation?.manualId}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                                <div class="col-lg-6">
+
+
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td> </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="40%"><span class="text-gray">Customer </span></td>
+                                                        <td>{{installation?.accountContactPersonName}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="40%"><span class="text-gray">Customer Code </span>
+                                                        </td>
+                                                        <td>{{installation?.accountSapCode}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+
+                            </div>
+                            <!-- <div class="row">
+                                <div class="col-lg-12 ">
+
+                                    <h6 class="mt-2"> Asset Details
+
+
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="row p-0 hd-mgr12">
+
+                                <div class="col-lg-6">
+
+
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td> </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="40%"><span class="text-gray">Type Of Charger </span>
+                                                        </td>
+                                                        <td>{{installation?.dummy}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="40%"><span class="text-gray">Model Number </span>
+                                                        </td>
+                                                        <td>{{installation?.dummy}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="40%"><span class="text-gray">Date of Dispatch </span>
+                                                        </td>
+                                                        <td>{{installation?.dummy}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                                <div class="col-lg-6">
+
+
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td> </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="40%"><span class="text-gray">Serial Number
+                                                            </span></td>
+                                                        <td>{{installation?.dummy}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="40%"><span class="text-gray">Date of Delivery </span>
+                                                        </td>
+                                                        <td>{{installation?.dummy}}</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+
+                            </div> -->
+                            <div class="row">
+                                <div class="col-lg-12 ">
+
+                                    <h6 class="mt-2"> Installation Details
+
+
+
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="row p-0 hd-mgr12">
+
+                                <div class="col-lg-6">
+
+
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td> </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="40%"><span class="text-gray">Installation Address
+                                                            </span></td>
+                                                        <td>{{installation?.address}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="text-gray">City</span></td>
+                                                        <td>{{installation?.city}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="text-gray">Installation Date</span></td>
+                                                        <td>{{installation?.installationDate}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="text-gray">Site Name</span></td>
+                                                        <td>{{installation?.siteName}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="text-gray">Contact Person at Site</span></td>
+                                                        <td>{{installation?.contactPersonAtSite}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="text-gray">Alternate Contact Number
+                                                            </span></td>
+                                                        <td>{{installation?.alternateContactnumber}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="text-gray">Installation Status</span></td>
+                                                        <td>{{installation?.installationStatusName}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="text-gray">Cable Size</span></td>
+                                                        <td>{{installation?.cableSize}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                                <div class="col-lg-6">
+
+
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td> </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="40%"><span class="text-gray">Pin Code </span></td>
+                                                        <td>{{installation?.pincode}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="40%"><span class="text-gray">State</span></td>
+                                                        <td>{{installation?.stateName}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="text-gray">Point of Installation</span></td>
+                                                        <td>{{installation?.pointOfInstallation}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="text-gray">Site ID
+                                                            </span></td>
+                                                        <td>{{installation?.siteId}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="text-gray">Contact Number
+                                                            </span></td>
+                                                        <td>{{installation?.contactNumber}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="text-gray">Installation Type</span></td>
+                                                        <td>{{installation?.installationTypeName}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="text-gray">Installed By (vendor Name)</span>
+                                                        </td>
+                                                        <td>{{installation?.installedByVendor}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="text-gray">Cable Length Used (in meters)</span>
+                                                        </td>
+                                                        <td>{{installation?.cableLength}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="in-table-st11 pl-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="20%" scope="col" class="pb-1 pt-3">Description
+                                                            <hr class="mt-4vvvvawqqq mb-0">
+                                                        </th>
+                                                        <th scope="col" class="pb-1 pt-3">Responsibility
+                                                            <hr class="mt-4vvvvawqqq mb-0">
+                                                        </th>
+                                                        <th scope="col" class="pb-1 pt-3">DC001 Charger
+                                                            <hr class="mt-4vvvvawqqq mb-0">
+                                                        </th>
+                                                        <th scope="col" class="pb-1 pt-3">AC001 Charger
+                                                            <hr class="mt-4vvvvawqqq mb-0">
+                                                        </th>
+                                                        <th scope="col" class="pb-1 pt-3">Type 2 EV Charger
+                                                            <hr class="mt-4vvvvawqqq mb-0">
+                                                        </th>
+                                                        <th scope="col" class="pb-1 pt-3">Remarks
+                                                            <hr class="mt-4vvvvawqqq mb-0">
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row" class="tvnbr123"><span class="text-gray"> Total
+                                                                Charger Supplied</span></th>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{totalChargerSupplied?.responsibility}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{totalChargerSupplied?.dc001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{totalChargerSupplied?.ac001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{totalChargerSupplied?.type2evCharger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{totalChargerSupplied?.remark}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row" class="tvnbr123"><span class="text-gray">
+                                                                Charger Mounting Type</span></th>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{chargerMountingType?.responsibility}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{chargerMountingType?.dc001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{chargerMountingType?.ac001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{chargerMountingType?.type2evCharger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{chargerMountingType?.remark}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row" class="tvnbr123"><span class="text-gray"> Civil
+                                                                Foundation Status</span></th>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{civilFoundationStatus?.responsibility}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{civilFoundationStatus?.dc001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{civilFoundationStatus?.ac001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{civilFoundationStatus?.type2evCharger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{civilFoundationStatus?.remark}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row" class="tvnbr123"><span class="text-gray"> MCB
+                                                                with DB Box</span></th>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{mcbdcb?.responsibility}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{mcbdcb?.dc001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{mcbdcb?.ac001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{mcbdcb?.type2evCharger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{mcbdcb?.remark}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row" class="tvnbr123"><span class="text-gray">
+                                                                Cabling Status from DB to Charger</span></th>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{cablingStatus?.responsibility}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{cablingStatus?.dc001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{cablingStatus?.ac001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{cablingStatus?.type2evCharger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{cablingStatus?.remark}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row" class="tvnbr123"><span class="text-gray"> Total
+                                                                Cable Consumed</span></th>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{cableConsumed?.responsibility}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{cableConsumed?.dc001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{cableConsumed?.ac001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{cableConsumed?.type2evCharger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{cableConsumed?.remark}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row" class="tvnbr123"><span
+                                                                class="text-gray">Earthling Status</span></th>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{earthingStatus?.responsibility}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{earthingStatus?.dc001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{earthingStatus?.ac001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{earthingStatus?.type2evCharger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{earthingStatus?.remark}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row" class="tvnbr123"><span class="text-gray"> Canopy
+                                                                Status</span></th>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{canopyStatus?.responsibility}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{canopyStatus?.dc001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{canopyStatus?.ac001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{canopyStatus?.type2evCharger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{canopyStatus?.remark}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row" class="tvnbr123"><span class="text-gray"> Canopy
+                                                                Type</span></th>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{canopyType?.responsibility}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{canopyType?.dc001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{canopyType?.ac001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{canopyType?.type2evCharger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{canopyType?.remark}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-lg-12 ">
+
+                                    <h6 class="mt-2"> Upload Image for Reference
+
+
+
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="row p-0 hd-mgr12">
+
+                                <div class="col-lg-6">
+
+
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td> </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="40%"><span class="text-gray">Installation Report
+                                                            </span></td>
+                                                        <td>
+                                                            <div class="input-group-append mt-">
+                                                                <button (click)="downloadInstallationReport('installationReport')"
+                                                                    class="browse input-group-text btn btn-primary fntup-btn"
+                                                                    id="basic-addon2"><i
+                                                                        class="fas fa-download mr-2"></i> Download
+                                                                    File</button>
+                                                                
+
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="40%"><span class="text-gray">Cabling Picture
+                                                            </span></td>
+                                                        <td>
+                                                            <div class="input-group-append mt-">
+                                                                <button 
+                                                                (click)="downloadInstallationReport('cablingPicture')"
+                                                                    class="browse input-group-text btn btn-primary fntup-btn"
+                                                                    id="basic-addon2"><i
+                                                                        class="fas fa-download mr-2"></i> Download
+                                                                    File</button>
+                                                                
+
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                                <div class="col-lg-6">
+
+
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td> </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="40%"><span class="text-gray">Charger Picture
+                                                            </span></td>
+                                                        <td>
+                                                            <div class="input-group-append mt-">
+                                                                <button
+                                                                (click)="downloadInstallationReport('chargerPicture')"
+                                                                    class="browse input-group-text btn btn-primary fntup-btn"
+                                                                    id="basic-addon2"><i
+                                                                        class="fas fa-download mr-2"></i> Download
+                                                                    File</button>
+                                                               
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="40%"><span class="text-gray">MCB Picture
+                                                            </span></td>
+                                                        <td>
+                                                            <div class="input-group-append mt-">
+                                                                <button
+                                                                (click)="downloadInstallationReport('mcbPicture')"
+                                                                    class="browse input-group-text btn btn-primary fntup-btn"
+                                                                    id="basic-addon2"><i
+                                                                        class="fas fa-download mr-2"></i> Download
+                                                                    File</button>
+
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+                            <div class="row">
+                                <div class="col-lg-12 ">
+
+                                    <h6 class="mt-2"> Remarks (If Any)
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="row p-0 hd-mgr12">
+
+                                <div class="col-lg-12">
+
+
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td> </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <td>{{installation?.remark}}</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+
+
+
+
+
+                            
+                            <div class="row p-0 hd-mgr12">
+
+                                <div class="col-lg-6">
+
+
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table">
+
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="50%" class="pt-4"><span class="text-gray">Exicom
+                                                                Representative Name </span></td>
+                                                        <td class="pt-4">{{installation?.exicomRepresentativeName}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="50%"><span class="text-gray">Employee Code</span>
+                                                        </td>
+                                                        <td>{{installation?.employeeCode}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="50%"><span class="text-gray">Signature </span></td>
+                                                        <td class="pt-0">
+                                                            <div class="input-group-append mt-1">
+                                                                <button
+                                                                (click)="downloadInstallationReport('engineerSignature')"
+                                                                    class="browse input-group-text btn btn-primary fntup-btn"
+                                                                    id="basic-addon2"><i
+                                                                        class="fas fa-download mr-2"></i> Download
+                                                                    File</button>
+                                                              
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                                <div class="col-lg-6">
+
+
+                                    <div class="in-table-st11ab p-0">
+                                        <div class="table-responsive-sm">
+                                            <table class="table">
+
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="50%" class="pt-4"><span class="text-gray">Customer
+                                                                Representative Name </span></td>
+                                                        <td class="pt-4">{{installation?.customerRepresentativeName}}</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td width="50%"><span class="text-gray">Signature </span></td>
+                                                        <td class="pt-0">
+                                                            <div class="input-group-append mt-1">
+                                                                <button
+                                                                (click)="downloadInstallationReport('customerSignature')"
+                                                                    class="browse input-group-text btn btn-primary fntup-btn"
+                                                                    id="basic-addon2"><i
+                                                                        class="fas fa-download mr-2"></i> Download
+                                                                    File</button>
+                                                               
+
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+                            <!-- /.card-body -->
+
+                        </div>
+                    </form>
+
+
+
+                    <!-- Modal -->
+<ng-template #modalSM let-modal>
+    <div class="modal-header bg-dark" style="padding: 5px;">
+        <h5 class="modal-title text-white" id="myModalLabel160">Assign Service Order</h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <div class="form-group">
+            <label for="circleId">Circle:</label>
+            <select (change)="getEngineerList($event)" id="cid" formControlName="circleId" class="form-control">
+                <option value="">Select Circle</option>
+                <option *ngFor="let circle of circleMap" [value]="circle.id" >{{circle.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="circleId">Assign To:</label>
+            <select id="eid" formControlName="engineerId" class="form-control">
+                <option value="">Select</option>
+                <option *ngFor="let engineer of engineerMap" [value]="engineer.contactId" >{{engineer.name}}</option>
+            </select>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger " (click)="modal.close('Accept click')">Close</button>
+        <button type="button" class="btn btn-success " (click)="reassign() ; modal.close('Accept click')">Save Changes</button>
+    </div>
+</ng-template>
+<!-- / Modal -->
+
+
+
+<!-- Modal2 -->
+<ng-template #modalSM2 let-modal>
+    <div class="modal-header bg-dark" style="padding: 5px;">
+        <h5 class="modal-title text-white" id="myModalLabel160">Approval For</h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <div class="row ml-0">
+            <div class="col-lg-12">
+                <label for="basicTextarea">Remarks</label>
+                <fieldset class="form-group">
+                    <textarea  (change)="approvalRemark=$event.target.value"  id="rem" class="form-control" id="basicTextarea" rows="2" placeholder="Textarea"></textarea>
+                </fieldset>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Action</label>
+                    <select (change)="approvalAction=$event.target.value"  id="app" class="form-control form-control-sm  model-w-s">
+                        <option>Select</option>
+                        <option value="Approve">Approve</option>
+                        <option value="Reject">Reject</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger " (click)="modal.close('Accept click')">Close</button>
+        <button type="button" class="btn btn-success " (click)="approveOrReject() ; modal.close('Accept click')">Save </button>
+    </div>
+</ng-template>
+<!-- / Modal2 -->

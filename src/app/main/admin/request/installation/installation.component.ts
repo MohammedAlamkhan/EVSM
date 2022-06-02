@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import {InstallationService} from './installation.service'
+import {IrfService} from './../../irf/irf.service'
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-installation',
   templateUrl: './installation.component.html',
@@ -7,7 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InstallationComponent implements OnInit {
 public contentHeader : object
-  constructor() { }
+  loading: boolean=false;
+  installations: any;
+  totalRecords: any;
+  noOfRows: number=5;
+  irf: any;
+  constructor(private installationService: InstallationService,private irfService: IrfService,  private router: Router) { }
 
   ngOnInit(): void {
     this.contentHeader = {
@@ -33,6 +40,56 @@ public contentHeader : object
       ]
       }
     };
+    // this.loadData();
+    }
+
+    passInstallData(index){
+      this.installationService.installationId = this.installations[index].id;
+      this.installationService.getInstallationInformationById().subscribe(
+        (data) => {
+          this.installationService.selectedInstall = data;
+          this.loading = true;
+          this.go_next('\comp-req-installations');
+        }
+      )
+      
+    }
+
+    go_next(route){
+      setTimeout(() => {
+          this.loading = false;
+          this.router.navigate([route])
+        }
+        , 1000);
+  }
+
+  // routerLink="/comp-req-installations"
+  
+    passIrfData(index){
+      this.irfService.irfId = this.installations[index].irfId;
+      this.irf =   this.irfService.getIrfInformationById().subscribe(
+        (data) => {
+          this.irfService.selectedIrf = data;
+          this.loading = true;
+          this.go_next('\irf-details');
+        }
+      )
+    }
+   
+
+    loadData($event) {
+      const req={
+        "page":$event.first/this.noOfRows,
+        "size":$event.rows
+      }
+      this.loading = true;
+      this.installations =   this.installationService.getInstallationInformation(req).subscribe(
+        (data) => {
+          this.installations = data.content;
+          this.totalRecords = data.totalElements;
+          this.loading = false;
+        }
+      )
     }
 
 }

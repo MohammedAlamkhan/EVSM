@@ -42,8 +42,8 @@ export class AuthenticationService {
       .pipe(
         tap(x => {
           if (
-            x.fcmToken != null
-            && x.fcmToken !== undefined) {
+            x.token != null
+            && x.token !== undefined) {
             this.setCredentials(x);
           }
           else
@@ -82,7 +82,7 @@ export class AuthenticationService {
   }
 
   refresh(): Observable<UserDetails> {
-    const refreshToken = this._credentials.fcmToken;
+    const refreshToken = this._credentials.token;
     return this.httpClient.get<UserDetails>(environment.baseApiUrl + this.userAuthRefreshEndpoint + '/' +refreshToken )
     .pipe(
       tap(response => {
@@ -97,7 +97,7 @@ export class AuthenticationService {
   // refresh() {
   //   return this.httpClient.post<UserDetails>(environment.baseApiUrl + this.userAuthRefreshEndpoint,
   //     {
-  //       Token: this._credentials.fcmToken,
+  //       Token: this._credentials.token,
   //       RefreshToken: this._credentials.refreshToken
   //     }
   //   ).pipe(

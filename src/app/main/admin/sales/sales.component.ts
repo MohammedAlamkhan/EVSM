@@ -11,8 +11,8 @@ import {SalesService} from '../sales/sales.service';
 })
 export class SalesComponent implements OnInit {
   public contentHeader: object;
-  noOfRows: number = 9;
-  salesOrder : SalesOrder[];
+  noOfRows: number=5;
+  salesOrder : any;
   totalRecords: number;
   cols: any[];
   loading: boolean = false;
@@ -37,29 +37,40 @@ export class SalesComponent implements OnInit {
         ]
       }
     };
-    this.loading = true;
+    // this.loadDataForOpen();
   }
 
-  loadData(event: LazyLoadEvent) {
-    this.loading = true;
-    this.salesService.getOpenSalesOrder({ lazyEvent: JSON.stringify(event) }).subscribe(
+  passSalesData(index){
+    this.salesService.selectedSalesOrder = this.salesOrder[index];
+  }
+
+  loadDataForOpen($event) {
+    const req={
+      "page":$event.first/this.noOfRows,
+      "size":$event.rows
+    }
+    this.loading = false;
+    this.salesService.getOpenSalesOrder(req).subscribe(
       (data) => {
-        this.salesOrder = data.salesOrder;
-        this.totalRecords = data.totalRecords;
+        this.salesOrder = data.content;
+        this.totalRecords = data.totalElements;
         this.loading = false;
       }
     )
 
   }
 
-  loadDataForClose(event: LazyLoadEvent) {
-    ;
-    this.loading = true;
-    this.salesService.getCloseSalesOrder({ lazyEvent: JSON.stringify(event) }).subscribe(
+
+  loadDataForClose($event) {
+    const req={
+      "page":$event.first/this.noOfRows,
+      "size":$event.rows
+    }   
+    this.loading = false;
+    this.salesService.getCloseSalesOrder(req).subscribe(
       (data) => {
-        ;
-        this.salesOrder = data.salesOrder;
-        this.totalRecords = data.totalRecords;
+        this.salesOrder = data.content;
+        this.totalRecords = data.totalElements;
         this.loading = false;
       }
     )

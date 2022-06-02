@@ -1,23 +1,24 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FlatpickrOptions } from 'ng2-flatpickr';
-import { AssetsService } from '../assetsitems/assetsitems.service'
+import { AccountsService } from '../accounts/accounts.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
-  selector: 'app-comman-assets',
-  templateUrl: './comman-assets.component.html',
-  styleUrls: ['./comman-assets.component.scss'],
+  selector: 'app-comman-accounts',
+  templateUrl: './comman-accounts.component.html',
+  styleUrls: ['./comman-accounts.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class CommanAssetsComponent implements OnInit {
+export class CommanAccountsComponent implements OnInit {
   public contentHeader: object
 
   public basicDateOptions: FlatpickrOptions = {
     altInput: true,
     dateFormat:'d.m.Y H:i'
   };
-  asset: any;
+  account: any;
+  
 
-  constructor(private assetsService: AssetsService,private modalService: NgbModal) { }
+  constructor(private accountsService: AccountsService,private modalService: NgbModal) { }
   modalOpenDefault(modalDefault) {
     this.modalService.open(modalDefault, {
       centered: true
@@ -26,7 +27,7 @@ export class CommanAssetsComponent implements OnInit {
   ngOnInit(): void {
     // content header
     this.contentHeader = {
-      headerTitle: 'Assets',
+      headerTitle: 'Accounts',
       actionButton: true,
       breadcrumb: {
         type: '',
@@ -34,7 +35,7 @@ export class CommanAssetsComponent implements OnInit {
           {
             name: 'Home',
             isLink: true,
-            link: '/assets'
+            link: '/accounts'
           },
           // {
           // name: 'Sales',
@@ -49,7 +50,7 @@ export class CommanAssetsComponent implements OnInit {
       }
     };
 
-    this.asset=   this.assetsService.selectedAsset;
+    this.account=   this.accountsService.selectedAccount;
   
   }
 

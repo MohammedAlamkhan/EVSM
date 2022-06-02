@@ -6,7 +6,7 @@ export class UserDetails {
     firstName: string;
     middleName: string;
     lastName: string;
-    fcmToken: string;
+    token: string;
     deviceId: string;
     defaultPage: string;
     createdDate: string;

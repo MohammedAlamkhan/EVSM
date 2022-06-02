@@ -37,15 +37,15 @@
                                     <tbody>
                                         <tr>
                                             <td><span class="text-gray"> SO Total Qty </span></td>
-                                            <td> {{sOTotalQty}}</td>
+                                            <td> {{salesOrder?.totalQuantity}}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Client </span></td>
-                                            <td>{{client}}</td>
+                                            <td>{{salesOrder?.AccountName}}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Invoice number </span></td>
-                                            <td>{{invoiceNumber}}</td>
+                                            <td>{{salesOrder?.invoiceNo}}</td>
                                         </tr>
                                         <!-- <tr>
                                             <td><span class="text-gray">other 1</span></td>
@@ -65,15 +65,15 @@
                                     <tbody>
                                         <tr>
                                             <td><span class="text-gray"> Billed Asset Qty</span></td>
-                                            <td>{{billedAssetQty}} </td>
+                                            <td>{{salesOrder?.totalBilledAsset}} </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Sales order creation date</span></td>
-                                            <td>{{salesOrderCreationDate}}</td>
+                                            <td>{{salesOrder?.createdDate | date:'medium':'IST' }}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Invoice date </span></td>
-                                            <td>{{invoiceDate}}</td>
+                                            <td>{{salesOrder?.invoiceDate | date:'medium':'IST' }}</td>
                                         </tr>
                                         <!-- <tr>
                                             <td><span class="text-gray">other2</span></td>

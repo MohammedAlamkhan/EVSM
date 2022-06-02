@@ -7,27 +7,27 @@
             <tbody>
                 <tr>
                     <td>Customer</td>
-                    <td colspan="2"> </td>
+                    <td colspan="2"> {{installation?.accountContactPersonName}}</td>
                 </tr>
                 <tr style="height: 25px">
                     <td rowspan="2"> Address </td>
-                    <td colspan="2"> </td>
+                    <td colspan="2"> {{installation?.address}}</td>
                 </tr>
                 <tr>
-                    <td> City</td>
-                    <td> Pin</td>
+                    <td> City : {{installation.city}}</td>
+                    <td> Pin : {{installation?.pincode}}</td>
                 </tr>
                 <tr>
                     <td>Customer Mobile No.</td>
-                    <td colspan="2"></td>
+                    <td colspan="2">{{installation?.accountContactPersonPhone}}</td>
                 </tr>
                 <tr>
                     <td>Customer Email ID</td>
-                    <td colspan="2"></td>
+                    <td colspan="2">{{installation?.accountContactPersonEmail}}</td>
                 </tr>
                 <tr>
                     <td>Product Serial No.</td>
-                    <td colspan="2"></td>
+                    <td colspan="2">{{installation?.manualId}}</td>
                 </tr>
                 <tr>
                     <td>Commissioning Date </td>

@@ -1,13 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-
+import { AssetsService } from './assetsitems.service'
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-assetsitems',
   templateUrl: './assetsitems.component.html',
   styleUrls: ['./assetsitems.component.scss']
 })
 export class AssetsitemsComponent implements OnInit {
-public contentHeader :object
-  constructor() { }
+public contentHeader :object;
+assets:any;
+loading: boolean = false;
+noOfRows: number=5;
+totalRecords: number;
+cols: any[];
+  constructor(private assetsService: AssetsService ,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     // content header
@@ -34,16 +41,27 @@ public contentHeader :object
         ]
       }
     };
+  // this.loadData();
   }
-  isTataShow: boolean = true; // hidden by default
-  isMgShow: boolean = false;
 
-  toggleTata() {
-    this.isTataShow = true
-    this.isMgShow = false
+
+  passAssetData(index){
+    this.assetsService.selectedAsset = this.assets[index];
   }
-  toggleMg() {
-    this.isMgShow = true
-    this.isTataShow = false;
+
+  loadData($event) {
+    const req={
+      "page":$event.first/this.noOfRows,
+      "size":$event.rows
+    }
+    this.loading = true;
+    this.assets =   this.assetsService.getAssetsInformation(req).subscribe(
+      (data) => {
+        this.assets = data.content;
+        this.totalRecords = data.totalElements;
+        this.loading = false;
+      }
+    )
   }
+
 }

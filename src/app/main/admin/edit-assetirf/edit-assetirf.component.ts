@@ -2,24 +2,26 @@ import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { takeUntil, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { SalesService } from '../../admin/sales/sales.service';
+import { SalesService } from '../sales/sales.service';
 import { NotificationService as Notify } from '../../../shared/services/notification.service';
 import { NotificationType } from 'app/Models/NotificationMessage';
 import { AppConstants } from 'app/shared/AppConstants';
 import { Router } from '@angular/router';
-import { ServicesService as Admin } from '../../admin/services.service';
+import { ServicesService as Admin } from '../services.service';
+import { AssetsService } from '../assetsitems/assetsitems.service'
 
 @Component({
-  selector: 'app-edit-irf',
-  templateUrl: './edit-irf.component.html',
-  styleUrls: ['./edit-irf.component.scss'],
+  selector: 'app-edit-assetirf',
+  templateUrl: './edit-assetirf.component.html',
+  styleUrls: ['./edit-assetirf.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class EditIrfComponent implements OnInit, OnDestroy {
+export class EditAssetIrfComponent implements OnInit, OnDestroy {
   circleMap: any;
   circleId: any;
   requestRaisedByIdMap: any;
   constructor(private fb: FormBuilder,
+    private assetsService: AssetsService,
     private sales: SalesService,
     private notify: Notify,
     private router: Router,
@@ -29,10 +31,10 @@ export class EditIrfComponent implements OnInit, OnDestroy {
   public contentHeader: object;
   irfCreationForm: FormGroup;
   unsubscribe$ = new Subject<void>();
-  holdSalesDetails: any;
+  holdAssetDetails: any;
   arrayWorkActivityControls: { workId: number, workDescription: string }[] = [];
   credentials:any;
-  SelectedSalesOrderData = this.sales.selectedSalesOrder;
+  SelectedAsset = this.assetsService.selectedAsset;
 
   isHeading: boolean = false
   isVisit: boolean = false
@@ -79,10 +81,12 @@ export class EditIrfComponent implements OnInit, OnDestroy {
       takeUntil(this.unsubscribe$),
       tap(x => this.manageInstAndCommisioningControls())
     ).subscribe();
-    this.holdSalesDetails = this.sales.selectedSalesOrder;
-    this.setValuesFromSalesOrder();
+    this.holdAssetDetails = this.assetsService.selectedAsset;
+    console.log("holded asset");
+    console.log( this.holdAssetDetails )
+    this.setValuesFromAsset();
 
-   
+ 
 
     
   }
@@ -91,7 +95,6 @@ export class EditIrfComponent implements OnInit, OnDestroy {
    this.admin.getCircleMap().subscribe(
       (data) => {
         this.circleMap = data;
-     
       }
     )
   }
@@ -104,16 +107,17 @@ export class EditIrfComponent implements OnInit, OnDestroy {
      )
    }
 
-  setValuesFromSalesOrder(): void {
-    console.log(this.holdSalesDetails);
+
+  setValuesFromAsset(): void {
+    console.log(this.holdAssetDetails);
     this.accessIrfForm['dateOfAssignment'].patchValue(new Date ());
     this.accessIrfForm['tentativePlanDate'].patchValue(new Date ());
-    this.accessIrfForm['salesOrderNo'].patchValue(this.holdSalesDetails.id);
+    this.accessIrfForm['salesOrderNo'].patchValue(this.holdAssetDetails.id);
     this.accessIrfForm['ownerName'].patchValue(this.credentials.ownerName);
-    this.accessIrfForm['AccountName'].patchValue(this.holdSalesDetails.AccountName);
-    this.accessIrfForm['address'].patchValue(this.holdSalesDetails.address);
-    this.accessIrfForm['pONoAndDate'].patchValue(this.holdSalesDetails.poNo + ' ' +  this.formatDate(this.holdSalesDetails.poDate));
-    this.accessIrfForm['contactPersonName'].patchValue(this.holdSalesDetails.ownerName);
+    this.accessIrfForm['AccountName'].patchValue(this.holdAssetDetails.accountName);
+    this.accessIrfForm['address'].patchValue(this.holdAssetDetails.address);
+    this.accessIrfForm['pONoAndDate'].patchValue(this.holdAssetDetails.purchaseOrderNumber + ' ' +  this.formatDate(this.holdAssetDetails.purchaseOrderDate));
+    this.accessIrfForm['contactPersonName'].patchValue(this.holdAssetDetails.ownerName);
     this.accessIrfForm['contactNumber'].patchValue("");
     this.accessIrfForm['emailId'].patchValue("");
 
@@ -299,7 +303,7 @@ export class EditIrfComponent implements OnInit, OnDestroy {
 
   submit() {
     
-    this.admin.postBulkIrf(this.createDataToSend()).pipe(
+    this.admin.postSingleIrf(this.createDataToSend()).pipe(
       takeUntil(this.unsubscribe$)
     ).subscribe();
    

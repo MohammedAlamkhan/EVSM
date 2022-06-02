@@ -7,17 +7,9 @@
                     <div class="container-fluid">
                         <div class="row align-items-center">
                             <div class="col-sm-6">
-                                <h5 class="card-titleb ">Asset Serial Number :
-                                    <strong>{{asset?.serialNo}} </strong>
+                                <h5 class="card-titleb ">Account Name :
+                                    <strong>{{account?.name}} </strong>
                                 </h5>
-                            </div>
-                            <div class="col-sm-6 text-right">
-                                <a routerLink="/edit-assetirf"  class="btn btn-light btn-sm mx-1">
-                                    <i data-feather="edit"></i> Generate IRF</a>
-                                <button type="button" class="btn btn-light btn-sm" data-toggle="modal"
-                                    (click)="modalOpenDefault(modalDefault)" data-target="#modal-xl">
-                                    <i data-feather="edit"></i> Edit
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -32,7 +24,7 @@
                     </div>
                     <div class="card-body">
                         <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
-                            <h6 class="ml-1"> Asset Information
+                            <h6 class="ml-1"> Account Information
                             </h6>
                         </div>
                     </div>
@@ -43,30 +35,21 @@
                                     <tbody>
                                         <tr>
                                             <td><span class="text-gray">
-                                                    Asset Serial Number </span></td>
-                                            <td> {{asset?.serialNo}}</td>
+                                                    Account Name </span></td>
+                                            <td> {{account?.name}}</td>
                                         </tr>
                                         <tr>
-                                            <td><span class="text-gray">Account </span></td>
-                                            <td>{{asset?.accountName}}
+                                            <td><span class="text-gray">Type</span></td>
+                                            <td>{{account?.accountTypeName}}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><span class="text-gray">Site ID </span></td>
-                                            <td>{{asset?.siteId}}</td>
+                                            <td><span class="text-gray">Description </span></td>
+                                            <td>{{account?.description}}</td>
                                         </tr>
                                         <tr>
-                                            <td><span class="text-gray">Warranty</span></td>
-                                            <td *ngIf="asset.warrantyStatus===1">Under Warranty</td>
-                                            <td *ngIf="asset.warrantyStatus===0">Out of Warranty</td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="text-gray">Remarks</span></td>
-                                            <td>{{asset?.remarks}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="text-gray">Sales Order No. </span></td>
-                                            <td>{{asset?.salesOrderNo}} </td>
+                                            <td><span class="text-gray">Contact Person Name </span></td>
+                                            <td>{{account?.contactPersonName}} </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -77,26 +60,21 @@
                                 <table class="table table-sm ">
                                     <tbody>
                                         <tr>
-                                            <td><span class="text-gray"> Part Code</span></td>
-                                            <td>{{asset?.productName}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="text-gray"> Asset Description</span></td>
-                                            <td>{{asset?.productDescription}}</td>
+                                            <td><span class="text-gray">SAP Customer Number</span></td>
+                                            <td>{{account?.sapCode}}</td>
                                         </tr>
                                    
                                         <tr>
-                                            <td><span class="text-gray">Exchange/Site Name</span></td>
-                                            <td>{{asset?.siteName}}</td>
+                                            <td><span class="text-gray">Owner</span></td>
+                                            <td>{{account?.ownerName}}</td>
                                         </tr>
                                         <tr>
-                                            <td><span class="text-gray">Plant </span></td>
-                                            <td>{{asset?.plant}} </td>
+                                            <td><span class="text-gray">Contact Person Phone </span></td>
+                                            <td>{{account?.contactPersonPhone}} </td>
                                         </tr>
                                         <tr>
-                                            <td><span class="text-gray">Status </span></td>
-                                            <td>{{asset?.statusName}} </td>
+                                            <td><span class="text-gray">Contact Person Email ID </span></td>
+                                            <td>{{account?.contactPersonEmail}} </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -106,7 +84,7 @@
 
                     <div class="card-body">
                         <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
-                            <h6 class="ml-1">Delivery Details
+                            <h6 class="ml-1">Billing Address Information
                             </h6>
                         </div>
                     </div>
@@ -118,12 +96,17 @@
                                         <tr>
                                             <td><span class="text-gray">
 
-                                                    PO No</span></td>
-                                            <td> {{asset?.purchaseOrderNumber}}</td>
+                                                    Address</span></td>
+                                            <td> {{account?.billingAddress}}</td>
                                         </tr>
                                         <tr>
-                                            <td><span class="text-gray">SAP Delivery Document No </span></td>
-                                            <td>{{asset?.sapDeliveryDocumentNumber}}
+                                            <td><span class="text-gray">Street </span></td>
+                                            <td>{{account?.billingStreet}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">City </span></td>
+                                            <td>{{account?.billingCity}}
                                             </td>
                                         </tr>
 
@@ -136,14 +119,20 @@
                                 <table class="table table-sm ">
                                     <tbody>
                                         <tr>
-                                            <td><span class="text-gray">
-                                                    PO Date</span></td>
-                                            <td> {{asset?.purchaseOrderDate  | date:'medium':'IST' }}</td>
+                                            <td><span class="text-gray">State </span></td>
+                                            <td>{{account?.billingStateName}}
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td><span class="text-gray">SAP Material Document No </span></td>
-                                            <td>{{asset?.sapMaterialDocumentNumber}}
-                                            </td>
+                                            <td><span class="text-gray">
+                                                   Country</span></td>
+                                            <td> {{account?.billingCountry}}</td>
+                                        </tr>
+                                      
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                   PinCode</span></td>
+                                            <td> {{account?.billingPincode}}</td>
                                         </tr>
 
                                     </tbody>
@@ -154,7 +143,7 @@
 
                     <div class="card-body">
                         <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
-                            <h6 class="ml-1">Warranty Details
+                            <h6 class="ml-1">Shipping Address Information
                             </h6>
                         </div>
                     </div>
@@ -164,20 +153,16 @@
                                 <table class="table table-sm ">
                                     <tbody>
                                         <tr>
-                                            <td><span class="text-gray">Delivery Date</span></td>
-                                            <td>{{asset?.deliveryDate  | date:'medium':'IST' }}</td>
+                                            <td><span class="text-gray">Address</span></td>
+                                            <td>{{account?.shippingAddress}}</td>
                                         </tr>
                                         <tr>
-                                            <td><span class="text-gray">Warranty from DOD(months)</span></td>
-                                            <td>{{asset?.warrantyFromDateOfDeliveryInMonth}} </td>
+                                            <td><span class="text-gray">Street</span></td>
+                                            <td>{{account?.shippingStreet}} </td>
                                         </tr>
                                         <tr>
-                                            <td><span class="text-gray">DOD Expiration Date </span></td>
-                                            <td>{{asset?.dateOfDeliveryExpiryDate  | date:'medium':'IST' }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="text-gray">Warranty Expiry Date </span></td>
-                                            <td>{{asset?.warrantyExpiryDate  | date:'medium':'IST' }} </td>
+                                            <td><span class="text-gray">City</span></td>
+                                            <td>{{account?.shippingCity}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -189,78 +174,19 @@
                                     <tbody>
                                         <tr>
                                             <td><span class="text-gray">
-                                                    Install Date</span></td>
-                                            <td>{{asset?.installDate  | date:'medium':'IST' }}
+                                                 Country</span></td>
+                                            <td>{{account?.shippingCountry}}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><span class="text-gray">Warranty from Installation Date(months) </span>
+                                            <td><span class="text-gray">State </span>
                                             </td>
-                                            <td>{{asset?.warrantyFromDateOfInstallationInMonth}} </td>
+                                            <td>{{account?.shippingStateName}} </td>
                                         </tr>
                                         <tr>
-                                            <td><span class="text-gray">Install Expiry Date </span></td>
-                                            <td> {{asset?.installExpiryDate  | date:'medium':'IST' }}</td>
+                                            <td><span class="text-gray">PinCode </span></td>
+                                            <td> {{account?.shippingPincode}}</td>
                                         </tr>
-                                        <tr>
-                                            <td><span class="text-gray">Warranty Status </span></td>
-                                            <td>{{asset?.warrantyStatus}} </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                        <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
-                            <h6 class="ml-1">AMC Details
-                            </h6>
-                        </div>
-                    </div>
-                    <div class="row px-2">
-                        <div class="col-6">
-                            <div class="table-responsive">
-                                <table class="table table-sm">
-                                    <tbody>
-                                        <tr>
-                                            <td><span class="text-gray">
-                                                    AMC PO No</span></td>
-                                            <td>{{asset?.amcPurchaseOrderNumber}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="text-gray">AMC Start Date</span></td>
-                                            <td>{{asset?.amcStartDate  | date:'medium':'IST' }} </td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="text-gray">AMC Period (months) </span></td>
-                                            <td>{{asset?.amcPeriod}}</td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="table-responsive">
-                                <table class="table table-sm">
-                                    <tbody>
-                                        <tr>
-                                            <td><span class="text-gray">
-
-                                                    AMC PO Date</span></td>
-                                            <td>{{asset?.amcPurchaseOrderDate  | date:'medium':'IST' }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="text-gray">AMC Expiry Date </span></td>
-                                            <td>{{asset?.amcExpiryDate  | date:'medium':'IST' }} </td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="text-gray">AMC Status </span></td>
-                                            <td> {{asset?.amcStatus}}</td>
-                                        </tr>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -280,16 +206,14 @@
                                     <tbody>
                                         <tr>
                                             <td><span class="text-gray">
-                                                    Created By </span></td>
-                                            <td> {{asset?.createByName}}</td>
+                                                    Created By</span></td>
+                                            <td>{{account?.createByName}}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">
                                                     Created Date </span></td>
-                                            <td> {{asset?.createdDate  | date:'medium':'IST' }}</td>
+                                            <td> {{account?.createdDate  | date:'medium':'IST' }}</td>
                                         </tr>
-
-
                                     </tbody>
                                 </table>
                             </div>
@@ -298,19 +222,19 @@
                             <div class="table-responsive">
                                 <table class="table table-sm">
                                     <tbody>
-
                                         <tr>
                                             <td><span class="text-gray">
-                                                    Last Modified By </span></td>
-                                            <td> {{asset?.modifiedByName}}</td>
+
+                                                    Last Modified By</span></td>
+                                            <td>{{account?.modifiedByName}}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">
                                                     Last Modified Date </span></td>
-                                            <td> {{asset?.modifiedDate  | date:'medium':'IST' }}</td>
+                                            <td> {{account?.modifiedDate  | date:'medium':'IST' }}</td>
                                         </tr>
-
-                                    </tbody>
+                                     </tbody>
                                 </table>
                             </div>
                         </div>
@@ -326,14 +250,14 @@
 <!-- Modal -->
 <ng-template #modalDefault let-modal>
     <div class="modal-header bg-dark" style="padding: 5px;">
-        <h5 class="modal-title text-white" id="exampleModalCenterTitle">Edit Asset</h5>
+        <h5 class="modal-title text-white" id="exampleModalCenterTitle">Edit Account</h5>
         <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body" ngbAutofocus>
         <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
-            <h6 class="pl-1"> Asset Information</h6>
+            <h6 class="pl-1"> Account Information</h6>
         </div>
         <div class="row">
             <div class="col-md-12">
