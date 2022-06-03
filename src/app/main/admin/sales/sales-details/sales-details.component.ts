@@ -19,6 +19,7 @@ export class SalesDetailsComponent implements OnInit, OnDestroy {
   singleRowSalesDetails : any[];
   sOTotalQty: string;
   salesOrder: any;
+  dispatchData: any;
   ; client: string
     ; invoiceNumber: string
     ; billedAssetQty: string
@@ -58,11 +59,9 @@ export class SalesDetailsComponent implements OnInit, OnDestroy {
     };
     this.loading = true;
     this.loadData({});
-
+    this.dispatchData=this.sales.dispatchData;
 
   }
-
-
 
 
 

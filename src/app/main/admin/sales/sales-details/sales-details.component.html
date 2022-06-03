@@ -101,7 +101,7 @@
                             <div class="card">
                                 <div class="table-responsive border">
                                     <div *ngIf="loading"><app-spinner></app-spinner></div>
-                                    <p-table [value]="assests" [lazy]="true" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+                                    <p-table [value]="dispatchData" [lazy]="true" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
                                                 (onLazyLoad)="loadData($event)" responsiveLayout="scroll" 
                                                 dataKey="salesOrder.salesOrderId" [paginator]="true" [rows]="noOfRows"
                                                 [totalRecords]="totalRecords">
@@ -139,19 +139,20 @@
                                                         <td class="no-st-text-b">{{aseet.clients.clientName}}</td>
                                                         <td class="no-st-text-b">{{aseet.orderCreateDate}}</td> -->
 
-                                                        <td class="no-st-text-b">{{aseet.assetSerialNumber}}</td>
-                                                        <td class="no-st-text-b">{{aseet.sites.siteName}}</td>
-                                                        <td class="no-st-text-b">{{aseet.clients.clientName}}</td>
-                                                        <td class="no-st-text-b">{{aseet.sites.customerName}}</td>
-                                                        <td class="no-st-text-b">{{aseet.partCode}}</td>
-                                                        <td class="no-st-text-b">{{aseet.assestDescription}}</td>
+                                                        <td class="no-st-text-b">{{aseet.serialNo}}</td>
+                                                        <td class="no-st-text-b">{{aseet.siteName}}</td>
+                                                        <td class="no-st-text-b">{{aseet.accountName}}</td>
+                                                        <td class="no-st-text-b">dummy</td>
+                                                        <td class="no-st-text-b">{{aseet.productName}}</td>
+                                                        <td class="no-st-text-b">{{aseet.productDescription}}</td>
                                                         <td class="no-st-text-b">
-                                                            <span class="badge bg-success">{{aseet.warrantyStatus === 'Y' ? 'Yes':'No'}}</span></td>
-                                                        <td><input class="form-check-input1 ml-0" type="checkbox" disabled></td>
-                                                        <td><input class="form-check-input1 ml-0" type="checkbox" disabled></td>
-                                                        <td><input class="form-check-input1 ml-0" type="checkbox" disabled></td>
-                                                        <td><input class="form-check-input1 ml-0" type="checkbox" disabled> </td>
-                                                        <td class="no-st-text-b">{{aseet.created_date}}</td>
+                                                            {{aseet.warrantyStatus === 1 ? 'Yes':'No'}}
+                                                        </td>
+                                                        <td>{{aseet.isIrfGenerated}}</td>
+                                                        <td>{{aseet.isSurveyGenerated}}</td>
+                                                        <td>{{aseet.isInstallationGenerated}}</td>
+                                                        <td>{{aseet.isCommissioningGenerated}}</td>
+                                                        <td class="no-st-text-b">{{aseet.createdDate  | date:'shortDate':'IST'}}</td>
                                                     </tr>
                                                 </ng-template>
                                             </p-table>

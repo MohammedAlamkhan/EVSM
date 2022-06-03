@@ -25,7 +25,7 @@ const routes: Routes = [
     //   data: { animation: 'sales-details' }
     // },
   {
-    path: 'sales/sales-details/:salesOrderNo',
+    path: 'sales-details',
     component: SalesDetailsComponent,
     data: { animation: 'sales-details' }
   },

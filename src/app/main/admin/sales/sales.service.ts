@@ -16,7 +16,10 @@ export class SalesService {
   private readonly openSalesOrderUrl: string = 'salesorder/bystatus/Open';
   private readonly salesDetailsUrl: string = 'salesOrder/salesOrderNo/';
   private readonly assetListUrl: string = 'assests/items/';
+  private readonly dispatchUrl: string = 'asset/salesorder/';
+
   public selectedSalesOrder:any;
+  public dispatchData:any;
 
   salesInformation$ = new BehaviorSubject<any>(null);
   constructor(private httpClient: HttpClient
@@ -74,6 +77,11 @@ export class SalesService {
 
   public getSalesInformation(params?: any): Observable<SalesObject> {
     return this.httpClient.get<SalesObject>(environment.baseApiUrl + this.assetListUrl, { params: params });
+
+  }
+
+  public getDispatchData(param?: any): Observable<any> {
+    return this.httpClient.get<any>(environment.baseApiUrl + this.dispatchUrl+param);
 
   }
 }
