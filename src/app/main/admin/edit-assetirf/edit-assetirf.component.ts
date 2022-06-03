@@ -167,6 +167,12 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
       salesOrderId: (<HTMLInputElement>document.getElementById("SONumber")).value, 
       requestRaisedById:  (<HTMLInputElement>document.getElementById("oid")).value, 
       circleId: (<HTMLInputElement>document.getElementById("cid")).value, 
+      typeOfChargerId: (<HTMLInputElement>document.getElementById("typeOfCharger")).value, 
+      ratingOfCharger: (<HTMLInputElement>document.getElementById("ratingOfCharger")).value, 
+      quantity: (<HTMLInputElement>document.getElementById("quantity")).value, 
+      icPoStatus: (<HTMLInputElement>document.getElementById("iCpoStatus")).value, 
+      icPo: (<HTMLInputElement>document.getElementById("iCpo")).value, 
+      ic_price: (<HTMLInputElement>document.getElementById("iCprice")).value, 
       irfWorkList: yourWorkActivities
     }
       
