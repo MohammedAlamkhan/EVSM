@@ -36,7 +36,7 @@
                                                 <td ><a (click)="passAssetData(rowIndex)" routerLink="/comp-assets" class="no-st-text-b">{{ irf?.assetSerialNo }}</a></td>
                                                 <td class="bd-top">{{ irf?.statusName }}</td>
                                                 <td class="bd-top">{{ irf?.createByName }}</td>
-                                                <td class="bd-top">{{ irf?.createdDate | date:'medium':'IST' }}</td>
+                                                <td class="bd-top">{{ irf?.createdDate | date:'shortDate':'IST' }}</td>
                                                 <td class="bd-top">{{ irf?.other1 }}</td>
                                                 <td class="bd-top">{{ irf?.other2 }}</td>
                                             </tr>
