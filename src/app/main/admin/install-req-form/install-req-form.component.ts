@@ -39,6 +39,10 @@ export class InstallReqFormComponent implements OnInit {
   mcbdcb: any;
   canopyType: any;
   earthingStatus: any;
+  countryMap = [{
+      "countryId": 1,
+      "countryName": "India"  
+  }];
   stateMap = [
     {
      "stateId": 1,

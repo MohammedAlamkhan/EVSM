@@ -135,23 +135,26 @@
                                             placeholder="Please Enter">
                                     </div> -->
                                     <div class="form-group">
-                                        <label for="state">State</label>
-                                        <select id="stateid" formControlName="stateId" class="form-control">
-                                            <option value="">Select State</option>
-                                            <option *ngFor="let state of stateMap" [value]="state.stateId" >{{state.stateName}}</option>
+                                        <label for="name">Country
+
+                                        </label>
+                                        <select id="country" formControlName="stateId" class="form-control">
+                                            <option value="">Select Country</option>
+                                            <option *ngFor="let country of countryMap" [value]="country.countryId" >{{country.countryName}}</option>
                                         </select>
                                     </div>
+                              
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group">
-                                        <label for="name">Country
-
-                                        </label>
-                                        <input formControlName="country" type="name" class="form-control form-control-sm"
-                                            placeholder="Please Enter">
+                                        <label for="state">State</label>
+                                        <select id="stateid" formControlName="stateId" class="form-control">
+                                            <option value="">Select State</option>
+                                            <option *ngFor="let state of stateMap" [value]="state.stateId" >{{state.stateName}}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
