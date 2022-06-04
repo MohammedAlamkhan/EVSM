@@ -117,7 +117,9 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
     this.accessIrfForm['AccountName'].patchValue(this.holdAssetDetails.accountName);
     this.accessIrfForm['address'].patchValue(this.holdAssetDetails.address);
     this.accessIrfForm['pONoAndDate'].patchValue(this.holdAssetDetails.purchaseOrderNumber + ' ' +  this.formatDate(this.holdAssetDetails.purchaseOrderDate));
-    this.accessIrfForm['contactPersonName'].patchValue(this.holdAssetDetails.ownerName);
+    this.accessIrfForm['contactPersonName'].patchValue(this.holdAssetDetails.contactPersonName);
+    this.accessIrfForm['contactPersonPhone'].patchValue(this.holdAssetDetails.contactPersonPhone);
+    this.accessIrfForm['contactPersonEmail'].patchValue(this.holdAssetDetails.contactPersonEMail);
     this.accessIrfForm['contactNumber'].patchValue("");
     this.accessIrfForm['emailId'].patchValue("");
 
@@ -204,8 +206,8 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
       address: ['', [Validators.required]],
       pONoAndDate: ['', [Validators.required]],
       contactPersonName: ['', [Validators.required]],
-      contactNumber: ['', [Validators.required]],
-      emailId: ['', [Validators.required, Validators.email]],
+      contactPersonPhone: ['', [Validators.required]],
+      contactPersonEmail: ['', [Validators.required, Validators.email]],
       activityTypeSurvey: [false],
       activityTypeInstallation: [false],
       activityTypeCommisioning: [false],

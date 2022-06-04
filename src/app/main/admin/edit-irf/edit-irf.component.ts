@@ -113,7 +113,9 @@ export class EditIrfComponent implements OnInit, OnDestroy {
     this.accessIrfForm['AccountName'].patchValue(this.holdSalesDetails.AccountName);
     this.accessIrfForm['address'].patchValue(this.holdSalesDetails.address);
     this.accessIrfForm['pONoAndDate'].patchValue(this.holdSalesDetails.poNo + ' ' +  this.formatDate(this.holdSalesDetails.poDate));
-    this.accessIrfForm['contactPersonName'].patchValue(this.holdSalesDetails.ownerName);
+    this.accessIrfForm['contactPersonName'].patchValue(this.holdSalesDetails.contactPersonName);
+    this.accessIrfForm['contactPersonPhone'].patchValue(this.holdSalesDetails.contactPersonPhone);
+    this.accessIrfForm['contactPersonEmail'].patchValue(this.holdSalesDetails.contactPersonEMail);
     this.accessIrfForm['contactNumber'].patchValue("");
     this.accessIrfForm['emailId'].patchValue("");
 
@@ -200,6 +202,8 @@ export class EditIrfComponent implements OnInit, OnDestroy {
       address: ['', [Validators.required]],
       pONoAndDate: ['', [Validators.required]],
       contactPersonName: ['', [Validators.required]],
+      contactPersonPhone: ['', [Validators.required]],
+      contactPersonEmail: ['', [Validators.required, Validators.email]],
       contactNumber: ['', [Validators.required]],
       emailId: ['', [Validators.required, Validators.email]],
       activityTypeSurvey: [false],
