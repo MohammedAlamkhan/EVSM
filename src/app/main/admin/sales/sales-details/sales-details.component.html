@@ -102,7 +102,7 @@
                                 <div class="table-responsive border">
                                     <div *ngIf="loading"><app-spinner></app-spinner></div>
                                     <p-table [value]="dispatchData" [lazy]="true" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
-                                                (onLazyLoad)="loadData($event)" responsiveLayout="scroll" 
+                                                (onLazyLoad)="loadDispatchData($event)" responsiveLayout="scroll" 
                                                 dataKey="salesOrder.salesOrderId" [paginator]="true" [rows]="noOfRows"
                                                 [totalRecords]="totalRecords">
                                                 <ng-template pTemplate="header">

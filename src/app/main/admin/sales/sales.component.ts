@@ -43,7 +43,7 @@ export class SalesComponent implements OnInit {
 
   passSalesData(index){
     this.salesService.selectedSalesOrder = this.salesOrder[index];
-    this.loadDispatchData();
+    // this.loadDispatchData();
     this.go_next('\sales-details');
   }
 
@@ -64,14 +64,7 @@ export class SalesComponent implements OnInit {
   }
 
 
-  loadDispatchData(){
-
-    this.salesService.getDispatchData(this.salesService.selectedSalesOrder.id).subscribe(
-      (data) => {
-        this.salesService.dispatchData = data.content;
-      }
-    )
-  }
+ 
 
 
   go_next(route){

@@ -80,8 +80,13 @@ export class SalesService {
 
   }
 
-  public getDispatchData(param?: any): Observable<any> {
-    return this.httpClient.get<any>(environment.baseApiUrl + this.dispatchUrl+param);
+  public getDispatchData(param, qp): Observable<any> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("page", qp.page);
+    queryParams = queryParams.append("size", qp.size);
+    queryParams = queryParams.append("sort", "id");
+  
+    return this.httpClient.get<any>(environment.baseApiUrl + this.dispatchUrl+param, {params: queryParams});
 
   }
 }

@@ -32,7 +32,7 @@ export class SalesDetailsComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   salesOrderNo: string
   title: string = 'Sales Details(';
-  constructor(private sales: SalesService,
+  constructor(private salesService: SalesService,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -57,19 +57,27 @@ export class SalesDetailsComponent implements OnInit, OnDestroy {
         ]
       }
     };
-    this.loading = true;
-    this.loadData({});
-    this.dispatchData=this.sales.dispatchData;
+    // this.loading = true;
 
   }
 
 
 
-  loadData(event: LazyLoadEvent) {
-    this.loading = true;
-    this.salesOrder=this.sales.selectedSalesOrder
-    this.totalRecords = 1;
-    this.loading = false;
+
+
+  loadDispatchData($event){
+    this.salesOrder=this.salesService.selectedSalesOrder;
+    const req={
+      "page":$event.first/this.noOfRows,
+      "size":$event.rows
+    }
+    this.salesService.getDispatchData(this.salesService.selectedSalesOrder.id, req).subscribe(
+      (data) => {
+        this.dispatchData=data.content;
+        this.totalRecords = data.totalElements;
+        this.salesService.dispatchData = data.content;
+      }
+    )
   }
 
   ngOnDestroy(): void {
