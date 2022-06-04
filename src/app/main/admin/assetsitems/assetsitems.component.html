@@ -49,6 +49,7 @@
                                            <th scope="col" >Part Code</th>
                                            <th scope="col" >Asset Description</th>
                                            <th scope="col" >Warranty Status</th>
+                                           <th scope="col" >AMC Status</th>
                                            <th scope="col" >     IRF     </th>
                                            <th scope="col" >    Survey   </th>
                                            <th scope="col" >Installation</th>
@@ -70,6 +71,8 @@
                                                class="font-medium-4 text-success"></i> </a> </td>
                                            <td *ngIf="asset.warrantyStatus===0"> <a routerLink="/commission-form"> <i data-feather="flag"
                                                class="font-medium-4 text-danger"></i> </a> </td>
+                                            <td *ngIf="asset.amcStatus===1"> Yes </td>
+                                            <td *ngIf="asset.amcStatus===0"> No  </td>
                                            <td>
                                                <button
                                                    class="btn btn-sm btn-primary btn-touchspin btn-touchspin-down"

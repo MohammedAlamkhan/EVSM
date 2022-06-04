@@ -91,6 +91,11 @@
                                             <td>{{asset?.siteName}}</td>
                                         </tr>
                                         <tr>
+                                            <td><span class="text-gray">AMC Status</span></td>
+                                            <td *ngIf="asset.warrantyStatus===1">Yes</td>
+                                            <td *ngIf="asset.warrantyStatus===0">No</td>
+                                        </tr>
+                                        <tr>
                                             <td><span class="text-gray">Plant </span></td>
                                             <td>{{asset?.plant}} </td>
                                         </tr>
