@@ -320,11 +320,17 @@
 
                                                 <th class="dark-heading">{{accessInstallationWorkRequestListArray.controls[i].get('description')?.value}}</th>
                                                 <td> <input formControlName="responsibility" type="text" class="form-control form-control-sm"></td>
-                                                <td> <input formControlName="DC001Charger" type="text"
+                                                <td *ngIf="selectedType === 'dc001'"> <input formControlName="DC001Charger" type="text"
                                                         class="form-control form-control-sm"></td>
-                                                <td> <input formControlName="AC001Charger" type="text"
+                                                <td *ngIf="selectedType !== 'dc001'"> <input [attr.disabled]="true" formControlName="DC001Charger" type="text"
                                                         class="form-control form-control-sm"></td>
-                                                <td> <input formControlName="type2EvCharger" type="text"
+                                                <td *ngIf="selectedType === 'ac001'"> <input formControlName="AC001Charger" type="text"
+                                                        class="form-control form-control-sm"></td>
+                                                <td *ngIf="selectedType !== 'ac001'"> <input [attr.disabled]="true" formControlName="AC001Charger" type="text"
+                                                        class="form-control form-control-sm"></td>
+                                                <td *ngIf="selectedType === 'evcharger'"> <input formControlName="type2EvCharger" type="text"
+                                                        class="form-control form-control-sm"></td>
+                                                <td *ngIf="selectedType !== 'evcharger'"> <input [attr.disabled]="true" formControlName="type2EvCharger" type="text"
                                                         class="form-control form-control-sm"></td>
                                                 <td> <input formControlName="remark" type="text" class="form-control form-control-sm"></td>
                                             </tr>
