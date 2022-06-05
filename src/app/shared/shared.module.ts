@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NotificationComponent } from './notification/notification.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
@@ -28,6 +28,6 @@ import {CalendarModule} from 'primeng/calendar';
             SpinnerComponent,
             CalendarModule
   ],
-  providers:[]
+  providers:[DatePipe]
 })
 export class SharedModule { }
