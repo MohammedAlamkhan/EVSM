@@ -4,7 +4,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-primary">
-                    <form>
+                    <form [formGroup]="commissionForm" (ngSubmit)="onSubmit()"
+                    #CForm="ngForm"  id="ngForm">
                         <div class="card-body card-body-padding-top">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -18,7 +19,10 @@
                                     <div class="form-group">
                                         <label for="name">IRF Request Number
                                         </label>
-                                        <input type="name" class="form-control form-control-sm"
+                                        <!-- <input type="name" class="form-control form-control-sm"
+                                            placeholder="Please Enter"> -->
+
+                                            <input type="text" formControlName="txtIRF" class="form-control form-control-sm" 
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
@@ -26,7 +30,10 @@
                                     <div class="form-group">
                                         <label for="password">Service Request Number
                                         </label>
-                                        <input type="fdf" class="form-control form-control-sm"
+                                        <!-- <input type="fdf" class="form-control form-control-sm"
+                                            placeholder="Please Enter"> -->
+
+                                            <input type="text" formControlName="txtServiceRNumber" class="form-control form-control-sm" 
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
@@ -34,7 +41,10 @@
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="password">Client Name </label>
-                                        <input type="fdf" class="form-control form-control-sm"
+                                        <!-- <input type="fdf" class="form-control form-control-sm"
+                                            placeholder="Please Enter"> -->
+
+                                            <input type="text" formControlName="txtClientName" class="form-control form-control-sm" 
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
@@ -43,7 +53,10 @@
                                         <label for="password">
                                             Client Code
                                         </label>
-                                        <input type="fdf" class="form-control form-control-sm"
+                                        <!-- <input type="fdf" class="form-control form-control-sm"
+                                            placeholder="Please Enter"> -->
+
+                                            <input type="text" formControlName="txtClientCode" class="form-control form-control-sm" 
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
@@ -53,7 +66,10 @@
                                     <div class="form-group">
                                         <label for="name">Address
                                         </label>
-                                        <input type="name" class="form-control form-control-sm"
+                                        <!-- <input type="name" class="form-control form-control-sm"
+                                            placeholder="Please Enter"> -->
+
+                                            <input type="text" formControlName="txtAddress" class="form-control form-control-sm" 
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
@@ -61,15 +77,22 @@
                                     <div class="form-group">
                                         <label for="password">Pin Code
                                         </label>
-                                        <input type="fdf" class="form-control form-control-sm"
+                                        <!-- <input type="fdf" class="form-control form-control-sm"
+                                            placeholder="Please Enter"> -->
+
+                                            <input type="text" formControlName="txtPinCode" class="form-control form-control-sm" 
                                             placeholder="Please Enter">
+        
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="password">City
                                         </label>
-                                        <input type="fdf" class="form-control form-control-sm"
+                                        <!-- <input type="fdf" class="form-control form-control-sm"
+                                            placeholder="Please Enter"> -->
+
+                                            <input type="text" formControlName="txtCity" class="form-control form-control-sm" 
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
@@ -78,8 +101,13 @@
                                         <label for="password">
                                             State
                                         </label>
-                                        <input type="fdf" class="form-control form-control-sm"
-                                            placeholder="Please Enter">
+                                     
+
+                                            <!-- <input type="text" formControlName="txtState" class="form-control form-control-sm" 
+                                            placeholder="Please Enter"> -->
+                                            <select formControlName="txtState" class="form-control form-control-sm"  (change)="onChangeSate($event.target.value)" >
+                                                <option *ngFor="let objstate of stateData"  [value]="objstate.stateId">{{objstate.stateName}}</option>
+                                                </select>
                                     </div>
                                 </div>
                             </div>
@@ -88,8 +116,17 @@
                                     <div class="form-group">
                                         <label for="password">Country
                                         </label>
-                                        <input type="fdf" class="form-control form-control-sm"
-                                            placeholder="Please Enter">
+                                     
+
+                                            <!-- <input type="text" formControlName="txtCountry" class="form-control form-control-sm" 
+                                            placeholder="Please Enter"> -->
+
+                                          
+
+                                                <select formControlName="txtCountry" class="form-control form-control-sm"  (change)="onChangeCountry($event.target.value)" >
+                                                    <option *ngFor="let objCountry of countryData"  [value]="objCountry.countryId">{{objCountry.countryName}}</option>
+                                                    </select>
+                                              
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -97,15 +134,18 @@
                                         <label for="password">
                                             Commissioning Date
                                         </label>
-                                        <ng2-flatpickr [ngClass]="'firstsecond'" [config]="basicDateOptions"
+                                        <ng2-flatpickr  formControlName="txtCommissionDate"  [setDate]="commissionDateString" [ngClass]="'firstsecond'" [config]="basicDateOptions"
                                             name="basicDate"></ng2-flatpickr>
                                     </div>
-                                </div>
+                                </div> 
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="name">Name Of the Site
                                         </label>
-                                        <input type="name" class="form-control form-control-sm"
+                                        <!-- <input type="name" class="form-control form-control-sm"
+                                            placeholder="Please Enter"> -->
+
+                                            <input type="text" formControlName="txtnameOfSite" class="form-control form-control-sm" 
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
@@ -113,9 +153,17 @@
                                     <div class="form-group">
                                         <label for="name">Site ID
                                         </label>
-                                        <input type="name" class="form-control form-control-sm"
+                                        <!-- <input type="name" class="form-control form-control-sm"
+                                            placeholder="Please Enter"> -->
+                                            <input type="text" (keyup)="keyUpSiteIDSearch()" formControlName="txtSiteID" class="form-control form-control-sm" 
                                             placeholder="Please Enter">
+
+                                            <div *ngIf="isShowSiteID" style="color:red;font-size:11px">
+                                                Site Id not found.
+         
+                                             </div>
                                     </div>
+                                   
                                 </div>
                             </div>
                             <div class="row ml-0 ">
@@ -123,8 +171,32 @@
                                     <div class="form-group">
                                         <label for="password">Product Serial No.
                                         </label>
-                                        <input type="fdf" class="form-control form-control-sm"
+                                        <!-- <input type="fdf" class="form-control form-control-sm"
+                                            placeholder="Please Enter"> -->
+
+                                            
+                                            <input type="text" formControlName="txtPSNo" class="form-control form-control-sm" 
                                             placeholder="Please Enter">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="password">Actual Serial No.
+                                        </label>
+                                        <!-- <input type="fdf" class="form-control form-control-sm"
+                                            placeholder="Please Enter"> -->
+
+                                            
+                                            <input type="text" (keyup)="keyUpActualSrSearch()"  formControlName="txtoriginalProSrNo" class="form-control form-control-sm" 
+                                            placeholder="Please Enter">
+                                            <div style="color: red;
+                                            font-size: 10px;
+                                            margin: 0px;
+                                            padding: 0px;" *ngIf="isMsgProsr">
+
+                                                {{msgCheckProductSerial}}
+                                            </div>
                                     </div>
                                 </div>
 
@@ -132,7 +204,9 @@
                                     <div class="form-group">
                                         <label for="password">Contact Person at Site
                                         </label>
-                                        <input type="fdf" class="form-control form-control-sm"
+                                        <!-- <input type="fdf" class="form-control form-control-sm"
+                                            placeholder="Please Enter"> -->
+                                            <input type="text" formControlName="txtContactNoPersionSite" class="form-control form-control-sm" 
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
@@ -140,31 +214,41 @@
                                     <div class="form-group">
                                         <label for="name">Contact Number
                                         </label>
-                                        <input type="name" class="form-control form-control-sm"
+                                        <!-- <input type="name" class="form-control form-control-sm"
+                                            placeholder="Please Enter"> -->
+                                            <input type="text" formControlName="txtContactNo" class="form-control form-control-sm" 
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
+
+
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="name">Alternate Contact Number
                                         </label>
-                                        <input type="name" class="form-control form-control-sm"
+                                        <!-- <input type="name" class="form-control form-control-sm"
+                                            placeholder="Please Enter"> -->
+
+                                            <input type="text" formControlName="txtAltContact" class="form-control form-control-sm" 
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row ml-0 border-bottom ">
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label for="password">Email Id
-                                        </label>
-                                        <input type="fdf" class="form-control form-control-sm"
-                                            placeholder="Please Enter">
+                            
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="password">Email Id
+                                            </label>
+                                            <!-- <input type="fdf" class="form-control form-control-sm"
+                                                placeholder="Please Enter"> -->
+                                                <input type="text" formControlName="txtEmailId" class="form-control form-control-sm" 
+                                                placeholder="Please Enter">
+                                        </div>
                                     </div>
-                                </div>
-
-
+    
+    
+                                
                             </div>
+                           
                             <div class="table-s321a">
                                 <div class="row ">
                                     <div class="col-12">
@@ -191,7 +275,8 @@
 
                                                     <td>
                                                         <div class="form-group">
-                                                            <input type="fdf" class="form-control form-control-sm">
+                                                            <!-- <input type="fdf" class="form-control form-control-sm"> -->
+                                                            <input type="text" formControlName="txtPVInspect" class="form-control form-control-sm" >
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -204,7 +289,9 @@
                                                         Available and working
                                                     <td>
                                                         <div class="form-group">
-                                                            <input type="fdf" class="form-control form-control-sm">
+                                                            <!-- <input type="fdf" class="form-control form-control-sm"> -->
+
+                                                            <input type="text" formControlName="txtIndiDisplay" class="form-control form-control-sm" >
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -217,7 +304,8 @@
                                                         Power control switch (on/off) is easily accessible
                                                     <td>
                                                         <div class="form-group">
-                                                            <input type="fdf" class="form-control form-control-sm">
+                                                            <!-- <input type="fdf" class="form-control form-control-sm"> -->
+                                                            <input type="text" formControlName="txtAccessibility" class="form-control form-control-sm" >
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -231,7 +319,8 @@
                                                         no, etc.
                                                     <td>
                                                         <div class="form-group">
-                                                            <input type="fdf" class="form-control form-control-sm">
+                                                            <!-- <input type="fdf" class="form-control form-control-sm"> -->
+                                                            <input type="text" formControlName="txtChgMPlate" class="form-control form-control-sm" >
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -269,7 +358,7 @@
                                                         Voltage should bes ≤2V
                                                     <td>
                                                         <div class="form-group">
-                                                            <input type="fdf" class="form-control form-control-sm">
+                                                            <input type="text" formControlName="txtEBE" class="form-control form-control-sm" >
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -282,7 +371,9 @@
                                                         Available and working
                                                     <td>
                                                         <div class="form-group">
-                                                            <input type="fdf" class="form-control form-control-sm">
+                                                            <!-- <input type="fdf" class="form-control form-control-sm"> -->
+
+                                                            <input type="text" formControlName="txtEBEWLoad" class="form-control form-control-sm" >
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -295,7 +386,7 @@
                                                         Voltage should be b/w 200 - 250VAC Nominal Voltageis 230VAC
                                                     <td>
                                                         <div class="form-group">
-                                                            <input type="fdf" class="form-control form-control-sm">
+                                                            <input type="text" formControlName="txtNoVoltage" class="form-control form-control-sm" >
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -326,7 +417,8 @@
                                                         starting of the charger through RFiD card</td>
                                                     <td>
                                                         <div class="form-group">
-                                                            <input type="fdf" class="form-control form-control-sm">
+                                                            <!-- <input type="fdf" class="form-control form-control-sm"> -->
+                                                            <input type="text" formControlName="txtCheckPoint1" class="form-control form-control-sm" >
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -335,7 +427,8 @@
                                                         demonstration to customer</td>
                                                     <td>
                                                         <div class="form-group">
-                                                            <input type="fdf" class="form-control form-control-sm">
+                                                            <!-- <input type="fdf" class="form-control form-control-sm"> -->
+                                                            <input type="text" formControlName="txtCheckPoint2" class="form-control form-control-sm" >
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -344,7 +437,8 @@
                                                         Charger</td>
                                                     <td>
                                                         <div class="form-group">
-                                                            <input type="fdf" class="form-control form-control-sm">
+                                                            <!-- <input type="fdf" class="form-control form-control-sm"> -->
+                                                            <input type="text" formControlName="txtCheckPoint3" class="form-control form-control-sm" >
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -353,7 +447,8 @@
                                                     </td>
                                                     <td>
                                                         <div class="form-group">
-                                                            <input type="fdf" class="form-control form-control-sm">
+                                                            <!-- <input type="fdf" class="form-control form-control-sm"> -->
+                                                            <input type="text" formControlName="txtCheckPoint4" class="form-control form-control-sm" >
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -362,7 +457,8 @@
                                                         logging process with Customer care no. details</td>
                                                     <td>
                                                         <div class="form-group">
-                                                            <input type="fdf" class="form-control form-control-sm">
+                                                            <!-- <input type="fdf" class="form-control form-control-sm"> -->
+                                                            <input type="text" formControlName="txtCheckPoint5" class="form-control form-control-sm" >
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -382,8 +478,11 @@
                                     <div class="form-group">
                                         <label for="password">Customer Name
                                         </label>
-                                        <input type="fdf" class="form-control form-control-sm"
-                                            placeholder="Please Enter">
+                                        <!-- <input type="fdf" class="form-control form-control-sm"
+                                            placeholder="Please Enter"> -->
+
+                                            <input type="text" formControlName="txtCustomerName" class="form-control form-control-sm" 
+                                            placeholder="Please Enter"> 
                                     </div>
                                 </div>
                                 <div class="col-lg-3 ">
@@ -395,8 +494,11 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text input-text-p1">91</span>
                                             </div>
-                                            <input type="text" class="form-control form-control-sm"
-                                                placeholder="Please Enter">
+                                            <!-- <input type="text" class="form-control form-control-sm"
+                                                placeholder="Please Enter"> -->
+
+                                                <input type="text" formControlName="txtMobileNo" class="form-control form-control-sm" 
+                                                placeholder="Please Enter"> 
                                         </div>
                                     </div>
                                 </div>
@@ -406,8 +508,11 @@
                                     <div class="form-group">
                                         <label for="password">Remarks
                                         </label>
-                                        <textarea name="textarea" id="textarea" cols="45" rows="2"
-                                            class="form-control form-control-sm" placeholder="Please Enter"></textarea>
+                                        <!-- <textarea name="textarea" id="textarea" cols="45" rows="2"
+                                            class="form-control form-control-sm" placeholder="Please Enter"></textarea> -->
+
+                                            <textarea type="text" formControlName="txtremarks" cols="45" rows="2" class="form-control form-control-sm" 
+                                            placeholder="Please Enter"> </textarea> 
                                     </div>
                                 </div>
                             </div>
@@ -416,16 +521,21 @@
                                     <div class="form-group mb-0">
                                         <label for="password">Engineer
                                         </label>
-                                        <input type="fdf" class="form-control form-control-sm"
-                                            placeholder="Please Enter">
+                                        <!-- <input type="fdf" class="form-control form-control-sm"
+                                            placeholder="Please Enter"> -->
+
+                                            <input type="text" formControlName="txtEngineer" class="form-control form-control-sm" 
+                                            placeholder="Please Enter"> 
                                     </div>
                                 </div>
                                 <div class="col-lg-3 ">
                                     <div class="form-group mb-0">
                                         <label for="password">Employee Code
                                         </label>
-                                        <input type="fdf" class="form-control form-control-sm"
-                                            placeholder="Please Enter">
+                                        <!-- <input type="fdf" class="form-control form-control-sm"
+                                            placeholder="Please Enter"> -->
+                                            <input type="text" formControlName="txtEmpCode" class="form-control form-control-sm" 
+                                            placeholder="Please Enter"> 
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -465,8 +575,11 @@
                                     <div class="form-group mb-0">
                                         <label for="password">Customer Representative Name
                                         </label>
-                                        <input type="fdf" class="form-control form-control-sm"
-                                            placeholder="Please Enter">
+                                        <!-- <input type="fdf" class="form-control form-control-sm"
+                                            placeholder="Please Enter"> -->
+
+                                            <input type="text" formControlName="txtCustRepName" class="form-control form-control-sm" 
+                                            placeholder="Please Enter"> 
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -529,19 +642,21 @@
                                                 <fieldset class="form-group w-50 mb-0 pb-0">
                                                     <div class="d-flex justify-content-between">
                                                         <!-- <label for="file-upload-single">Signature:</label> -->
-                                                        <div *ngFor="let item of uploader.queue">
+                                                        <!-- <div *ngFor="let item of uploader.queue">
                                                             <small>{{ item?.file?.name
                                                                 }}</small>
-                                                        </div>
+                                                        </div> -->
                                                         <!-- <small>{{ uploader?.file?.name }}</small> -->
                                                     </div>
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" type="file"
+                                                        <!-- <input type="file" class="custom-file-input" type="file"
                                                             ng2FileSelect [uploader]="uploader"
-                                                            id="file-upload-single" />
-                                                        <label class="custom-file-label"> <i data-feather="upload"
+                                                            id="file-upload-single" /> -->
+                                                            <input type="file" id="file" formControlName="inputPowerImage" multiple 
+                                                            (change)="onChangeInputPower($event)">
+                                                        <!-- <label class="custom-file-label"> <i data-feather="upload"
                                                                 class="mr-1"></i>
-                                                            Upload File</label>
+                                                            Upload File</label> -->
                                                     </div>
                                                 </fieldset>
                                             </td>
@@ -754,9 +869,12 @@
                                 </div>
                             </div>
                             <div class="card-footer text-center pt-0 pt-1">
-                                <button type="submit" class="btn btn-primary mr-2">Save as Draft</button>
+                                <button type="submit" class="btn btn-primary mr-2"   (click)="saveAsDraft()">Save as Draft</button>
                                 <button type="submit" class="btn btn-primary">Submit</button>
+
+                              
                             </div>
+                         
                         </div>
                     </form>
                 </div>
@@ -764,4 +882,4 @@
             </div>
         </div>
     </div>
-</div>
+</div>  

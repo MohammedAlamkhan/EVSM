@@ -5,58 +5,181 @@
             <div class="row match-height">
                 <div class=" col-lg-12 ">
                     <!-- <core-card-snippet [snippetCode]="_snippetCodeBasicTab"> -->
+
                     <div class="card-body bg-white p-0 ">
                         <ul ngbNav #nav="ngbNav" class="nav-tabs tb-border mb-0">
 
                             <li ngbNavItem>
                                 <a ngbNavLink class=" "> Commissioning</a>
                                 <ng-template ngbNavContent>
-                                    <div class="table-responsive">
-                                        <table class="table border-left bordeer-right">
-                                            <thead class="mb-0 bg-white">
-                                                <tr class="bg-white">
-                                                    <th scope="col" class="text-nowrap">IRF Request No. </th>
-                                                    <th scope="col" class="text-nowrap">Commissioning Case No. </th>
-                                                    <th scope="col" class="text-nowrap">Installation Created Date </th>
-                                                    <th scope="col" class="text-nowrap">Request Type </th>
-                                                    <th scope="col" class="text-nowrap"> Client </th>
-                                                    <th scope="col" class="text-nowrap">Customer Name </th>
-                                                    <th scope="col" class="text-nowrap">Contact No. </th>
-                                                    <th scope="col" class="text-nowrap">Email Id</th>
-                                                    <th scope="col" class="text-nowrap">Charger Type </th>
-                                                    <th scope="col" class="text-nowrap">Asset Serial No. </th>
-                                                    <th scope="col" class="text-nowrap">Action </th>
-                                                </tr>
+                                    <div class="table-responsive border">
+                                        <div *ngIf="loading"><app-spinner></app-spinner></div>
+                                   
 
+                                                      <p-table  (onLazyLoad)="loadData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="bottom"
+                                                       [value]="assests" [lazy]="true"
+                                            styleClass="p-datatable-gridlines p-datatable-striped"
+                                            responsiveLayout="scroll"
+                                            dataKey="commissionId" [paginator]="true" [rows]="noOfRows"
+                                            [totalRecords]="totalRecords">
+                                                    <ng-template pTemplate="header">
+                                                        <tr class="bg-white">
+                                                        
+                                                            
+                                                             <th scope="col" field="irfManualId">IRF Request Number</th>
+                                                            <th scope="col " style="width: 12%;" field="commissionCaseNo">Commissioning Case No.</th>
+                                                            <th scope="col" field="commissioningDate" >Commission Created Date</th>
+                                                            <th scope="col" field="typeOfChargerName">Request Type</th>
+                                                            <th scope="col" field="accountName" class="text-nowrap">Client</th>
+                                                            <th scope="col" field="customer">Customer Name </th>
+                                                             <th scope="col" field="customerMobile" >Contact No. </th>
+                                                            <th scope="col" field="customerEmail" style="width: 12%;" >Email Id</th>
+                                                            <th scope="col" field="typeOfCharger" >Charger Type </th>
+                                                            <th scope="col" field="assetSerialNumber" >Asset Serial No.</th>
+                                                           <th scope="col"style="width: 13%;" >Action</th>
+                                                            <!-- <th scope="col" field="created_date" class="text-nowrap">Created Date </th>-->
+                                                        
+                                                        </tr>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="body" let-aseet>
+                                                       
+                                                        <tr>
+                                                            <!-- aseet.commissionId -->
+                                                            <!-- {{aseet.commissionCaseNo}} -->
+                                                            <td class="no-st-text-b">{{aseet.irfManualId}}</td>
+                                                            <td class="no-st-text-b"><a [routerLink]="['/commission/commission-details',aseet.id]"  class="no-st-text-b">{{aseet.manualId}}</a></td>
+                                                            <td class="no-st-text-b">{{aseet.commissioningDate  | date:"dd/MM/yyyy"}}</td>
+                                                            <td class="no-st-text-b">{{ aseet.commissioningStatusName}}</td>
+                                                             <td class="no-st-text-b">{{aseet.accountName}}</td>
+                                                            <td class="no-st-text-b">{{aseet.customer}}</td>
+                                                            <td class="no-st-text-b">{{aseet.customerMobile}}</td>
+                                                            <td class="no-st-text-b" >{{aseet.customerEmail}}</td>
+                                                        
+                                                             <td class="no-st-text-b">{{aseet.typeOfChargerName}}</td>
+                                                            
+                                                            <td class="no-st-text-b">{{aseet.assetSerialNo}}</td>
+                                                            
+                                                             <td class="d-flex" >
+                                                                <!-- <button type="button" class="btn btn-light btn-sm mx-1 d-flex" (click)="modalOpenSM(modalSM)" data-toggle="modal"
+                                                                    data-target="#modal-default"> <i data-feather="file-text" class="mr-1"></i> Assign </button> -->
+                                                            
+                                                                <button type="button" class="btn btn-light btn-sm d-flex" (click)="modalOpenSM2(modalSM2)" data-toggle="modal"
+                                                                    data-target="#modal-default"><i data-feather="check-square" class="mr-1"></i> Approval/Moderate
+                                                                </button>
+                                                            </td>  
+                                                        </tr>
+                                                    </ng-template>
+                                                </p-table>
+                                        <!-- <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="text-nowrap"> Sr. No.</th>
+                                                    <th scope="col" class="text-nowrap">Asset Serial Number</th>
+                                                    <th scope="col" class="text-nowrap">Site Name</th>
+    
+                                                    <th scope="col" class="text-nowrap">Client</th>
+                                                    <th scope="col" class="text-nowrap">Customer </th>
+                                                    <th scope="col" class="text-nowrap">Part Code</th>
+                                                    <th scope="col" class="text-nowrap"> Asset Description </th>
+                                                    <th scope="col" class="text-nowrap">Warranty Status </th>
+                                                    <th scope="col" class="text-nowrap"> IRF </th>
+                                                    <th scope="col" class="text-nowrap">Survey </th>
+                                                    <th scope="col" class="text-nowrap">Installation </th>
+                                                    <th scope="col" class="text-nowrap">Commissioning </th>
+                                                    <th scope="col" class="text-nowrap">Created Date </th>
+    
+                                                </tr>
                                             </thead>
                                             <tbody>
+    
                                                 <tr>
-                                                    <td><a routerLink="/irf-details" class="no-st-text-b link-color">IRF001</a></td>
-                                                    <td> <a routerLink="/commission-details" class="no-st-text-b font-weight-bold">2345789  </a>                                                   </td>
-                                                    <td> 20 -04-2022 </td>
-                                                    <td class="text-nowrap">Case Approval</td>
-                                                    <td>Tata </td>
-                                                    <td>Vehnn</td>
-                                                    <td>9876543212</td>
-                                                    <td>example@test.com</td>
-                                                    <td> Ac001 </td>
-                                                    <td> 123456 </td>
-                                                    <td class="d-flex">
-                                                        <button type="button" class="btn btn-light btn-sm mx-1 d-flex"
-                                                            (click)="modalOpenSM(modalSM)" data-toggle="modal"
-                                                            data-target="#modal-default"> <i data-feather="file-text"
-                                                                class="mr-1"></i> Assign </button>
-
-                                                        <button type="button" class="btn btn-light btn-sm d-flex"
-                                                            (click)="modalOpenSM2(modalSM2)" data-toggle="modal"
-                                                            data-target="#modal-default"><i data-feather="check-square"
-                                                                class="mr-1"></i> Approval/Moderate
-                                                        </button>
+                                                    <th scope="row">1</th>
+                                                    <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014
+                                                        </a>
                                                     </td>
+                                                    <td class="no-st-text-b">Delhi</td>
+                                                    <td class="no-st-text-b">Shefali</td>
+                                                    <td class="no-st-text-b">Shefali</td>
+                                                    <td class="no-st-text-b">12345</td>
+                                                    <td class="no-st-text-b">Galdjkjdsf</td>
+                                                    <td class="no-st-text-b"><span class="badge bg-success">Yes</span></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
+                                                    <td class="no-st-text-b">23-03-2022</td>
                                                 </tr>
-                                   
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014
+                                                        </a>
+                                                    </td>
+                                                    <td class="no-st-text-b">Delhi</td>
+                                                    <td class="no-st-text-b">Shefali</td>
+                                                    <td class="no-st-text-b">Shefali</td>
+                                                    <td class="no-st-text-b">12345</td>
+                                                    <td class="no-st-text-b">Galdjkjdsf</td>
+                                                    <td class="no-st-text-b"><span class="badge bg-success">Yes</span></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
+                                                    <td class="no-st-text-b">23-03-2022</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014
+                                                        </a>
+                                                    </td>
+                                                    <td class="no-st-text-b">Delhi</td>
+                                                    <td class="no-st-text-b">Shefali</td>
+                                                    <td class="no-st-text-b">Shefali</td>
+                                                    <td class="no-st-text-b">12345</td>
+                                                    <td class="no-st-text-b">Galdjkjdsf</td>
+                                                    <td class="no-st-text-b"><span class="badge bg-success">Yes</span></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
+                                                    <td class="no-st-text-b">23-03-2022</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">4</th>
+                                                    <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014
+                                                        </a>
+                                                    </td>
+                                                    <td class="no-st-text-b">Delhi</td>
+                                                    <td class="no-st-text-b">Shefali</td>
+                                                    <td class="no-st-text-b">Shefali</td>
+                                                    <td class="no-st-text-b">12345</td>
+                                                    <td class="no-st-text-b">Galdjkjdsf</td>
+                                                    <td class="no-st-text-b"><span class="badge bg-success">Yes</span></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
+                                                    <td class="no-st-text-b">23-03-2022</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">5</th>
+                                                    <td><a routerLink="/comp-assets" class="no-st-text-b">23feb2022-E069014
+                                                        </a>
+                                                    </td>
+                                                    <td class="no-st-text-b">Delhi</td>
+                                                    <td class="no-st-text-b">Shefali</td>
+                                                    <td class="no-st-text-b">Shefali</td>
+                                                    <td class="no-st-text-b">12345</td>
+                                                    <td class="no-st-text-b">Galdjkjdsf</td>
+                                                    <td class="no-st-text-b"><span class="badge bg-success">Yes</span></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"></td>
+                                                    <td><input class="form-check-input1 ml-0" type="checkbox"> </td>
+                                                    <td class="no-st-text-b">23-03-2022</td>
+                                                </tr>
+    
                                             </tbody>
-                                        </table>
+                                        </table> -->
                                     </div>
                                 </ng-template>
                             </li>
@@ -69,7 +192,7 @@
     </div>
 </div>
 <!-- Modal -->
-<ng-template #modalSM let-modal>
+<!-- <ng-template #modalSM let-modal>
     <div class="modal-header bg-dark" style="padding: 5px;">
         <h5 class="modal-title text-white" id="myModalLabel160">Assign Service Order</h5>
         <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
@@ -92,13 +215,14 @@
         <button type="button" class="btn btn-danger " (click)="modal.close('Accept click')">Close</button>
         <button type="button" class="btn btn-success " (click)="modal.close('Accept click')">Save Changes</button>
     </div>
-</ng-template>
+</ng-template> -->
 <!-- / Modal -->
 
 
 
 <!-- Modal2 -->
 <ng-template #modalSM2 let-modal>
+    <form [formGroup]="approveRejectForm" (ngSubmit)="onSubmit()">
     <div class="modal-header bg-dark" style="padding: 5px;">
         <h5 class="modal-title text-white" id="myModalLabel160">Approval For</h5>
         <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
@@ -110,25 +234,34 @@
             <div class="col-lg-12">
                 <label for="basicTextarea">Remarks</label>
                 <fieldset class="form-group">
-                    <textarea class="form-control" id="basicTextarea" rows="2" placeholder="Textarea"></textarea>
+                    <textarea class="form-control"  formControlName="txtremarks" id="basicTextarea" rows="2" placeholder="Textarea"></textarea>
                 </fieldset>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Action</label>
-                    <select class="form-control form-control-sm  model-w-s">
-                        <option>Select</option>
-                        <option>Approve</option>
-                        <option>Reject</option>
+                    <select class="form-control form-control-sm  model-w-s" formControlName="dpdAction">
+                        <option  value="">Select</option>
+                        <option value="2">Approve</option>
+                        <option value="1">Reject</option>
                     </select>
+                   
+
+                    <div *ngIf="submitted && f.dpdAction.errors" style="color: red;font-size: 10px;">
+                        <div *ngIf="f.dpdAction.errors.required">Action is required</div>
+                    </div>
+                    
                 </div>
             </div>
+
         </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-danger " (click)="modal.close('Accept click')">Close</button>
-        <button type="button" class="btn btn-success " (click)="modal.close('Accept click')">Save </button>
+        <!-- modalOpenSM2 -->
+        <button  type="submit"class="btn btn-success" (click)="modal.close('Accept click')">Save </button>
     </div>
+</form>
 </ng-template>
 <!-- / Modal2 -->

@@ -3,7 +3,7 @@ import { AuthenticationService as Auth } from '@core/core/authentication.service
 import { SalesOrder } from 'app/Models/Sales';
 import { LazyLoadEvent } from '../../../Models/lazyloadevent';
 import {SalesService} from '../sales/sales.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-sales',
   templateUrl: './sales.component.html',
@@ -16,9 +16,10 @@ export class SalesComponent implements OnInit {
   totalRecords: number;
   cols: any[];
   loading: boolean = false;
+  dispatchData: any;
 
 
-  constructor(private auth: Auth, private salesService : SalesService) {
+  constructor(private auth: Auth, private salesService : SalesService, private router: Router) {
 
   }
 
@@ -42,6 +43,8 @@ export class SalesComponent implements OnInit {
 
   passSalesData(index){
     this.salesService.selectedSalesOrder = this.salesOrder[index];
+    // this.loadDispatchData();
+    this.go_next('\sales-details');
   }
 
   loadDataForOpen($event) {
@@ -59,6 +62,18 @@ export class SalesComponent implements OnInit {
     )
 
   }
+
+
+ 
+
+
+  go_next(route){
+    setTimeout(() => {
+        this.loading = false;
+        this.router.navigate([route])
+      }
+      , 1000);
+}
 
 
   loadDataForClose($event) {

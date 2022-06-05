@@ -113,9 +113,12 @@ export class EditIrfComponent implements OnInit, OnDestroy {
     this.accessIrfForm['AccountName'].patchValue(this.holdSalesDetails.AccountName);
     this.accessIrfForm['address'].patchValue(this.holdSalesDetails.address);
     this.accessIrfForm['pONoAndDate'].patchValue(this.holdSalesDetails.poNo + ' ' +  this.formatDate(this.holdSalesDetails.poDate));
-    this.accessIrfForm['contactPersonName'].patchValue(this.holdSalesDetails.ownerName);
-    this.accessIrfForm['contactNumber'].patchValue("");
-    this.accessIrfForm['emailId'].patchValue("");
+    this.accessIrfForm['contactPersonName'].patchValue(this.holdSalesDetails.customerName);
+    this.accessIrfForm['contactPersonPhone'].patchValue(this.holdSalesDetails.customerPhone);
+    this.accessIrfForm['contactPersonEmail'].patchValue(this.holdSalesDetails.customerEmail);
+    // this.accessIrfForm['contactNumber'].patchValue("");
+    // this.accessIrfForm['emailId'].patchValue("");
+
 
   }
   disableFields(): void {
@@ -124,9 +127,11 @@ export class EditIrfComponent implements OnInit, OnDestroy {
     this.accessIrfForm['AccountName'].disable();
     this.accessIrfForm['address'].disable();
     this.accessIrfForm['pONoAndDate'].disable();
-    this.accessIrfForm['contactPersonName'].disable();
-    this.accessIrfForm['contactNumber'].disable();
-    this.accessIrfForm['emailId'].disable();
+    this.accessIrfForm['contactPersonName'].enable();
+    this.accessIrfForm['contactPersonPhone'].enable();
+    this.accessIrfForm['contactPersonEmail'].enable();
+    // this.accessIrfForm['contactNumber'].disable();
+    // this.accessIrfForm['emailId'].disable();
   }
   
   createDataToSend():object {
@@ -142,7 +147,10 @@ export class EditIrfComponent implements OnInit, OnDestroy {
       container["maxNoOfVisit"]=x.maxNoOfVisit == undefined || null ? '':x.maxNoOfVisit,
       container["extraVisitCharge"]=x.extraCharge == undefined || null ? '':x.extraCharge,
       container["salesOrderId"]=x.id,
-      container["requestRaisedById"]=x.requestRaisedById
+      container["requestRaisedById"]=x.requestRaisedById,
+      container["contactPersonName"]=x.contactPersonName,
+      container["contactPersonPhone"]=x.contactPersonPhone,
+      container["contactPersonEmail"]=x.contactPersonEmail
       return container;
     })  
     console.log(yourWorkActivities);
@@ -163,10 +171,19 @@ export class EditIrfComponent implements OnInit, OnDestroy {
       salesOrderId: (<HTMLInputElement>document.getElementById("SONumber")).value, 
       requestRaisedById:  (<HTMLInputElement>document.getElementById("oid")).value, 
       circleId: (<HTMLInputElement>document.getElementById("cid")).value, 
+      typeOfChargerId: (<HTMLInputElement>document.getElementById("typeOfCharger")).value, 
+      ratingOfCharger: (<HTMLInputElement>document.getElementById("ratingOfCharger")).value, 
+      quantity: (<HTMLInputElement>document.getElementById("quantity")).value, 
+      icPoStatus: (<HTMLInputElement>document.getElementById("iCpoStatus")).value, 
+      icPo: (<HTMLInputElement>document.getElementById("iCpo")).value, 
+      icPrice: (<HTMLInputElement>document.getElementById("iCprice")).value, 
+      contactPersonName: (<HTMLInputElement>document.getElementById("contactPersonNameIP")).value, 
+      contactPersonPhone: (<HTMLInputElement>document.getElementById("contactPersonPhoneIP")).value, 
+      contactPersonEmail: (<HTMLInputElement>document.getElementById("contactPersonEmailIP")).value, 
       irfWorkList: yourWorkActivities
     }
-      
-      return requestBodyToSend
+
+    return requestBodyToSend
   }
 
   formatDate(date) {
@@ -194,6 +211,8 @@ export class EditIrfComponent implements OnInit, OnDestroy {
       address: ['', [Validators.required]],
       pONoAndDate: ['', [Validators.required]],
       contactPersonName: ['', [Validators.required]],
+      contactPersonPhone: ['', [Validators.required]],
+      contactPersonEmail: ['', [Validators.required, Validators.email]],
       contactNumber: ['', [Validators.required]],
       emailId: ['', [Validators.required, Validators.email]],
       activityTypeSurvey: [false],
@@ -298,6 +317,7 @@ export class EditIrfComponent implements OnInit, OnDestroy {
   }
 
   submit() {
+
     
     this.admin.postBulkIrf(this.createDataToSend()).pipe(
       takeUntil(this.unsubscribe$)
@@ -463,9 +483,9 @@ export class EditIrfComponent implements OnInit, OnDestroy {
 
   disableInstallationAndCommisioningControls() {
     for (let i = 0; i < this.accessTrFormArray.controls.length; i++) {
-      this.accessTrFormArray.controls[i].get('specification')?.disable();
-      this.accessTrFormArray.controls[i].get('maxNoOfVisit')?.disable();
-      this.accessTrFormArray.controls[i].get('extraCharge')?.disable();
+      // this.accessTrFormArray.controls[i].get('specification')?.disable();
+      // this.accessTrFormArray.controls[i].get('maxNoOfVisit')?.disable();
+      // this.accessTrFormArray.controls[i].get('extraCharge')?.disable();
     }
   }
 

@@ -49,6 +49,7 @@
                                            <th scope="col" >Part Code</th>
                                            <th scope="col" >Asset Description</th>
                                            <th scope="col" >Warranty Status</th>
+                                           <th scope="col" >AMC Status</th>
                                            <th scope="col" >     IRF     </th>
                                            <th scope="col" >    Survey   </th>
                                            <th scope="col" >Installation</th>
@@ -60,7 +61,7 @@
                                       
                                        <tr>
                                            <td >{{ rowIndex+1 }}</td>
-                                           <td ><a (click)="passAssetData(rowIndex)" routerLink="/comp-assets" class="no-st-text-b">{{ asset?.serialNo }}</a></td>
+                                           <td ><a [style]="{color:'blue'}" (click)="passAssetData(rowIndex)"  class="no-st-text-b">{{ asset?.serialNo }}</a></td>
                                            <td >{{ asset?.salesOrderId }}</td>
                                            <td >{{ asset?.siteName }}</td>
                                            <td >{{ asset?.accountName }}</td>
@@ -70,6 +71,8 @@
                                                class="font-medium-4 text-success"></i> </a> </td>
                                            <td *ngIf="asset.warrantyStatus===0"> <a routerLink="/commission-form"> <i data-feather="flag"
                                                class="font-medium-4 text-danger"></i> </a> </td>
+                                            <td *ngIf="asset.amcStatus===1"> Yes </td>
+                                            <td *ngIf="asset.amcStatus===0"> No  </td>
                                            <td>
                                                <button
                                                    class="btn btn-sm btn-primary btn-touchspin btn-touchspin-down"
@@ -134,7 +137,7 @@
                                                </button>
                                            </td>
                                     
-                                           <td >{{ asset?.createdDate | date:'medium':'IST' }}</td> 
+                                           <td >{{ asset?.createdDate | date:'shortDate':'IST' }}</td> 
                                        </tr>
                                     </ng-template>
                                     </p-table>

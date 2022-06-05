@@ -116,10 +116,10 @@
                                                     <tr>
                                                         <td>{{aseet.id}}</td>
                                                         <!-- <a  [routerLink]="['/statuscount', dataItem.id]">{{data.promoId}}</a> -->
-                                                        <td><a (click)="passSalesData(rowIndex)" [routerLink]="['/sales/sales-details',aseet.salesOrderNo]" class="no-st-text-b">{{aseet.manualId}}</a></td>
+                                                        <td><a [style]="{color:'blue'}" (click)="passSalesData(rowIndex)" class="no-st-text-b">{{aseet.manualId}}</a></td>
                                                         <td class="no-st-text-b">{{aseet.totalQuantity}}</td>
                                                         <td class="no-st-text-b">{{aseet.AccountName}}</td>
-                                                        <td class="no-st-text-b">{{aseet.createdDate | date:'medium':'IST' }}</td>
+                                                        <td class="no-st-text-b">{{aseet.createdDate | date:'shortDate':'IST' }}</td>
                                                     </tr>
                                                 </ng-template>
                                             </p-table>
@@ -149,10 +149,10 @@
                                             <tr>
                                                 <td>{{aseet.id}}</td>
                                                 <!-- <a  [routerLink]="['/statuscount', dataItem.id]">{{data.promoId}}</a> -->
-                                                <td><a [routerLink]="['/sales/sales-details',aseet.salesOrderNo]" class="no-st-text-b">{{aseet.manualId}}</a></td>
+                                                <td><a [style]="{color:'blue'}" class="no-st-text-b">{{aseet.manualId}}</a></td>
                                                 <td class="no-st-text-b">{{aseet.totalQuantity}}</td>
                                                 <td class="no-st-text-b">{{aseet.AccountName}}</td>
-                                                <td class="no-st-text-b">{{aseet.createdDate | date:'medium':'IST' }}</td>
+                                                <td class="no-st-text-b">{{aseet.createdDate | date:'shortDate':'IST' }}</td>
                                             </tr>
                                         </ng-template>
                                     </p-table>

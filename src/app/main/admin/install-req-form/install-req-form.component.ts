@@ -39,6 +39,10 @@ export class InstallReqFormComponent implements OnInit {
   mcbdcb: any;
   canopyType: any;
   earthingStatus: any;
+  countryMap = [{
+      "countryId": 1,
+      "countryName": "India"  
+  }];
   stateMap = [
     {
      "stateId": 1,
@@ -410,8 +414,7 @@ export class InstallReqFormComponent implements OnInit {
   }
   saveAsDraft()
   {
-    debugger;
-    this.isSaveDraftClicked = true;
+    this.submit("draft");
   }
 
 
@@ -460,8 +463,14 @@ export class InstallReqFormComponent implements OnInit {
     )
   }
 
-  submit() {
+  submit(draft?) {
     debugger;
+    if(draft==="draft"){
+      this.installationForm.value.installationStatusId=3
+    }else{
+      this.installationForm.value.installationStatusId=6
+    }
+    
     console.log(this.installationForm);
     this.installationService.installationId = this.holdInstallValue.id;
     const req = this.installationForm.value;

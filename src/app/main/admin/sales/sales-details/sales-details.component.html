@@ -69,11 +69,11 @@
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Sales order creation date</span></td>
-                                            <td>{{salesOrder?.createdDate | date:'medium':'IST' }}</td>
+                                            <td>{{salesOrder?.createdDate | date:'shortDate':'IST' }}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Invoice date </span></td>
-                                            <td>{{salesOrder?.invoiceDate | date:'medium':'IST' }}</td>
+                                            <td>{{salesOrder?.invoiceDate | date:'shortDate':'IST' }}</td>
                                         </tr>
                                         <!-- <tr>
                                             <td><span class="text-gray">other2</span></td>
@@ -101,8 +101,8 @@
                             <div class="card">
                                 <div class="table-responsive border">
                                     <div *ngIf="loading"><app-spinner></app-spinner></div>
-                                    <p-table [value]="assests" [lazy]="true" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
-                                                (onLazyLoad)="loadData($event)" responsiveLayout="scroll" 
+                                    <p-table [value]="dispatchData" [lazy]="true" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+                                                (onLazyLoad)="loadDispatchData($event)" responsiveLayout="scroll" 
                                                 dataKey="salesOrder.salesOrderId" [paginator]="true" [rows]="noOfRows"
                                                 [totalRecords]="totalRecords">
                                                 <ng-template pTemplate="header">
@@ -118,10 +118,10 @@
                                                         <th scope="col" field="assetSerialNumber">Asset Serial Number</th>
                                                         <th scope="col" field="sites.siteName" class="text-nowrap">Site Name</th>
                                                         <th scope="col" field="clients.clientName" class="text-nowrap">Client</th>
-                                                        <th scope="col" field="sites.customerName" class="text-nowrap">Customer </th>
                                                         <th scope="col" field="partCode" class="text-nowrap">Part Code</th>
                                                         <th scope="col" field="assestDescription" > Asset Description </th>
                                                         <th scope="col" field="warrantyStatus" >Warranty Status </th>
+                                                        <th scope="col" field="amcStatus" >AMC Status </th>
                                                         <th scope="col" field="irf_status" class="text-nowrap"> IRF </th>
                                                         <th scope="col" field="survey_status" class="text-nowrap">Survey </th>
                                                         <th scope="col" field="installation_status" class="text-nowrap">Installation </th>
@@ -139,19 +139,22 @@
                                                         <td class="no-st-text-b">{{aseet.clients.clientName}}</td>
                                                         <td class="no-st-text-b">{{aseet.orderCreateDate}}</td> -->
 
-                                                        <td class="no-st-text-b">{{aseet.assetSerialNumber}}</td>
-                                                        <td class="no-st-text-b">{{aseet.sites.siteName}}</td>
-                                                        <td class="no-st-text-b">{{aseet.clients.clientName}}</td>
-                                                        <td class="no-st-text-b">{{aseet.sites.customerName}}</td>
-                                                        <td class="no-st-text-b">{{aseet.partCode}}</td>
-                                                        <td class="no-st-text-b">{{aseet.assestDescription}}</td>
+                                                        <td class="no-st-text-b">{{aseet.serialNo}}</td>
+                                                        <td class="no-st-text-b">{{aseet.siteName}}</td>
+                                                        <td class="no-st-text-b">{{aseet.accountName}}</td>
+                                                        <td class="no-st-text-b">{{aseet.productName}}</td>
+                                                        <td class="no-st-text-b">{{aseet.productDescription}}</td>
                                                         <td class="no-st-text-b">
-                                                            <span class="badge bg-success">{{aseet.warrantyStatus === 'Y' ? 'Yes':'No'}}</span></td>
-                                                        <td><input class="form-check-input1 ml-0" type="checkbox" disabled></td>
-                                                        <td><input class="form-check-input1 ml-0" type="checkbox" disabled></td>
-                                                        <td><input class="form-check-input1 ml-0" type="checkbox" disabled></td>
-                                                        <td><input class="form-check-input1 ml-0" type="checkbox" disabled> </td>
-                                                        <td class="no-st-text-b">{{aseet.created_date}}</td>
+                                                            {{aseet.warrantyStatus === 1 ? 'Yes':'No'}}
+                                                        </td>
+                                                        <td class="no-st-text-b">
+                                                            {{aseet.amcStatus === 1 ? 'Yes':'No'}}
+                                                        </td>
+                                                        <td>{{aseet.isIrfGenerated}}</td>
+                                                        <td>{{aseet.isSurveyGenerated}}</td>
+                                                        <td>{{aseet.isInstallationGenerated}}</td>
+                                                        <td>{{aseet.isCommissioningGenerated}}</td>
+                                                        <td class="no-st-text-b">{{aseet.createdDate  | date:'shortDate':'IST'}}</td>
                                                     </tr>
                                                 </ng-template>
                                             </p-table>

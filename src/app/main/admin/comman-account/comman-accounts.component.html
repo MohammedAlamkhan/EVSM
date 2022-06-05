@@ -47,10 +47,10 @@
                                             <td><span class="text-gray">Description </span></td>
                                             <td>{{account?.description}}</td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td><span class="text-gray">Contact Person Name </span></td>
                                             <td>{{account?.contactPersonName}} </td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -68,14 +68,14 @@
                                             <td><span class="text-gray">Owner</span></td>
                                             <td>{{account?.ownerName}}</td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td><span class="text-gray">Contact Person Phone </span></td>
                                             <td>{{account?.contactPersonPhone}} </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Contact Person Email ID </span></td>
                                             <td>{{account?.contactPersonEmail}} </td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -212,7 +212,7 @@
                                         <tr>
                                             <td><span class="text-gray">
                                                     Created Date </span></td>
-                                            <td> {{account?.createdDate  | date:'medium':'IST' }}</td>
+                                            <td> {{account?.createdDate  | date:'shortDate':'IST' }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -232,7 +232,7 @@
                                         <tr>
                                             <td><span class="text-gray">
                                                     Last Modified Date </span></td>
-                                            <td> {{account?.modifiedDate  | date:'medium':'IST' }}</td>
+                                            <td> {{account?.modifiedDate  | date:'shortDate':'IST' }}</td>
                                         </tr>
                                      </tbody>
                                 </table>

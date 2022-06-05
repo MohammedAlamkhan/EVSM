@@ -1,0 +1,147 @@
+{"stateMap" : [
+    {
+     "stateId": 1,
+     "stateName": "ANDAMAN AND NICOBAR ISLANDS"
+    },
+    {
+     "stateId": 2,
+     "stateName": "ANDHRA PRADESH"
+    },
+    {
+     "stateId": 3,
+     "stateName": "ARUNACHAL PRADESH"
+    },
+    {
+     "stateId": 4,
+     "stateName": "ASSAM"
+    },
+    {
+     "stateId": 5,
+     "stateName": "BIHAR"
+    },
+    {
+     "stateId": 6,
+     "stateName": "CHANDIGARH"
+    },
+    {
+     "stateId": 7,
+     "stateName": "CHATTISGARH"
+    },
+    {
+     "stateId": 8,
+     "stateName": "DADRA AND NAGAR HAVELI AND DAMAN AND DIU"
+    },
+    {
+     "stateId": 9,
+     "stateName": "DELHI"
+    },
+    {
+     "stateId": 10,
+     "stateName": "GOA"
+    },
+    {
+     "stateId": 11,
+     "stateName": "GUJARAT"
+    },
+    {
+     "stateId": 12,
+     "stateName": "HARYANA"
+    },
+    {
+     "stateId": 13,
+     "stateName": "HIMACHAL PRADESH"
+    },
+    {
+     "stateId": 14,
+     "stateName": "JAMMU AND KASHMIR"
+    },
+    {
+     "stateId": 15,
+     "stateName": "JHARKHAND"
+    },
+    {
+     "stateId": 16,
+     "stateName": "KARNATAKA"
+    },
+    {
+     "stateId": 17,
+     "stateName": "KERALA"
+    },
+    {
+     "stateId": 18,
+     "stateName": "LADAKH"
+    },
+    {
+     "stateId": 19,
+     "stateName": "LAKSHADWEEP"
+    },
+    {
+     "stateId": 20,
+     "stateName": "MADHYA PRADESH"
+    },
+    {
+     "stateId": 21,
+     "stateName": "MAHARASHTRA"
+    },
+    {
+     "stateId": 22,
+     "stateName": "MANIPUR"
+    },
+    {
+     "stateId": 23,
+     "stateName": "MEGHALAYA"
+    },
+    {
+     "stateId": 24,
+     "stateName": "MIZORAM"
+    },
+    {
+     "stateId": 25,
+     "stateName": "NAGALAND"
+    },
+    {
+     "stateId": 26,
+     "stateName": "ODISHA"
+    },
+    {
+     "stateId": 27,
+     "stateName": "PUDUCHERRY"
+    },
+    {
+     "stateId": 28,
+     "stateName": "PUNJAB"
+    },
+    {
+     "stateId": 29,
+     "stateName": "RAJASTHAN"
+    },
+    {
+     "stateId": 30,
+     "stateName": "SIKKIM"
+    },
+    {
+     "stateId": 31,
+     "stateName": "TAMIL NADU"
+    },
+    {
+     "stateId": 32,
+     "stateName": "TELANGANA"
+    },
+    {
+     "stateId": 33,
+     "stateName": "TRIPURA"
+    },
+    {
+     "stateId": 34,
+     "stateName": "UTTAR PRADESH"
+    },
+    {
+     "stateId": 35,
+     "stateName": "UTTARAKHAND"
+    },
+    {
+     "stateId": 36,
+     "stateName": "WEST BENGAL"
+    }
+]
+}

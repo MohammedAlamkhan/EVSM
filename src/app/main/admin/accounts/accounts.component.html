@@ -19,12 +19,12 @@
                                                 <th scope="col" >Sr. No.</th>
                                                 <th scope="col" >Account Name</th>
                                                 <th scope="col" >SAP Customer Number</th>
-                                                <th scope="col" >Customer</th>
+                                                <!-- <th scope="col" >Customer</th> -->
                                                 <th scope="col" >Billing State Name</th>
-                                                <th scope="col" >Phone Number</th>
+                                                <!-- <th scope="col" >Phone Number</th> -->
                                                 <th scope="col" >Owner</th>
                                                 <th scope="col" >Created Date</th>
-                                                <th scope="col" >Action</th>
+                                                <!-- <th scope="col" >Action</th> -->
                                             </tr>
                                         </ng-template>
                                         <ng-template pTemplate="body" let-account let-rowIndex="rowIndex">
@@ -33,12 +33,12 @@
                                                 <td class="bd-top">{{ rowIndex + 1 }}</td>
                                                 <td ><a (click)="passAccountData(rowIndex)" routerLink="/comp-accounts" class="no-st-text-b">{{ account?.name }}</a></td>
                                                 <td class="bd-top">{{ account?.sapCode }}</td>
-                                                <td class="bd-top">{{ account?.customer }}</td>
+                                                <!-- <td class="bd-top">{{ account?.customer }}</td> -->
                                                 <td class="bd-top">{{ account?.billingStateName }}</td>
-                                                <td class="bd-top">{{ account?.contactPersonPhone }}</td>
+                                                <!-- <td class="bd-top">{{ account?.contactPersonPhone }}</td> -->
                                                 <td class="bd-top">{{ account?.ownerName }}</td>
-                                                <td class="bd-top">{{ account?.createdDate | date:'medium':'IST' }}</td>
-                                                <td> <button type="button" class="btn   btn-outline-secondary btn-sm pl-3 pr-3"> <i class="fas fa-edit" aria-hidden="true"></i> Edit</button></td>                      
+                                                <td class="bd-top">{{ account?.createdDate | date:'shortDate':'IST' }}</td>
+                                                <!-- <td> <button type="button" class="btn   btn-outline-secondary btn-sm pl-3 pr-3"> <i class="fas fa-edit" aria-hidden="true"></i> Edit</button></td>                       -->
                                             </tr>
                                         </ng-template>
                                     </p-table>

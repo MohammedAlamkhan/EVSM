@@ -33,7 +33,7 @@
           <div class="form-group">
             <label class="form-label" for="login-phone">Phone No.</label>
             <input type="number" formControlName="phone" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" placeholder="9999999999"
+            [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" placeholder="Phone Number"
             aria-describedby="login-phone" autofocus="" tabindex="1"
             />
             <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">

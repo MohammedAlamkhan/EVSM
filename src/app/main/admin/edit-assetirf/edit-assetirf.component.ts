@@ -82,8 +82,6 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
       tap(x => this.manageInstAndCommisioningControls())
     ).subscribe();
     this.holdAssetDetails = this.assetsService.selectedAsset;
-    console.log("holded asset");
-    console.log( this.holdAssetDetails )
     this.setValuesFromAsset();
 
  
@@ -117,9 +115,11 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
     this.accessIrfForm['AccountName'].patchValue(this.holdAssetDetails.accountName);
     this.accessIrfForm['address'].patchValue(this.holdAssetDetails.address);
     this.accessIrfForm['pONoAndDate'].patchValue(this.holdAssetDetails.purchaseOrderNumber + ' ' +  this.formatDate(this.holdAssetDetails.purchaseOrderDate));
-    this.accessIrfForm['contactPersonName'].patchValue(this.holdAssetDetails.ownerName);
-    this.accessIrfForm['contactNumber'].patchValue("");
-    this.accessIrfForm['emailId'].patchValue("");
+    this.accessIrfForm['contactPersonName'].patchValue(this.holdAssetDetails.customerName);
+    this.accessIrfForm['contactPersonPhone'].patchValue(this.holdAssetDetails.customerPhone);
+    this.accessIrfForm['contactPersonEmail'].patchValue(this.holdAssetDetails.customerEmail);
+    // this.accessIrfForm['contactNumber'].patchValue("");
+    // this.accessIrfForm['emailId'].patchValue("");
 
   }
   disableFields(): void {
@@ -128,9 +128,11 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
     this.accessIrfForm['AccountName'].disable();
     this.accessIrfForm['address'].disable();
     this.accessIrfForm['pONoAndDate'].disable();
-    this.accessIrfForm['contactPersonName'].disable();
-    this.accessIrfForm['contactNumber'].disable();
-    this.accessIrfForm['emailId'].disable();
+    this.accessIrfForm['contactPersonName'].enable();
+    this.accessIrfForm['contactPersonPhone'].enable();
+    this.accessIrfForm['contactPersonEmail'].enable();
+    // this.accessIrfForm['contactNumber'].disable();
+    // this.accessIrfForm['emailId'].disable();
   }
   
   createDataToSend():object {
@@ -147,6 +149,9 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
       container["extraVisitCharge"]=x.extraCharge == undefined || null ? '':x.extraCharge,
       container["salesOrderId"]=x.id,
       container["requestRaisedById"]=x.requestRaisedById
+      container["contactPersonName"]=x.contactPersonName
+      container["contactPersonPhone"]=x.contactPersonPhone
+      container["contactPersonEmail"]=x.contactPersonEmail
       return container;
     })  
     console.log(yourWorkActivities);
@@ -167,6 +172,15 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
       salesOrderId: (<HTMLInputElement>document.getElementById("SONumber")).value, 
       requestRaisedById:  (<HTMLInputElement>document.getElementById("oid")).value, 
       circleId: (<HTMLInputElement>document.getElementById("cid")).value, 
+      typeOfChargerId: (<HTMLInputElement>document.getElementById("typeOfCharger")).value, 
+      ratingOfCharger: (<HTMLInputElement>document.getElementById("ratingOfCharger")).value, 
+      quantity: (<HTMLInputElement>document.getElementById("quantity")).value, 
+      icPoStatus: (<HTMLInputElement>document.getElementById("iCpoStatus")).value, 
+      icPo: (<HTMLInputElement>document.getElementById("iCpo")).value, 
+      icPrice: (<HTMLInputElement>document.getElementById("iCprice")).value, 
+      contactPersonName: (<HTMLInputElement>document.getElementById("contactPersonNameIP")).value, 
+      contactPersonPhone: (<HTMLInputElement>document.getElementById("contactPersonPhoneIP")).value, 
+      contactPersonEmail: (<HTMLInputElement>document.getElementById("contactPersonEmailIP")).value, 
       irfWorkList: yourWorkActivities
     }
       
@@ -198,8 +212,8 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
       address: ['', [Validators.required]],
       pONoAndDate: ['', [Validators.required]],
       contactPersonName: ['', [Validators.required]],
-      contactNumber: ['', [Validators.required]],
-      emailId: ['', [Validators.required, Validators.email]],
+      contactPersonPhone: ['', [Validators.required]],
+      contactPersonEmail: ['', [Validators.required, Validators.email]],
       activityTypeSurvey: [false],
       activityTypeInstallation: [false],
       activityTypeCommisioning: [false],
@@ -467,9 +481,9 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
 
   disableInstallationAndCommisioningControls() {
     for (let i = 0; i < this.accessTrFormArray.controls.length; i++) {
-      this.accessTrFormArray.controls[i].get('specification')?.disable();
-      this.accessTrFormArray.controls[i].get('maxNoOfVisit')?.disable();
-      this.accessTrFormArray.controls[i].get('extraCharge')?.disable();
+      // this.accessTrFormArray.controls[i].get('specification')?.disable();
+      // this.accessTrFormArray.controls[i].get('maxNoOfVisit')?.disable();
+      // this.accessTrFormArray.controls[i].get('extraCharge')?.disable();
     }
   }
 

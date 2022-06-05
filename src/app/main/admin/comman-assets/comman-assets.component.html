@@ -91,6 +91,11 @@
                                             <td>{{asset?.siteName}}</td>
                                         </tr>
                                         <tr>
+                                            <td><span class="text-gray">AMC Status</span></td>
+                                            <td *ngIf="asset.warrantyStatus===1">Yes</td>
+                                            <td *ngIf="asset.warrantyStatus===0">No</td>
+                                        </tr>
+                                        <tr>
                                             <td><span class="text-gray">Plant </span></td>
                                             <td>{{asset?.plant}} </td>
                                         </tr>
@@ -138,7 +143,7 @@
                                         <tr>
                                             <td><span class="text-gray">
                                                     PO Date</span></td>
-                                            <td> {{asset?.purchaseOrderDate  | date:'medium':'IST' }}</td>
+                                            <td> {{asset?.purchaseOrderDate  | date:'shortDate':'IST' }}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">SAP Material Document No </span></td>
@@ -165,7 +170,7 @@
                                     <tbody>
                                         <tr>
                                             <td><span class="text-gray">Delivery Date</span></td>
-                                            <td>{{asset?.deliveryDate  | date:'medium':'IST' }}</td>
+                                            <td>{{asset?.deliveryDate  | date:'shortDate':'IST' }}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Warranty from DOD(months)</span></td>
@@ -173,11 +178,11 @@
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">DOD Expiration Date </span></td>
-                                            <td>{{asset?.dateOfDeliveryExpiryDate  | date:'medium':'IST' }}</td>
+                                            <td>{{asset?.dateOfDeliveryExpiryDate  | date:'shortDate':'IST' }}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Warranty Expiry Date </span></td>
-                                            <td>{{asset?.warrantyExpiryDate  | date:'medium':'IST' }} </td>
+                                            <td>{{asset?.warrantyExpiryDate  | date:'shortDate':'IST' }} </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -190,7 +195,7 @@
                                         <tr>
                                             <td><span class="text-gray">
                                                     Install Date</span></td>
-                                            <td>{{asset?.installDate  | date:'medium':'IST' }}
+                                            <td>{{asset?.installDate  | date:'shortDate':'IST' }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -200,7 +205,7 @@
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Install Expiry Date </span></td>
-                                            <td> {{asset?.installExpiryDate  | date:'medium':'IST' }}</td>
+                                            <td> {{asset?.installExpiryDate  | date:'shortDate':'IST' }}</td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">Warranty Status </span></td>
@@ -230,7 +235,7 @@
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">AMC Start Date</span></td>
-                                            <td>{{asset?.amcStartDate  | date:'medium':'IST' }} </td>
+                                            <td>{{asset?.amcStartDate  | date:'shortDate':'IST' }} </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">AMC Period (months) </span></td>
@@ -249,12 +254,12 @@
                                             <td><span class="text-gray">
 
                                                     AMC PO Date</span></td>
-                                            <td>{{asset?.amcPurchaseOrderDate  | date:'medium':'IST' }}
+                                            <td>{{asset?.amcPurchaseOrderDate  | date:'shortDate':'IST' }}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">AMC Expiry Date </span></td>
-                                            <td>{{asset?.amcExpiryDate  | date:'medium':'IST' }} </td>
+                                            <td>{{asset?.amcExpiryDate  | date:'shortDate':'IST' }} </td>
                                         </tr>
                                         <tr>
                                             <td><span class="text-gray">AMC Status </span></td>
@@ -286,7 +291,7 @@
                                         <tr>
                                             <td><span class="text-gray">
                                                     Created Date </span></td>
-                                            <td> {{asset?.createdDate  | date:'medium':'IST' }}</td>
+                                            <td> {{asset?.createdDate  | date:'shortDate':'IST' }}</td>
                                         </tr>
 
 
@@ -307,7 +312,7 @@
                                         <tr>
                                             <td><span class="text-gray">
                                                     Last Modified Date </span></td>
-                                            <td> {{asset?.modifiedDate  | date:'medium':'IST' }}</td>
+                                            <td> {{asset?.modifiedDate  | date:'shortDate':'IST' }}</td>
                                         </tr>
 
                                     </tbody>
