@@ -481,9 +481,9 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
 
   disableInstallationAndCommisioningControls() {
     for (let i = 0; i < this.accessTrFormArray.controls.length; i++) {
-      this.accessTrFormArray.controls[i].get('specification')?.disable();
-      this.accessTrFormArray.controls[i].get('maxNoOfVisit')?.disable();
-      this.accessTrFormArray.controls[i].get('extraCharge')?.disable();
+      // this.accessTrFormArray.controls[i].get('specification')?.disable();
+      // this.accessTrFormArray.controls[i].get('maxNoOfVisit')?.disable();
+      // this.accessTrFormArray.controls[i].get('extraCharge')?.disable();
     }
   }
 
