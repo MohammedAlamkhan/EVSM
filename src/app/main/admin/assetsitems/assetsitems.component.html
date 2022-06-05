@@ -61,7 +61,7 @@
                                       
                                        <tr>
                                            <td >{{ rowIndex+1 }}</td>
-                                           <td ><a (click)="passAssetData(rowIndex)" routerLink="/comp-assets" class="no-st-text-b">{{ asset?.serialNo }}</a></td>
+                                           <td ><a [style]="{color:'blue'}" (click)="passAssetData(rowIndex)"  class="no-st-text-b">{{ asset?.serialNo }}</a></td>
                                            <td >{{ asset?.salesOrderId }}</td>
                                            <td >{{ asset?.siteName }}</td>
                                            <td >{{ asset?.accountName }}</td>

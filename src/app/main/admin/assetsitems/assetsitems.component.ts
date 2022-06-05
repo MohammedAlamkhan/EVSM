@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AssetsService } from './assetsitems.service'
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-assetsitems',
   templateUrl: './assetsitems.component.html',
@@ -14,7 +15,7 @@ noOfRows: number=5;
 totalRecords: number;
 cols: any[];
   constructor(private assetsService: AssetsService ,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     // content header
@@ -46,8 +47,25 @@ cols: any[];
 
 
   passAssetData(index){
-    this.assetsService.selectedAsset = this.assets[index];
+    
+    this.assets =   this.assetsService.getSingleAssetsInformation(this.assets[index].id).subscribe(
+      (data) => {
+        this.assetsService.selectedAsset = data;
+        this.go_next('\comp-assets');
+      }
+    )
+   
   }
+
+
+  go_next(route){
+    setTimeout(() => {
+        this.loading = false;
+        this.router.navigate([route])
+      }
+      , 1000);
+}
+
 
   loadData($event) {
     const req={
