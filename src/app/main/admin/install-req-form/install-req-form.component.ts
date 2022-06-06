@@ -426,8 +426,7 @@ export class InstallReqFormComponent implements OnInit {
       }
     }
     let formData = new FormData();
-    formData.append('file', this.fileList[0]);
-
+    formData.append('file', this.fileList[0],this.fileList[0].name);
     const qp={
       "installationId":this.holdInstallValue.id,
       "file":type
