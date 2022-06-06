@@ -225,6 +225,8 @@ export class InstallReqFormComponent implements OnInit {
     this.pushInstallationWorkRequestList();
     this.setDescription();
     this.holdInstallValue = this.installationService.selectedInstall;
+  
+
     this.holdInstallValue.installationWorkList.forEach(element => {
       if(element.installationWorkListId === 9 ){
         this.totalChargerSupplied = element;
@@ -256,13 +258,38 @@ export class InstallReqFormComponent implements OnInit {
       
     });
     this.setValuesFromInstallPage();
+    // this.go_next();
+
   }
   selectedType = ' ';
+
+//   go_next(){
+//     setTimeout(() => {
+//       var objCountry =  (<HTMLSelectElement>document.getElementById("country"));
+//       var objstateid =  (<HTMLSelectElement>document.getElementById("stateid"))
+//       var objCharger =  (<HTMLSelectElement>document.getElementById("basicSelect"));
+     
+//       // this.setSelectedValue(objCountry, "India");
+//       this.setSelectedValue(objstateid, "2");
+//       this.setSelectedValue(objCharger, "AC001");
+//       objCountry.value="1";
+//       }
+//       , 2000);
+// }
 
   onChange(event) {
     this.selectedType = event.target.value;
   }
 
+    
+  setSelectedValue(selectObj, valueToSet) {
+    for (var i = 0; i < selectObj.options.length; i++) {
+        if (selectObj.options[i].text== valueToSet) {
+            selectObj.options[i].selected = true;
+            return;
+        }
+    }
+}
 
   createMainForm(): void {
 
@@ -338,8 +365,8 @@ export class InstallReqFormComponent implements OnInit {
   setValuesFromInstallPage(): void {
     console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZ")
     console.log(this.holdInstallValue);
-    this.accessInstallationForm['id'].patchValue(this.holdInstallValue.id);
-    this.accessInstallationForm['soNumber'].patchValue(this.holdInstallValue.irfId);
+    this.accessInstallationForm['id'].patchValue(this.holdInstallValue.irfManualId);
+    this.accessInstallationForm['soNumber'].patchValue(this.holdInstallValue.manualId);
     this.accessInstallationForm['clientName'].patchValue(this.holdInstallValue.accountName);
     this.accessInstallationForm['clientCode'].patchValue(this.holdInstallValue.accountSapCode);
     this.accessInstallationForm['address'].patchValue(this.holdInstallValue.address);

@@ -63,7 +63,6 @@ public contentHeader : object
         , 1000);
   }
 
-  // routerLink="/comp-req-installations"
   
     passIrfData(index){
       this.irfService.irfId = this.installations[index].irfId;
