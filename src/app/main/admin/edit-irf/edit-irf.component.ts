@@ -108,7 +108,7 @@ export class EditIrfComponent implements OnInit, OnDestroy {
     console.log(this.holdSalesDetails);
     this.accessIrfForm['dateOfAssignment'].patchValue(new Date ());
     this.accessIrfForm['tentativePlanDate'].patchValue(new Date ());
-    this.accessIrfForm['salesOrderNo'].patchValue(this.holdSalesDetails.id);
+    this.accessIrfForm['salesOrderNo'].patchValue(this.holdSalesDetails.manualId);
     this.accessIrfForm['ownerName'].patchValue(this.credentials.ownerName);
     this.accessIrfForm['AccountName'].patchValue(this.holdSalesDetails.AccountName);
     this.accessIrfForm['address'].patchValue(this.holdSalesDetails.address);
