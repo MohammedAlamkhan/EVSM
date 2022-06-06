@@ -104,7 +104,7 @@ export class AuthLoginV2Component implements OnInit {
       },
       (err) => {
         if (err.status === AppConstants.HTTPSTATUS_INTERNAL_SERVER_ERROR)
-          this.notify.show(AppConstants.ApiErrorMessage, NotificationType.Info)
+          this.notify.show(err.message, NotificationType.Info)
 
         this.loading = false;
       }

@@ -36,14 +36,14 @@
                                     <div class="form-group">
                                         <label for="name">Client Name </label>
                                         <input formControlName="clientName" type="name" class="form-control form-control-sm"
-                                            placeholder="Please Enter">
+                                        disabled>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group">
                                         <label for="name">Client Code</label>
                                         <input formControlName="clientCode" type="name" class="form-control form-control-sm"
-                                            placeholder="Please Enter">
+                                        disabled>
                                     </div>
                                 </div>
 
@@ -108,7 +108,7 @@
                                     <div class="form-group">
                                         <label for="name">
                                             Name Of the Site </label>
-                                        <input (keydown)="getSiteData($event)" formControlName="siteName" type="name" class="form-control form-control-sm"
+                                        <input formControlName="siteName" type="name" class="form-control form-control-sm"
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
@@ -116,7 +116,7 @@
                                     <div class="form-group">
                                         <label for="name">Installation Address
                                         </label>
-                                        <input  (keydown)="getSiteData($event)" formControlName="address" type="name" class="form-control form-control-sm"
+                                        <input formControlName="address" type="name" class="form-control form-control-sm"
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
@@ -249,9 +249,9 @@
                                         <select formControlName="installationTypeId" class="form-control form-control-sm" id="basicSelect" type="text"
                                             (change)="onChange($event); toggleTable()" >
                                             <option selected>Select Menu</option>
-                                            <option value="dc001"> DC Charger</option>
-                                            <option value="ac001"> AC001</option>
-                                            <option value="evcharger"> Type 2 EV Charger</option>
+                                            <option value="2"> DC Charger</option>
+                                            <option value="1"> AC001</option>
+                                            <option value="3"> Type 2 EV Charger</option>
                                         </select>
                                     </div>
                                 
@@ -320,17 +320,17 @@
 
                                                 <th class="dark-heading">{{accessInstallationWorkRequestListArray.controls[i].get('description')?.value}}</th>
                                                 <td> <input formControlName="responsibility" type="text" class="form-control form-control-sm"></td>
-                                                <td *ngIf="selectedType === 'dc001'"> <input formControlName="DC001Charger" type="text"
+                                                <td *ngIf="selectedType === '2'"> <input formControlName="DC001Charger" type="text"
                                                         class="form-control form-control-sm"></td>
-                                                <td *ngIf="selectedType !== 'dc001'"> <input [attr.disabled]="true" formControlName="DC001Charger" type="text"
+                                                <td *ngIf="selectedType !== '2'"> <input [attr.disabled]="true" formControlName="DC001Charger" type="text"
                                                         class="form-control form-control-sm"></td>
-                                                <td *ngIf="selectedType === 'ac001'"> <input formControlName="AC001Charger" type="text"
+                                                <td *ngIf="selectedType === '1'"> <input formControlName="AC001Charger" type="text"
                                                         class="form-control form-control-sm"></td>
-                                                <td *ngIf="selectedType !== 'ac001'"> <input [attr.disabled]="true" formControlName="AC001Charger" type="text"
+                                                <td *ngIf="selectedType !== '1'"> <input [attr.disabled]="true" formControlName="AC001Charger" type="text"
                                                         class="form-control form-control-sm"></td>
-                                                <td *ngIf="selectedType === 'evcharger'"> <input formControlName="type2EvCharger" type="text"
+                                                <td *ngIf="selectedType === '3'"> <input formControlName="type2EvCharger" type="text"
                                                         class="form-control form-control-sm"></td>
-                                                <td *ngIf="selectedType !== 'evcharger'"> <input [attr.disabled]="true" formControlName="type2EvCharger" type="text"
+                                                <td *ngIf="selectedType !== '3'"> <input [attr.disabled]="true" formControlName="type2EvCharger" type="text"
                                                         class="form-control form-control-sm"></td>
                                                 <td> <input formControlName="remark" type="text" class="form-control form-control-sm"></td>
                                             </tr>
@@ -456,10 +456,14 @@
                                                     <tr>
                                                         <td width="30%"><label for="exampleInputFile">Installation
                                                                 Report
-                                                            </label></td>
+                                                            </label>
+                                                            <div *ngIf="showinstallationReport">
+                                                                <a [href]="installationReportFileDownloadUrl">download</a>
+
+                                                            </div></td>
                                                         <td>
                                                            
-                                                            <fieldset class="form-group w-50 mb-0">
+                                                            <!-- <fieldset class="form-group w-50 mb-0">
                                                                 <div class="d-flex justify-content-between">
                                                                    
                                                                     <div *ngFor="let item of uploader.queue">
@@ -476,30 +480,47 @@
                                                                             data-feather="upload" class="mr-1"></i>
                                                                         Upload File</label>
                                                                 </div>
-                                                            </fieldset> 
+                                                            </fieldset>  -->
+                                                            <fieldset class="form-group w-50 mb-0">
+                                                                <div class="d-flex justify-content-between">
+                                                                    
+                                                 
+                                                              
+
+                                                                </div>
+                                                                <div class="custom-file">
+                                                                    <input type="file" id="installationReportPicture" (change)="uploadImages($event, 'installationReport')">
+
+                                                                </div>
+                                                            </fieldset>
+                                                           
                                                         </td>
                                                     </tr>
 
                                                     <tr>
                                                         <td width="30%"><label for="exampleInputFile">Charger
                                                                 Picture
-                                                            </label></td>
+                                                            </label>
+                                                            <div *ngIf="showchargerPicture">
+                                                                <a [href]="chargerPictureFileDownloadUrl">download</a>
+
+                                                            </div>
+                                                      </td>
                                                         <td>
                                                            
                                                             <fieldset class="form-group w-50 mb-0">
                                                                 <div class="d-flex justify-content-between">
                                                                     
-                                                                    <div *ngFor="let item of uploader.queue">
-                                                                        <small>{{ item?.file?.name }}</small>
-                                                                    </div>
-                                                              
+                                                                  
 
                                                                 </div>
                                                                 <div class="custom-file">
                                                                     <input type="file" id="chargerPicture" (change)="uploadImages($event, 'chargerPicture')">
 
                                                                 </div>
+                                                               
                                                             </fieldset>
+                                                           
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -510,10 +531,27 @@
                                                     <tr>
                                                         <td width="30%"><label for="exampleInputFile">Cabling
                                                                 Picture
-                                                            </label></td>
+                                                            </label>
+                                                            <div *ngIf="showcablingPicture">
+                                                                <a [href]="cablingPictureFileDownloadUrl">download</a>
+
+                                                            </div></td>
                                                         <td>
-                                                           
                                                             <fieldset class="form-group w-50 mb-0">
+                                                                <div class="d-flex justify-content-between">
+                                                                    
+                                                                   
+
+                                                                </div>
+                                                                <div class="custom-file">
+                                                                    <input type="file" id="CablingPicture" (change)="uploadImages($event, 'cablingPicture')">
+
+                                                                </div>
+                                                            </fieldset>
+             
+                                                      
+                                                           
+                                                            <!-- <fieldset class="form-group w-50 mb-0">
                                                                 <div class="d-flex justify-content-between">
                                                                   
                                                                     <div *ngFor="let item of uploader.queue">
@@ -530,17 +568,21 @@
                                                                             data-feather="upload" class="mr-1"></i>
                                                                         Upload File</label>
                                                                 </div>
-                                                            </fieldset>
+                                                            </fieldset> -->
                                                         </td>
                                                     </tr>
 
                                                     <tr class="mb-0 pb-0">
                                                         <td width="30%"><label for="exampleInputFile">MCB
                                                                 Picture
-                                                            </label></td>
+                                                            </label>
+                                                            <div *ngIf="showmcbPicture">
+                                                                <a [href]="mcbPictureFileDownloadUrl">download</a>
+
+                                                            </div></td>
                                                         <td>
                                                           
-                                                            <fieldset class="form-group w-50 mb-0">
+                                                            <!-- <fieldset class="form-group w-50 mb-0">
                                                                 <div class="d-flex justify-content-between">
                                                                    
                                                                     <div *ngFor="let item of uploader.queue">
@@ -557,7 +599,20 @@
                                                                             data-feather="upload" class="mr-1"></i>
                                                                         Upload File</label>
                                                                 </div>
+                                                            </fieldset> -->
+                                                            <fieldset class="form-group w-50 mb-0">
+                                                                <div class="d-flex justify-content-between">
+                                                                    
+                                                   
+                                               
+
+                                                                </div>
+                                                                <div class="custom-file">
+                                                                    <input type="file" id="mcbPicture" (change)="uploadImages($event, 'mcbPicture')">
+
+                                                                </div>
                                                             </fieldset>
+                                        
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -619,8 +674,25 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    
-                                    <fieldset class="form-group">
+                                    <label for="exampleInputFile">Signature
+                                    </label>
+                                    <div *ngIf="showengineerSignature">
+                                        <a [href]="engineerSignatureFileDownloadUrl">download</a>
+
+                                    </div>
+                                    <fieldset class="form-group w-50 mb-0">
+                                        <div class="d-flex justify-content-between">
+                                            
+                                         
+
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" id="engineerSignature" (change)="uploadImages($event, 'engineerSignature')">
+
+                                        </div>
+                                    </fieldset>
+                                   
+                                    <!-- <fieldset class="form-group">
                                         <div class="d-flex justify-content-between">
                                             <label for="file-upload-single">Signature</label>
                                             <div *ngFor="let item of uploader.queue">
@@ -635,7 +707,7 @@
                                             <label class="custom-file-label"> <i data-feather="upload" class="mr-1"></i>
                                                 Upload File</label>
                                         </div>
-                                    </fieldset>
+                                    </fieldset> -->
                                 </div>
 
                             </div>
@@ -650,22 +722,22 @@
                                 </div>
                                 <div class="col-lg-4">
                                    
-                                    <fieldset class="form-group">
-                                        <div class="d-flex justify-content-between">
-                                            <label for="file-upload-single">Signature</label>
-                                            <div *ngFor="let item of uploader.queue">
-                                                <small>{{ item?.file?.name }}</small>
-                                            </div>
-                                           
+                                    <label for="exampleInputFile">Signature
+                                    </label>
+                                    <div *ngIf="showcustomerSignature">
+                                        <a [href]="customerSignatureFileDownloadUrl">Download</a>
 
+                                    </div>
+                                    <fieldset class="form-group w-50 mb-0">
+                                        <div class="d-flex justify-content-between">
+                                        
                                         </div>
                                         <div class="custom-file">
-                                            <input (change)="uploadImages($event, 'customerSignature')"  type="file" class="custom-file-input" type="file" ng2FileSelect
-                                                [uploader]="uploader" id="file-upload-single" />
-                                            <label class="custom-file-label"> <i data-feather="upload" class="mr-1"></i>
-                                                Upload File</label>
+                                            <input type="file" id="customerSignature" (change)="uploadImages($event, 'customerSignature')">
+
                                         </div>
                                     </fieldset>
+                                   
                                 </div>
                             </div>
                             <div class="card-footer text-center py-1">

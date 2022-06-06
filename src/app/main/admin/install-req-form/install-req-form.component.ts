@@ -9,6 +9,7 @@ import { AppConstants } from 'app/shared/AppConstants';
 import { Router } from '@angular/router';
 import { ServicesService as Admin } from '../../admin/services.service';
 import { InstallationService } from '../../admin/request/installation/installation.service';
+import { environment } from 'environments/environment';
 const URL = 'https://your-url.com';
 
 @Component({
@@ -189,6 +190,19 @@ export class InstallReqFormComponent implements OnInit {
      "stateName": "WEST BENGAL"
     }
    ]
+  baseUrl="http://evsepulseapi.exicom.in:8282"
+  chargerPictureFileDownloadUrl: string='';
+  installationReportFileDownloadUrl: string='';
+  cablingPictureFileDownloadUrl: string='';
+  mcbPictureFileDownloadUrl: string='';
+  engineerSignatureFileDownloadUrl: string='';
+  customerSignatureFileDownloadUrl: string='';
+  showchargerPicture: boolean=false;
+  showinstallationReport: boolean=false;
+  showmcbPicture: boolean=false;
+  showengineerSignature: boolean=false;
+  showcustomerSignature: boolean=false;
+  showcablingPicture: boolean=false;
 
 
   constructor(
@@ -225,6 +239,8 @@ export class InstallReqFormComponent implements OnInit {
     this.pushInstallationWorkRequestList();
     this.setDescription();
     this.holdInstallValue = this.installationService.selectedInstall;
+  
+
     this.holdInstallValue.installationWorkList.forEach(element => {
       if(element.installationWorkListId === 9 ){
         this.totalChargerSupplied = element;
@@ -256,13 +272,38 @@ export class InstallReqFormComponent implements OnInit {
       
     });
     this.setValuesFromInstallPage();
+    // this.go_next();
+
   }
   selectedType = ' ';
+
+//   go_next(){
+//     setTimeout(() => {
+//       var objCountry =  (<HTMLSelectElement>document.getElementById("country"));
+//       var objstateid =  (<HTMLSelectElement>document.getElementById("stateid"))
+//       var objCharger =  (<HTMLSelectElement>document.getElementById("basicSelect"));
+     
+//       // this.setSelectedValue(objCountry, "India");
+//       this.setSelectedValue(objstateid, "2");
+//       this.setSelectedValue(objCharger, "AC001");
+//       objCountry.value="1";
+//       }
+//       , 2000);
+// }
 
   onChange(event) {
     this.selectedType = event.target.value;
   }
 
+    
+//   setSelectedValue(selectObj, valueToSet) {
+//     for (var i = 0; i < selectObj.options.length; i++) {
+//         if (selectObj.options[i].text== valueToSet) {
+//             selectObj.options[i].selected = true;
+//             return;
+//         }
+//     }
+// }
 
   createMainForm(): void {
 
@@ -338,8 +379,8 @@ export class InstallReqFormComponent implements OnInit {
   setValuesFromInstallPage(): void {
     console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZ")
     console.log(this.holdInstallValue);
-    this.accessInstallationForm['id'].patchValue(this.holdInstallValue.id);
-    this.accessInstallationForm['soNumber'].patchValue(this.holdInstallValue.irfId);
+    this.accessInstallationForm['id'].patchValue(this.holdInstallValue.irfManualId);
+    this.accessInstallationForm['soNumber'].patchValue(this.holdInstallValue.manualId);
     this.accessInstallationForm['clientName'].patchValue(this.holdInstallValue.accountName);
     this.accessInstallationForm['clientCode'].patchValue(this.holdInstallValue.accountSapCode);
     this.accessInstallationForm['address'].patchValue(this.holdInstallValue.address);
@@ -392,26 +433,26 @@ export class InstallReqFormComponent implements OnInit {
     this.accessInstallationWorkRequestListArray.controls[8].get('description')?.patchValue('Canopy Type');
   }
 
-  getFile(event: any) {
-    this.uploadImages(event,"chargerPicture");
-    if (event.target.files && event.target.files[0]) {
-      const max_size = 800000; //700 kb
-      const allowed_types = ['image/png', 'image/jpeg', 'image/jpg'];
-      if (event.target.files[0].size > max_size) {
+  // getFile(event: any) {
+  //   this.uploadImages(event,"chargerPicture");
+  //   if (event.target.files && event.target.files[0]) {
+  //     const max_size = 800000; //700 kb
+  //     const allowed_types = ['image/png', 'image/jpeg', 'image/jpg'];
+  //     if (event.target.files[0].size > max_size) {
         
-        this.notify.show("Maximum size can be 500 Kb");
-        return false;
-      }
-      if (!allowed_types.includes(event.target.files[0].type)) {
-        this.notify.show("Only Images are allowed ( JPEG | JPG | PNG )");
-        return false;
-      }
-    }
-    //500000 bytes = 500 kb
-    //700000
-    debugger;
-    console.log(event);
-  }
+  //       this.notify.show("Maximum size can be 500 Kb");
+  //       return false;
+  //     }
+  //     if (!allowed_types.includes(event.target.files[0].type)) {
+  //       this.notify.show("Only Images are allowed ( JPEG | JPG | PNG )");
+  //       return false;
+  //     }
+  //   }
+  //   //500000 bytes = 500 kb
+  //   //700000
+  //   debugger;
+  //   console.log(event);
+  // }
   saveAsDraft()
   {
     this.submit("draft");
@@ -420,14 +461,32 @@ export class InstallReqFormComponent implements OnInit {
 
   fileList = [];
   uploadImages($event: any, type){
+    if(type==="chargerPicture"){
+      this.showchargerPicture = true;
+    }
+    if(type==="installationReport"){
+      this.showinstallationReport = true;
+    }
+    if(type==="cablingPicture"){
+      this.showcablingPicture = true;
+    }
+    if(type==="mcbPicture"){
+      this.showmcbPicture = true;
+    }
+    if(type==="engineerSignature"){
+      this.showengineerSignature = true;
+    }
+    if(type==="customerSignature"){
+      this.showcustomerSignature = true;
+    }
+
     if ($event.target.files.length > 0) {
       for (let i = 0; i < $event.target.files.length; i++) {
         this.fileList.push($event.target.files[i]);
       }
     }
     let formData = new FormData();
-    formData.append('file', this.fileList[0]);
-
+    formData.append('file', this.fileList[0],this.fileList[0].name);
     const qp={
       "installationId":this.holdInstallValue.id,
       "file":type
@@ -435,7 +494,18 @@ export class InstallReqFormComponent implements OnInit {
   
     this.installationService.uploadInstallationPhotos(formData, qp).subscribe(
       (data) => {
+        this.chargerPictureFileDownloadUrl= this.baseUrl+ data.chargerPictureFileDownloadUri;
+        this.installationReportFileDownloadUrl=  this.baseUrl+ data.installationReportFileDownloadUri;
         
+        this.cablingPictureFileDownloadUrl=  this.baseUrl+ data.cablingPictureFileDownloadUri;
+        
+        this.mcbPictureFileDownloadUrl=  this.baseUrl+ data.mcbPictureFileDownloadUri;
+        
+        this.engineerSignatureFileDownloadUrl=  this.baseUrl+ data.engineerSignatureFileDownloadUri;
+        this.customerSignatureFileDownloadUrl=  this.baseUrl+ data.customerSignatureFileDownloadUri;
+        
+        
+
       }
     )
   }

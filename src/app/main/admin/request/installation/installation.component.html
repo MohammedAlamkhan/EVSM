@@ -33,13 +33,13 @@
                                             <tr>
                                                 <td class="bd-top">{{ rowIndex +1 }}</td>
                                                 <td ><a [style]="{color:'blue'}" (click)="passIrfData(rowIndex)" class="no-st-text-b">{{ installation?.irfManualId }}</a></td>
-                                                <td ><a [style]="{color:'blue'}" (click)="passInstallData(rowIndex)"  class="no-st-text-b">{{ installation?.id }}</a></td>
+                                                <td ><a [style]="{color:'blue'}" (click)="passInstallData(rowIndex)"  class="no-st-text-b">{{ installation?.manualId }}</a></td>
                                                 <td class="bd-top">{{ installation?.accountName }}</td>
                                                 <td class="bd-top">{{ installation?.installationStatusName}}</td>
-                                                <td class="bd-top">{{ installation?.assignToName }}</td>
+                                                <td class="bd-top">{{ installation?.ownerName }}</td>
                                                 <td class="bd-top">{{ installation?.assignByName }}</td>
                                                 <td class="bd-top">{{ installation?.assignDate  | date:'shortDate':'IST' }}</td>
-                                                <td class="bd-top">{{ installation?.installationDate  | date:'shortDate':'IST' }}</td>
+                                                <td class="bd-top">{{ installation?.createdDate  | date:'shortDate':'IST' }}</td>
                                                 <td class="bd-top">{{ installation?.createdByName }}</td>
                                             </tr>
                                         </ng-template>

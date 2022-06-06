@@ -74,10 +74,10 @@ export class InstallationService {
     // let queryParams = new HttpParams();
     // queryParams = queryParams.append("type", params.file);
     // queryParams = queryParams.append("installationId",params.installationId);
-    let head = new HttpHeaders().set('Content-Type', "multipart/form-data");
+    // let head = new HttpHeaders().append('Content-Type', "multipart/form-data");
   
     // 'Content-Type':  'Multipart'
-    return this.httpClient.post<any>(environment.baseApiUrl + this.reportUploadUrl + "?type=" + params.file + "&installationId=" + params.installationId, file, {headers:head} );
+    return this.httpClient.post<any>(environment.baseApiUrl + this.reportUploadUrl + "?type=" + params.file + "&installationId=" + params.installationId, file);
 
   }
 
