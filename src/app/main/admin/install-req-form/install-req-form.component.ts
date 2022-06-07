@@ -316,7 +316,7 @@ export class InstallReqFormComponent implements OnInit {
       , pincode: ['']
       , city: ['']
       , stateId: ['']
-      , country: ['']
+      , countryId: ['']
       , installationDate: ['']
       , pointOfInstallation: ['']
       , siteId: ['']
@@ -387,7 +387,7 @@ export class InstallReqFormComponent implements OnInit {
     this.accessInstallationForm['pincode'].patchValue(this.holdInstallValue.pincode);
     this.accessInstallationForm['city'].patchValue(this.holdInstallValue.city);
     this.accessInstallationForm['stateId'].patchValue(this.holdInstallValue.stateId);
-    this.accessInstallationForm['country'].patchValue(this.holdInstallValue.country);
+    this.accessInstallationForm['countryId'].patchValue(this.holdInstallValue.country);
     this.accessInstallationForm['pointOfInstallation'].patchValue(this.holdInstallValue.pointOfInstallation);
     this.accessInstallationForm['siteId'].patchValue(this.holdInstallValue.siteId);
     this.accessInstallationForm['siteName'].patchValue(this.holdInstallValue.siteName);
@@ -527,7 +527,7 @@ export class InstallReqFormComponent implements OnInit {
         this.accessInstallationForm['siteId'].patchValue(siteData.siteId);
         this.accessInstallationForm['stateId'].patchValue(siteData.stateId);
         this.accessInstallationForm['siteName'].patchValue(siteData.siteName);
-        this.accessInstallationForm['country'].patchValue(siteData.country);
+        this.accessInstallationForm['countryId'].patchValue(siteData.countryId);
         this.accessInstallationForm['contactNumber'].patchValue(siteData.contactNumber);
       }
     )
@@ -553,6 +553,8 @@ export class InstallReqFormComponent implements OnInit {
     delete req["mCBPicture"];
     delete req["signatureEmployee"];
     delete req["signatureCustomer"];
+    delete req["country"];
+    delete req["countryId"];
     
     //need to add email and country in ai key
 

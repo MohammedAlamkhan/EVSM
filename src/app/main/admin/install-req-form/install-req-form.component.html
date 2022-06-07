@@ -138,7 +138,7 @@
                                         <label for="name">Country
 
                                         </label>
-                                        <select id="country" formControlName="stateId" class="form-control">
+                                        <select id="countryid" formControlName="countryId" class="form-control">
                                             <option value="">Select Country</option>
                                             <option *ngFor="let country of countryMap" [value]="country.countryId" >{{country.countryName}}</option>
                                         </select>
