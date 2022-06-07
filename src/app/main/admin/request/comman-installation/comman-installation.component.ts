@@ -17,6 +17,7 @@ export class CommanInstallationsComponent implements OnInit {
     dateFormat:'d.m.Y H:i'
   };
   installation: any;
+  baseUrl="http://evsepulseapi.exicom.in:8282";
   totalChargerSupplied: any;
   chargerMountingType: any;
   civilFoundationStatus: any;
@@ -163,15 +164,41 @@ export class CommanInstallationsComponent implements OnInit {
 
 
   downloadInstallationReport(fileName){
-    const req = {
-      id:  this.installation.id,
-      file : fileName
+
+    let uri="";
+    if(fileName==="installationReport"){
+      uri=this.installation.file.installationReportFileDownloadUri;
+    }
+    if(fileName==="cablingPicture"){
+      uri=this.installation.file.cablingPictureFileDownloadUri;
+    }
+    if(fileName==="chargerPicture"){
+      uri=this.installation.file.chargerPictureFileDownloadUri;
+    }
+    if(fileName==="mcbPicture"){
+      uri=this.installation.file.mcbPictureFileDownloadUri;
+    }
+    if(fileName==="engineerSignature"){
+      uri=this.installation.file.engineerSignatureFileDownloadUri;
+    }
+    if(fileName==="customerSignature"){
+      uri=this.installation.file.customerSignatureFileDownloadUri;
     }
 
-    this.installationsService.downloadInstallationReport(req).subscribe(
-      (data) => {
-      }
-    )
+    location.href = this.baseUrl+uri;
+
+
+    // const req = {
+    //   id:  this.installation.id,
+    //   file : fileName
+    // }
+
+    
+
+    // this.installationsService.downloadInstallationReport(req).subscribe(
+    //   (data) => {
+    //   }
+    // )
 
   }
 
