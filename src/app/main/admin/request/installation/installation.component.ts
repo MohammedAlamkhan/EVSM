@@ -14,6 +14,7 @@ public contentHeader : object
   totalRecords: any;
   noOfRows: number=5;
   irf: any;
+  first: any;
   constructor(private installationService: InstallationService,private irfService: IrfService,  private router: Router) { }
 
   ngOnInit(): void {
@@ -65,7 +66,7 @@ public contentHeader : object
 
   
     passIrfData(index){
-      this.irfService.irfId = this.installations[index].irfId;
+      this.irfService.irfId = this.installations[index-this.first].irfId;
       this.irf =   this.irfService.getIrfInformationById().subscribe(
         (data) => {
           this.irfService.selectedIrf = data;
@@ -77,6 +78,7 @@ public contentHeader : object
    
 
     loadData($event) {
+      this.first = $event.first;
       const req={
         "page":$event.first/this.noOfRows,
         "size":$event.rows

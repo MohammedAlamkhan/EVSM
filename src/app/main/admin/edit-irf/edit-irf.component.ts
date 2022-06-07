@@ -168,7 +168,7 @@ export class EditIrfComponent implements OnInit, OnDestroy {
       surveyRequired: this.accessIrfForm['activityTypeSurvey'].value == true ?  true:false,
       installationRequired:  this.accessIrfForm['activityTypeInstallation'].value == true ? true:false,
       commissioningRequired: this.accessIrfForm['activityTypeCommisioning'].value == true ? true:false,
-      salesOrderId: (<HTMLInputElement>document.getElementById("SONumber")).value, 
+      salesOrderId: this.holdSalesDetails.id,
       requestRaisedById:  (<HTMLInputElement>document.getElementById("oid")).value, 
       circleId: (<HTMLInputElement>document.getElementById("cid")).value, 
       typeOfChargerId: (<HTMLInputElement>document.getElementById("typeOfCharger")).value, 

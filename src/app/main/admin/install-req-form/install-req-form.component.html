@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-primary">
-                    <form [formGroup]="installationForm" (ngSubmit)="submit()">
+                    <form [formGroup]="installationForm">
                         <div class="card-body">
                             <div class="row mb-1 mt-0">
                                 <div
@@ -162,7 +162,7 @@
                                         <label for="name">Installation Date </label>
                                         <!-- <ng2-flatpickr [ngClass]="'firstsecond'" [config]="basicDateOptions"
                                             name="basicDate"></ng2-flatpickr> -->
-                                            <input type="name" class="form-control form-control-sm"
+                                            <input  formControlName="installationDate" type="date" class="form-control form-control-sm"
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
@@ -742,7 +742,7 @@
                             </div>
                             <div class="card-footer text-center py-1">
                                 <button (click)="saveAsDraft()" class="btn btn-primary mr-4">Save as Draft</button>
-                                <button type="submit"  class="btn btn-primary ">Submit for
+                                <button (click)="submitF()"  class="btn btn-primary ">Submit for
                                     Commissioning</button>
                             </div>
                         </div>

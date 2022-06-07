@@ -389,6 +389,7 @@ export class InstallReqFormComponent implements OnInit {
     this.accessInstallationForm['stateId'].patchValue(this.holdInstallValue.stateId);
     this.accessInstallationForm['countryId'].patchValue(this.holdInstallValue.country);
     this.accessInstallationForm['pointOfInstallation'].patchValue(this.holdInstallValue.pointOfInstallation);
+    this.accessInstallationForm['installationDate'].patchValue(this.holdInstallValue.installationDate);
     this.accessInstallationForm['siteId'].patchValue(this.holdInstallValue.siteId);
     this.accessInstallationForm['siteName'].patchValue(this.holdInstallValue.siteName);
     this.accessInstallationForm['contactPersonAtSite'].patchValue(this.holdInstallValue.contactPersonAtSite);
@@ -455,31 +456,12 @@ export class InstallReqFormComponent implements OnInit {
   // }
   saveAsDraft()
   {
-    this.submit("draft");
+    this.submitF("draft");
   }
 
 
   fileList = [];
   uploadImages($event: any, type){
-    if(type==="chargerPicture"){
-      this.showchargerPicture = true;
-    }
-    if(type==="installationReport"){
-      this.showinstallationReport = true;
-    }
-    if(type==="cablingPicture"){
-      this.showcablingPicture = true;
-    }
-    if(type==="mcbPicture"){
-      this.showmcbPicture = true;
-    }
-    if(type==="engineerSignature"){
-      this.showengineerSignature = true;
-    }
-    if(type==="customerSignature"){
-      this.showcustomerSignature = true;
-    }
-
     if ($event.target.files.length > 0) {
       for (let i = 0; i < $event.target.files.length; i++) {
         this.fileList.push($event.target.files[i]);
@@ -503,7 +485,24 @@ export class InstallReqFormComponent implements OnInit {
         
         this.engineerSignatureFileDownloadUrl=  this.baseUrl+ data.engineerSignatureFileDownloadUri;
         this.customerSignatureFileDownloadUrl=  this.baseUrl+ data.customerSignatureFileDownloadUri;
-        
+        if(type==="chargerPicture"){
+          this.showchargerPicture = true;
+        }
+        if(type==="installationReport"){
+          this.showinstallationReport = true;
+        }
+        if(type==="cablingPicture"){
+          this.showcablingPicture = true;
+        }
+        if(type==="mcbPicture"){
+          this.showmcbPicture = true;
+        }
+        if(type==="engineerSignature"){
+          this.showengineerSignature = true;
+        }
+        if(type==="customerSignature"){
+          this.showcustomerSignature = true;
+        }
         
 
       }
@@ -533,7 +532,7 @@ export class InstallReqFormComponent implements OnInit {
     )
   }
 
-  submit(draft?) {
+  submitF(draft?) {
     debugger;
     if(draft==="draft"){
       this.installationForm.value.installationStatusId=3
@@ -541,9 +540,10 @@ export class InstallReqFormComponent implements OnInit {
       this.installationForm.value.installationStatusId=6
     }
     
-    console.log(this.installationForm);
+   
     this.installationService.installationId = this.holdInstallValue.id;
     const req = this.installationForm.value;
+    req["id"]=this.holdInstallValue.id;
     delete req["soNumber"];
     delete req["clientName"];
     delete req["clientCode"];
@@ -573,6 +573,7 @@ export class InstallReqFormComponent implements OnInit {
     req.installationWorkRequestList[7].installationWorkListId = 2
     req.installationWorkRequestList[8].installationWorkListId = 3
 
+    console.log(req);
    
     this.installationService.updateInstallation(req).subscribe(
       (data) => {

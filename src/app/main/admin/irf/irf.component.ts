@@ -12,6 +12,7 @@ export class IrfComponent implements OnInit {
   loading: boolean = false;
   noOfRows: number=5;
   totalRecords: number;
+  first: any;
 
 
   constructor(private irfService: IrfService, private router: Router) { }
@@ -35,7 +36,7 @@ export class IrfComponent implements OnInit {
   }
 
   passIrfData(index){
-    this.irfService.irfId = this.irfs[index].id;
+    this.irfService.irfId = this.irfs[index-this.first].id;
     this.irfService.selectedIrf =  this.irfService.getIrfInformationById().subscribe(
       (data) => {
         this.irfService.selectedIrf = data;
@@ -54,6 +55,7 @@ export class IrfComponent implements OnInit {
 
 
   loadData($event) {
+    this.first = $event.first;
     const req={
       "page":$event.first/this.noOfRows,
       "size":$event.rows
