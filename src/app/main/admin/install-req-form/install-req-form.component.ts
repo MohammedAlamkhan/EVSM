@@ -341,7 +341,7 @@ export class InstallReqFormComponent implements OnInit {
       , signatureCustomer: ['']
 
       //   tentativePlanDate: ['', [Validators.required]],
-      , emailId: ['', [Validators.required, Validators.email]]
+      , email: ['', [Validators.required, Validators.email]]
       , installationWorkRequestList: this.fb.array([
         // this.createActivityControls()
       ])
@@ -394,7 +394,7 @@ export class InstallReqFormComponent implements OnInit {
     this.accessInstallationForm['contactPersonAtSite'].patchValue(this.holdInstallValue.contactPersonAtSite);
     this.accessInstallationForm['contactNumber'].patchValue(this.holdInstallValue.contactNumber);
     this.accessInstallationForm['alternateContactNumber'].patchValue(this.holdInstallValue.alternateContactnumber);
-    this.accessInstallationForm['emailId'].patchValue(this.holdInstallValue.accountContactPersonEmail);
+    this.accessInstallationForm['email'].patchValue(this.holdInstallValue.accountContactPersonEmail);
     this.accessInstallationForm['installationTypeId'].patchValue(this.holdInstallValue.installationTypeId);
     this.accessInstallationForm['installationStatusId'].patchValue(this.holdInstallValue.installationStatusId);
     this.accessInstallationForm['installedByVendor'].patchValue(this.holdInstallValue.installedByVendor);
@@ -519,7 +519,7 @@ export class InstallReqFormComponent implements OnInit {
         console.log(data);
         let siteData = data[0]
         this.accessInstallationForm['address'].patchValue(siteData.address);
-        this.accessInstallationForm['emailId'].patchValue(siteData.emailId);
+        this.accessInstallationForm['email'].patchValue(siteData.emailId);
         this.accessInstallationForm['alternateContactNumber'].patchValue(siteData.alternateContactnumber);
         // this.accessInstallationForm['customerName'].patchValue(siteData.customerName);
         this.accessInstallationForm['city'].patchValue(siteData.city);
