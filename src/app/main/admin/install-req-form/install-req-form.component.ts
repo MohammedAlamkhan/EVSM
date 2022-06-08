@@ -476,6 +476,7 @@ export class InstallReqFormComponent implements OnInit {
   
     this.installationService.uploadInstallationPhotos(formData, qp).subscribe(
       (data) => {
+        this.fileList=[];
         this.chargerPictureFileDownloadUrl= this.baseUrl+ data.chargerPictureFileDownloadUri;
         this.installationReportFileDownloadUrl=  this.baseUrl+ data.installationReportFileDownloadUri;
         
