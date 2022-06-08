@@ -32,10 +32,10 @@ export class ServicesService {
           }),
           catchError((x: HttpErrorResponse) => {
             if (x.status == AppConstants.HTTPSTATUS_INTERNAL_SERVER_ERROR) {
-              this.notify.show(x.message, NotificationType.Error)
+              this.notify.show(x.error.message, NotificationType.Error)
             }
             else
-              this.notify.show(x.message, NotificationType.Error);
+              this.notify.show(x.error.message, NotificationType.Error);
               return EMPTY;
           })
   
@@ -53,10 +53,10 @@ export class ServicesService {
           }),
           catchError((x: HttpErrorResponse) => {
             if (x.status == AppConstants.HTTPSTATUS_INTERNAL_SERVER_ERROR) {
-              this.notify.show(x.message, NotificationType.Error)
+              this.notify.show(x.error.message, NotificationType.Error)
             }
             else
-              this.notify.show(x.message, NotificationType.Error);
+              this.notify.show(x.error.message, NotificationType.Error);
               return EMPTY;
           })
   

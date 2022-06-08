@@ -41,10 +41,10 @@ export class ManageUserService {
         }),
         catchError((x: HttpErrorResponse) => {
           if (x.status == AppConstants.HTTPSTATUS_INTERNAL_SERVER_ERROR) {
-            this.notify.show(x.message, NotificationType.Error)
+            this.notify.show(x.error.message, NotificationType.Error)
           }
           else
-            this.notify.show(x.message, NotificationType.Error);
+            this.notify.show(x.error.message, NotificationType.Error);
             this.toggleSidebar('new-user-sidebar');
             return EMPTY;
         })

@@ -68,7 +68,7 @@ export class SalesService {
           this.salesInformation$.next(x);
         }),
         catchError((x: HttpErrorResponse) => {
-          this.notify.show(x.message, NotificationType.Error);
+          this.notify.show(x.error.message, NotificationType.Error);
           return EMPTY;
         }
         )
