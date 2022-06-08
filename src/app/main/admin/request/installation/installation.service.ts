@@ -1,7 +1,11 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { NotificationType } from 'app/Models/NotificationMessage';
+import { AppConstants } from 'app/shared/AppConstants';
 import { environment } from 'environments/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { NotificationService as Notify } from './../../../../shared/services/notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +24,7 @@ export class InstallationService {
 
 
   salesInformation$ = new BehaviorSubject<any>(null);
-  constructor(private httpClient: HttpClient
+  constructor(private httpClient: HttpClient , private notify: Notify
    ) { }
 
 
@@ -66,7 +70,23 @@ export class InstallationService {
 
 
   public updateInstallation(body): Observable<any> {
-    return this.httpClient.put<any>(environment.baseApiUrl + this.installationUrl + "/" + this.installationId, body);
+    return this.httpClient.put<any>(environment.baseApiUrl + this.installationUrl + "/" + this.installationId, body).pipe(
+      tap((x) => {
+        if (x != null && x !== undefined) {
+          this.notify.show("Installation Updated Successfully.", NotificationType.Info);
+          
+        }
+      }),
+      catchError((x: HttpErrorResponse) => {
+        if (x.status == AppConstants.HTTPSTATUS_INTERNAL_SERVER_ERROR) {
+          this.notify.show(x.message, NotificationType.Error)
+        }
+        else
+          this.notify.show(x.message, NotificationType.Error);
+          return EMPTY;
+      })
+
+    );
   }
 
    

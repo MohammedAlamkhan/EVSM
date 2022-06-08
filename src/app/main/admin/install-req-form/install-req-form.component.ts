@@ -377,8 +377,6 @@ export class InstallReqFormComponent implements OnInit {
 
 
   setValuesFromInstallPage(): void {
-    console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZ")
-    console.log(this.holdInstallValue);
     this.accessInstallationForm['id'].patchValue(this.holdInstallValue.irfManualId);
     this.accessInstallationForm['soNumber'].patchValue(this.holdInstallValue.manualId);
     this.accessInstallationForm['clientName'].patchValue(this.holdInstallValue.accountName);
@@ -387,7 +385,7 @@ export class InstallReqFormComponent implements OnInit {
     this.accessInstallationForm['pincode'].patchValue(this.holdInstallValue.pincode);
     this.accessInstallationForm['city'].patchValue(this.holdInstallValue.city);
     this.accessInstallationForm['stateId'].patchValue(this.holdInstallValue.stateId);
-    this.accessInstallationForm['countryId'].patchValue(this.holdInstallValue.country);
+    this.accessInstallationForm['countryId'].patchValue(this.holdInstallValue.countryId);
     this.accessInstallationForm['pointOfInstallation'].patchValue(this.holdInstallValue.pointOfInstallation);
     this.accessInstallationForm['installationDate'].patchValue(this.holdInstallValue.installationDate);
     this.accessInstallationForm['siteId'].patchValue(this.holdInstallValue.siteId);
@@ -578,6 +576,7 @@ export class InstallReqFormComponent implements OnInit {
    
     this.installationService.updateInstallation(req).subscribe(
       (data) => {
+        this.router.navigate(['\comp-req-installations'])
       
 
       }
