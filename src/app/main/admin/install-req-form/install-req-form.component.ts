@@ -509,26 +509,25 @@ export class InstallReqFormComponent implements OnInit {
   }
 
   getSiteData($event){
-    console.log("key down");
-    console.log($event.target.value);
-    console.log("key up");
-    this.installationService.getSiteData($event.target.value).subscribe(
-      (data) => {
-        console.log(data);
-        let siteData = data[0]
-        this.accessInstallationForm['address'].patchValue(siteData.address);
-        this.accessInstallationForm['email'].patchValue(siteData.emailId);
-        this.accessInstallationForm['alternateContactNumber'].patchValue(siteData.alternateContactnumber);
-        // this.accessInstallationForm['customerName'].patchValue(siteData.customerName);
-        this.accessInstallationForm['city'].patchValue(siteData.city);
-        this.accessInstallationForm['pincode'].patchValue(siteData.pincode);
-        this.accessInstallationForm['siteId'].patchValue(siteData.siteId);
-        this.accessInstallationForm['stateId'].patchValue(siteData.stateId);
-        this.accessInstallationForm['siteName'].patchValue(siteData.siteName);
-        this.accessInstallationForm['countryId'].patchValue(siteData.countryId);
-        this.accessInstallationForm['contactNumber'].patchValue(siteData.contactNumber);
-      }
-    )
+    if($event.keyCode !== 8 && $event.keyCode !== 46 ){
+      this.installationService.getSiteData($event.target.value).subscribe(
+        (data) => {
+          console.log(data);
+          let siteData = data[0]
+          this.accessInstallationForm['address'].patchValue(siteData.address);
+          this.accessInstallationForm['email'].patchValue(siteData.emailId);
+          this.accessInstallationForm['alternateContactNumber'].patchValue(siteData.alternateContactnumber);
+          // this.accessInstallationForm['customerName'].patchValue(siteData.customerName);
+          this.accessInstallationForm['city'].patchValue(siteData.city);
+          this.accessInstallationForm['pincode'].patchValue(siteData.pincode);
+          this.accessInstallationForm['siteId'].patchValue(siteData.siteId);
+          this.accessInstallationForm['stateId'].patchValue(siteData.stateId);
+          this.accessInstallationForm['siteName'].patchValue(siteData.siteName);
+          this.accessInstallationForm['countryId'].patchValue(siteData.countryId);
+          this.accessInstallationForm['contactNumber'].patchValue(siteData.contactNumber);
+        }
+      )
+    }
   }
 
   submitF(draft?) {
