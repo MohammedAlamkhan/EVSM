@@ -10,17 +10,17 @@
                             <a routerLink="/Installation-commissioning-pdf" class="btn btn-outline-warning btn-sm mx-1">
                                 <i data-feather="file-plus"></i> Generate Installation Report
                             </a>
-                            <a class="btn btn-outline-warning  text-warning btn-sm mx-1"  (click)="modalOpenSM(modalSM)" data-toggle="modal"
+                            <a *ngIf="creds.roleGroupAndAccount.roleGroup==='SCH' && installation?.installationStatusId == 4 && installation?.assignByName === null" class="btn btn-outline-warning  text-warning btn-sm mx-1"  (click)="modalOpenSM(modalSM)" data-toggle="modal"
                             data-target="#modal-default">
                                 <i data-feather="file-text"></i> Assign
                             </a>
                             
-                            <a class="btn btn-outline-warning text-warning  btn-sm mr-1 " (click)="modalOpenSM2(modalSM2)" data-toggle="modal" 
+                            <a *ngIf="creds.roleGroupAndAccount.roleGroup==='SCH' && installation?.tobeApprovedId != null" class="btn btn-outline-warning text-warning  btn-sm mr-1 " (click)="modalOpenSM2(modalSM2)" data-toggle="modal" 
                             data-target="#modal-default">
                                 <i data-feather="check-square"></i> Approve / <i data-feather="x-square"></i> Reject
                             </a>
 
-                            <a routerLink="/install-req-form" class="btn btn-outline-primary btn-sm">
+                            <a *ngIf="creds.fullname === installation?.ownerName  && installation?.installationStatusId != 6" routerLink="/install-req-form" class="btn btn-outline-primary btn-sm">
                                 <i data-feather="edit"></i> Edit
                             </a>
                         </div>

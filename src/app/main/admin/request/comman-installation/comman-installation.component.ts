@@ -3,6 +3,8 @@ import { FlatpickrOptions } from 'ng2-flatpickr';
 import { InstallationService } from '../installation/installation.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ServicesService as Admin } from '../../../admin/services.service';
+import { AuthenticationService } from './../../../../../@core/core/authentication.service';
+
 @Component({
   selector: 'app-comman-installations',
   templateUrl: './comman-installation.component.html',
@@ -32,8 +34,8 @@ export class CommanInstallationsComponent implements OnInit {
   approvalRemark: any;
   approvalAction: any;
   
-
-  constructor( private admin : Admin, private installationsService: InstallationService,private modalService: NgbModal) { }
+  creds = this.authService.getCredentials;
+  constructor(  public authService: AuthenticationService,private admin : Admin, private installationsService: InstallationService,private modalService: NgbModal) { }
   modalOpenDefault(modalDefault) {
     this.modalService.open(modalDefault, {
       centered: true
