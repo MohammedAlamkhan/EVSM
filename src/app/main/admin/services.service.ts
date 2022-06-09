@@ -26,7 +26,7 @@ export class ServicesService {
         .pipe(
           tap((x) => {
             if (x != null && x !== undefined) {
-              this.notify.show("IRF Created Successfully.", NotificationType.Info);
+              this.notify.show("IRF Generated Successfully.", NotificationType.Info);
               
             }
           }),
@@ -47,7 +47,9 @@ export class ServicesService {
         .pipe(
           tap((x) => {
             if (x != null && x !== undefined) {
-              this.notify.show("IRF Created Successfully.", NotificationType.Info);
+              console.log(x);
+              console.log(JSON.stringify(x))
+              this.notify.show(x.manualId + "IRF Created Successfully.", NotificationType.Info);
               
             }
           }),

@@ -52,14 +52,46 @@ export class InstallationService {
   
  
   public  approveRejectInstallation(req): Observable<any> {
-    return this.httpClient.put<any>(environment.baseApiUrl + this.toBeApprovedUrl + req.id, req);
+    return this.httpClient.put<any>(environment.baseApiUrl + this.toBeApprovedUrl + req.id, req).pipe(
+      tap((x) => {
+        if (x != null && x !== undefined) {
+          this.notify.show("Approved Successfully.", NotificationType.Info);
+          
+        }
+      }),
+      catchError((x: HttpErrorResponse) => {
+        if (x.status == AppConstants.HTTPSTATUS_INTERNAL_SERVER_ERROR) {
+          this.notify.show(x.error.message, NotificationType.Error)
+        }
+        else
+          this.notify.show(x.error.message, NotificationType.Error);
+          return EMPTY;
+      })
+  
+    );
   }
 
   public reassignInstallation(searchquery): Observable<any> {
     // let queryParams = new HttpParams();
     // queryParams = queryParams.append("id", searchquery.id);
     // queryParams = queryParams.append("engineerId", searchquery.engineerId);
-    return this.httpClient.post<any>(environment.baseApiUrl + this.reassignUrl+"?id="+searchquery.id+"&engineerId="+searchquery.engineerId,null);
+    return this.httpClient.post<any>(environment.baseApiUrl + this.reassignUrl+"?id="+searchquery.id+"&engineerId="+searchquery.engineerId,null).pipe(
+      tap((x) => {
+        if (x != null && x !== undefined) {
+          this.notify.show("Assigned Successfully.", NotificationType.Info);
+          
+        }
+      }),
+      catchError((x: HttpErrorResponse) => {
+        if (x.status == AppConstants.HTTPSTATUS_INTERNAL_SERVER_ERROR) {
+          this.notify.show(x.error.message, NotificationType.Error)
+        }
+        else
+          this.notify.show(x.error.message, NotificationType.Error);
+          return EMPTY;
+      })
+  
+    );
   }
 
   public getSiteData(searchquery): Observable<any> {
@@ -97,7 +129,23 @@ export class InstallationService {
     // let head = new HttpHeaders().append('Content-Type', "multipart/form-data");
   
     // 'Content-Type':  'Multipart'
-    return this.httpClient.post<any>(environment.baseApiUrl + this.reportUploadUrl + "?type=" + params.file + "&installationId=" + params.installationId, file);
+    return this.httpClient.post<any>(environment.baseApiUrl + this.reportUploadUrl + "?type=" + params.file + "&installationId=" + params.installationId, file).pipe(
+      tap((x) => {
+        if (x != null && x !== undefined) {
+          this.notify.show(params.file+"Uploaded Successfully.", NotificationType.Info);
+          
+        }
+      }),
+      catchError((x: HttpErrorResponse) => {
+        if (x.status == AppConstants.HTTPSTATUS_INTERNAL_SERVER_ERROR) {
+          this.notify.show(x.error.message, NotificationType.Error)
+        }
+        else
+          this.notify.show(x.error.message, NotificationType.Error);
+          return EMPTY;
+      })
+
+    );
 
   }
 
@@ -106,6 +154,22 @@ export class InstallationService {
     queryParams = queryParams.append("installationId",params.installationId);
     queryParams = queryParams.append("file",params.file);
 
-    return this.httpClient.get<any>(environment.baseApiUrl + this.reportDownloadUrl , { params: queryParams });
+    return this.httpClient.get<any>(environment.baseApiUrl + this.reportDownloadUrl , { params: queryParams }).pipe(
+      tap((x) => {
+        if (x != null && x !== undefined) {
+          this.notify.show(params.file+"Downloaded Successfully.", NotificationType.Info);
+          
+        }
+      }),
+      catchError((x: HttpErrorResponse) => {
+        if (x.status == AppConstants.HTTPSTATUS_INTERNAL_SERVER_ERROR) {
+          this.notify.show(x.error.message, NotificationType.Error)
+        }
+        else
+          this.notify.show(x.error.message, NotificationType.Error);
+          return EMPTY;
+      })
+  
+    );
   }
 }
