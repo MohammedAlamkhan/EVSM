@@ -20,6 +20,7 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
   circleMap: any;
   circleId: any;
   requestRaisedByIdMap: any;
+  hideAll= false;
   constructor(private fb: FormBuilder,
     private assetsService: AssetsService,
     private sales: SalesService,
@@ -277,7 +278,7 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
 
 
   manageInstAndCommisioningControls() {
-
+    this.hideAll=false
     let activityTypeSurveyValue = this.accessIrfForm['activityTypeSurvey'].value;
     let activityTypeInstallationValue = this.accessIrfForm['activityTypeInstallation'].value;
     let activityTypeCommisioningValue = this.accessIrfForm['activityTypeCommisioning'].value;
@@ -480,10 +481,11 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
   }
 
   disableInstallationAndCommisioningControls() {
+    this.hideAll=true;
     for (let i = 0; i < this.accessTrFormArray.controls.length; i++) {
-      // this.accessTrFormArray.controls[i].get('specification')?.disable();
-      // this.accessTrFormArray.controls[i].get('maxNoOfVisit')?.disable();
-      // this.accessTrFormArray.controls[i].get('extraCharge')?.disable();
+      this.accessTrFormArray.controls[i].get('specification')?.disable();
+      this.accessTrFormArray.controls[i].get('maxNoOfVisit')?.disable();
+      this.accessTrFormArray.controls[i].get('extraCharge')?.disable();
     }
   }
 
