@@ -18,7 +18,7 @@ export class InstallationService {
   private readonly reassignUrl: string = 'installation/reassign';
   private readonly engineerUrl: string = 'user/engineer/';
   private readonly toBeApprovedUrl: string = 'tobeapproved/';
-  
+  private readonly installationToBeApprovedUrl: string = 'tobeapproved/installation';
   public selectedInstall:any;
   public installationId:any;
 
@@ -36,6 +36,16 @@ export class InstallationService {
     queryParams = queryParams.append("sort", "id");
   
     return this.httpClient.get<any>(environment.baseApiUrl + this.installationUrl, {params: queryParams});
+
+  }
+
+  public getInstallationListToBeApproved(qp): Observable<any> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("page", qp.page);
+    queryParams = queryParams.append("size", qp.size);
+    queryParams = queryParams.append("sort", "installationCreatedDate,DESC");
+  
+    return this.httpClient.get<any>(environment.baseApiUrl + this.installationToBeApprovedUrl, {params: queryParams});
 
   }
 

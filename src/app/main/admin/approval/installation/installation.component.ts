@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from '../../../../Models/lazyloadevent';
-import { ServicesService as Admin } from '../../../admin/services.service';
+import { InstallationService } from '../../../admin/request/installation/installation.service';
 
 @Component({
   selector: 'app-installation',
@@ -16,9 +16,10 @@ export class InstallationComponent implements OnInit {
   totalRecords: number;
   cols: any[];
   loading: boolean = false;
+  first: any;
 
   constructor(private modalService: NgbModal,
-    private admin: Admin) { }
+    private installationService: InstallationService) { }
   modalOpenSM(modalSM) {
     this.modalService.open(modalSM, {
       centered: true,
@@ -53,14 +54,14 @@ export class InstallationComponent implements OnInit {
   }
 
   loadData($event) {
+    this.first = $event.first;
     const req={
       "page":$event.first/this.noOfRows,
       "size":$event.rows
     }
     this.loading = true;
-    this.admin.getInstallationListInApproval(req).subscribe(
+    this.installationService.getInstallationListToBeApproved(req).subscribe(
       (data) => {
-        debugger;
         this.installationList = data.installations;
         this.totalRecords = data.totalElements;
         this.loading = false;
