@@ -19,6 +19,7 @@
                                                 <th scope="col">Sr. No. </th>
                                                 <th scope="col">IRF Request No. </th>
                                                 <th scope="col">Installation Case No. </th>
+                                                <th scope="col">Work Completion Status</th>
                                                 <th scope="col">Client </th>
                                                 <th scope="col">Status </th>
                                                 <th scope="col">Assign To </th>
@@ -34,6 +35,7 @@
                                                 <td class="bd-top">{{ rowIndex +1 }}</td>
                                                 <td ><a [style]="{color:'blue'}" (click)="passIrfData(rowIndex)" class="no-st-text-b">{{ installation?.irfManualId }}</a></td>
                                                 <td ><a [style]="{color:'blue'}" (click)="passInstallData(rowIndex)"  class="no-st-text-b">{{ installation?.manualId }}</a></td>
+                                                <td class="bd-top">{{ installation?.workCompletionStatus }}</td>
                                                 <td class="bd-top">{{ installation?.accountName }}</td>
                                                 <td class="bd-top">{{ installation?.installationStatusName}}</td>
                                                 <td class="bd-top">{{ installation?.ownerName }}</td>

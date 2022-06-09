@@ -329,6 +329,7 @@ export class InstallReqFormComponent implements OnInit {
       , installedByVendor: ['']
       , cableSize: ['']
       , cableLength: ['']
+      , workCompletionStatus: ['']
       , remark: ['']
       , exicomRepresentativeName: ['']
       , employeeCode: ['']
@@ -398,6 +399,7 @@ export class InstallReqFormComponent implements OnInit {
     this.accessInstallationForm['installationStatusId'].patchValue(this.holdInstallValue.installationStatusId);
     this.accessInstallationForm['installedByVendor'].patchValue(this.holdInstallValue.installedByVendor);
     this.accessInstallationForm['cableLength'].patchValue(this.holdInstallValue.cableLength);
+    this.accessInstallationForm['workCompletionStatus'].patchValue(this.holdInstallValue.workCompletionStatus);
     this.accessInstallationForm['cableSize'].patchValue(this.holdInstallValue.cableSize);
     this.accessInstallationForm['responsibility'].patchValue(this.holdInstallValue.responsibility);
     this.accessInstallationForm['remark'].patchValue(this.holdInstallValue.remark);
