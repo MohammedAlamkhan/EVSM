@@ -33,7 +33,7 @@ export class InstallationService {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("page", qp.page);
     queryParams = queryParams.append("size", qp.size);
-    queryParams = queryParams.append("sort", "id");
+    queryParams = queryParams.append("sort", "created_date,DESC");
   
     return this.httpClient.get<any>(environment.baseApiUrl + this.installationUrl, {params: queryParams});
 

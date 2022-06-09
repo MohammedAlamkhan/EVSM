@@ -47,8 +47,6 @@ export class ServicesService {
         .pipe(
           tap((x) => {
             if (x != null && x !== undefined) {
-              console.log(x);
-              console.log(JSON.stringify(x))
               this.notify.show(x.manualId + "IRF Created Successfully.", NotificationType.Info);
               
             }
@@ -69,7 +67,7 @@ getInstallationListInApproval(qp):Observable<any>
 { let queryParams = new HttpParams();
   queryParams = queryParams.append("page", qp.page);
   queryParams = queryParams.append("size", qp.size);
-  queryParams = queryParams.append("sort", "id");
+  queryParams = queryParams.append("sort", "created_date,DESC");
 
   return this.httpClient.get<any>(environment.baseApiUrl + this.getInformationListUrl, { params: queryParams });
 }

@@ -30,8 +30,7 @@ export class SalesService {
       let queryParams = new HttpParams();
       queryParams = queryParams.append("page", qp.page);
       queryParams = queryParams.append("size", qp.size);
-      queryParams = queryParams.append("sort", "id");
-    
+      queryParams = queryParams.append("sort", "created_date,DESC");    
       return this.httpClient.get<any>(environment.baseApiUrl + this.openSalesOrderUrl, {params: queryParams})
       .pipe(
         tap((x) => {
@@ -43,8 +42,8 @@ export class SalesService {
       let queryParams = new HttpParams();
       queryParams = queryParams.append("page", qp.page);
       queryParams = queryParams.append("size", qp.size);
-      queryParams = queryParams.append("sort", "id");
-    
+      queryParams = queryParams.append("sort", "created_date,DESC");
+
       return this.httpClient.get<any>(environment.baseApiUrl + this.closeSalesOrderUrl, {params: queryParams}).pipe(
         tap((x) => {
           this.salesInformation$.next(x);
@@ -84,7 +83,7 @@ export class SalesService {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("page", qp.page);
     queryParams = queryParams.append("size", qp.size);
-    queryParams = queryParams.append("sort", "id");
+    queryParams = queryParams.append("sort", "created_date,DESC");
   
     return this.httpClient.get<any>(environment.baseApiUrl + this.dispatchUrl+param, {params: queryParams});
 
