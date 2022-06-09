@@ -25,7 +25,7 @@ export class SalesDetailsComponent implements OnInit, OnDestroy {
     ; billedAssetQty: string
     ; salesOrderCreationDate: string
     ; invoiceDate: string
-  noOfRows: number = 5;
+  noOfRows: number = 20;
   assests: Assest[];
   totalRecords: number;
   cols: any[];

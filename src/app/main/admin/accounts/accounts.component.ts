@@ -9,8 +9,9 @@ export class AccountComponent implements OnInit {
   public contentHeader: object
   accounts: any;
   loading: boolean = false;
-  noOfRows: number=5;
+  noOfRows: number=20;
   totalRecords: number;
+  first: any;
 
 
   constructor(private accountsService: AccountsService) { }
@@ -33,10 +34,11 @@ export class AccountComponent implements OnInit {
   }
 
   passAccountData(index){
-    this.accountsService.selectedAccount = this.accounts[index];
+    this.accountsService.selectedAccount = this.accounts[index-this.first];
   }
 
   loadData($event) {
+    this.first = $event.first;
     const req={
       "page":$event.first/this.noOfRows,
       "size":$event.rows

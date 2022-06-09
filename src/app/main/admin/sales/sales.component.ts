@@ -11,12 +11,13 @@ import { Router } from '@angular/router';
 })
 export class SalesComponent implements OnInit {
   public contentHeader: object;
-  noOfRows: number=5;
+  noOfRows: number=20;
   salesOrder : any;
   totalRecords: number;
   cols: any[];
   loading: boolean = false;
   dispatchData: any;
+  first: any;
 
 
   constructor(private auth: Auth, private salesService : SalesService, private router: Router) {
@@ -42,12 +43,13 @@ export class SalesComponent implements OnInit {
   }
 
   passSalesData(index){
-    this.salesService.selectedSalesOrder = this.salesOrder[index];
+    this.salesService.selectedSalesOrder = this.salesOrder[index-this.first];
     // this.loadDispatchData();
     this.go_next('\sales-details');
   }
 
   loadDataForOpen($event) {
+    this.first = $event.first;
     const req={
       "page":$event.first/this.noOfRows,
       "size":$event.rows

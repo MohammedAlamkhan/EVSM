@@ -26,16 +26,16 @@ export class ServicesService {
         .pipe(
           tap((x) => {
             if (x != null && x !== undefined) {
-              this.notify.show("IRF Created Successfully.", NotificationType.Info);
+              this.notify.show("IRF Generated Successfully.", NotificationType.Info);
               
             }
           }),
           catchError((x: HttpErrorResponse) => {
             if (x.status == AppConstants.HTTPSTATUS_INTERNAL_SERVER_ERROR) {
-              this.notify.show(x.message, NotificationType.Error)
+              this.notify.show(x.error.message, NotificationType.Error)
             }
             else
-              this.notify.show(x.message, NotificationType.Error);
+              this.notify.show(x.error.message, NotificationType.Error);
               return EMPTY;
           })
   
@@ -47,16 +47,16 @@ export class ServicesService {
         .pipe(
           tap((x) => {
             if (x != null && x !== undefined) {
-              this.notify.show("IRF Created Successfully.", NotificationType.Info);
+              this.notify.show(x.manualId + "IRF Created Successfully.", NotificationType.Info);
               
             }
           }),
           catchError((x: HttpErrorResponse) => {
             if (x.status == AppConstants.HTTPSTATUS_INTERNAL_SERVER_ERROR) {
-              this.notify.show(x.message, NotificationType.Error)
+              this.notify.show(x.error.message, NotificationType.Error)
             }
             else
-              this.notify.show(x.message, NotificationType.Error);
+              this.notify.show(x.error.message, NotificationType.Error);
               return EMPTY;
           })
   
@@ -67,7 +67,7 @@ getInstallationListInApproval(qp):Observable<any>
 { let queryParams = new HttpParams();
   queryParams = queryParams.append("page", qp.page);
   queryParams = queryParams.append("size", qp.size);
-  queryParams = queryParams.append("sort", "id");
+  queryParams = queryParams.append("sort", "created_date,DESC");
 
   return this.httpClient.get<any>(environment.baseApiUrl + this.getInformationListUrl, { params: queryParams });
 }

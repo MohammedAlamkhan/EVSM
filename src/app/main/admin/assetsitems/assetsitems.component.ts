@@ -11,9 +11,10 @@ export class AssetsitemsComponent implements OnInit {
 public contentHeader :object;
 assets:any;
 loading: boolean = false;
-noOfRows: number=5;
+noOfRows: number=20;
 totalRecords: number;
 cols: any[];
+  first: any;
   constructor(private assetsService: AssetsService ,
     private route: ActivatedRoute, private router: Router) { }
 
@@ -48,7 +49,7 @@ cols: any[];
 
   passAssetData(index){
     
-    this.assets =   this.assetsService.getSingleAssetsInformation(this.assets[index].id).subscribe(
+    this.assets =   this.assetsService.getSingleAssetsInformation(this.assets[index-this.first].id).subscribe(
       (data) => {
         this.assetsService.selectedAsset = data;
         this.go_next('\comp-assets');
@@ -68,6 +69,7 @@ cols: any[];
 
 
   loadData($event) {
+    this.first = $event.first;
     const req={
       "page":$event.first/this.noOfRows,
       "size":$event.rows

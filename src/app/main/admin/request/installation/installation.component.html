@@ -10,7 +10,7 @@
                                 <ng-template ngbNavContent>
                                     <div class="table-responsive border">
                                         <p-table  (onLazyLoad)="loadData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="top" paginatorPosition="top" [value]="installations" [lazy]="true" styleClass="p-datatable-gridlines p-datatable-striped"
-                                         responsiveLayout="scroll"  [style]="{width:'1500px'}"
+                                         responsiveLayout="scroll"  [style]="{width:'2300px'}"
                                         dataKey="id" [paginator]="true" [rows]="noOfRows"
                                         [totalRecords]="totalRecords">
                                         <ng-template pTemplate="header">
@@ -19,7 +19,11 @@
                                                 <th scope="col">Sr. No. </th>
                                                 <th scope="col">IRF Request No. </th>
                                                 <th scope="col">Installation Case No. </th>
+                                                <th scope="col">Work Completion Status</th>
                                                 <th scope="col">Client </th>
+                                                <th scope="col">Customer Name </th>
+                                                <th scope="col">Contact No. </th>
+                                                <th scope="col">Email Id </th>
                                                 <th scope="col">Status </th>
                                                 <th scope="col">Assign To </th>
                                                 <th scope="col"> Assign By </th>
@@ -32,9 +36,14 @@
                                            
                                             <tr>
                                                 <td class="bd-top">{{ rowIndex +1 }}</td>
-                                                <td ><a [style]="{color:'blue'}" (click)="passIrfData(rowIndex)" class="no-st-text-b">{{ installation?.irfManualId }}</a></td>
+                                                <td class="bd-top">{{ installation?.irfManualId }}</td>
+                                                <!-- <td ><a [style]="{color:'blue'}" (click)="passIrfData(rowIndex)" class="no-st-text-b">{{ installation?.irfManualId }}</a></td> -->
                                                 <td ><a [style]="{color:'blue'}" (click)="passInstallData(rowIndex)"  class="no-st-text-b">{{ installation?.manualId }}</a></td>
+                                                <td class="bd-top">{{ installation?.workCompletionStatus }}</td>
                                                 <td class="bd-top">{{ installation?.accountName }}</td>
+                                                <td class="bd-top">{{ installation?.contactPersonAtSite }}</td>
+                                                <td class="bd-top">{{ installation?.contactPersonPhone }}</td>
+                                                <td class="bd-top">{{ installation?.contactPersonEmail }}</td>
                                                 <td class="bd-top">{{ installation?.installationStatusName}}</td>
                                                 <td class="bd-top">{{ installation?.ownerName }}</td>
                                                 <td class="bd-top">{{ installation?.assignByName }}</td>

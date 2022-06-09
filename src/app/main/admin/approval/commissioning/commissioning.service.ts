@@ -41,7 +41,7 @@ export class CommissioningService {
       )),
     
       catchError((x: HttpErrorResponse) => {
-        this.notify.show(x.message, NotificationType.Error);
+        this.notify.show(x.error.message, NotificationType.Error);
         return EMPTY;
       }
       )
@@ -59,7 +59,7 @@ export class CommissioningService {
   public getCommisioningDeatil(value: string): Observable<any> {
     return this.httpClient.get<any>(environment.baseApiUrl + this.featchCommisioningDetailsUrl + value).pipe(
       catchError((x: HttpErrorResponse) => {
-        this.notify.show(x.message, NotificationType.Error);
+        this.notify.show(x.error.message, NotificationType.Error);
         return EMPTY;
       }
       )
@@ -70,7 +70,7 @@ export class CommissioningService {
   public getAssign(value: string): Observable<any> {
     return this.httpClient.get<any>(environment.baseApiUrl + this.featchAssignDetailsUrl + value).pipe(
       catchError((x: HttpErrorResponse) => {
-        this.notify.show(x.message, NotificationType.Error);
+        this.notify.show(x.error.message, NotificationType.Error);
         return EMPTY;
       }
       )
@@ -82,7 +82,7 @@ export class CommissioningService {
   public getSiteIDSearch(value: string): Observable<any> {
     return this.httpClient.get<any>(environment.baseApiUrl + this.SiteIDSearchUrl + `search?search=${value}`).pipe(
       catchError((x: HttpErrorResponse) => {
-        this.notify.show(x.message, NotificationType.Error);
+        this.notify.show(x.error.message, NotificationType.Error);
         return EMPTY;
       }
       )
@@ -96,7 +96,7 @@ export class CommissioningService {
     
   //   .pipe(
   //     catchError((x: HttpErrorResponse) => {
-  //       this.notify.show(x.message, NotificationType.Error);
+  //       this.notify.show(x.error.message, NotificationType.Error);
   //       return EMPTY;
   //     }
   //     )
@@ -138,17 +138,17 @@ export class CommissioningService {
   //       tap((x) => {
   //         debugger;
   //         if (x ??  x.statusCode === "600") {
-  //           this.notify.show(x.Message, NotificationType.Info);
+  //           this.notify.show(x.error.message, NotificationType.Info);
   //           this._Router.navigate(['/approval/commissioning']);
   //         }
   //         else
   //         {
-  //           this.notify.show(x.Message, NotificationType.Error);
+  //           this.notify.show(x.error.message, NotificationType.Error);
   //         }
   //       }),
         
   //       catchError((x: HttpErrorResponse) => {
-  //           this.notify.show(x.message, NotificationType.Error);
+  //           this.notify.show(x.error.message, NotificationType.Error);
   //           return EMPTY;
   //       })
 
@@ -164,17 +164,17 @@ export class CommissioningService {
         tap((x) => {
           debugger;
           if (x ??  x.statusCode === "600") {
-            this.notify.show(x.Message, NotificationType.Info);
+            this.notify.show(x.error.message, NotificationType.Info);
             this._Router.navigate(['/approval/commissioning']);
           }
           else
           {
-            this.notify.show(x.Message, NotificationType.Error);
+            this.notify.show(x.error.message, NotificationType.Error);
           }
         }),
         
         catchError((x: HttpErrorResponse) => {
-            this.notify.show(x.message, NotificationType.Error);
+            this.notify.show(x.error.message, NotificationType.Error);
             return EMPTY;
         })
 
@@ -188,7 +188,7 @@ export class CommissioningService {
     .pipe(
     
       catchError((x: HttpErrorResponse) => {
-        this.notify.show(x.message, NotificationType.Error);
+        this.notify.show(x.error.message, NotificationType.Error);
         return EMPTY;
       }
       ),

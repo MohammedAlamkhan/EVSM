@@ -3,6 +3,8 @@ import { FlatpickrOptions } from 'ng2-flatpickr';
 import { InstallationService } from '../installation/installation.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ServicesService as Admin } from '../../../admin/services.service';
+import { AuthenticationService } from './../../../../../@core/core/authentication.service';
+
 @Component({
   selector: 'app-comman-installations',
   templateUrl: './comman-installation.component.html',
@@ -17,6 +19,7 @@ export class CommanInstallationsComponent implements OnInit {
     dateFormat:'d.m.Y H:i'
   };
   installation: any;
+  baseUrl="http://evsepulseapi.exicom.in:8282";
   totalChargerSupplied: any;
   chargerMountingType: any;
   civilFoundationStatus: any;
@@ -31,8 +34,8 @@ export class CommanInstallationsComponent implements OnInit {
   approvalRemark: any;
   approvalAction: any;
   
-
-  constructor( private admin : Admin, private installationsService: InstallationService,private modalService: NgbModal) { }
+  creds = this.authService.getCredentials;
+  constructor(  public authService: AuthenticationService,private admin : Admin, private installationsService: InstallationService,private modalService: NgbModal) { }
   modalOpenDefault(modalDefault) {
     this.modalService.open(modalDefault, {
       centered: true
@@ -163,15 +166,41 @@ export class CommanInstallationsComponent implements OnInit {
 
 
   downloadInstallationReport(fileName){
-    const req = {
-      id:  this.installation.id,
-      file : fileName
+
+    let uri="";
+    if(fileName==="installationReport"){
+      uri=this.installation.file.installationReportFileDownloadUri;
+    }
+    if(fileName==="cablingPicture"){
+      uri=this.installation.file.cablingPictureFileDownloadUri;
+    }
+    if(fileName==="chargerPicture"){
+      uri=this.installation.file.chargerPictureFileDownloadUri;
+    }
+    if(fileName==="mcbPicture"){
+      uri=this.installation.file.mcbPictureFileDownloadUri;
+    }
+    if(fileName==="engineerSignature"){
+      uri=this.installation.file.engineerSignatureFileDownloadUri;
+    }
+    if(fileName==="customerSignature"){
+      uri=this.installation.file.customerSignatureFileDownloadUri;
     }
 
-    this.installationsService.downloadInstallationReport(req).subscribe(
-      (data) => {
-      }
-    )
+    location.href = this.baseUrl+uri;
+
+
+    // const req = {
+    //   id:  this.installation.id,
+    //   file : fileName
+    // }
+
+    
+
+    // this.installationsService.downloadInstallationReport(req).subscribe(
+    //   (data) => {
+    //   }
+    // )
 
   }
 

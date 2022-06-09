@@ -316,7 +316,7 @@ export class InstallReqFormComponent implements OnInit {
       , pincode: ['']
       , city: ['']
       , stateId: ['']
-      , country: ['']
+      , countryId: ['']
       , installationDate: ['']
       , pointOfInstallation: ['']
       , siteId: ['']
@@ -329,6 +329,7 @@ export class InstallReqFormComponent implements OnInit {
       , installedByVendor: ['']
       , cableSize: ['']
       , cableLength: ['']
+      , workCompletionStatus: ['']
       , remark: ['']
       , exicomRepresentativeName: ['']
       , employeeCode: ['']
@@ -341,7 +342,7 @@ export class InstallReqFormComponent implements OnInit {
       , signatureCustomer: ['']
 
       //   tentativePlanDate: ['', [Validators.required]],
-      , emailId: ['', [Validators.required, Validators.email]]
+      , email: ['', [Validators.required, Validators.email]]
       , installationWorkRequestList: this.fb.array([
         // this.createActivityControls()
       ])
@@ -377,8 +378,6 @@ export class InstallReqFormComponent implements OnInit {
 
 
   setValuesFromInstallPage(): void {
-    console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZ")
-    console.log(this.holdInstallValue);
     this.accessInstallationForm['id'].patchValue(this.holdInstallValue.irfManualId);
     this.accessInstallationForm['soNumber'].patchValue(this.holdInstallValue.manualId);
     this.accessInstallationForm['clientName'].patchValue(this.holdInstallValue.accountName);
@@ -387,18 +386,20 @@ export class InstallReqFormComponent implements OnInit {
     this.accessInstallationForm['pincode'].patchValue(this.holdInstallValue.pincode);
     this.accessInstallationForm['city'].patchValue(this.holdInstallValue.city);
     this.accessInstallationForm['stateId'].patchValue(this.holdInstallValue.stateId);
-    this.accessInstallationForm['country'].patchValue(this.holdInstallValue.country);
+    this.accessInstallationForm['countryId'].patchValue(this.holdInstallValue.countryId);
     this.accessInstallationForm['pointOfInstallation'].patchValue(this.holdInstallValue.pointOfInstallation);
+    this.accessInstallationForm['installationDate'].patchValue(this.holdInstallValue.installationDate);
     this.accessInstallationForm['siteId'].patchValue(this.holdInstallValue.siteId);
     this.accessInstallationForm['siteName'].patchValue(this.holdInstallValue.siteName);
     this.accessInstallationForm['contactPersonAtSite'].patchValue(this.holdInstallValue.contactPersonAtSite);
     this.accessInstallationForm['contactNumber'].patchValue(this.holdInstallValue.contactNumber);
     this.accessInstallationForm['alternateContactNumber'].patchValue(this.holdInstallValue.alternateContactnumber);
-    this.accessInstallationForm['emailId'].patchValue(this.holdInstallValue.accountContactPersonEmail);
+    this.accessInstallationForm['email'].patchValue(this.holdInstallValue.accountContactPersonEmail);
     this.accessInstallationForm['installationTypeId'].patchValue(this.holdInstallValue.installationTypeId);
     this.accessInstallationForm['installationStatusId'].patchValue(this.holdInstallValue.installationStatusId);
     this.accessInstallationForm['installedByVendor'].patchValue(this.holdInstallValue.installedByVendor);
     this.accessInstallationForm['cableLength'].patchValue(this.holdInstallValue.cableLength);
+    this.accessInstallationForm['workCompletionStatus'].patchValue(this.holdInstallValue.workCompletionStatus);
     this.accessInstallationForm['cableSize'].patchValue(this.holdInstallValue.cableSize);
     this.accessInstallationForm['responsibility'].patchValue(this.holdInstallValue.responsibility);
     this.accessInstallationForm['remark'].patchValue(this.holdInstallValue.remark);
@@ -455,31 +456,12 @@ export class InstallReqFormComponent implements OnInit {
   // }
   saveAsDraft()
   {
-    this.submit("draft");
+    this.submitF("draft");
   }
 
 
   fileList = [];
   uploadImages($event: any, type){
-    if(type==="chargerPicture"){
-      this.showchargerPicture = true;
-    }
-    if(type==="installationReport"){
-      this.showinstallationReport = true;
-    }
-    if(type==="cablingPicture"){
-      this.showcablingPicture = true;
-    }
-    if(type==="mcbPicture"){
-      this.showmcbPicture = true;
-    }
-    if(type==="engineerSignature"){
-      this.showengineerSignature = true;
-    }
-    if(type==="customerSignature"){
-      this.showcustomerSignature = true;
-    }
-
     if ($event.target.files.length > 0) {
       for (let i = 0; i < $event.target.files.length; i++) {
         this.fileList.push($event.target.files[i]);
@@ -494,6 +476,7 @@ export class InstallReqFormComponent implements OnInit {
   
     this.installationService.uploadInstallationPhotos(formData, qp).subscribe(
       (data) => {
+        this.fileList=[];
         this.chargerPictureFileDownloadUrl= this.baseUrl+ data.chargerPictureFileDownloadUri;
         this.installationReportFileDownloadUrl=  this.baseUrl+ data.installationReportFileDownloadUri;
         
@@ -503,7 +486,24 @@ export class InstallReqFormComponent implements OnInit {
         
         this.engineerSignatureFileDownloadUrl=  this.baseUrl+ data.engineerSignatureFileDownloadUri;
         this.customerSignatureFileDownloadUrl=  this.baseUrl+ data.customerSignatureFileDownloadUri;
-        
+        if(type==="chargerPicture"){
+          this.showchargerPicture = true;
+        }
+        if(type==="installationReport"){
+          this.showinstallationReport = true;
+        }
+        if(type==="cablingPicture"){
+          this.showcablingPicture = true;
+        }
+        if(type==="mcbPicture"){
+          this.showmcbPicture = true;
+        }
+        if(type==="engineerSignature"){
+          this.showengineerSignature = true;
+        }
+        if(type==="customerSignature"){
+          this.showcustomerSignature = true;
+        }
         
 
       }
@@ -511,29 +511,28 @@ export class InstallReqFormComponent implements OnInit {
   }
 
   getSiteData($event){
-    console.log("key down");
-    console.log($event.target.value);
-    console.log("key up");
-    this.installationService.getSiteData($event.target.value).subscribe(
-      (data) => {
-        console.log(data);
-        let siteData = data[0]
-        this.accessInstallationForm['address'].patchValue(siteData.address);
-        this.accessInstallationForm['emailId'].patchValue(siteData.emailId);
-        this.accessInstallationForm['alternateContactNumber'].patchValue(siteData.alternateContactnumber);
-        // this.accessInstallationForm['customerName'].patchValue(siteData.customerName);
-        this.accessInstallationForm['city'].patchValue(siteData.city);
-        this.accessInstallationForm['pincode'].patchValue(siteData.pincode);
-        this.accessInstallationForm['siteId'].patchValue(siteData.siteId);
-        this.accessInstallationForm['stateId'].patchValue(siteData.stateId);
-        this.accessInstallationForm['siteName'].patchValue(siteData.siteName);
-        this.accessInstallationForm['country'].patchValue(siteData.country);
-        this.accessInstallationForm['contactNumber'].patchValue(siteData.contactNumber);
-      }
-    )
+    if($event.keyCode !== 8 && $event.keyCode !== 46 ){
+      this.installationService.getSiteData($event.target.value).subscribe(
+        (data) => {
+          console.log(data);
+          let siteData = data[0]
+          this.accessInstallationForm['address'].patchValue(siteData.address);
+          this.accessInstallationForm['email'].patchValue(siteData.emailId);
+          this.accessInstallationForm['alternateContactNumber'].patchValue(siteData.alternateContactnumber);
+          // this.accessInstallationForm['customerName'].patchValue(siteData.customerName);
+          this.accessInstallationForm['city'].patchValue(siteData.city);
+          this.accessInstallationForm['pincode'].patchValue(siteData.pincode);
+          this.accessInstallationForm['siteId'].patchValue(siteData.siteId);
+          this.accessInstallationForm['stateId'].patchValue(siteData.stateId);
+          this.accessInstallationForm['siteName'].patchValue(siteData.siteName);
+          this.accessInstallationForm['countryId'].patchValue(siteData.countryId);
+          this.accessInstallationForm['contactNumber'].patchValue(siteData.contactNumber);
+        }
+      )
+    }
   }
 
-  submit(draft?) {
+  submitF(draft?) {
     debugger;
     if(draft==="draft"){
       this.installationForm.value.installationStatusId=3
@@ -541,9 +540,10 @@ export class InstallReqFormComponent implements OnInit {
       this.installationForm.value.installationStatusId=6
     }
     
-    console.log(this.installationForm);
+   
     this.installationService.installationId = this.holdInstallValue.id;
     const req = this.installationForm.value;
+    req["id"]=this.holdInstallValue.id;
     delete req["soNumber"];
     delete req["clientName"];
     delete req["clientCode"];
@@ -553,6 +553,8 @@ export class InstallReqFormComponent implements OnInit {
     delete req["mCBPicture"];
     delete req["signatureEmployee"];
     delete req["signatureCustomer"];
+    delete req["country"];
+    delete req["countryId"];
     
     //need to add email and country in ai key
 
@@ -571,9 +573,11 @@ export class InstallReqFormComponent implements OnInit {
     req.installationWorkRequestList[7].installationWorkListId = 2
     req.installationWorkRequestList[8].installationWorkListId = 3
 
+    console.log(req);
    
     this.installationService.updateInstallation(req).subscribe(
       (data) => {
+        this.router.navigate(['\comp-req-installations'])
       
 
       }

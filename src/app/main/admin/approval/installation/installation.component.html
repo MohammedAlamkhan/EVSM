@@ -17,7 +17,7 @@
                                         <p-table  (onLazyLoad)="loadData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="top" [value]="installationList" [lazy]="true"
                                             styleClass="p-datatable-gridlines p-datatable-striped"
                                             responsiveLayout="scroll"
-                                            dataKey="installationId" [paginator]="true" [rows]="noOfRows"
+                                            dataKey="installationId" [paginator]="true" [rows]="noOfRows"  [style]="{width:'2000px'}"
                                             [totalRecords]="totalRecords">
                                             <ng-template pTemplate="header">
 
@@ -49,24 +49,24 @@
 
                                                 <tr>
                                                     <td><a routerLink="/irf-details"
-                                                            class="no-st-text-b link-color">{{aseet.irf.irfRequestNo}}</a>
+                                                            class="no-st-text-b link-color">{{aseet.irfRequestNo}}</a>
                                                     </td>
                                                      <td> <a routerLink="/install-req-form-details"
-                                                            class="no-st-text-b font-weight-bold">{{aseet.installationCaseNo}} </a> </td>
-                                                    <td> {{aseet.installationDate}}
+                                                            class="no-st-text-b font-weight-bold">{{aseet.installationRequestNo}} </a> </td>
+                                                    <td> {{aseet.installationCreatedDate}}
                                                     </td>
-                                                    <td class="text-nowrap">{{aseet.requestType === 'R' ? 'Case Request' : 'Case Approval'}}</td>
-                                                    <td> {{aseet.irf.assests.clients.clientName}}
+                                                    <td class="text-nowrap">{{aseet.requestType}}</td>
+                                                    <td> {{aseet.client}}
                                                     </td>
-                                                    <td>{{aseet.irf.assests.sites.customerName}}</td>   
-                                                    <td>{{aseet.irf.assests.sites.contactNumner}}</td>
-                                                    <td>{{aseet.irf.assests.sites.emailId}}</td>
+                                                    <td>dummy</td>   
+                                                    <td>dummy</td>   
+                                                    <td>dummy</td>   
                                                     <td>
-                                                        {{aseet.irf.assests.typeOfCharger}}
+                                                        {{aseet.typeOfCharger}}
 
                                                     </td>
                                                     <td>
-                                                        {{aseet.irf.assests.assetSerialNumber}}
+                                                        dummy
 
                                                     </td>
                                                         <!-- <td class="d-flex">

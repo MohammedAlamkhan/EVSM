@@ -72,7 +72,7 @@ export class AuthenticationService {
     this._credentials = null;
     localStorage.removeItem(credentialsKey);
   }
-  get getCredentials(): UserDetails | null {
+  get getCredentials(): any | null {
     return this._credentials;
   }
 
