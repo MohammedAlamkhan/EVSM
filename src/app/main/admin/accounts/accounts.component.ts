@@ -9,7 +9,7 @@ export class AccountComponent implements OnInit {
   public contentHeader: object
   accounts: any;
   loading: boolean = false;
-  noOfRows: number=5;
+  noOfRows: number=20;
   totalRecords: number;
   first: any;
 

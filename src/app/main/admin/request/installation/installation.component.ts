@@ -12,7 +12,7 @@ public contentHeader : object
   loading: boolean=false;
   installations: any;
   totalRecords: any;
-  noOfRows: number=5;
+  noOfRows: number=20;
   irf: any;
   first: any;
   constructor(private installationService: InstallationService,private irfService: IrfService,  private router: Router) { }

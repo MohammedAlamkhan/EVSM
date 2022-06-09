@@ -11,7 +11,7 @@ export class AssetsitemsComponent implements OnInit {
 public contentHeader :object;
 assets:any;
 loading: boolean = false;
-noOfRows: number=5;
+noOfRows: number=20;
 totalRecords: number;
 cols: any[];
   first: any;

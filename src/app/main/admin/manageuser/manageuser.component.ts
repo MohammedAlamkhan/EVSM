@@ -19,7 +19,7 @@ export class ManageuserComponent implements OnInit {
   public sidebarToggleRef = false;
   private _unsubscribeAll: Subject<any>;
 
-  noOfRows: number = 9;
+  noOfRows: number = 20;
   users: UserDetails[];
   totalRecords: number;
   cols: any[];

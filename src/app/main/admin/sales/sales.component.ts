@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class SalesComponent implements OnInit {
   public contentHeader: object;
-  noOfRows: number=5;
+  noOfRows: number=20;
   salesOrder : any;
   totalRecords: number;
   cols: any[];

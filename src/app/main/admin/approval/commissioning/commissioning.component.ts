@@ -17,7 +17,7 @@ export class CommissioningComponent implements OnInit {
   submitted = false;
 
   assests: any[];
-  noOfRows: number = 5;
+  noOfRows: number = 20;
 
   totalRecords: number;
   loading: boolean = false;

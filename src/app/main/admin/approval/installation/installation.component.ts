@@ -11,7 +11,7 @@ import { InstallationService } from '../../../admin/request/installation/install
 export class InstallationComponent implements OnInit {
   public contentHeader: object
 
-  noOfRows: number = 5;
+  noOfRows: number = 20;
   installationList : [];
   totalRecords: number;
   cols: any[];
