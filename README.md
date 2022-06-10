@@ -1,4 +1,4 @@
-# Pulse CRM  Admin  Section
+# EVSE CRM  Admin  Section
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
 
