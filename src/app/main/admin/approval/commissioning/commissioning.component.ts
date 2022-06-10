@@ -1,160 +1,153 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Assest } from 'app/Models/Sales';
-import { LazyLoadEvent } from '../../../../Models/lazyloadevent'
+import { LazyLoadEvent } from '../../../../Models/lazyloadevent';
 import { CommissioningService } from './commissioning.service';
-
+import { ServicesService as Admin } from '../../../admin/services.service';
 @Component({
   selector: 'app-commissioning',
   templateUrl: './commissioning.component.html',
   styleUrls: ['./commissioning.component.scss']
 })
 export class CommissioningComponent implements OnInit {
-  public contentHeader : object;
-  approveRejectForm:FormGroup;
-  submitted = false;
+  public contentHeader: object
 
-  assests: any[];
   noOfRows: number = 20;
-
+  comissioningList : [];
   totalRecords: number;
-  loading: boolean = false;
-  Resdata:any[];
-
   cols: any[];
-  irf: any;
-  commissions:any;
+  loading: boolean = false;
   first: any;
-  constructor(private modalService: NgbModal,
-    private _Commissioning:CommissioningService,private router: Router,
-    private route: ActivatedRoute, private formBuilder: FormBuilder) { }
-  
-  modalOpenSM(modalSM) {
+  engineerMap: any;
+  circleMap: any;
+  comissioning: any;
+  approvalRemark: any;
+  approvalAction: any;
+
+  constructor(private modalService: NgbModal, private admin : Admin,
+    private comissioningService: CommissioningService) { }
+  modalOpenSM(modalSM, id) {
+    this.passComData(id)
     this.modalService.open(modalSM, {
       centered: true,
       size: 'sm' // size: 'xs' | 'sm' | 'lg' | 'xl'
     });
   }
-  modalOpenSM2(modalSM2) {
+  modalOpenSM2(modalSM2, id) {
+    this.passComData(id)
     this.modalService.open(modalSM2, {
       centered: true,
       size: 'sm' // size: 'xs' | 'sm' | 'lg' | 'xl'
     });
   }
-
   ngOnInit(): void {
+    debugger;
     // content header
     this.contentHeader = {
-      // headerTitle: 'Manage Request',
-      headerTitle: 'Commissioning',
+      headerTitle: 'Inbox',
       actionButton: true,
       breadcrumb: {
-      type: '',
-      links: [
-        {
-        name: 'Home',
-        isLink: true,
-        link: '/sales'
-        },
- 
-      ]
-      }    
-    };
-    this.ApprovaReject();
-     // this.loadData();
-    }
+        type: '',
+        links: [
+          {
+            name: 'Home',
+            isLink: true,
+            link: '/sales'
+          },
 
-    loadData($event) {
-      const req={
-        "page":$event.first/this.noOfRows,
-        "size":$event.rows
+        ]
       }
-      this.loading = true;
-            this._Commissioning.getCommisioning(req).subscribe(
-              (data) => {
-               // console.log(data);
-              
-                this.assests = data.content;
-             //   console.log('zdzsdsad', this.assests);
-                this.totalRecords = data.totalRecords;
-                this.loading = false;
-              }
-            )
-}
+    };
+    this.getCircleMap();
+    this.loading = true;
+  }
 
-getRequestType(value) {
+  getEngineerList($event){
+    const circleId = $event.target.value;
+    this.comissioningService.getEngineerMap(circleId).subscribe(
+       (data) => {
+         this.engineerMap = data;
+       }
+     )
+   }
 
-  let recordStatus = '';
+   getCircleMap(){
+    this.admin.getCircleMap().subscribe(
+       (data) => {
+         this.circleMap = data;
+       }
+     )
+   }
 
-  if (value === 'R') {
-    recordStatus = 'Case Request';
-  } else if (value === 'A') {
-    recordStatus = 'Case Approval';
-  } else if (value === 'RJ') {
-    recordStatus = 'Case Rejected.';
-  } 
+   reassign(){
+    const req ={
+      "id":this.comissioning.id,
+      "engineerId": (<HTMLInputElement>document.getElementById("eid")).value, 
+    }
+    this.comissioningService.reassignCommisioning(req).subscribe(
+      (data) => {
+      }
+    )
 
-  return recordStatus;
-}
+  }
 
 
-ApprovaReject()
-{
 
-  this.approveRejectForm = this.formBuilder.group({
-    txtremarks: [null],
-    dpdAction: ['',Validators.required]
+  
+  approveOrReject(){
+    const req ={
+      "id":this.comissioning.tobeApprovedId,
+      "action": this.approvalAction,
+      "remark":this.approvalRemark
     
-
-  });
-}
-onSubmit(){
-  this.submitted=true;
-  let remark=this.approveRejectForm.value.txtremarks;
-  let action=this.approveRejectForm.value.dpdAction;
-  let RequestType="A";
-  let id=2;
-  action=parseInt(action)
-  let jsonObject = new Object();
-  jsonObject = {action, remark,id }
-   if (this.approveRejectForm.valid) {
-
-    //  this._Commissioning.putApprovalModerate(this.assests[0].commissionId,Approvalremarks,approvalStatus,RequestType).subscribe()
-    this._Commissioning.putApprovalModerate(jsonObject,id).subscribe()
-        this.reset();
- }
-}
-
-reset()
-{
-  this.submitted=false;
-  this.approveRejectForm.patchValue(
-    { txtremarks:null,dpdAction:''}
-  );
-
-}
-passIrfData(index){
-  debugger
-  this._Commissioning.irfId = this.commissions[index-this.first].irfId;
-  this.irf =   this._Commissioning.getIrfInformationById().subscribe(
-    (data) => {
-      this._Commissioning.selectedIrf = data;
-      this.loading = true;
-      this.go_next('\irf-details');
     }
-  )
-}
+    this.comissioningService.approveRejectCommissioning(req).subscribe(
+      (data) => {
+      }
+    )
 
-go_next(route){
-  setTimeout(() => {
-      this.loading = false;
-      this.router.navigate([route])
+  }
+
+  passComData(id){
+    this.comissioningService.getCommisioningDeatil(id).subscribe(
+      (data) => {
+        this.comissioning = data;
+      }
+    )
+    
+  }
+
+  loadApprovalData($event) {
+    this.first = $event.first;
+    const req={
+      "page":$event.first/this.noOfRows,
+      "size":$event.rows
     }
-    , 100);
-}
+    this.loading = true;
+    this.comissioningService.getCommissioningListToBeApproved(req).subscribe(
+      (data) => {
+        this.comissioningList = data.content;
+        this.totalRecords = data.totalElements;
+        this.loading = false;
+      }
+    )
+
+  }
+
+  loadAssignData($event) {
+    this.first = $event.first;
+    const req={
+      "page":$event.first/this.noOfRows,
+      "size":$event.rows
+    }
+    this.loading = true;
+    this.comissioningService.getCommissioningListToBeAssigned(req).subscribe(
+      (data) => {
+        this.comissioningList = data.content;
+        this.totalRecords = data.totalElements;
+        this.loading = false;
+      }
+    )
+
+  }
 
 }
-
-

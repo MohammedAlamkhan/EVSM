@@ -37,6 +37,8 @@ export class CommissioningService {
   private readonly assetListUrl: string = 'irf';
   private readonly engineerUrl: string = 'user/engineer/';
   private readonly reportDownloadUrl: string = 'commissioning/file/download'
+  private readonly comtoBeApprovedUrl: string = 'commissioning/tobeapproved';
+  private readonly comtoBeAssignedUrl: string = 'commissioning/reassign';
   constructor(private httpClient: HttpClient, 
     
     private notify: Notify, private _Router: Router) { }
@@ -280,4 +282,69 @@ public downloadInstallationReport(params?:any): Observable<any> {
 public getIrfInformationById(): Observable<any> {
   return this.httpClient.get<any>(environment.baseApiUrl + this.assetListUrl + "/" +  this.irfId);
 }
+
+public  approveRejectCommissioning(req): Observable<any> {
+  return this.httpClient.put<any>(environment.baseApiUrl + this.toBeApprovedUrl + req.id, req).pipe(
+    tap((x) => {
+      if (x != null && x !== undefined) {
+        this.notify.show("Approved Successfully.", NotificationType.Info);
+        
+      }
+    }),
+    catchError((x: HttpErrorResponse) => {
+      if (x.status == AppConstants.HTTPSTATUS_INTERNAL_SERVER_ERROR) {
+        this.notify.show(x.error.message, NotificationType.Error)
+      }
+      else
+        this.notify.show(x.error.message, NotificationType.Error);
+        return EMPTY;
+    })
+
+  );
+}
+
+public reassignCommisioning(searchquery): Observable<any> {
+  // let queryParams = new HttpParams();
+  // queryParams = queryParams.append("id", searchquery.id);
+  // queryParams = queryParams.append("engineerId", searchquery.engineerId);
+  return this.httpClient.post<any>(environment.baseApiUrl + this.reassignUrl+"?id="+searchquery.id+"&engineerId="+searchquery.engineerId,null).pipe(
+    tap((x) => {
+      if (x != null && x !== undefined) {
+        this.notify.show("Assigned Successfully.", NotificationType.Info);
+        
+      }
+    }),
+    catchError((x: HttpErrorResponse) => {
+      if (x.status == AppConstants.HTTPSTATUS_INTERNAL_SERVER_ERROR) {
+        this.notify.show(x.error.message, NotificationType.Error)
+      }
+      else
+        this.notify.show(x.error.message, NotificationType.Error);
+        return EMPTY;
+    })
+
+  );
+}
+
+
+public getCommissioningListToBeApproved(qp): Observable<any> {
+  let queryParams = new HttpParams();
+  queryParams = queryParams.append("page", qp.page);
+  queryParams = queryParams.append("size", qp.size);
+  queryParams = queryParams.append("sort", "commissioningCreatedDate,DESC");
+
+  return this.httpClient.get<any>(environment.baseApiUrl + this.comtoBeApprovedUrl, {params: queryParams});
+
+}
+
+public getCommissioningListToBeAssigned(qp): Observable<any> {
+  let queryParams = new HttpParams();
+  queryParams = queryParams.append("page", qp.page);
+  queryParams = queryParams.append("size", qp.size);
+  queryParams = queryParams.append("sort", "commissioningCreatedDate,DESC");
+
+  return this.httpClient.get<any>(environment.baseApiUrl + this.comtoBeAssignedUrl, {params: queryParams});
+
+}
+
 }
