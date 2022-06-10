@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from '../../../../Models/lazyloadevent';
 import { InstallationService } from '../../../admin/request/installation/installation.service';
-
+import { ServicesService as Admin } from '../../../admin/services.service';
 @Component({
   selector: 'app-installation',
   templateUrl: './installation.component.html',
@@ -17,16 +17,23 @@ export class InstallationComponent implements OnInit {
   cols: any[];
   loading: boolean = false;
   first: any;
+  engineerMap: any;
+  circleMap: any;
+  installation: any;
+  approvalRemark: any;
+  approvalAction: any;
 
-  constructor(private modalService: NgbModal,
+  constructor(private modalService: NgbModal, private admin : Admin,
     private installationService: InstallationService) { }
-  modalOpenSM(modalSM) {
+  modalOpenSM(modalSM, id) {
+    this.passInstallData(id)
     this.modalService.open(modalSM, {
       centered: true,
       size: 'sm' // size: 'xs' | 'sm' | 'lg' | 'xl'
     });
   }
-  modalOpenSM2(modalSM2) {
+  modalOpenSM2(modalSM2, id) {
+    this.passInstallData(id)
     this.modalService.open(modalSM2, {
       centered: true,
       size: 'sm' // size: 'xs' | 'sm' | 'lg' | 'xl'
@@ -50,10 +57,67 @@ export class InstallationComponent implements OnInit {
         ]
       }
     };
+    this.getCircleMap();
     this.loading = true;
   }
 
-  loadData($event) {
+  getEngineerList($event){
+    const circleId = $event.target.value;
+    this.installationService.getEngineerMap(circleId).subscribe(
+       (data) => {
+         this.engineerMap = data;
+       }
+     )
+   }
+
+   getCircleMap(){
+    this.admin.getCircleMap().subscribe(
+       (data) => {
+         this.circleMap = data;
+       }
+     )
+   }
+
+   reassign(){
+    const req ={
+      "id":this.installation.id,
+      "engineerId": (<HTMLInputElement>document.getElementById("eid")).value, 
+    }
+    this.installationService.reassignInstallation(req).subscribe(
+      (data) => {
+      }
+    )
+
+  }
+
+
+
+  
+  approveOrReject(){
+    const req ={
+      "id":this.installation.tobeApprovedId,
+      "action": this.approvalAction,
+      "remark":this.approvalRemark
+    
+    }
+    this.installationService.approveRejectInstallation(req).subscribe(
+      (data) => {
+      }
+    )
+
+  }
+
+  passInstallData(id){
+    this.installationService.installationId = id;
+    this.installationService.getInstallationInformationById().subscribe(
+      (data) => {
+        this.installation = data;
+      }
+    )
+    
+  }
+
+  loadApprovalData($event) {
     this.first = $event.first;
     const req={
       "page":$event.first/this.noOfRows,
@@ -62,7 +126,24 @@ export class InstallationComponent implements OnInit {
     this.loading = true;
     this.installationService.getInstallationListToBeApproved(req).subscribe(
       (data) => {
-        this.installationList = data.installations;
+        this.installationList = data.content;
+        this.totalRecords = data.totalElements;
+        this.loading = false;
+      }
+    )
+
+  }
+
+  loadAssignData($event) {
+    this.first = $event.first;
+    const req={
+      "page":$event.first/this.noOfRows,
+      "size":$event.rows
+    }
+    this.loading = true;
+    this.installationService.getInstallationListToBeAssigned(req).subscribe(
+      (data) => {
+        this.installationList = data.content;
         this.totalRecords = data.totalElements;
         this.loading = false;
       }

@@ -18,7 +18,8 @@ export class InstallationService {
   private readonly reassignUrl: string = 'installation/reassign';
   private readonly engineerUrl: string = 'user/engineer/';
   private readonly toBeApprovedUrl: string = 'tobeapproved/';
-  private readonly installationToBeApprovedUrl: string = 'tobeapproved/installation';
+  private readonly installationToBeApprovedUrl: string = 'installation/tobeapproved';
+  private readonly installationToBeAssignedUrl: string = 'installation/reassign';
   public selectedInstall:any;
   public installationId:any;
 
@@ -49,6 +50,15 @@ export class InstallationService {
 
   }
 
+  public getInstallationListToBeAssigned(qp): Observable<any> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("page", qp.page);
+    queryParams = queryParams.append("size", qp.size);
+    queryParams = queryParams.append("sort", "installationCreatedDate,DESC");
+  
+    return this.httpClient.get<any>(environment.baseApiUrl + this.installationToBeAssignedUrl, {params: queryParams});
+
+  }
   
   public getEngineerMap(circleId): Observable<any> {
     return this.httpClient.get<any>(environment.baseApiUrl + this.engineerUrl + circleId);

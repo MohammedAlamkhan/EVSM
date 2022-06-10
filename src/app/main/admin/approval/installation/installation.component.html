@@ -8,16 +8,16 @@
                     <div class="card-body bg-white p-0 ">
                         <ul ngbNav #nav="ngbNav" class="nav-tabs tb-border mb-0">
                             <li ngbNavItem>
-                                <a ngbNavLink class=" ">Installation</a>
+                                <a ngbNavLink class=" ">Approval</a>
                                 <ng-template ngbNavContent>
                                     <div class="table-responsive">
                                         <div *ngIf="loading">
                                             <app-spinner></app-spinner>
                                         </div>
-                                        <p-table  (onLazyLoad)="loadData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="top" [value]="installationList" [lazy]="true"
+                                        <p-table  (onLazyLoad)="loadApprovalData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="top" [value]="installationList" [lazy]="true"
                                             styleClass="p-datatable-gridlines p-datatable-striped"
                                             responsiveLayout="scroll"
-                                            dataKey="installationId" [paginator]="true" [rows]="noOfRows"  [style]="{width:'2000px'}"
+                                            dataKey="installationId" [paginator]="true" [rows]="noOfRows"  [style]="{width:'2300px'}"
                                             [totalRecords]="totalRecords">
                                             <ng-template pTemplate="header">
 
@@ -32,17 +32,12 @@
                                                     </th>
                                                     <th scope="col" field="irf.assests.clients.clientName"
                                                         class="text-nowrap"> Client </th>
-                                                    <th scope="col" field="irf.assests.sites.customerName"
-                                                        class="text-nowrap">Customer Name </th>
-                                                    <th scope="col" field="irf.assests.sites.contactNumner"
-                                                        class="text-nowrap">Contact No. </th>
-                                                    <th scope="col" field="irf.assests.sites.emailId"
-                                                        class="text-nowrap">Email Id</th>
+                                                
                                                     <th scope="col" field="irf.assests.typeOfCharger"
                                                         class="text-nowrap">Charger Type </th>
-                                                    <th scope="col" field="irf.assests.assetSerialNumber"
-                                                        class="text-nowrap">Asset Serial No. </th>
-                                                    <!-- <th scope="col"  field="" class="text-nowrap">Action </th> -->
+                                                   
+                                                    <th scope="col"  field="" class="text-nowrap">Action </th>
+                                                  
                                                 </tr>
                                             </ng-template>
                                             <ng-template pTemplate="body" let-aseet>
@@ -58,96 +53,93 @@
                                                     <td class="text-nowrap">{{aseet.requestType}}</td>
                                                     <td> {{aseet.client}}
                                                     </td>
-                                                    <td>dummy</td>   
-                                                    <td>dummy</td>   
-                                                    <td>dummy</td>   
+                                                   
                                                     <td>
                                                         {{aseet.typeOfCharger}}
 
                                                     </td>
-                                                    <td>
-                                                        dummy
-
-                                                    </td>
-                                                        <!-- <td class="d-flex">
-                                                            <button type="button" class="btn btn-light btn-sm mx-1 d-flex"
-                                                                (click)="modalOpenSM(modalSM)" data-toggle="modal"
-                                                                data-target="#modal-default"> <i data-feather="file-text"
-                                                                    class="mr-1"></i> Assign </button>
-
+                                                      
+                                                        <td>
                                                             <button type="button" class="btn btn-light btn-sm d-flex"
-                                                                (click)="modalOpenSM2(modalSM2)" data-toggle="modal"
+                                                                (click)="modalOpenSM2(modalSM2, aseet.installationId)" data-toggle="modal"
                                                                 data-target="#modal-default"><i data-feather="check-square"
                                                                     class="mr-1"></i> Approval/Moderate
                                                             </button>
-                                                        </td> -->
+                                                        </td>
                                                 </tr>
 
 
                                             </ng-template>
                                         </p-table>
-
-
-                                        <!-- <table class="table border-left bordeer-right">
-                                            <thead class="mb-0 bg-white">
-                                                <tr class="bg-white">
-                                                    <th scope="col" class="text-nowrap">IRF Request No. </th>
-                                                    <th scope="col" class="text-nowrap">Installation Case No. </th>
-                                                    <th scope="col" class="text-nowrap">Installation Created Date </th>
-                                                    <th scope="col" class="text-nowrap">Request Type </th>
-                                                    <th scope="col" class="text-nowrap"> Client </th>
-                                                    <th scope="col" class="text-nowrap">Customer Name </th>
-                                                    <th scope="col" class="text-nowrap">Contact No. </th>
-                                                    <th scope="col" class="text-nowrap">Email Id</th>
-                                                    <th scope="col" class="text-nowrap">Charger Type </th>
-                                                    <th scope="col" class="text-nowrap">Asset Serial No. </th>
-                                                    <th scope="col" class="text-nowrap">Action </th>
-                                                </tr>
-
-                                            </thead>
-                                            <tbody>
-
-                                                 <tr>
-                                                    <td><a routerLink="/irf-details" class="no-st-text-b link-color">IRF001</a></td>
-                                                            
-                                                    <td> <a routerLink="/install-req-form-details"
-                                                            class="no-st-text-b font-weight-bold">12345 </a> </td>
-                                                    <td>   20 -04-2022
-                                                    </td>
-                                                    <td class="text-nowrap">Case Approval</td>
-                                                    <td> Tata
-                                                    </td>
-                                                    <td>Vehnn</td>
-                                                    <td>9876543212</td>
-                                                    <td>example@test.com</td>
-                                                    <td>
-                                                        Ac001
-
-                                                    </td>
-                                                    <td>
-                                                        123456
-
-                                                    </td>
-                                                    <td class="d-flex">
-                                                        <button type="button" class="btn btn-light btn-sm mx-1 d-flex"
-                                                            (click)="modalOpenSM(modalSM)" data-toggle="modal"
-                                                            data-target="#modal-default"> <i data-feather="file-text"
-                                                                class="mr-1"></i> Assign </button>
-
-                                                        <button type="button" class="btn btn-light btn-sm d-flex"
-                                                            (click)="modalOpenSM2(modalSM2)" data-toggle="modal"
-                                                            data-target="#modal-default"><i data-feather="check-square"
-                                                                class="mr-1"></i> Approval/Moderate
-                                                        </button>
-                                                    </td>
-                                                </tr> 
-
-                                            </tbody>
-                                        </table> -->
                                     </div>
                                 </ng-template>
                             </li>
+                            <li ngbNavItem>
+                                <a ngbNavLink class=" ">Assign</a>
+                                <ng-template ngbNavContent>
+                                    <div class="table-responsive">
+                                        <div *ngIf="loading">
+                                            <app-spinner></app-spinner>
+                                        </div>
+                                        <p-table  (onLazyLoad)="loadAssignData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="top" [value]="installationList" [lazy]="true"
+                                            styleClass="p-datatable-gridlines p-datatable-striped"
+                                            responsiveLayout="scroll"
+                                            dataKey="installationId" [paginator]="true" [rows]="noOfRows"  [style]="{width:'2300px'}"
+                                            [totalRecords]="totalRecords">
+                                            <ng-template pTemplate="header">
 
+                                                <tr class="bg-white">
+                                                    <th scope="col" field="irf.irfRequestNo" class="text-nowrap">IRF
+                                                        Request No. </th>
+                                                    <th scope="col" field="installationCaseNo" class="text-nowrap">
+                                                        Installation Case No. </th>
+                                                    <th scope="col" field="installationDate">
+                                                        Installation Created Date </th>
+                                                    <th scope="col" field="requestType" class="text-nowrap">Request Type
+                                                    </th>
+                                                    <th scope="col" field="irf.assests.clients.clientName"
+                                                        class="text-nowrap"> Client </th>
+                                                
+                                                    <th scope="col" field="irf.assests.typeOfCharger"
+                                                        class="text-nowrap">Charger Type </th>
+                                                   
+                                                    <th scope="col"  field="" class="text-nowrap">Action </th>
+                                                   
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-aseet>
+
+                                                <tr>
+                                                    <td><a routerLink="/irf-details"
+                                                            class="no-st-text-b link-color">{{aseet.irfRequestNo}}</a>
+                                                    </td>
+                                                     <td> <a routerLink="/install-req-form-details"
+                                                            class="no-st-text-b font-weight-bold">{{aseet.installationRequestNo}} </a> </td>
+                                                    <td> {{aseet.installationCreatedDate}}
+                                                    </td>
+                                                    <td class="text-nowrap">{{aseet.requestType}}</td>
+                                                    <td> {{aseet.client}}
+                                                    </td>
+                                                   
+                                                    <td>
+                                                        {{aseet.typeOfCharger}}
+
+                                                    </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-light btn-sm mx-1 d-flex"
+                                                                (click)="modalOpenSM(modalSM, aseet.installationId)" data-toggle="modal"
+                                                                data-target="#modal-default"> <i data-feather="file-text"
+                                                                    class="mr-1"></i> Assign </button>
+                                                        </td>
+                                                       
+                                                </tr>
+
+
+                                            </ng-template>
+                                        </p-table>
+                                    </div>
+                                </ng-template>
+                            </li>
                         </ul>
                         <div [ngbNavOutlet]="nav" class=""></div>
                     </div>
@@ -166,19 +158,24 @@
     </div>
     <div class="modal-body" tabindex="0" ngbAutofocus>
         <div class="form-group">
-            <label>Assign To</label>
-            <select class="form-control  form-control-sm model-w-s mt-2">
-                <option>Select</option>
-                <option>Option 1</option>
-                <option>Option 2</option>
-
+            <label for="circleId">Circle:</label>
+            <select (change)="getEngineerList($event)" id="cid" formControlName="circleId" class="form-control">
+                <option value="">Select Circle</option>
+                <option *ngFor="let circle of circleMap" [value]="circle.id" >{{circle.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="circleId">Assign To:</label>
+            <select id="eid" formControlName="engineerId" class="form-control">
+                <option value="">Select</option>
+                <option *ngFor="let engineer of engineerMap" [value]="engineer.phone" >{{engineer.name}}</option>
             </select>
         </div>
 
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-danger " (click)="modal.close('Accept click')">Close</button>
-        <button type="button" class="btn btn-success " (click)="modal.close('Accept click')">Save Changes</button>
+        <button type="button" class="btn btn-success " (click)="reassign() ; modal.close('Accept click')">Save Changes</button>
     </div>
 </ng-template>
 <!-- / Modal -->
@@ -198,25 +195,26 @@
             <div class="col-lg-12">
                 <label for="basicTextarea">Remarks</label>
                 <fieldset class="form-group">
-                    <textarea class="form-control" id="basicTextarea" rows="2" placeholder="Textarea"></textarea>
+                    <textarea  (change)="approvalRemark=$event.target.value"  id="rem" class="form-control" id="basicTextarea" rows="2" placeholder="Textarea"></textarea>
                 </fieldset>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Action</label>
-                    <select class="form-control form-control-sm  model-w-s">
+                    <select (change)="approvalAction=$event.target.value"  id="app" class="form-control form-control-sm  model-w-s">
                         <option>Select</option>
-                        <option>Approve</option>
-                        <option>Reject</option>
+                        <option value="Approve">Approve</option>
+                        <option value="Reject">Reject</option>
                     </select>
                 </div>
             </div>
+
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-danger" (click)="modal.close('Accept click')">Close</button>
-        <button type="button" class="btn btn-success" (click)="modal.close('Accept click')">Save </button>
+        <button type="button" class="btn btn-danger " (click)="modal.close('Accept click')">Close</button>
+        <button type="button" class="btn btn-success " (click)="approveOrReject() ; modal.close('Accept click')">Save </button>
     </div>
 </ng-template>
 <!-- / Modal2 -->
