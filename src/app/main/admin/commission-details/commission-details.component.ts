@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '@core/core/authentication.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from 'environments/environment';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { CommissioningService } from '../approval/commissioning/commissioning.service';
@@ -21,11 +23,15 @@ export class CommissionDetailsComponent implements OnInit {
   getAssignRespone: any;
   approveRejectForm:FormGroup;
   submitted = false;
-
+  circleMap: any;
   assignForm:FormGroup;
   assignSubmitted = false;
-
-  constructor(private modalService: NgbModal, 
+  engineerMap: any;
+  baseUrl="http://evsepulseapi.exicom.in:8282";
+  approvalRemark: any;
+  approvalAction: any;
+  creds = this.authService.getCredentials;
+  constructor(private modalService: NgbModal, public authService: AuthenticationService,
     private _route: ActivatedRoute,
      private _Commissioning: CommissioningService,
      private formBuilder: FormBuilder ) { }
@@ -45,7 +51,8 @@ export class CommissionDetailsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.ApprovaRejectInit();
+   
+    this.getCircleMap();
    // this.assignFormInit();
     // get commision id start
     this._route.paramMap.subscribe(params => {
@@ -81,16 +88,16 @@ export class CommissionDetailsComponent implements OnInit {
     };
   }
 
-  ApprovaRejectInit()
-{
+//   ApprovaRejectInit()
+// {
 
-  this.approveRejectForm = this.formBuilder.group({
-    txtremarks: [null],
-    dpdAction: ['',Validators.required]
+//   this.approveRejectForm = this.formBuilder.group({
+//     txtremarks: [null],
+//     dpdAction: ['',Validators.required]
     
 
-  });
-}
+//   });
+// }
 assignFormInit()
 {
 
@@ -104,91 +111,167 @@ assignFormInit()
   LoadDatacommissionDetails() {
     this._Commissioning.getCommisioningDeatil(this.commissionId).subscribe(
       (res) => {
-        debugger
-        this.getDetails = res;
-        if((this.getDetails.commissioningStatusId===6 ))
-        {
-          this.isShowApprove= true;
-          this.isShowEdit=true;
-        }
-        else
-        {
         
-          this.isShowEdit=true;
-          this.isShowApprove= false;
+        this.getDetails = res;
+        // if((this.getDetails.commissioningStatusId===6 ))
+        // {
+        //   this.isShowApprove= true;
+        //   this.isShowEdit=true;
+        // }
+        // else
+        // {
+        
+        //   this.isShowEdit=true;
+        //   this.isShowApprove= false;
           
-        }
+        // }
       },
       error => {
         console.log('There was an error while retrieving Comments !!!' + error);
       });
   }
 
-  onSubmit(){
+//   onSubmit(){
   
-   this.submitted=true;
-   let Approvalremarks=this.approveRejectForm.value.txtremarks;
-   let approvalStatus=this.approveRejectForm.value.dpdAction;
-   let RequestType="A";
-    if (this.approveRejectForm.valid) {
+//    this.submitted=true;
+//    let Approvalremarks=this.approveRejectForm.value.txtremarks;
+//    let approvalStatus=this.approveRejectForm.value.dpdAction;
+//    let RequestType="A";
+//     if (this.approveRejectForm.valid) {
 
-     // this._Commissioning.putApprovalModerate(this.commissionId,Approvalremarks,approvalStatus,RequestType).subscribe()
-         this.reset();
-  }
-}
+//      // this._Commissioning.putApprovalModerate(this.commissionId,Approvalremarks,approvalStatus,RequestType).subscribe()
+//         // this.reset();
+//   }
+// }
   
-  get f() {
-    return this.approveRejectForm.controls;
-  }
+  // get f() {
+  //   return this.approveRejectForm.controls;
+  // }
 
  
-  reset()
-  {
-    this.submitted=false;
-    this.approveRejectForm.patchValue(
-      { txtremarks:null,dpdAction:''}
-    );
+  // reset()
+  // {
+  //   this.submitted=false;
+  //   this.approveRejectForm.patchValue(
+  //     { txtremarks:null,dpdAction:''}
+  //   );
 
-  }
+  // }
 
-  get Assignf() {
-    return this.assignForm.controls;
-  }
-  fnAssign()
-  {
+  // get Assignf() {
+  //   return this.assignForm.controls;
+  // }
+  // fnAssign()
+  // {
    
-    this._Commissioning.getAssign(this.commissionId).subscribe(
-      (res) => {
-        this.getAssignRespone = res;
+  //   this._Commissioning.getAssign(this.commissionId).subscribe(
+  //     (res) => {
+  //       this.getAssignRespone = res;
         
-      },
-      error => {
-        console.log('There was an error while retrieving Comments !!!' + error);
-      });
+  //     },
+  //     error => {
+  //       console.log('There was an error while retrieving Comments !!!' + error);
+  //     });
   
   
-  }
+  // }
   onChangeAssign()
   {
 
   }
-  AssignSubmit()
-{
+//   AssignSubmit()
+// {
 
-this.assignSubmitted=true;
+// this.assignSubmitted=true;
 
-let approvalStatus=this.assignForm.value.dpdAssignAction;
+// let approvalStatus=this.assignForm.value.dpdAssignAction;
 
- if (this.assignForm.valid) {
+//  if (this.assignForm.valid) {
 
-  // this._Commissioning.putApprovalModerate(this.commissionId,Approvalremarks,approvalStatus,RequestType).subscribe()
-     // this.reset();
-}
+//   // this._Commissioning.putApprovalModerate(this.commissionId,Approvalremarks,approvalStatus,RequestType).subscribe()
+//      // this.reset();
+// }
   
+// }
+
+
+downloadInstallationReport(fileName){
+  debugger
+  let uri="";
+  if(fileName==="phaseToNeurtal"){
+  //  uri="/api/installation/file/download?id=3&file=forramji-Copy.jpg";
+  //  uri="/api/commissioning/file/download?id=1&file=hardware_modification_snap-1640864878998_1654678900819.jpg";
+  uri=this.getDetails.file.phaseToNeutralFileDownloadUri;
+  console.log("phaseToNeutralFileDownloadUri: "+uri);
+  }
+  if(fileName==="neutralToEarth"){
+   uri=this.getDetails.file.neutralToEarthFileDownloadUri;
+  }
+  if(fileName==="distributionBox"){
+   // uri=this.getDetails.file.distributionBoxFileDownloadUri;
+  }
+  if(fileName==="vehicleCharging"){
+  //  uri=this.getDetails.file.vehicleChargingFileDownloadUri;
+  }
+  if(fileName==="engineerSignature"){
+   // uri=this.getDetails.file.engineerSignatureFileDownloadUri;
+  }
+  if(fileName==="customerSignature"){
+   // uri=this.getDetails.file.customerSignatureFileDownloadUri;
+  }
+debugger
+
+ location.href = this.baseUrl+uri;
+
+
 }
 
 ngOnDestroy(): void {
   this.unsubscribe$.next();
   this.unsubscribe$.complete();
 }
+
+getCircleMap(){
+  this._Commissioning.getCircleMap().subscribe(
+     (data) => {
+       this.circleMap = data;
+     }
+   )
+ }
+ approveOrReject(){
+
+  const req ={
+    "id":this.getDetails.tobeApprovedId,
+    "action": this.approvalAction,
+    "remark":this.approvalRemark
+  
+  }
+  this._Commissioning.approveRejectCommision(req).subscribe(
+    (data) => {
+    }
+  )
+
+}
+
+
+reassign(){
+  const req ={
+    "id":this.commissionId,
+    "engineerId": (<HTMLInputElement>document.getElementById("eid")).value, 
+  }
+  this._Commissioning.reassignInstallation(req).subscribe(
+    (data) => {
+    }
+  )
+
+}
+
+getEngineerList($event){
+  const circleId = $event.target.value;
+  this._Commissioning.getEngineerMap(circleId).subscribe(
+     (data) => {
+       this.engineerMap = data;
+     }
+   )
+ }
 }

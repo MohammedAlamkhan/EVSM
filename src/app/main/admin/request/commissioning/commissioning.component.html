@@ -6,68 +6,64 @@
                 <div class=" col-lg-12 ">
                     <div class="card-body bg-white p-0 ">
                         <div class="table-responsive border ">
-                            <table class="table mb-0 ">
-                                <thead>
-                                    <tr>
+                            <table class="table mb-0 tblew1">
+                                <div *ngIf="loading"><app-spinner></app-spinner></div>
+                                <p-table  (onLazyLoad)="loadData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="bottom"
+                                                       [value]="assests" [lazy]="true"
+                                            styleClass="p-datatable-gridlines p-datatable-striped" 
+                                            responsiveLayout="scroll"
+                                            dataKey="commissionId" [paginator]="true" [rows]="noOfRows"
+                                            [totalRecords]="totalRecords">
+                                                    <ng-template pTemplate="header">
+                                                        <tr class="bg-white">
+                                                        
+                                                            
+                                                             <th scope="col" class="text-nowrap "  field="irfManualId">IRF Request No.</th>
+                                                            <th scope="col "  class="text-nowrap "    field="commissioningManualId">Commissioning Case No.</th>
+                                                            <th scope="col"  class="text-nowrap "  field="accountName">Client</th>
+                                                            <th scope="col"  class="text-nowrap " field="customer">Customer Name </th>
+                                                            <th scope="col"  class="text-nowrap "   field="customerMobile" >Contact No. </th>
+                                                            <th scope="col"  class="text-nowrap "  field="customerEmail"  >Email Id</th>
+                                                            <th scope="col"  class="text-nowrap "  field="partCode"  >Part Code</th>
+                                                            <th scope="col"  class="text-nowrap "  field="assetSerialNumber" >Charger Sr. No.</th>
+                                                            <th scope="col"   class="text-nowrap "  field="commissioningStatusName" >Status </th>
+                                                            <th scope="col"  class="text-nowrap "  field="ownerName">Assign To </th>
+                                                            <th scope="col"  class="text-nowrap "  field="assignByName"> Assign By </th>
+                                                            <th scope="col"  class="text-nowrap "  field="assignDate">Assign Date </th>
+                                                            <th scope="col"  class="text-nowrap "  field="createdDate">Commissioning Created Date </th>
+                                                            <th scope="col"   class="text-nowrap "  field="createdByName">Commissioning Created By</th>
+                                                            <!-- <th scope="col" field="created_date" class="text-nowrap">Created Date </th>-->
+                                                        
+                                                        </tr>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="body" let-aseet>
+                                                       
+                                                        <tr>
+                                                            <!-- aseet.commissionId -->
+                                                            <!-- {{aseet.commissionCaseNo}} -->
+                                                            <td   class="no-st-text-b">{{aseet.irfManualId}}</td>
+                                                            <td class="no-st-text-b"><a [routerLink]="['/commission/commission-details',aseet.id]"  class="no-st-text-b">{{aseet.manualId}}</a></td>
+                                                            <td class="no-st-text-b">{{ aseet.accountName}}</td>
+                                                            <td class="no-st-text-b">{{ aseet.customer}}</td>
+                                                            <td class="no-st-text-b">{{ aseet.customerMobile}}</td>
+                                                            <td class="no-st-text-b" >{{aseet.customerEmail}}</td>
+                                                            <td class="no-st-text-b" >{{aseet.partCode}}</td>
+                                                            <td class="no-st-text-b">{{aseet.assetSerialNo}}</td>
+                                                            <!-- <td class="no-st-text-b">{{aseet.commissioningDate  | date:"dd/MM/yyyy"}}</td> -->
+                                                            <td class="no-st-text-b">{{ aseet.commissioningStatusName}}</td>
+                                                            <td class="no-st-text-b">{{ aseet.ownerName}}</td>
+                                                            <td class="no-st-text-b">{{aseet.assignByName}}</td>
+                                                            <td class="no-st-text-b">{{aseet.assignDate  | date:"dd-MM-yyyy"}}</td>
+                                                            <td class="no-st-text-b">{{aseet.createdDate  | date:"dd-MM-yyyy"}}</td>
+                                                            <td class="no-st-text-b">{{aseet.createdByName}}</td>
+                                                            
+                                                        
 
-                                        <th scope="col" class="text-nowrap">Sr. No. </th>
-                                        <th scope="col" class="text-nowrap">IRF Request No. </th>
-                                        <th scope="col" class="text-nowrap">Commissioning Case No. </th>
-                                        <th scope="col" class="text-nowrap">Client </th>
-                                        <th scope="col" class="text-nowrap">Customer Name </th>
-                                        <th scope="col" class="text-nowrap">Contact No. </th>
-                                        <th scope="col" class="text-nowrap">Email Id</th>
-                                        <th scope="col" class="text-nowrap"> Part Code </th>
-                                        <th scope="col" class="text-nowrap"> Charger Sr. No. </th>
-                                        <th scope="col" class="text-nowrap">Status </th>
-                                        <th scope="col" class="text-nowrap">Assign To </th>
-                                        <th scope="col" class="text-nowrap"> Assign By </th>
-                                        <th scope="col" class="text-nowrap">Assign Date </th>
-                                        <th scope="col" class="text-nowrap">Commissioning Created Date </th>
-                                        <th scope="col" class="text-nowrap">Commissioning Created By</th>
-  
-
-                                    </tr>
-                                </thead>
-                                <tbody>
- 
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td><a routerLink="/irf-details" class="no-st-text-b link-color">IRF001 </a></td>
-                                        <td><a routerLink="/commission-details" class="no-st-text-b font-weight-bold">12345 </a></td>
-                                        <td>Vhnnn</td>
-                                        <td>Vhnnn</td>
-                                        <td>9876543212</td>
-                                        <td>test@demo.com</td>
-                                        <td>001001</td>
-                                        <td>0040461</td>
-                                        <td> <span class="badge bg-success">Open</span></td>
-                                        <td>Shefali</td>
-                                        <td>Ram</td>
-                                        <td>23-03-2022</td>
-                                        <td>23-08-2022</td>
-                                        <td> shyam</td>
-                               
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td><a routerLink="/irf-details" class="no-st-text-b link-color">IRF002</a></td>
-                                        <td><a routerLink="/commission-details" class="no-st-text-b font-weight-bold">12345 </a></td>
-                                        <td>Vhnnn</td>
-                                        <td>Vhnnn</td>
-                                        <td>9876543212</td>
-                                        <td>test@demo.com</td>
-                                        <td>001001</td>
-                                        <td>0040461</td>
-                                        <td> <span class="badge bg-success">Open</span></td>
-                                        <td>Shefali</td>
-                                        <td>Ram</td>
-                                        <td>23-03-2022</td>
-                                        <td>23-08-2022</td>
-                                        <td> shyam</td>
-                                   
-                                    </tr>
-                                </tbody>
+                                                        
+                                                        </tr>
+                                                    </ng-template>
+                                                </p-table>
+                                       
                             </table>
                         </div>
                     </div>

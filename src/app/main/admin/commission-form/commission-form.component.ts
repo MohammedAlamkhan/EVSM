@@ -10,6 +10,7 @@ import { debounceTime, distinctUntilChanged, filter, shareReplay, switchMap, tak
 import { DatePipe } from '@angular/common';
 import country from 'assets/country.json';
 import stateMap from 'assets/stateMap.json';
+import { environment } from 'environments/environment';
 const URL = 'https://your-url.com';
 @Component({
   selector: 'app-commission-form',
@@ -37,14 +38,28 @@ export class CommissionFormComponent implements OnInit {
   commissionDateString:any;
   isLoading : boolean = false;
 
-  myInpuPowerFiles:string [] = [];
+//  / Images variable defiend
+phaseToNeutralFileDownloadUrl: string='';
+neutralToEarthFileDownloadUrl: string='';
+distributionBoxFileDownloadUrl: string='';
+vehicleChargingFileDownloadUrl: string='';
+engineerSignatureFileDownloadUrl: string='';
+customerSignatureFileDownloadUrl: string='';
+
+showPhaseToNeurtal: boolean=false;
+showNeutralToEarth: boolean=false;
+showDistributionBox: boolean=false;
+showengineerSignature: boolean=false;
+showcustomerSignature: boolean=false;
+showVehicleCharging: boolean=false;
+partcodeId:any;
   constructor(private formBuilder: FormBuilder, 
     private _route: ActivatedRoute,
     private _Commissioning: CommissioningService,
     private datePipe: DatePipe) { }
        public basicDateOptions: FlatpickrOptions = {
         mode: 'single',
-        dateFormat: 'd.m.Y',
+        dateFormat: 'd-m-Y',
         defaultDate: new Date(Date.now()),
   };
 
@@ -141,7 +156,13 @@ export class CommissionFormComponent implements OnInit {
       txtEmpCode: [null],
       txtCustRepName: [null],
       txtremarks: [null],
-      inputPowerImage:[null]
+
+      phaseToNeurtal:[null],
+      neutralToEarth:[null],
+      vehicleCharging:[null],
+      distributionBox:[null],
+      engineerSignature:[null],
+      customerSignature:[null],
     });
 
 
@@ -155,21 +176,37 @@ export class CommissionFormComponent implements OnInit {
   
  
   FillDataToSendSave(): object {
-    debugger
+    let cId;
     let cDate= this.accessCommissionForm['txtCommissionDate'].value;
     if(cDate!=null)
     {
       cDate= this.datePipe.transform(cDate, 'yyyy-MM-dd');
     }
+    else
+
+    {
+      cDate= this.datePipe.transform(this.basicDateOptions.defaultDate,'yyyy-MM-dd');
+      
+    }
    if(this.selectedStateId== null && this.selectedStateId == undefined)
     {
       this.selectedStateId=this.holdComissionDetails.stateId;
     }
-    debugger
+    
     if(this.selectedCountryId== null && this.selectedCountryId == undefined)
     {
       this.selectedCountryId=this.holdComissionDetails.countryId;
     }
+    if(this.isSaveDraftClicked===true)
+    {
+      cId=3;
+    }
+    else
+    {
+      cId=6;
+
+    }
+ //   let stateId= parseInt(this.selectedStateId) 
     this.requestBodyToSend = {
       id: this.commissionId,
       // irfId: this.holdComissionDetails.irfId,
@@ -185,21 +222,27 @@ export class CommissionFormComponent implements OnInit {
       
       city: this.accessCommissionForm['txtCity'].value,
 
-      stateId: parseInt(this.selectedStateId) ,
-      country: parseInt(this.selectedCountryId),
+      // stateId: parseInt(this.selectedStateId) ,
+      // country: parseInt(this.selectedCountryId),
+        stateId: this.accessCommissionForm['txtState'].value ,
+       country: this.accessCommissionForm['txtCountry'].value ,
       customerEmail: this.accessCommissionForm['txtEmailId'].value,
 
       customerMobile: this.accessCommissionForm['txtContactNo'].value,
       commissioningDate: cDate,
       siteName: this.accessCommissionForm['txtnameOfSite'].value,
-
-       siteId: this.holdComissionDetails.siteId,
+     
+      //  siteId: this.holdComissionDetails.siteId,
+       siteId: this.accessCommissionForm['txtSiteID'].value,
 
         contactPersonAtSite: this.accessCommissionForm['txtContactNoPersionSite'].value,
        alternateContactNumber: this.accessCommissionForm['txtAltContact'].value,
       origialProductSerialNo: this.accessCommissionForm['txtoriginalProSrNo'].value,
-      productSerialNo: this.accessCommissionForm['txtPSNo'].value,
-      partcode:this.holdComissionDetails.partCode,
+      
+    //  productSerialNo: this.holdComissionDetails.assetSerialNo,
+    productSerialNo: this.accessCommissionForm['txtoriginalProSrNo'].value,
+      partcode: this.accessCommissionForm['txtPSNo'].value,
+      // partcode:this.holdComissionDetails.partCode,
       visualInspectionRequestList:[
       {
         "commissioningId": this.commissionId,
@@ -299,7 +342,8 @@ export class CommissionFormComponent implements OnInit {
       // saveStatus: "S",
       // saveStatus: this.isSaveDraftClicked ? 'D' : 'S',
       // status: "O",
-      commissioningStatusId:this.isSaveDraftClicked ? 3 : 6,
+      
+      commissioningStatusId:cId,
 
     }
     return this.requestBodyToSend
@@ -330,7 +374,7 @@ export class CommissionFormComponent implements OnInit {
     this.accessCommissionForm['txtCity'].patchValue(this.holdComissionDetails.city);
     this.accessCommissionForm['txtCountry'].patchValue(this.holdComissionDetails.countryId);
     this.accessCommissionForm['txtState'].patchValue(this.holdComissionDetails.stateId);
-    this.accessCommissionForm['txtPSNo'].patchValue(this.holdComissionDetails.assetSerialNo);
+    this.accessCommissionForm['txtPSNo'].patchValue(this.holdComissionDetails.partCode);
     this.accessCommissionForm['txtoriginalProSrNo'].patchValue(this.holdComissionDetails.assetSerialNo);
   
     
@@ -459,14 +503,14 @@ export class CommissionFormComponent implements OnInit {
   }
    onSubmit() {
    
-    this.isSaveDraftClicked = true;
-    if (this.isSaveDraftClicked = true) {
+  //  this.isSaveDraftClicked = true;
+    if (this.isSaveDraftClicked === true) {
+      debugger
       this.commissionSubmitAPI(this.commissionId, this.FillDataToSendSave())
     }
 
-    else if (this.isSaveDraftClicked != true) {
-    //productSerialNo= this.accessCommissionForm['txtoriginalProSrNo'].value;
-      // check for getCheckProductSerial api call
+    else if (this.isSaveDraftClicked === false) {
+  
       this.commissionSubmitAPI(this.commissionId, this.FillDataToSendSave())
 
     }
@@ -494,7 +538,7 @@ export class CommissionFormComponent implements OnInit {
   
     filter(x=> x!== undefined && x!== null && x!== '' && x!== 0),
     // debounce input for 400 milliseconds
-    debounceTime(3000),
+    debounceTime(2000),
     // only emit if emission is different from previous emission
     distinctUntilChanged(),
     
@@ -502,64 +546,66 @@ export class CommissionFormComponent implements OnInit {
     switchMap(res => this._Commissioning.getSiteIDSearch(res)))
   .subscribe(res => {
    // console.log('result', res.sites.siteId);
-
     result = res;
-   
-    
-     // console.log('result', res);
-      this.setValueForSiteId(result) 
-      this.isShowSiteID=false;
-    
-   
 
-    //  this.isShowSiteID=true;
-    //  this.SiteIDMSG=result.Message;
-    //  return;
+    if(result.length === 0) {
+       this.isShowSiteID=true;
+     return;
+    }
+     
+    else
+    {
+      this.isShowSiteID=false;
+      this.setValueForSiteId(result) 
+    }
+     
+   
+  
 
     
 })   
   }
   setValueForSiteId(result:any)
   {
-    
-    let stateId=this.serachSate(result[0].state)
-    let countrtyId=this.serachCountry(result[0].country)
+    debugger
+   // let stateId=this.serachSate(result[0].state)
+   // let countrtyId=this.serachCountry(result[0].country)
    // this.accessCommissionForm['txtClientName'].patchValue(result.sites.customerName);
-    this.accessCommissionForm['txtContactNoPersionSite'].patchValue(result[0].customerName);
+    this.accessCommissionForm['txtContactNoPersionSite']?.patchValue(result.body[0].customerName);
     
-    this.accessCommissionForm['txtContactNo'].patchValue(result[0].contactNumber);
-    this.accessCommissionForm['txtEmailId'].patchValue(result[0].emailId);
-    this.accessCommissionForm['txtnameOfSite'].patchValue(result[0].siteName);
-    this.accessCommissionForm['txtAddress'].patchValue(result[0].address);
-    this.accessCommissionForm['txtPinCode'].patchValue(result[0].pincode);
-    this.accessCommissionForm['txtCity'].patchValue(result[0].city);
-    this.accessCommissionForm['txtCountry'].patchValue(countrtyId);
-   // this.accessCommissionForm['txtState'].patchValue(result[0].state);
-   this.accessCommissionForm['txtState'].patchValue(stateId);
+    this.accessCommissionForm['txtContactNo'].patchValue(result.body[0].contactNumber);
+    this.accessCommissionForm['txtEmailId'].patchValue(result.body[0].emailId);
+    this.accessCommissionForm['txtnameOfSite'].patchValue(result.body[0].siteName);
+    this.accessCommissionForm['txtAddress'].patchValue(result.body[0].address);
+    this.accessCommissionForm['txtPinCode'].patchValue(result.body[0].pincode);
+    this.accessCommissionForm['txtCity'].patchValue(result.body[0].city);
+    this.accessCommissionForm['txtCountry'].patchValue(result.body[0].countryId);
+   this.accessCommissionForm['txtState'].patchValue(result.body[0].stateId);
+  // this.accessCommissionForm['txtState'].patchValue(stateId);
 
-    this.accessCommissionForm['txtAltContact'].patchValue(result[0].alternateContactNumber);
+    this.accessCommissionForm['txtAltContact'].patchValue(result.body[0].alternateContactNumber);
   }
- serachSate(stateName:any):string 
- {
+//  serachSate(stateName:any):string 
+//  {
   
- let getData =this.stateData.filter(x=>x.stateName.toLowerCase()===stateName.toLowerCase());
- let stateId=getData[0]?.stateId
- return stateId;
+//  let getData =this.stateData.filter(x=>x.stateName.toLowerCase()===stateName.toLowerCase());
+//  let stateId=getData[0]?.stateId
+//  return stateId;
 
- }
+//  }
 
- serachCountry(cName:any):string 
- {
-  debugger
- let getData =this.countryData.filter(x=>x.countryName.toLowerCase()===cName.toLowerCase());
- let CId=getData[0]?.countryId;
- return CId;
+//  serachCountry(cName:any):string 
+//  {
+  
+//  let getData =this.countryData.filter(x=>x.countryName.toLowerCase()===cName.toLowerCase());
+//  let CId=getData[0]?.countryId;
+//  return CId;
 
- }
+//  }
   // lable siteID value cahnges logic end here
   disableFields(): void {
  
-  this.accessCommissionForm['txtPSNo'].disable();
+
   this.accessCommissionForm['txtIRF'].disable();
   this.accessCommissionForm['txtServiceRNumber'].disable();
   this.accessCommissionForm['txtClientName'].disable();
@@ -572,12 +618,44 @@ export class CommissionFormComponent implements OnInit {
    
   }
 
-  keyUpActualSrSearch() {
- 
+  keyUpActualSrSearch($event){
+    if($event.keyCode !== 8 && $event.keyCode !== 46 ){
+    debugger
+ let accountId = parseInt(this.holdComissionDetails.accountId);
     let result:any
     
+     this._Commissioning.getCheckProductSerial(accountId,this.partcodeId,$event.target.value)
+   .subscribe(res => {
+    // console.log('result', res.sites.siteId);
+
+     result = res[0];
+     this.accessCommissionForm['txtoriginalProSrNo'].patchValue(result.serialNo);
+    // this.partcodeId=res[0].id;
+
+    //  if (result.statusCode === "601") {
+    //   this.isMsgProsr= true;
+
+    // this.msgCheckProductSerial = 'Actual seriel no.' + '('+result.productSerialNo.assetSerialNumber+')' + 'already exists';
+    //  return ;
+    // }
+
+    // else if(result.statusCode === "603")
+    // {
+    //   this.isMsgProsr= true;
+    //   // this.msgCheckProductSerial = getResponse.Message;
+    //   this.msgCheckProductSerial = 'Actual seriel no. not found';
+    //    return ;
+    // }
+
+ })   
+}
+   }
+   keyUpAProduct() {
+ 
+ 
+    
    //  return this.commissionForm.get('txtSiteID') as FormControl;
-   this.commissionForm.get('txtoriginalProSrNo').valueChanges.pipe(
+   this.commissionForm.get('txtPSNo').valueChanges.pipe(
   
      filter(x=> x!== undefined && x!== null && x!== '' && x!== 0),
     
@@ -585,31 +663,20 @@ export class CommissionFormComponent implements OnInit {
   
      distinctUntilChanged(),
 
-     switchMap(res =>  this._Commissioning.getCheckProductSerial(res)))
+     switchMap(res =>  this._Commissioning.getCheckProduct(res)))
    .subscribe(res => {
     // console.log('result', res.sites.siteId);
-
-     result = res;
-     if (result.statusCode === "601") {
-      this.isMsgProsr= true;
-
-    this.msgCheckProductSerial = 'Actual seriel no.' + '('+result.productSerialNo.assetSerialNumber+')' + 'already exists';
-     return ;
-    }
-
-    else if(result.statusCode === "603")
-    {
-      this.isMsgProsr= true;
-      // this.msgCheckProductSerial = getResponse.Message;
-      this.msgCheckProductSerial = 'Actual seriel no. not found';
-       return ;
-    }
-
+debugger
+    let productData  = res[0];
+    this.accessCommissionForm['txtPSNo'].patchValue(productData.productName);
+    this.partcodeId=productData.id;
  })   
    }
+
+   
    
    onChangeSate(value) {
-    debugger
+    
      if(value === null || value === undefined)
      {
       this.selectedStateId=this.holdComissionDetails.stateId;
@@ -633,15 +700,61 @@ export class CommissionFormComponent implements OnInit {
       }
    
      }
-     onChangeInputPower(e) {
-      //console.log (e.target.files);
-      for (var i = 0; i < e.target.files.length; i++) { 
-        this.myInpuPowerFiles.push(e.target.files[i]);
+    
+  
+    fileList = [];
+    uploadImages($event: any, type){
+   
+    
+      if ($event.target.files.length > 0) {
+        for (let i = 0; i < $event.target.files.length; i++) {
+          this.fileList.push($event.target.files[i]);
+        }
       }
-      console.log(this.myInpuPowerFiles)
-    }
-    // ngAfterViewInit() {
+      let formData = new FormData();
+      formData.append('file', this.fileList[0],this.fileList[0].name);
+      const qp={
+        "commissioningId":this.holdComissionDetails.id,
+        "file":type
+      }
+      this._Commissioning.uploadCommissionPhotos(formData, qp).subscribe(
+        (data) => {
+        
+          this.phaseToNeutralFileDownloadUrl = environment.imageApiIUrl + data.phaseToNeutralFileDownloadUri;
+          this.neutralToEarthFileDownloadUrl = environment.imageApiIUrl + data.neutralToEarthFileDownloadUri;
+
+          this.distributionBoxFileDownloadUrl = environment.imageApiIUrl + data.distributionBoxFileDownloadUri;
+
+          this.vehicleChargingFileDownloadUrl = environment.imageApiIUrl + data.vehicleChargingFileDownloadUri;
+
+          this.engineerSignatureFileDownloadUrl = environment.imageApiIUrl + data.engineerSignatureFileDownloadUri;
+          this.customerSignatureFileDownloadUrl = environment.imageApiIUrl + data.customerSignatureFileDownloadUri;
+          
+          if(type==="phaseToNeurtal"){
+            this.showPhaseToNeurtal = true;
+            console.log('asdas',this.phaseToNeutralFileDownloadUrl);
+          }
+          if(type==="neutralToEarth"){
+            this.showNeutralToEarth = true;
+          }
+          if(type==="distributionBox"){
+            this.showDistributionBox = true;
+          }
+          if(type==="vehicleCharging"){
+            this.showVehicleCharging = true;
+          }
+          if(type==="engineerSignature"){
+            this.showengineerSignature = true;
+          }
+          if(type==="customerSignature"){
+            this.showcustomerSignature = true;
+          }
+    
+  
+        }
+      )
+
       
-    // }
+    }
   
 }

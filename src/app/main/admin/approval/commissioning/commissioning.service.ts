@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { EMPTY, Observable, Subject, BehaviorSubject } from 'rxjs';
@@ -15,21 +15,32 @@ import { Router } from '@angular/router';
 )
 
 export class CommissioningService {
-
+  public irfId;
+  public selectedIrf:any;
   private readonly openCommisioningDetailsUrl: string = 'commissioning';
   
   private readonly userGetAllEngineerUrl: string = 'user/getAllEngineer/';
   private readonly featchCommisioningDetailsUrl: string = 'commissioning/';
-  private readonly checkProductSerialNoUrl: string='commission/checkProductSerialNo/';
+ // private readonly checkProductSerialNoUrl: string='commission/checkProductSerialNo/';
+ private readonly checkProductSerialNoUrl: string='asset/search/list/';
+ private readonly checkProductUrl: string='product/search/list/';
+ partcode
   private readonly SiteIDSearchUrl: string= 'customer/address/';
  
   // private readonly ApprovalModerateUrl: string= 'commission/approval'
   private readonly ApprovalModerateUrl: string= 'tobeapproved'
   private readonly featchAssignDetailsUrl: string = '/commissioning/reassign';
-
+  private readonly featCommissionImagesUrl: string = 'commissioning/file';
+  private readonly circleMapUrl: string = 'circle/list'
+  private readonly reassignUrl: string = 'commissioning/reassign';
+  private readonly toBeApprovedUrl: string = 'tobeapproved/';
+  private readonly assetListUrl: string = 'irf';
+  private readonly engineerUrl: string = 'user/engineer/';
+  private readonly reportDownloadUrl: string = 'commissioning/file/download'
   constructor(private httpClient: HttpClient, 
+    
     private notify: Notify, private _Router: Router) { }
-
+ 
   public getCommisioning(params?: any): Observable<any> {
     return this.httpClient.get<any>(environment.baseApiUrl + this.openCommisioningDetailsUrl, { params: params }).pipe(
       retryWhen((err) => err.pipe(
@@ -41,7 +52,7 @@ export class CommissioningService {
       )),
     
       catchError((x: HttpErrorResponse) => {
-        this.notify.show(x.error.message, NotificationType.Error);
+        this.notify.show(AppConstants.ApiErrorMessage, NotificationType.Error);
         return EMPTY;
       }
       )
@@ -59,7 +70,7 @@ export class CommissioningService {
   public getCommisioningDeatil(value: string): Observable<any> {
     return this.httpClient.get<any>(environment.baseApiUrl + this.featchCommisioningDetailsUrl + value).pipe(
       catchError((x: HttpErrorResponse) => {
-        this.notify.show(x.error.message, NotificationType.Error);
+        this.notify.show(AppConstants.ApiErrorMessage, NotificationType.Error);
         return EMPTY;
       }
       )
@@ -67,22 +78,33 @@ export class CommissioningService {
 
   }
 
-  public getAssign(value: string): Observable<any> {
-    return this.httpClient.get<any>(environment.baseApiUrl + this.featchAssignDetailsUrl + value).pipe(
-      catchError((x: HttpErrorResponse) => {
-        this.notify.show(x.error.message, NotificationType.Error);
-        return EMPTY;
-      }
-      )
-    );
+  // public getAssign(value: string): Observable<any> {
+  //   return this.httpClient.get<any>(environment.baseApiUrl + this.featchAssignDetailsUrl + value).pipe(
+  //     catchError((x: HttpErrorResponse) => {
+  //       this.notify.show(AppConstants.ApiErrorMessage, NotificationType.Error);
+  //       return EMPTY;
+  //     }
+  //     )
+  //   );
 
-  }
+  // }
 
 
   public getSiteIDSearch(value: string): Observable<any> {
-    return this.httpClient.get<any>(environment.baseApiUrl + this.SiteIDSearchUrl + `search?search=${value}`).pipe(
+    return this.httpClient.get<any>(environment.baseApiUrl + this.SiteIDSearchUrl + `search?search=${value}`,{ observe: 'response' }).pipe(
+      tap((x) => {
+     
+        if (x != null && x !== undefined && x.status === 200) {
+        
+        }
+        else
+        {
+         
+          this.notify.show(x.statusText, NotificationType.Error);
+        }
+      }),
       catchError((x: HttpErrorResponse) => {
-        this.notify.show(x.error.message, NotificationType.Error);
+        this.notify.show(AppConstants.ApiErrorMessage, NotificationType.Error);
         return EMPTY;
       }
       )
@@ -96,7 +118,7 @@ export class CommissioningService {
     
   //   .pipe(
   //     catchError((x: HttpErrorResponse) => {
-  //       this.notify.show(x.error.message, NotificationType.Error);
+  //       this.notify.show(AppConstants.ApiErrorMessage, NotificationType.Error);
   //       return EMPTY;
   //     }
   //     )
@@ -148,7 +170,7 @@ export class CommissioningService {
   //       }),
         
   //       catchError((x: HttpErrorResponse) => {
-  //           this.notify.show(x.error.message, NotificationType.Error);
+  //           this.notify.show(AppConstants.ApiErrorMessage, NotificationType.Error);
   //           return EMPTY;
   //       })
 
@@ -162,7 +184,7 @@ export class CommissioningService {
        .pipe(
         shareReplay(),
         tap((x) => {
-          debugger;
+        
           if (x ??  x.statusCode === "600") {
             this.notify.show(x.error.message, NotificationType.Info);
             this._Router.navigate(['/approval/commissioning']);
@@ -174,21 +196,21 @@ export class CommissioningService {
         }),
         
         catchError((x: HttpErrorResponse) => {
-            this.notify.show(x.error.message, NotificationType.Error);
+            this.notify.show(AppConstants.ApiErrorMessage, NotificationType.Error);
             return EMPTY;
         })
 
       );
 
   }
-  public getCheckProductSerial(params: any): Observable<any> {
-    return this.httpClient.get<any>(environment.baseApiUrl + this.checkProductSerialNoUrl + params)
+  public getCheckProductSerial(accountId:any,productId: any,serialno:any): Observable<any> {
+    return this.httpClient.get<any>(environment.baseApiUrl + this.checkProductSerialNoUrl + "?accountId=" + accountId + "&productId=" + productId + "&search=" + serialno)
     
     
     .pipe(
     
       catchError((x: HttpErrorResponse) => {
-        this.notify.show(x.error.message, NotificationType.Error);
+        this.notify.show(AppConstants.ApiErrorMessage, NotificationType.Error);
         return EMPTY;
       }
       ),
@@ -197,4 +219,65 @@ export class CommissioningService {
 
   }
 
+  public getCheckProduct(params: any): Observable<any> {
+    return this.httpClient.get<any>(environment.baseApiUrl + this.checkProductUrl + "?search=" + params )
+    
+    
+    .pipe(
+    
+      catchError((x: HttpErrorResponse) => {
+        this.notify.show(AppConstants.ApiErrorMessage, NotificationType.Error);
+        return EMPTY;
+      }
+      ),
+   
+    );
+
+  }
+  public uploadCommissionPhotos(file: FormData, params?:any, ): Observable<any> {
+    // let queryParams = new HttpParams();
+    // queryParams = queryParams.append("type", params.file);
+    // queryParams = queryParams.append("installationId",params.installationId);
+    // let head = new HttpHeaders().append('Content-Type', "multipart/form-data");
+  
+    // 'Content-Type':  'Multipart'
+    return this.httpClient.post<any>(environment.baseApiUrl + this.featCommissionImagesUrl + "?type=" + params.file + "&commissioningId=" + params.commissioningId, file);
+    
+
+  }
+
+  
+getCircleMap():Observable<any>
+{
+  return this.httpClient.get<any>(environment.baseApiUrl + this.circleMapUrl);
+}
+
+// getRequestRaisedById():Observable<any>
+// {
+//   return this.httpClient.get<any>(environment.baseApiUrl + this.requestRaisedByUrl);
+// }
+public reassignInstallation(searchquery): Observable<any> {
+  // let queryParams = new HttpParams();
+  // queryParams = queryParams.append("id", searchquery.id);
+  // queryParams = queryParams.append("engineerId", searchquery.engineerId);
+  return this.httpClient.post<any>(environment.baseApiUrl + this.reassignUrl+"?id="+searchquery.id+"&engineerId="+searchquery.engineerId,null);
+}
+public  approveRejectCommision(req): Observable<any> {
+  return this.httpClient.put<any>(environment.baseApiUrl + this.toBeApprovedUrl + req.id, req);
+}
+public getEngineerMap(circleId): Observable<any> {
+  return this.httpClient.get<any>(environment.baseApiUrl + this.engineerUrl + circleId);
+
+}
+public downloadInstallationReport(params?:any): Observable<any> {
+  let queryParams = new HttpParams();
+  queryParams = queryParams.append("id",params.id);
+  queryParams = queryParams.append("file",params.file);
+
+  return this.httpClient.get<any>(environment.baseApiUrl + this.reportDownloadUrl , { params: queryParams });
+}
+
+public getIrfInformationById(): Observable<any> {
+  return this.httpClient.get<any>(environment.baseApiUrl + this.assetListUrl + "/" +  this.irfId);
+}
 }

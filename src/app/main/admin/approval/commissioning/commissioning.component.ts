@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Assest } from 'app/Models/Sales';
 import { LazyLoadEvent } from '../../../../Models/lazyloadevent'
@@ -24,9 +24,11 @@ export class CommissioningComponent implements OnInit {
   Resdata:any[];
 
   cols: any[];
-
+  irf: any;
+  commissions:any;
+  first: any;
   constructor(private modalService: NgbModal,
-    private _Commissioning:CommissioningService,
+    private _Commissioning:CommissioningService,private router: Router,
     private route: ActivatedRoute, private formBuilder: FormBuilder) { }
   
   modalOpenSM(modalSM) {
@@ -45,7 +47,8 @@ export class CommissioningComponent implements OnInit {
   ngOnInit(): void {
     // content header
     this.contentHeader = {
-      headerTitle: 'Manage Request',
+      // headerTitle: 'Manage Request',
+      headerTitle: 'Commissioning',
       actionButton: true,
       breadcrumb: {
       type: '',
@@ -132,7 +135,25 @@ reset()
   );
 
 }
+passIrfData(index){
+  debugger
+  this._Commissioning.irfId = this.commissions[index-this.first].irfId;
+  this.irf =   this._Commissioning.getIrfInformationById().subscribe(
+    (data) => {
+      this._Commissioning.selectedIrf = data;
+      this.loading = true;
+      this.go_next('\irf-details');
+    }
+  )
+}
 
+go_next(route){
+  setTimeout(() => {
+      this.loading = false;
+      this.router.navigate([route])
+    }
+    , 100);
+}
 
 }
 

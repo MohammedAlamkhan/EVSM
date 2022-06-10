@@ -9,9 +9,9 @@
                         <div class="card-body card-body-padding-top">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h4 class="card-titleb mb-0">Commissioning Details </h4>
+                                    <h5>Commissioning Details </h5>
                                     <hr style="margin: 5px 0px 10px 0;">
-                                    <h5 class="card-titleb blue-clr pt-0 ">Customer Details</h5>
+                                    <h6 class="card-titleb blue-clr pt-0 ">Customer Details</h6>
                                 </div>
                             </div>
                             <div class="row ml-0">
@@ -134,7 +134,10 @@
                                         <label for="password">
                                             Commissioning Date
                                         </label>
-                                        <ng2-flatpickr  formControlName="txtCommissionDate"  [setDate]="commissionDateString" [ngClass]="'firstsecond'" [config]="basicDateOptions"
+                                        <!-- <ng2-flatpickr  formControlName="txtCommissionDate"  [setDate]="commissionDateString" [ngClass]="'firstsecond'" [config]="basicDateOptions"
+                                            name="basicDate"></ng2-flatpickr> -->
+
+                                            <ng2-flatpickr  formControlName="txtCommissionDate"  [ngClass]="'firstsecond'" [config]="basicDateOptions"
                                             name="basicDate"></ng2-flatpickr>
                                     </div>
                                 </div> 
@@ -169,26 +172,26 @@
                             <div class="row ml-0 ">
                                 <div class="col-lg-3">
                                     <div class="form-group">
-                                        <label for="password">Product Serial No.
+                                        <label for="password">Part Code
                                         </label>
                                         <!-- <input type="fdf" class="form-control form-control-sm"
                                             placeholder="Please Enter"> -->
 
                                             
-                                            <input type="text" formControlName="txtPSNo" class="form-control form-control-sm" 
+                                            <input type="text" formControlName="txtPSNo" (keyup)="keyUpAProduct()" class="form-control form-control-sm" 
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-3">
                                     <div class="form-group">
-                                        <label for="password">Actual Serial No.
+                                        <label for="password">Assset Serial No.
                                         </label>
                                         <!-- <input type="fdf" class="form-control form-control-sm"
                                             placeholder="Please Enter"> -->
 
                                             
-                                            <input type="text" (keyup)="keyUpActualSrSearch()"  formControlName="txtoriginalProSrNo" class="form-control form-control-sm" 
+                                            <input type="text" (keyup)="keyUpActualSrSearch($event)"  formControlName="txtoriginalProSrNo" class="form-control form-control-sm" 
                                             placeholder="Please Enter">
                                             <div style="color: red;
                                             font-size: 10px;
@@ -252,7 +255,7 @@
                             <div class="table-s321a">
                                 <div class="row ">
                                     <div class="col-12">
-                                        <h5 class="card-titleb blue-clr">Visual Inspection</h5>
+                                        <h6 class="card-titleb blue-clr">Visual Inspection</h6>
                                     </div>
                                     <div class="col-12 ">
                                         <table class="table table-sm border-bottom">
@@ -334,7 +337,7 @@
                             <div class="table-s321a ">
                                 <div class="row ">
                                     <div class="col-12">
-                                        <h5 class="card-titleb blue-clr">Mains Input Parameter</h5>
+                                        <h6 class="card-titleb blue-clr top">Mains Input Parameter</h6>
                                     </div>
                                     <div class="col-12 ">
                                         <table class="table table-sm border-bottom">
@@ -401,7 +404,7 @@
                             <div class="table-s321a">
                                 <div class="row ">
                                     <div class="col-12">
-                                        <h5 class="card-titleb blue-clr">Check Point </h5>
+                                        <h6 class="card-titleb blue-clr top">Check Point </h6>
                                     </div>
                                     <div class="col-12 ">
                                         <table class="table table-sm border-bottom">
@@ -470,9 +473,9 @@
                             </div>
                             <div class="row ml-0">
                                 <div class="col-12">
-                                    <h5 class="card-titleb blue-clr">Two RFID key Handover to Customer Name & Mobile
+                                    <h6 class="card-titleb blue-clr top">Two RFID key Handover to Customer Name & Mobile
                                         Number
-                                    </h5>
+                                    </h6>
                                 </div>
                                 <div class="col-lg-3 ">
                                     <div class="form-group">
@@ -556,16 +559,22 @@
                                     <fieldset class="form-group mb-0">
                                         <div class="d-flex justify-content-between">
                                             <label for="file-upload-single">Signature:</label>
-                                            <div *ngFor="let item of uploader.queue">
-                                                <small>{{ item?.file?.name }}</small>
+                                            <div *ngIf="showengineerSignature">
+                                                <a [href]="engineerSignatureFileDownloadUrl">download</a>
+        
                                             </div>
+                                            <!-- <div *ngFor="let item of uploader.queue">
+                                                <small>{{ item?.file?.name }}</small>
+                                            </div> -->
                                             <!-- <small>{{ uploader?.file?.name }}</small> -->
                                         </div>
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" type="file" ng2FileSelect
+                                            <!-- <input type="file" class="custom-file-input" type="file" ng2FileSelect
                                                 [uploader]="uploader" id="file-upload-single" />
                                             <label class="custom-file-label"> <i data-feather="upload" class="mr-1"></i>
-                                                Upload File</label>
+                                                Upload File</label> -->
+                                                <input type="file" formControlName="engineerSignature" (change)="uploadImages($event, 'engineerSignature')">
+                                                <!-- <input type="file" formControlName="inputPowerImage"  (change)="uploadImages($event, 'chargerPicture')"> -->
                                         </div>
                                     </fieldset>
                                 </div>
@@ -583,10 +592,15 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
-                                    <!-- <div class="form-group">
+                                     <div class="form-group">
+                                        
                                         <label for="password">Signature
                                         </label>
-                                        <div class="input-group-append input-group-sm ">
+                                        <div *ngIf="showcustomerSignature">
+                                            <a [href]="customerSignatureFileDownloadUrl">Download</a>
+    
+                                        </div>
+                                        <!-- <div class="input-group-append input-group-sm ">
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-secondary mx-1" id="basic-addon2">
                                                     <i data-feather="upload" class="mr-1"></i>
@@ -595,36 +609,43 @@
                                                 <p class="small mb-0">file1.jpg,
                                                     file2.png</p>
                                             </div>
-                                        </div>
-                                    </div> -->
+                                        </div> -->
+                                    </div>
                                     <fieldset class="form-group mb-0">
-                                        <div class="d-flex justify-content-between">
-                                            <label for="file-upload-single">Signature:</label>
+                                         <!--  <div class="d-flex justify-content-between">
+                                          <label for="file-upload-single">Signature:</label>
                                             <div *ngFor="let item of uploader.queue">
                                                 <small>{{ item?.file?.name }}</small>
-                                            </div>
-                                            <!-- <small>{{ uploader?.file?.name }}</small> -->
+                                            </div> -->
+                                            <!-- <small>{{ uploader?.file?.name }}</small>
 
-                                        </div>
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" type="file" ng2FileSelect
+                                        </div> -->
+                                        <!-- <div class="custom-file"> -->
+                                            <!-- <input type="file" class="custom-file-input" type="file" ng2FileSelect
                                                 [uploader]="uploader" id="file-upload-single" />
                                             <label class="custom-file-label"> <i data-feather="upload" class="mr-1"></i>
-                                                Upload File</label>
-                                        </div>
+                                                Upload File</label> -->
+                                                <input type="file" formControlName="customerSignature"  (change)="uploadImages($event, 'customerSignature')">
+
+                                        <!-- </div> -->
                                     </fieldset>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h5 class="card-titleb blue-clr">Check for Healthy Input Power
-                                        Supply / Vehicle Charging</h5>
+                                    <h6 class="card-titleb blue-clr top">Check for Healthy Input Power
+                                        Supply / Vehicle Charging</h6>
                                 </div>
                                 <div class="col-lg-6">
                                     <table width="100%">
                                         <tr>
                                             <td width="30%" height="30"><label for="exampleInputFile">Input Power Image
-                                                </label></td>
+                                                </label>
+                                                <div *ngIf="showPhaseToNeurtal">
+                                                    <a [href]="phaseToNeutralFileDownloadUrl">download</a>
+
+                                                </div>
+                                            </td>
                                             <td>
                                                 <!-- <div class="input-group-append input-group-sm ">
                                                                         <div class="input-group-append">
@@ -652,12 +673,15 @@
                                                         <!-- <input type="file" class="custom-file-input" type="file"
                                                             ng2FileSelect [uploader]="uploader"
                                                             id="file-upload-single" /> -->
-                                                            <input type="file" id="file" formControlName="inputPowerImage" multiple 
-                                                            (change)="onChangeInputPower($event)">
+                                                            <!-- <input type="file" id="file" formControlName="inputPowerImage"  
+                                                            (change)="uploadImages($event, 'inputPowerImage')"> -->
+
+                                                            <input type="file" id="phaseToNeurtal"  (change)="uploadImages($event, 'phaseToNeurtal')">
                                                         <!-- <label class="custom-file-label"> <i data-feather="upload"
                                                                 class="mr-1"></i>
                                                             Upload File</label> -->
                                                     </div>
+                                                   
                                                 </fieldset>
                                             </td>
                                         </tr>
@@ -667,7 +691,12 @@
                                     <table width="100%">
                                         <tr>
                                             <td width="30%"><label for="exampleInputFile"> Earthing Value Image
-                                                </label></td>
+                                                </label>
+                                                <div *ngIf="showNeutralToEarth">
+                                                    <a [href]="neutralToEarthFileDownloadUrl">download</a>
+                                                </div>
+
+                                            </td>
                                             <td>
                                                 <!-- <div class="input-group-append input-group-sm ">
                                                                         <div class="input-group-append">
@@ -685,19 +714,20 @@
                                                 <fieldset class="form-group w-50 mb-0 pb-0">
                                                     <div class="d-flex justify-content-between">
                                                         <!-- <label for="file-upload-single">Signature:</label> -->
-                                                        <div *ngFor="let item of uploader.queue">
+                                                        <!-- <div *ngFor="let item of uploader.queue">
                                                             <small>{{ item?.file?.name
                                                                 }}</small>
-                                                        </div>
+                                                        </div> -->
                                                         <!-- <small>{{ uploader?.file?.name }}</small> -->
                                                     </div>
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" type="file"
+                                                        <!-- <input type="file" class="custom-file-input" type="file"
                                                             ng2FileSelect [uploader]="uploader"
                                                             id="file-upload-single" />
                                                         <label class="custom-file-label"> <i data-feather="upload"
                                                                 class="mr-1"></i>
-                                                            Upload File</label>
+                                                            Upload File</label> -->
+                                                            <input type="file" formControlName="neutralToEarth"  (change)="uploadImages($event, 'neutralToEarth')">
                                                     </div>
                                                 </fieldset>
                                             </td>
@@ -711,7 +741,12 @@
                                         <table width="100%">
                                             <tr>
                                                 <td width="30%"><label for="exampleInputFile">App Activation Image
-                                                    </label></td>
+                                                    </label>
+                                                    <div *ngIf="showDistributionBox">
+                                                        <a [href]="distributionBoxFileDownloadUrl">download</a>
+
+                                                    </div>
+                                                </td>
                                                 <td>
                                                     <!-- <div class="input-group-append input-group-sm ">
                                                                         <div class="input-group-append">
@@ -728,19 +763,20 @@
                                                     <fieldset class="form-group w-50 mb-0 pb-0">
                                                         <div class="d-flex justify-content-between">
                                                             <!-- <label for="file-upload-single">Signature:</label> -->
-                                                            <div *ngFor="let item of uploader.queue">
+                                                            <!-- <div *ngFor="let item of uploader.queue">
                                                                 <small>{{ item?.file?.name
                                                                     }}</small>
-                                                            </div>
+                                                            </div> -->
                                                             <!-- <small>{{ uploader?.file?.name }}</small> -->
                                                         </div>
                                                         <div class="custom-file">
-                                                            <input type="file" class="custom-file-input" type="file"
+                                                            <!-- <input type="file" class="custom-file-input" type="file"
                                                                 ng2FileSelect [uploader]="uploader"
                                                                 id="file-upload-single" />
                                                             <label class="custom-file-label"> <i data-feather="upload"
                                                                     class="mr-1"></i>
-                                                                Upload File</label>
+                                                                Upload File</label> -->
+                                                                <input type="file" formControlName="distributionBox"  (change)="uploadImages($event, 'distributionBox')">
                                                         </div>
                                                     </fieldset>
                                                 </td>
@@ -752,7 +788,12 @@
                                     <table width="100%">
                                         <tr>
                                             <td width="30%"><label for="exampleInputFile">Vehicle Testing Image
-                                                </label></td>
+                                                </label>
+                                                <div *ngIf="showVehicleCharging">
+                                                    <a [href]="vehicleChargingFileDownloadUrl">download</a>
+
+                                                </div>
+                                            </td>
                                             <td>
                                                 <!-- <div class="input-group-append input-group-sm ">
                                                                         <div class="input-group-append">
@@ -769,18 +810,19 @@
                                                 <fieldset class="form-group w-50 mb-0 pb-0">
                                                     <div class="d-flex justify-content-between">
                                                         <!-- <label for="file-upload-single">Signature:</label> -->
-                                                        <div *ngFor="let item of uploader.queue">
+                                                        <!-- <div *ngFor="let item of uploader.queue">
                                                             <small>{{ item?.file?.name }}</small>
-                                                        </div>
+                                                        </div> -->
                                                         <!-- <small>{{ uploader?.file?.name }}</small> -->
                                                     </div>
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" type="file"
+                                                        <!-- <input type="file" class="custom-file-input" type="file"
                                                             ng2FileSelect [uploader]="uploader"
                                                             id="file-upload-single" />
                                                         <label class="custom-file-label"> <i data-feather="upload"
                                                                 class="mr-1"></i>
-                                                            Upload File</label>
+                                                            Upload File</label> -->
+                                                            <input type="file" formControlName="vehicleCharging"  (change)="uploadImages($event, 'vehicleCharging')">
                                                     </div>
                                                 </fieldset>
                                             </td>
@@ -792,8 +834,14 @@
                                 <div class="col-lg-6">
                                     <table width="100%">
                                         <tr>
-                                            <td width="30%"><label for="exampleInputFile">Software Upd Image
-                                                </label></td>
+                                            <td width="30%">
+                                                <!-- <label for="exampleInputFile">Software Upd Image
+                                                </label> -->
+                                                <!-- <div *ngIf="showchargerPicture">
+                                                    <a [href]="chargerPictureFileDownloadUrl">download</a>
+
+                                                </div> -->
+                                            </td>
                                             <td>
                                                 <!-- <div class="input-group-append input-group-sm ">
                                                                         <div class="input-group-append">
@@ -809,19 +857,20 @@
                                                                     </div> -->
                                                 <fieldset class="form-group w-50 mb-0 pb-0">
                                                     <div class="d-flex justify-content-between">
-                                                        <!-- <label for="file-upload-single">Signature:</label> -->
-                                                        <div *ngFor="let item of uploader.queue">
+                                                         <!-- <label for="file-upload-single">Signature:</label> -->
+                                                        <!-- <div *ngFor="let item of uploader.queue">
                                                             <small>{{ item?.file?.name }}</small>
-                                                        </div>
+                                                        </div> -->
                                                         <!-- <small>{{ uploader?.file?.name }}</small> -->
                                                     </div>
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" type="file"
+                                                        <!-- <input type="file" class="custom-file-input" type="file"
                                                             ng2FileSelect [uploader]="uploader"
                                                             id="file-upload-single" />
                                                         <label class="custom-file-label"> <i data-feather="upload"
                                                                 class="mr-1"></i>
-                                                            Upload File</label>
+                                                            Upload File</label> -->
+                                                            <!-- <input type="file" formControlName="CommissioningReportImaGE"  (change)="uploadImages($event, 'chargerPicture')"> -->
                                                     </div>
                                                 </fieldset>
                                             </td>
@@ -831,8 +880,15 @@
                                 <div class="col-lg-6">
                                     <table width="100%">
                                         <tr>
-                                            <td width="30%"><label for="exampleInputFile">Commissioning Report
-                                                </label></td>
+                                            <td width="30%">
+                                                <!-- <label for="exampleInputFile">Commissioning Report
+                                                </label>
+                                                <div *ngIf="showchargerPicture">
+                                                    <a [href]="chargerPictureFileDownloadUrl">download</a>
+
+                                                </div> -->
+                                            
+                                            </td>
                                             <td>
                                                 <!-- <div class="input-group-append input-group-sm ">
                                                                         <div class="input-group-append">
@@ -849,18 +905,19 @@
                                                 <fieldset class="form-group w-50 mb-0 pb-0">
                                                     <div class="d-flex justify-content-between">
                                                         <!-- <label for="file-upload-single">Signature:</label> -->
-                                                        <div *ngFor="let item of uploader.queue">
+                                                        <!-- <div *ngFor="let item of uploader.queue">
                                                             <small>{{ item?.file?.name }}</small>
-                                                        </div>
+                                                        </div> -->
                                                         <!-- <small>{{ uploader?.file?.name }}</small> -->
                                                     </div>
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" type="file"
+                                                        <!-- <input type="file" class="custom-file-input" type="file"
                                                             ng2FileSelect [uploader]="uploader"
                                                             id="file-upload-single" />
                                                         <label class="custom-file-label"> <i data-feather="upload"
                                                                 class="mr-1"></i>
-                                                            Upload File</label>
+                                                            Upload File</label> -->
+                                                            <!-- <input type="file" formControlName="CommissioningReportImaGE"  (change)="uploadImages($event, 'chargerPicture')"> -->
                                                     </div>
                                                 </fieldset>
                                             </td>

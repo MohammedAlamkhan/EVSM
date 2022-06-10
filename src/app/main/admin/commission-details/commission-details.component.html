@@ -13,18 +13,18 @@
                                 <!-- <a routerLink="/Installation-commissioning-pdf" class="btn btn-outline-warning btn-sm mx-1">
                                     <i data-feather="file-plus"></i> Generate Commissioning Report
                                 </a> -->
-                                <!-- <a class="btn btn-outline-warning  text-warning btn-sm mx-1"  (click)="modalOpenSM(modalSM)" data-toggle="modal"
+                                <a *ngIf="creds.roleGroupAndAccount.roleGroup==='SCH' && getDetails?.commissioningStatusId == 4 && getDetails?.assignByName === null"  class="btn btn-outline-warning  text-warning btn-sm mx-1"  (click)="modalOpenSM(modalSM)" data-toggle="modal"
                                 data-target="#modal-default">
                                     <i data-feather="file-text"></i> Assign
-                                </a>  -->
-                                
-                                <a *ngIf="isShowApprove"  class="btn btn-outline-warning text-warning  btn-sm mr-1 " (click)="modalOpenSM2(modalSM2)" data-toggle="modal" 
+                                </a>  
+                                <!-- *ngIf="isShowApprove"  -->
+                                <a  *ngIf="creds.roleGroupAndAccount.roleGroup==='SCH' && getDetails?.tobeApprovedId != null"  class="btn btn-outline-warning text-warning  btn-sm mr-1 " (click)="modalOpenSM2(modalSM2)" data-toggle="modal" 
                                 data-target="#modal-default">
                                     <i data-feather="check-square"></i> Approve / <i data-feather="x-square"></i> Reject
                                 </a>
                                 <!-- <a *ngIf="isShowEdit" [routerLink]="['/commission-details/commission-form',getDetails.commissionId]" class="btn btn-outline-primary btn-sm">
                                     <i data-feather="edit"></i> Edit -->
-                                    <a  [routerLink]="['/commission-details/commission-form',1]" class="btn btn-outline-primary btn-sm">
+                                    <a  *ngIf="creds.fullname === getDetails?.ownerName  && getDetails?.commissioningStatusId != 6"  [routerLink]="['/commission-details/commission-form',getDetails.id]" class="btn btn-outline-primary btn-sm">
                                         <i data-feather="edit"></i> Edit
                                 </a> 
                             </div>
@@ -40,11 +40,11 @@
                         <div class="card-body card-body-padding-top">
                             <div class="row">
                                 <div class="col-lg-12 ">
-                                    <h5 class="card-titleb blue-clr"> Customer Details
-                                    </h5>
+                                    <h6 class="card-titleb blue-clr"> Customer Details
+                                    </h6>
                                 </div>
                             </div>
-                            <div class="row p-0 ">
+                            <div class="row p-0 " style>
                                 <div class="col-lg-6">
                                     <div class="in-table-st11ab p-0">
                                         <div class="table-responsive-sm">
@@ -53,33 +53,33 @@
                                                     <td width="60%"><span class="text-gray">IRF Request Number </span>
                                                     </td>     
                                                           
-                                                    <td>{{getDetails.irfManualId}}</td>
+                                                    <td>{{getDetails?.irfManualId}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Service Request Number
                                                         </span></td>
                                                         <!-- {{getDetails.salesOrderManualId}} -->
-                                                    <td>   {{getDetails.manualId}}</td>
+                                                    <td>   {{getDetails?.manualId}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Address </span></td>
-                                                    <td>{{getDetails.address}}</td>
+                                                    <td>{{getDetails?.address}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">City </span></td>
-                                                    <td>{{getDetails.city}}</td>
+                                                    <td>{{getDetails?.city}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Country </span></td>
                                                     
                                                     
                                                     <td>
-                                                        {{getDetails.countryName}}</td>
+                                                        {{getDetails?.countryName}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Customer Mobile No. </span>
                                                     </td>
-                                                    <td>{{getDetails.customerMobile}} </td>
+                                                    <td>{{getDetails?.customerMobile}} </td>
                                                 </tr>
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Product Serial No. </span>
@@ -101,33 +101,33 @@
                                             <table class="table">
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Client Name </span></td>
-                                                    <td>{{getDetails.accountName}}</td>
+                                                    <td>{{getDetails?.accountName}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Client Code </span></td>
-                                                    <td>{{getDetails.sapCode}}</td>
+                                                    <td>{{getDetails?.sapCode}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Pin Code </span></td>
-                                                    <td>{{getDetails.pincode}}</td>
+                                                    <td>{{getDetails?.pincode}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">State </span></td>
-                                                    <td>{{getDetails.stateName}}</td>
+                                                    <td>{{getDetails?.stateName}}</td>
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Email Id</span></td>
-                                                    <td>{{getDetails.customerEmail}}</td>
+                                                    <td>{{getDetails?.customerEmail}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Commissioning Date</span>
                                                     </td>
-                                                    <td>{{getDetails.createdDate | date:"dd/MM/yyyy"}}</td>
+                                                    <td>{{getDetails?.createdDate | date:"dd-MM-yyyy"}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Actual Serial No. </span>
                                                     </td>
                                                     <!-- <td>{{getDetails.origialProductSerialNo}} </td> -->
-                                                    {{getDetails.assetSerialNo}}
+                                                    <td> {{getDetails.assetSerialNo}}</td>
                                                     
                                                 </tr>
                                                 <tr>
@@ -142,7 +142,7 @@
                             <div class="table-s321a">
                                 <div class="row ">
                                     <div class="col-12">
-                                        <h5 class="card-titleb blue-clr">Visual Inspection </h5>
+                                        <h6 class="card-titleb blue-clr">Visual Inspection </h6>
                                     </div>
                                     <div class="col-12">
                                         <table class="table table-sm border-bottom">
@@ -166,7 +166,7 @@
 
                                                     <td>
                                                         <div class="form-group" *ngIf="getDetails.visualInspectionList[0].visualInspectionListId===1">
-                                                            {{getDetails.visualInspectionList[0].remark}}
+                                                            {{getDetails.visualInspectionList[0]?.remark}}
 
                                                         </div>
                                                     </td>
@@ -178,7 +178,7 @@
                                                         <span class="text-gray">Available and working</span>
                                                     <td>
                                                         <div class="form-group" *ngIf="getDetails.visualInspectionList[1].visualInspectionListId===2">
-                                                            {{getDetails.visualInspectionList[1].remark}}
+                                                            {{getDetails.visualInspectionList[1]?.remark}}
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -190,7 +190,7 @@
                                                             accessible</span>
                                                     <td>
                                                         <div class="form-group" *ngIf="getDetails.visualInspectionList[2].visualInspectionListId===3">
-                                                            {{getDetails.visualInspectionList[2].remark}}
+                                                            {{getDetails.visualInspectionList[2]?.remark}}
 
                                                         </div>
                                                     </td>
@@ -204,7 +204,7 @@
                                                             i.e. Model no. Serial no, etc.</span>
                                                     <td>
                                                         <div class="form-group" *ngIf="getDetails.visualInspectionList[3].visualInspectionListId===4">
-                                                            {{getDetails.visualInspectionList[3].remark}}
+                                                            {{getDetails.visualInspectionList[3]?.remark}}
 
                                                         </div>
                                                     </td>
@@ -218,7 +218,7 @@
                             <div class="table-s321a">
                                 <div class="row ">
                                     <div class="col-12">
-                                        <h5 class="card-titleb blue-clr">Mains Input Parameter</h5>
+                                        <h6 class="card-titleb blue-clr top">Mains Input Parameter</h6>
                                     </div>
                                     <div class="col-12">
                                         <table class="table table-sm border-bottom">
@@ -240,7 +240,7 @@
                                                         <span class="text-gray">Voltage should bes ≤2V</span>
                                                     <td>
                                                         <div class="form-group" *ngIf="getDetails.mainInputParameterList[0].MainInputParameterListId===1">
-                                                            {{getDetails.mainInputParameterList[0].actualValue}}
+                                                            {{getDetails.mainInputParameterList[0]?.actualValue}}
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -252,7 +252,7 @@
                                                         <span class="text-gray">Available and working</span>
                                                     <td>
                                                         <div class="form-group" *ngIf="getDetails.mainInputParameterList[1].MainInputParameterListId===2">
-                                                            {{getDetails.mainInputParameterList[1].actualValue}}
+                                                            {{getDetails.mainInputParameterList[1]?.actualValue}}
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -265,7 +265,7 @@
                                                             Nominal Voltageis 230VAC</span>
                                                     <td>
                                                         <div class="form-group"  *ngIf="getDetails.mainInputParameterList[2].MainInputParameterListId===3">
-                                                            {{getDetails.mainInputParameterList[2].actualValue}}
+                                                            {{getDetails.mainInputParameterList[2]?.actualValue}}
 
                                                         </div>
                                                     </td>
@@ -278,7 +278,7 @@
                             <div class="table-s321a">
                                 <div class="row ">
                                     <div class="col-12">
-                                        <h5 class="card-titleb blue-clr">Check Points </h5>
+                                        <h6 class="card-titleb blue-clr top">Check Points </h6>
                                     </div>
                                     <div class="col-12 ">
                                         <table class="table table-sm border-bottom">
@@ -295,7 +295,7 @@
                                                             through RFiD card</span></td>
                                                     <td>
                                                         <div class="form-group" *ngIf="getDetails.checkPointList[0].checkPointListId===1">
-                                                            {{getDetails.checkPointList[0].remark}}
+                                                            {{getDetails.checkPointList[0]?.remark}}
 
                                                         </div>
                                                     </td>
@@ -305,7 +305,7 @@
                                                             registration and demonstration to customer</span></td>
                                                     <td>
                                                         <div class="form-group" *ngIf="getDetails.checkPointList[1].checkPointListId===2">
-                                                            {{getDetails.checkPointList[1].remark}}
+                                                            {{getDetails.checkPointList[1]?.remark}}
 
                                                         </div>
                                                     </td>
@@ -315,7 +315,7 @@
                                                             verification between App and Charger</span></td>
                                                     <td>
                                                         <div class="form-group"  *ngIf="getDetails.checkPointList[2].checkPointListId===3">
-                                                            {{getDetails.checkPointList[2].remark}}
+                                                            {{getDetails.checkPointList[2]?.remark}}
 
                                                         </div>
                                                     </td>
@@ -325,7 +325,7 @@
                                                             charging operation with Vehicle</span></td>
                                                     <td>
                                                         <div class="form-group" *ngIf="getDetails.checkPointList[3].checkPointListId===4">
-                                                            {{getDetails.checkPointList[3].remark}}
+                                                            {{getDetails.checkPointList[3]?.remark}}
 
                                                         </div>
                                                     </td>
@@ -336,7 +336,7 @@
                                                             care no. details</span></td>
                                                     <td>
                                                         <div class="form-group" *ngIf="getDetails.checkPointList[4].checkPointListId===5">
-                                                            {{getDetails.checkPointList[4].remark}}
+                                                            {{getDetails.checkPointList[4]?.remark}}
 
                                                         </div>
                                                     </td>
@@ -349,9 +349,9 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h5 class="card-titleb blue-clr"> Two RFID key Handover to Customer Name & Mobile
+                                    <h6 class="card-titleb blue-clr top"> Two RFID key Handover to Customer Name & Mobile
                                         Number
-                                    </h5>
+                                    </h6>
                                 </div>
                             </div>
                             <div class="row p-0 hd-mgr12">
@@ -361,14 +361,14 @@
                                             <table class="table ">
                                                 <tbody>
                                                     <tr>
-                                                        <td width="40%"><span class="text-gray">Customer Name</span>
+                                                        <td width="42%"><span class="text-gray">Customer Name</span>
                                                         </td>
-                                                        <td>   {{getDetails.rfidKeyHolderName}}</td>
+                                                        <td>   {{getDetails?.rfidKeyHolderName}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td><span class="text-gray">Remarks
                                                             </span></td>
-                                                        <td>{{getDetails.remark}}</td>
+                                                        <td>{{getDetails?.remark}}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -381,9 +381,9 @@
                                             <table class="table border-bottom">
                                                 <tbody>
                                                     <tr>
-                                                        <td width="40%"><span class="text-gray">Mobile Number </span>
+                                                        <td width="53%"><span class="text-gray">Mobile Number </span>
                                                         </td>
-                                                        <td>{{getDetails.rfidKeyHolderMobile}}</td>
+                                                        <td>{{getDetails?.rfidKeyHolderMobile}}</td>
                                                     </tr>
 
                                                 </tbody>
@@ -399,25 +399,26 @@
                                         <div class="table-responsive-sm border-bottom">
                                             <table class="table">
                                                 <tr>
-                                                    <td><span class="text-gray">Engineer </span></td>
-                                                    <td>{{getDetails.exicomRepresentativeName}}</td>
+                                                    <td width="42%"><span class="text-gray">Engineer </span></td>
+                                                    <td>{{getDetails?.exicomRepresentativeName}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><span class="text-gray">Employee Code</span></td>
-                                                    <td>{{getDetails.employeeCode}}</td>
+                                                    <td  width="42%"><span class="text-gray">Employee Code</span></td>
+                                                    <td>{{getDetails?.employeeCode}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><span class="text-gray">Signature </span></td>
-                                                    <td class="pt-0  ">
-                                                        <div class="input-group-append input-group-sm ">
-                                                            <div class="input-group-append">
-                                                                <button class="btn btn-outline-secondary px-1"
-                                                                    id="basic-addon2">
-                                                                    <i data-feather="download" class=""></i>
-                                                                    Download File
-                                                                </button>
-                                                                <p class="small mb-0">file1.jpg</p>
-                                                            </div>
+                                                    <td  width="42%"><span class="text-gray">Signature zxfcsdf</span></td>
+                                                    <td>
+                                                        <div class="input-group-append mt-">
+                                                            <button 
+                                                            (click)="downloadInstallationReport('engineerSignature')"
+                                                                class="browse input-group-text btn btn-primary fntup-btn"
+                                                                id="basic-addon2"><i
+                                                                    class="fas fa-download mr-2"></i> Download
+                                                                File</button>
+                                                            
+
+
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -430,22 +431,23 @@
                                         <div class="table-responsive-sm border-bottom">
                                             <table class="table">
                                                 <tr>
-                                                    <td><span class="text-gray">Customer
+                                                    <td style="width:53%"><span class="text-gray">Customer
                                                             Representative Name </span></td>
                                                     <td>{{getDetails.customerRepresentativeName }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><span class="text-gray">Signature </span></td>
-                                                    <td class="pt-0">
-                                                        <div class="input-group-append input-group-sm ">
-                                                            <div class="input-group-append">
-                                                                <button class="btn btn-outline-secondary px-1"
-                                                                    id="basic-addon2">
-                                                                    <i data-feather="download" class=""></i>
-                                                                    Download File
-                                                                </button>
-                                                                <p class="small mb-0">file1.jpg</p>
-                                                            </div>
+                                                    <td  style="width:53%"><span class="text-gray">Signature </span></td>
+                                                    <td>
+                                                        <div class="input-group-append mt-">
+                                                            <button 
+                                                            (click)="downloadInstallationReport('customerSignature')"
+                                                                class="browse input-group-text btn btn-primary fntup-btn"
+                                                                id="basic-addon2"><i
+                                                                    class="fas fa-download mr-2"></i> Download
+                                                                File</button>
+                                                            
+
+
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -457,9 +459,9 @@
                             
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h5 class="card-titleb blue-clr"> ICheck for Healthy Input Power Supply/Vehicle
+                                    <h6 class="card-titleb blue-clr top">Check for Healthy Input Power Supply/Vehicle
                                         Charging
-                                    </h5>
+                                    </h6>
                                 </div>
                             </div>
                             <div class="row p-0 hd-mgr12">
@@ -469,55 +471,58 @@
                                             <table class="table">
                                                 <tbody>
                                                     <tr>
-                                                        <td><span class="text-gray">
+                                                        <td  width="42%"><span class="text-gray" >
                                                             Input Power Image
                                                             </span></td>
-                                                        <td class="pt-0">
-                                                            <div class="input-group-append input-group-sm ">
-                                                                <div class="input-group-append">
-                                                                    <button class="btn btn-outline-secondary px-1"
-                                                                        id="basic-addon2">
-                                                                        <i data-feather="download" class=""></i>
-                                                                        Download File
-                                                                    </button>
-                                                                    <p class="small mb-0">file1.jpg</p>
+                                                            <td>
+                                                                <div class="input-group-append mt-">
+                                                                    <button 
+                                                                    (click)="downloadInstallationReport('phaseToNeurtal')"
+                                                                        class="browse input-group-text btn btn-primary fntup-btn"
+                                                                        id="basic-addon2"><i
+                                                                            class="fas fa-download mr-2"></i> Download
+                                                                        File</button>
+                                                                    
+    
+    
                                                                 </div>
-                                                            </div>
-                                                        </td>
+                                                            </td>
                                                     </tr>
                                                     <tr>
                                                         <td><span class="text-gray">
                                                             App Activation Image
                                                             </span></td>
-                                                        <td class="pt-0">
-                                                            <div class="input-group-append input-group-sm ">
-                                                                <div class="input-group-append">
-                                                                    <button class="btn btn-outline-secondary px-1"
-                                                                        id="basic-addon2">
-                                                                        <i data-feather="download" class=""></i>
-                                                                        Download File
-                                                                    </button>
-                                                                    <p class="small mb-0">file1.jpg</p>
+                                                            <td>
+                                                                <div class="input-group-append mt-">
+                                                                    <button 
+                                                                    (click)="downloadInstallationReport('distributionBox')"
+                                                                        class="browse input-group-text btn btn-primary fntup-btn"
+                                                                        id="basic-addon2"><i
+                                                                            class="fas fa-download mr-2"></i> Download
+                                                                        File</button>
+                                                                    
+    
+    
                                                                 </div>
-                                                            </div>
-                                                        </td>
+                                                            </td>
                                                     </tr>
-                                                    <tr>
+                                                    <!-- <tr>
                                                         <td><span class="text-gray">Commissioning Report
                                                             </span></td>
-                                                        <td class="pt-0">
-                                                            <div class="input-group-append input-group-sm ">
-                                                                <div class="input-group-append">
-                                                                    <button class="btn btn-outline-secondary px-1"
-                                                                        id="basic-addon2">
-                                                                        <i data-feather="download" class=""></i>
-                                                                        Download File
-                                                                    </button>
-                                                                    <p class="small mb-0">file1.jpg</p>
+                                                            <td>
+                                                                <div class="input-group-append mt-">
+                                                                    <button 
+                                                                    (click)="downloadInstallationReport('distributionBox')"
+                                                                        class="browse input-group-text btn btn-primary fntup-btn"
+                                                                        id="basic-addon2"><i
+                                                                            class="fas fa-download mr-2"></i> Download
+                                                                        File</button>
+                                                                    
+    
+    
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                    </tr> -->
                                                 </tbody>
                                             </table>
                                         </div>
@@ -529,8 +534,42 @@
                                             <table class="table">
                                                 <tbody>
 
+                                                     <tr>
+                                                        <td style="width:53%"><span class="text-gray">Earthing Value Image
+                                                            </span></td>
+                                                            <td>
+                                                           <div class="input-group-append mt-">
+                                                                <button 
+                                                                (click)="downloadInstallationReport('neutralToEarth')"
+                                                                    class="browse input-group-text btn btn-primary fntup-btn"
+                                                                    id="basic-addon2"><i
+                                                                        class="fas fa-download mr-2"></i> Download
+                                                                    File</button>
+                                                                
+
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                     <tr>
-                                                        <td><span class="text-gray">Earthing Value Image
+                                                        <td style="width:53%"><span class="text-gray">Vehicle Testing Image
+                                                            </span></td>
+                                                        <td class="pt-0">
+                                                            <div class="input-group-append mt-">
+                                                                <button 
+                                                                (click)="downloadInstallationReport('vehicleCharging')"
+                                                                    class="browse input-group-text btn btn-primary fntup-btn"
+                                                                    id="basic-addon2"><i
+                                                                        class="fas fa-download mr-2"></i> Download
+                                                                    File</button>
+                                                                
+
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <!-- <tr>
+                                                        <td style="width:53%"><span class="text-gray">Software Upd Image
                                                             </span></td>
                                                         <td class="pt-0">
                                                             <div class="input-group-append input-group-sm ">
@@ -544,39 +583,7 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><span class="text-gray">Vehicle Testing Image
-                                                            </span></td>
-                                                        <td class="pt-0">
-                                                            <div class="input-group-append input-group-sm ">
-                                                                <div class="input-group-append">
-                                                                    <button class="btn btn-outline-secondary px-1"
-                                                                        id="basic-addon2">
-                                                                        <i data-feather="download" class=""></i>
-                                                                        Download File
-                                                                    </button>
-                                                                    <p class="small mb-0">file1.jpg</p>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><span class="text-gray">Software Upd Image
-                                                            </span></td>
-                                                        <td class="pt-0">
-                                                            <div class="input-group-append input-group-sm ">
-                                                                <div class="input-group-append">
-                                                                    <button class="btn btn-outline-secondary px-1"
-                                                                        id="basic-addon2">
-                                                                        <i data-feather="download" class=""></i>
-                                                                        Download File
-                                                                    </button>
-                                                                    <p class="small mb-0">file1.jpg</p>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                    </tr> -->
                                                
                                                 </tbody>
                                             </table>
@@ -594,48 +601,41 @@
 
 
 <!-- assign -->
-<!-- <ng-template #modalSM let-modal>
+<ng-template #modalSM let-modal>
     <div class="modal-header bg-dark" style="padding: 5px;">
-       
         <h5 class="modal-title text-white" id="myModalLabel160">Assign Service Order</h5>
         <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
-
-      
     </div>
-    <form [formGroup]="assignForm" (ngSubmit)="AssignSubmit()">
     <div class="modal-body" tabindex="0" ngbAutofocus>
         <div class="form-group">
-            <label>Assign To</label>
-            <select class="form-control  form-control-sm model-w-s mt-2">
-                <option>Select</option>
-                <option>Option 1</option>
-                <option>Option 2</option>
-
-            </select> 
-
-            <select formControlName="dpdAssignAction" class="form-control form-control-sm"  (change)="onChangeAssign($event.target.value)" >
-                <option *ngFor="let objCountry of getAssignRespone"  [value]="objCountry.countryId">{{objCountry.countryName}}</option>
-                </select>
-            <div *ngIf="assignSubmitted && Assignf.dpdAssignAction.errors" style="color: red;font-size: 10px;">
-                <div *ngIf="Assignf.dpdAssignAction.errors.required">Assign To is required</div>
+            <label for="circleId">Circle:</label>
+            <select (change)="getEngineerList($event)" id="cid" formControlName="circleId" class="form-control">
+                <option value="">Select Circle</option>
+                <option *ngFor="let circle of circleMap" [value]="circle.id" >{{circle.name}}</option>
+            </select>
         </div>
-    </div>
+        <div class="form-group">
+            <label for="circleId">Assign To:</label>
+            <select id="eid" formControlName="engineerId" class="form-control">
+                <option value="">Select</option>
+                <option *ngFor="let engineer of engineerMap" [value]="engineer.phone" >{{engineer.name}}</option>
+            </select>
+        </div>
+
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-danger " (click)="modal.close('Accept click')">Close</button>
-        <button  type="AssignSubmit" class="btn btn-success " (click)="modal.close('Accept click')">Save Changes</button>
+        <button type="button" class="btn btn-success " (click)="reassign() ; modal.close('Accept click')">Save Changes</button>
     </div>
-    </form>
-</ng-template> -->
+</ng-template> 
 <!-- / assign end -->
 
 
 
 <!-- approve /moderate -->
 <ng-template #modalSM2 let-modal>
-    <form [formGroup]="approveRejectForm" (ngSubmit)="Submit()">
     <div class="modal-header bg-dark" style="padding: 5px;">
         <h5 class="modal-title text-white" id="myModalLabel160">Approval For</h5>
         <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
@@ -647,24 +647,18 @@
             <div class="col-lg-12">
                 <label for="basicTextarea">Remarks</label>
                 <fieldset class="form-group">
-                    <textarea class="form-control"  formControlName="txtremarks" id="basicTextarea" rows="2" placeholder="Textarea"></textarea>
+                    <textarea  (change)="approvalRemark=$event.target.value"  id="rem" class="form-control" id="basicTextarea" rows="2" placeholder="Textarea"></textarea>
                 </fieldset>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Action</label>
-                    <select class="form-control form-control-sm  model-w-s" formControlName="dpdAction">
-                        <option  value="">Select</option>
-                        <option value="A">Approve</option>
-                        <option value="RJ">Reject</option>
+                    <select (change)="approvalAction=$event.target.value"  id="app" class="form-control form-control-sm  model-w-s">
+                        <option>Select</option>
+                        <option value="Approve">Approve</option>
+                        <option value="Reject">Reject</option>
                     </select>
-                   
-
-                    <div *ngIf="submitted && f.dpdAction.errors" style="color: red;font-size: 10px;">
-                        <div *ngIf="f.dpdAction.errors.required">Action is required</div>
-                    </div>
-                    
                 </div>
             </div>
 
@@ -672,9 +666,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-danger " (click)="modal.close('Accept click')">Close</button>
-        <!-- modalOpenSM2 -->
-        <button  type="submit"class="btn btn-success" (click)="modal.close('Accept click')">Save </button>
+        <button type="button" class="btn btn-success " (click)="approveOrReject() ; modal.close('Accept click')">Save </button>
     </div>
-</form>
 </ng-template>
 <!-- / Modal2 -->

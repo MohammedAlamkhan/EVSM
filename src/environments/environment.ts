@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   hmr: false,
-  baseApiUrl: 'http://evsepulseapi.exicom.in:8282/api/' //'http://localhost:59132/api/test'
+  baseApiUrl: 'http://evsepulseapi.exicom.in:8282/api/',
+  imageApiIUrl :'http://evsepulseapi.exicom.in:8282'
 };
 
 /*

@@ -24,7 +24,7 @@
                                             [totalRecords]="totalRecords">
                                                     <ng-template pTemplate="header">
                                                         <tr class="bg-white">
-                                                        
+                                                            <th scope="col">Sr. No. </th>
                                                             
                                                              <th scope="col" field="irfManualId">IRF Request Number</th>
                                                             <th scope="col " style="width: 12%;" field="commissionCaseNo">Commissioning Case No.</th>
@@ -41,12 +41,13 @@
                                                         
                                                         </tr>
                                                     </ng-template>
-                                                    <ng-template pTemplate="body" let-aseet>
+                                                    <ng-template pTemplate="body" let-rowIndex="rowIndex">
                                                        
                                                         <tr>
                                                             <!-- aseet.commissionId -->
-                                                            <!-- {{aseet.commissionCaseNo}} -->
-                                                            <td class="no-st-text-b">{{aseet.irfManualId}}</td>
+                                                            <td class="bd-top">{{ rowIndex +1 }}</td>
+                                                            <!-- <td class="no-st-text-b">{{aseet.irfManualId}}</td> -->
+                                                            <td ><a [style]="{color:'blue'}" (click)="passIrfData(rowIndex)" class="no-st-text-b">{{ aseet?.irfManualId }}</a></td>
                                                             <td class="no-st-text-b"><a [routerLink]="['/commission/commission-details',aseet.id]"  class="no-st-text-b">{{aseet.manualId}}</a></td>
                                                             <td class="no-st-text-b">{{aseet.commissioningDate  | date:"dd/MM/yyyy"}}</td>
                                                             <td class="no-st-text-b">{{ aseet.commissioningStatusName}}</td>
