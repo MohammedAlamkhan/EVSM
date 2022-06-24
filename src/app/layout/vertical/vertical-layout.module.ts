@@ -13,7 +13,7 @@ import { VerticalLayoutComponent } from 'app/layout/vertical/vertical-layout.com
 
 @NgModule({
   declarations: [VerticalLayoutComponent],
-  imports: [RouterModule, CoreCommonModule, CoreSidebarModule, NavbarModule, MenuModule, ContentModule, FooterModule],
+  imports: [RouterModule, CoreCommonModule, NavbarModule, MenuModule, ContentModule, FooterModule],
   exports: [VerticalLayoutComponent]
 })
 export class VerticalLayoutModule {}

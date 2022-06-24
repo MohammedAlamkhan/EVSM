@@ -14,7 +14,7 @@
                                         <div *ngIf="loading">
                                             <app-spinner></app-spinner>
                                         </div>
-                                        <p-table  (onLazyLoad)="loadApprovalData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="top" [value]="installationList" [lazy]="true"
+                                        <p-table  (onLazyLoad)="loadApprovalData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="bottom" [value]="installationList" [lazy]="true"
                                             styleClass="p-datatable-gridlines p-datatable-striped"
                                             responsiveLayout="scroll"
                                             dataKey="installationId" [paginator]="true" [rows]="noOfRows"  [style]="{width:'2300px'}"
@@ -43,12 +43,10 @@
                                             <ng-template pTemplate="body" let-aseet>
 
                                                 <tr>
-                                                    <td><a routerLink="/irf-details"
-                                                            class="no-st-text-b link-color">{{aseet.irfRequestNo}}</a>
+                                                    <td>{{aseet.irfRequestNo}}
                                                     </td>
-                                                     <td> <a routerLink="/install-req-form-details"
-                                                            class="no-st-text-b font-weight-bold">{{aseet.installationRequestNo}} </a> </td>
-                                                    <td> {{aseet.installationCreatedDate}}
+                                                    <td ><a [style]="{color:'blue'}" (click)="passInstallData(aseet.installationId)"  class="no-st-text-b">{{ aseet?.installationRequestNo }}</a></td>
+                                                    <td> {{aseet.installationCreatedDate | date:'dd-MM-yyyy'}}
                                                     </td>
                                                     <td class="text-nowrap">{{aseet.requestType}}</td>
                                                     <td> {{aseet.client}}
@@ -63,7 +61,7 @@
                                                             <button type="button" class="btn btn-light btn-sm d-flex"
                                                                 (click)="modalOpenSM2(modalSM2, aseet.installationId)" data-toggle="modal"
                                                                 data-target="#modal-default"><i data-feather="check-square"
-                                                                    class="mr-1"></i> Approval/Moderate
+                                                                    class="mr-1"></i> Approval/Reject
                                                             </button>
                                                         </td>
                                                 </tr>
@@ -81,7 +79,7 @@
                                         <div *ngIf="loading">
                                             <app-spinner></app-spinner>
                                         </div>
-                                        <p-table  (onLazyLoad)="loadAssignData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="top" [value]="installationList" [lazy]="true"
+                                        <p-table  (onLazyLoad)="loadAssignData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="bottom" [value]="installationList" [lazy]="true"
                                             styleClass="p-datatable-gridlines p-datatable-striped"
                                             responsiveLayout="scroll"
                                             dataKey="installationId" [paginator]="true" [rows]="noOfRows"  [style]="{width:'2300px'}"
@@ -110,12 +108,10 @@
                                             <ng-template pTemplate="body" let-aseet>
 
                                                 <tr>
-                                                    <td><a routerLink="/irf-details"
-                                                            class="no-st-text-b link-color">{{aseet.irfRequestNo}}</a>
+                                                    <td>{{aseet.irfRequestNo}}
                                                     </td>
-                                                     <td> <a routerLink="/install-req-form-details"
-                                                            class="no-st-text-b font-weight-bold">{{aseet.installationRequestNo}} </a> </td>
-                                                    <td> {{aseet.installationCreatedDate}}
+                                                    <td ><a [style]="{color:'blue'}" (click)="passInstallData(aseet.installationId)"  class="no-st-text-b">{{ aseet?.installationRequestNo }}</a></td>
+                                                    <td> {{aseet.installationCreatedDate | date:'dd-MM-yyyy'}}
                                                     </td>
                                                     <td class="text-nowrap">{{aseet.requestType}}</td>
                                                     <td> {{aseet.client}}

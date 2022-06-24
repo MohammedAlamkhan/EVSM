@@ -15,6 +15,7 @@ noOfRows: number=20;
 totalRecords: number;
 cols: any[];
   first: any;
+  SIC: any;
   constructor(private assetsService: AssetsService ,
     private route: ActivatedRoute, private router: Router) { }
 
@@ -44,6 +45,7 @@ cols: any[];
       }
     };
   // this.loadData();
+  this.getSICCount();
   }
 
 
@@ -58,6 +60,14 @@ cols: any[];
    
   }
 
+
+  getSICCount(){
+    this.SIC =   this.assetsService.getSICCount().subscribe(
+      (data) => {
+        this.SIC = data;
+      }
+    )
+  }
 
   go_next(route){
     setTimeout(() => {

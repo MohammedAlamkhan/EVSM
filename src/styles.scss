@@ -9,6 +9,15 @@
 @import '@core/scss/angular/libs/flatpickr.component.scss';
 
 
+.table{
+    color:black;
+    font-weight: 500;
+}
+
+.p-datatable{
+    font-weight: 500;
+}
+
 .mt-4vvvvawqqq {
 	float:left;
     margin-top: .50rem!important;
@@ -112,4 +121,35 @@
     right: 19px;
     color: #bbbabd;
     opacity: 1;
+}
+
+.btn-primary {
+    border-color: #7367f0 !important;
+    background-color: #ffffff !important;
+    color: #7367f0!important;
+    border: 1px solid #7367f0 !important;
+}
+
+.input-group-text {
+    display: flex;
+    align-items: center;
+    padding: 0.238rem 1rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.45;
+    color: #6e6b7b;
+    text-align: center;
+    white-space: nowrap;
+    background-color: white;
+    border: 1px solid #d8d6de;
+    border-radius: 0.357rem;
+}
+
+i.fas.fa-download.mr-2 {
+    color: #9d9d9d!important;
+}
+
+.mr-2, .mx-2 {
+    margin-right: 0.5rem !important;
 }

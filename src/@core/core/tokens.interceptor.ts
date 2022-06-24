@@ -9,13 +9,13 @@ import {
 import { BehaviorSubject, Observable, throwError} from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
-
+import { Router } from '@angular/router';
 @Injectable()
 export class TokensInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(public authService: AuthenticationService) {
+  constructor(public authService: AuthenticationService,private router: Router,) {
 
   }
 
@@ -28,6 +28,7 @@ export class TokensInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(catchError(error => {
       
       if (error instanceof HttpErrorResponse && error.status === 401 && this.authService.getCredentials != null) {
+        this.router.navigate(['\login'])
         return this.handle401Error(request, next);
       } else {
         return throwError(error);
@@ -44,6 +45,7 @@ export class TokensInterceptor implements HttpInterceptor {
   }
 
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
+    this.router.navigate(['\login'])
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);

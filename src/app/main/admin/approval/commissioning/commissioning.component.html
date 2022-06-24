@@ -14,7 +14,7 @@
                                         <div *ngIf="loading">
                                             <app-spinner></app-spinner>
                                         </div>
-                                        <p-table  (onLazyLoad)="loadApprovalData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="top" [value]="comissioningList" [lazy]="true"
+                                        <p-table  (onLazyLoad)="loadApprovalData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="bottom" [value]="comissioningList" [lazy]="true"
                                             styleClass="p-datatable-gridlines p-datatable-striped"
                                             responsiveLayout="scroll"
                                             dataKey="comissioningId" [paginator]="true" [rows]="noOfRows"  [style]="{width:'2300px'}"
@@ -43,12 +43,11 @@
                                             <ng-template pTemplate="body" let-com>
 
                                                 <tr>
-                                                    <td><a routerLink="/irf-details"
-                                                            class="no-st-text-b link-color">{{com.irfRequestNo}}</a>
+                                                    <td>{{com.irfRequestNo}}
                                                     </td>
-                                                     <td> <a routerLink="/install-req-form-details"
+                                                     <td> <a [routerLink]="['/commission/commission-details', com.commissioningId]"
                                                             class="no-st-text-b font-weight-bold">{{com.commissioningRequestNo}} </a> </td>
-                                                    <td> {{com.commissioningCreatedDate}}
+                                                    <td> {{com.commissioningCreatedDate | date:'dd-MM-yyyy'}}
                                                     </td>
                                                     <td class="text-nowrap">{{com.requestType}}</td>
                                                     <td> {{com.client}}
@@ -63,7 +62,7 @@
                                                             <button type="button" class="btn btn-light btn-sm d-flex"
                                                                 (click)="modalOpenSM2(modalSM2, com.commissioningId)" data-toggle="modal"
                                                                 data-target="#modal-default"><i data-feather="check-square"
-                                                                    class="mr-1"></i> Approval/Moderate
+                                                                    class="mr-1"></i> Approval/Reject
                                                             </button>
                                                         </td>
                                                 </tr>
@@ -81,7 +80,7 @@
                                         <div *ngIf="loading">
                                             <app-spinner></app-spinner>
                                         </div>
-                                        <p-table  (onLazyLoad)="loadAssignData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="top" [value]="comissioningList" [lazy]="true"
+                                        <p-table  (onLazyLoad)="loadAssignData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="bottom" [value]="comissioningList" [lazy]="true"
                                             styleClass="p-datatable-gridlines p-datatable-striped"
                                             responsiveLayout="scroll"
                                             dataKey="comissioningId" [paginator]="true" [rows]="noOfRows"  [style]="{width:'2300px'}"
@@ -110,12 +109,11 @@
                                             <ng-template pTemplate="body" let-com>
 
                                                 <tr>
-                                                    <td><a routerLink="/irf-details"
-                                                            class="no-st-text-b link-color">{{com.irfRequestNo}}</a>
+                                                    <td>{{com.irfRequestNo}}
                                                     </td>
-                                                     <td> <a routerLink="/install-req-form-details"
-                                                            class="no-st-text-b font-weight-bold">{{com.commissioningRequestNo}} </a> </td>
-                                                    <td> {{com.commissioningCreatedDate}}
+                                                    <td> <a [routerLink]="['/commission/commission-details', com.commissioningId]"
+                                                        class="no-st-text-b font-weight-bold">{{com.commissioningRequestNo}} </a> </td>
+                                                    <td> {{com.commissioningCreatedDate | date:'dd-MM-yyyy'}}
                                                     </td>
                                                     <td class="text-nowrap">{{com.requestType}}</td>
                                                     <td> {{com.client}}

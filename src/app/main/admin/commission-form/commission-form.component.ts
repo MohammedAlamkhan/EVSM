@@ -1,6 +1,6 @@
 import { Component, OnInit, Optional, ViewEncapsulation } from '@angular/core';
 import { FlatpickrOptions } from 'ng2-flatpickr';
-
+import { Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommissioningService } from '../approval/commissioning/commissioning.service';
@@ -27,6 +27,7 @@ export class CommissionFormComponent implements OnInit {
   msgCheckProductSerial:any
   isMsgProsr:boolean = false;
   isShowSiteID:boolean = false;
+  siteidlist=[];
   SiteIDMSG:string ='';
   public contentHeader: object
   commissionForm: FormGroup;
@@ -36,13 +37,15 @@ export class CommissionFormComponent implements OnInit {
   requestBodyToSend: any;
   holdComissionDetails: any;
   commissionDateString:any;
-  isLoading : boolean = false;
+  loading : boolean = false;
 
 //  / Images variable defiend
 phaseToNeutralFileDownloadUrl: string='';
 neutralToEarthFileDownloadUrl: string='';
 distributionBoxFileDownloadUrl: string='';
 vehicleChargingFileDownloadUrl: string='';
+updFileDownloadUrl: string='';
+crFileDownloadUrl: string='';
 engineerSignatureFileDownloadUrl: string='';
 customerSignatureFileDownloadUrl: string='';
 
@@ -52,8 +55,11 @@ showDistributionBox: boolean=false;
 showengineerSignature: boolean=false;
 showcustomerSignature: boolean=false;
 showVehicleCharging: boolean=false;
+showUpd: boolean=false;
+showCr: boolean=false;
 partcodeId:any;
   constructor(private formBuilder: FormBuilder, 
+    private router: Router,
     private _route: ActivatedRoute,
     private _Commissioning: CommissioningService,
     private datePipe: DatePipe) { }
@@ -160,6 +166,8 @@ partcodeId:any;
       phaseToNeurtal:[null],
       neutralToEarth:[null],
       vehicleCharging:[null],
+      cr:[null],
+      upd:[null],
       distributionBox:[null],
       engineerSignature:[null],
       customerSignature:[null],
@@ -169,7 +177,7 @@ partcodeId:any;
   }
   saveAsDraft() {
     
-    this.isLoading = true;
+    this.loading = true;
     this.isSaveDraftClicked = true;
 
   }
@@ -282,7 +290,7 @@ partcodeId:any;
         },
         {
           "commissioningId": this.commissionId,
-            "mainInputParameterListId":2,
+            "mainInputParameterListId":3,
             "actualValue":this.accessCommissionForm['txtNoVoltage'].value
         },
 
@@ -505,7 +513,7 @@ partcodeId:any;
    
   //  this.isSaveDraftClicked = true;
     if (this.isSaveDraftClicked === true) {
-      debugger
+      
       this.commissionSubmitAPI(this.commissionId, this.FillDataToSendSave())
     }
 
@@ -521,53 +529,62 @@ partcodeId:any;
   commissionSubmitAPI (commissionId,sendData)
   {
    
-    this.isLoading = true;
+    this.loading = true;
     this._Commissioning.PostCommisioningForm(commissionId, sendData).pipe(
       takeUntil(this.unsubscribe$))
       .subscribe(
-        ()=>{
-          this.isLoading = false;
+        (data)=>{
+          this.router.navigate(['/request/commissioning']);
+          this.loading = false;
         }
       );
   }
-
-  // lable siteID value cahnges logic start here
-   keyUpSiteIDSearch() {
-   let result:any
-  this.commissionForm.get('txtSiteID').valueChanges.pipe(
   
-    filter(x=> x!== undefined && x!== null && x!== '' && x!== 0),
-    // debounce input for 400 milliseconds
-    debounceTime(2000),
-    // only emit if emission is different from previous emission
-    distinctUntilChanged(),
-    
-    // switch map api call. This will cause previous api call to be ignored if it is still running when new emission comes along
-    switchMap(res => this._Commissioning.getSiteIDSearch(res)))
-  .subscribe(res => {
-   // console.log('result', res.sites.siteId);
-    result = res;
+  // lable siteID value cahnges logic start here
+   keyUpSiteIDSearch($event){
+    if($event.keyCode !== 8 && $event.keyCode !== 46 ){
+   
 
-    if(result.length === 0) {
-       this.isShowSiteID=true;
-     return;
-    }
+      let result:any
+     this.commissionForm.get('txtSiteID').valueChanges.pipe(
      
-    else
-    {
-      this.isShowSiteID=false;
-      this.setValueForSiteId(result) 
-    }
+       filter(x=> x!== undefined && x!== null && x!== '' && x!== 0),
+       // debounce input for 400 milliseconds
+       debounceTime(2000),
+       // only emit if emission is different from previous emission
+       distinctUntilChanged(),
+       
+       // switch map api call. This will cause previous api call to be ignored if it is still running when new emission comes along
+       switchMap(res => this._Commissioning.getSiteIDSearch(res)))
+     .subscribe(res => {
+      // console.log('result', res.sites.siteId);
+       result = res;
+   
+       if(result.length === 0) {
+          this.isShowSiteID=true;
+        return;
+       }
+        
+       else
+       {
+         this.isShowSiteID=false;
+         this.setValueForSiteId(result) 
+       }
+        
+      
      
    
-  
+       
+   })   
+     }
+   }
 
-    
-})   
-  }
   setValueForSiteId(result:any)
   {
-    debugger
+    this.siteidlist=[];
+    result.body.forEach(element => {
+      this.siteidlist.push(element.siteId)
+    });
    // let stateId=this.serachSate(result[0].state)
    // let countrtyId=this.serachCountry(result[0].country)
    // this.accessCommissionForm['txtClientName'].patchValue(result.sites.customerName);
@@ -620,7 +637,7 @@ partcodeId:any;
 
   keyUpActualSrSearch($event){
     if($event.keyCode !== 8 && $event.keyCode !== 46 ){
-    debugger
+    
  let accountId = parseInt(this.holdComissionDetails.accountId);
     let result:any
     
@@ -666,7 +683,6 @@ partcodeId:any;
      switchMap(res =>  this._Commissioning.getCheckProduct(res)))
    .subscribe(res => {
     // console.log('result', res.sites.siteId);
-debugger
     let productData  = res[0];
     this.accessCommissionForm['txtPSNo'].patchValue(productData.productName);
     this.partcodeId=productData.id;
@@ -702,10 +718,11 @@ debugger
      }
     
   
+
     fileList = [];
     uploadImages($event: any, type){
    
-    
+      this.fileList=[]
       if ($event.target.files.length > 0) {
         for (let i = 0; i < $event.target.files.length; i++) {
           this.fileList.push($event.target.files[i]);
@@ -726,13 +743,16 @@ debugger
           this.distributionBoxFileDownloadUrl = environment.imageApiIUrl + data.distributionBoxFileDownloadUri;
 
           this.vehicleChargingFileDownloadUrl = environment.imageApiIUrl + data.vehicleChargingFileDownloadUri;
+          this.updFileDownloadUrl = environment.imageApiIUrl + data.softwareUpdImageFileDownloadUri;
+
+          this.crFileDownloadUrl = environment.imageApiIUrl + data.commissioningReportFileDownloadUri;
 
           this.engineerSignatureFileDownloadUrl = environment.imageApiIUrl + data.engineerSignatureFileDownloadUri;
           this.customerSignatureFileDownloadUrl = environment.imageApiIUrl + data.customerSignatureFileDownloadUri;
           
           if(type==="phaseToNeurtal"){
             this.showPhaseToNeurtal = true;
-            console.log('asdas',this.phaseToNeutralFileDownloadUrl);
+           // console.log('asdas',this.phaseToNeutralFileDownloadUrl);
           }
           if(type==="neutralToEarth"){
             this.showNeutralToEarth = true;
@@ -748,6 +768,12 @@ debugger
           }
           if(type==="customerSignature"){
             this.showcustomerSignature = true;
+          }
+          if(type==="softwareUpdImage"){
+            this.showUpd = true;
+          }
+          if(type==="commissioningReport"){
+            this.showCr = true;
           }
     
   

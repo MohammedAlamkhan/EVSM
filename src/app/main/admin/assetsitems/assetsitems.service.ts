@@ -9,6 +9,9 @@ import { NotificationService as Notify } from '../../../shared/services/notifica
 })
 export class AssetsService {
   private readonly assetListUrl: string = 'asset';
+  private readonly sicUrl: string = 'asset/sic/count';
+  
+
   public selectedAsset:any;
 
 
@@ -38,4 +41,7 @@ export class AssetsService {
 
   }
 
+  public  getSICCount(): Observable<any> {
+    return this.httpClient.get<any>(environment.baseApiUrl + this.sicUrl);
+  }
 }

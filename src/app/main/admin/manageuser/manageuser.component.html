@@ -1,10 +1,11 @@
 <div class="content-wrapper container-xxl p-0">
+  <app-content-header [contentHeader]="contentHeader"></app-content-header>
   <div class="content-body">
     <!-- User List -->
     <section class="users-list-wrapper">
       <div class="card">
         <div class="row">
-          <div class="col-md-6 col-12">
+          <div class="col-md-12 col-12">
             <!-- <div class="d-flex justify-content-between align-items-center m-1">
               <label class="d-flex align-items-center"
                 >Show
@@ -18,20 +19,22 @@
               >
             </div> -->
           </div>
-          <div class="col-md-6 col-12 d-flex justify-content-start justify-content-md-end">
+          <div class="col-md-12 col-12 d-flex justify-content-start justify-content-md-end">
             <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pb-md-0">
-              <label class="d-flex align-items-center ml-1 ml-md-0"
-                >Search:<input
-                  
-                  name="searchValue"
-                  type="search"
-                  class="form-control ml-25"
-                  
-              /></label>
-              <button class="btn btn-primary ml-1" rippleEffect (click)="toggleSidebar('new-user-sidebar')">
+             
+              <button *ngIf="creds.roleGroupAndAccount.roleGroup==='Admin'" class="btn btn-primary ml-1" rippleEffect (click)="toggleSidebar('new-user-sidebar')">
                 <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i
                 ><span class="d-none d-sm-inline-block">Add New User</span>
               </button>
+              <!-- <button class="btn btn-primary ml-1" rippleEffect (click)="toggleSidebar('change-password-sidebar')">
+                <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i
+                ><span class="d-none d-sm-inline-block">Change Password</span>
+              </button>
+
+              <button *ngIf="creds.roleGroupAndAccount.roleGroup==='Admin'" class="btn btn-primary ml-1" rippleEffect (click)="toggleSidebar('reset-password-sidebar')">
+                <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i
+                ><span class="d-none d-sm-inline-block">Reset Password</span>
+              </button> -->
             </div>
           </div>
         </div>
@@ -66,34 +69,62 @@
           </tbody>
       </table> -->
 
-      <p-table [value]="users" [lazy]="true" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+      <p-table [value]="allUsers" [lazy]="true" paginatorPosition="bottom" styleClass="p-datatable-gridlines p-datatable-striped"
                                         (onLazyLoad)="loadData($event)" responsiveLayout="scroll" 
                                         dataKey="userId" [paginator]="true" [rows]="noOfRows"
                                         [totalRecords]="totalRecords">
                                         <ng-template pTemplate="header">
                                             <!-- [rowsPerPageOptions]="[5,10,15]"  data.SalesOrder[0].clients.clientName-->
                                             <tr class="bg-white">
-                                                <th scope="col"  field="userId" class="text-nowrap">Id</th>
-                                                <th scope="col"  field="fullName" class="text-nowrap">Name</th>
-                                                <th scope="col"  field="emailId" class="text-nowrap">Email Id</th>
-                                                <th scope="col"  field="mobileNo" class="text-nowrap">Mobile</th>
-                                                <th scope="col"  field="userType" class="text-nowrap">User Type</th>
-                                                <th scope="col"  field="roles.roleName" class="text-nowrap">Role</th>
-                                                <th scope="col"  field="enabled" class="text-nowrap">Status</th>
-                                                <th scope="col"  field="enabled" class="text-nowrap">Action</th>
+                                                <th  field="userId" class="text-nowrap">Sr. No.</th>
+                                                <th  field="fullName" class="text-nowrap">User Id</th>
+                                                <th  field="fullName" class="text-nowrap">Name</th>
+                                                <th  field="fullName" class="text-nowrap">Email Id</th>
+                                                <th  field="emailId" class="text-nowrap">Account</th>
+                                                <th  field="mobileNo" class="text-nowrap">Account SAP Number</th>
+                                                <th  field="userType" class="text-nowrap">Expired</th>
+                                                <th  field="userType" class="text-nowrap">Locked</th>
+                                                <th  field="userType" class="text-nowrap">Enabled</th>
+                                                <th  field="roles.roleName" class="text-nowrap">Profile</th>
+                                                <th  field="roles.roleName" class="text-nowrap">Employee Code</th>
+                                                <th  field="enabled" class="text-nowrap">Manager</th>
+                                                <th  field="enabled" class="text-nowrap">Action</th>
                                             </tr>
                                         </ng-template>
-                                        <ng-template pTemplate="body" let-users>
+                                        <ng-template pTemplate="body" let-users let-rowIndex="rowIndex">
                                            
                                             <tr>
-                                                <td>{{users.userId}}</td>
-                                                <td class="no-st-text-b">{{users.fullName}}</td>
-                                                <td class="no-st-text-b">{{users.emailId}}</td>
-                                                <td class="no-st-text-b">{{users.mobileNo}}</td>
-                                                <td class="no-st-text-b">{{users.userType}}</td>
-                                                <td class="no-st-text-b">{{users.roles.roleName}}</td>
-                                                <td class="no-st-text-b">{{users.enabled}}</td>
-                                                <td>Edit</td>
+                                                <td>{{rowIndex+1}}</td>
+                                                <td ><a (click)="passUserData(users.userId)" class="neela no-st-text-b">{{ users.userId }}</a></td>
+                        
+                                                <td >{{users.fullname}}</td>
+                                                <td >{{users.emailId}}</td>
+                                                <td >{{users.accountName}}</td>
+                                                <td >{{users.sapCode}}</td>
+                                                <td *ngIf="users.accountNonExpired == '1'" >No</td>
+                                                <td *ngIf="users.accountNonExpired != '1'" >Yes</td>
+                                                <td *ngIf="users.accountNonLocked == '1'" >No</td>
+                                                <td *ngIf="users.accountNonLocked != '1'" >Yes</td>
+                                                <td *ngIf="users.enabled == '1'" >Yes</td>
+                                                <td *ngIf="users.enabled != '1'" >No</td>
+                                                <td >{{users.profileName}}</td>
+                                                <td >{{users.employeeCode}}</td>
+                                                <td >{{users.managerFullName}}</td>
+                                                <td  class= "size-18" >
+                                                  <button type="button" class="neela btn btn-md mx-1 d-flex"
+                                                      (click)="toggleSidebar('reset-password-sidebar')" 
+                                                      > <i data-feather="edit"
+                                                          class="mr-1"></i> Reset Password</button>
+
+                                                  <button *ngIf="users.enabled == '1'" type="button" class="lal btn btn-md mx-1 d-flex"
+                                                  (click)="enableDisbaleUser(users.userId,false)" 
+                                                  > <i data-feather="lock"
+                                                      class="mr-1"></i>Disable</button>
+                                                  <button *ngIf="users.enabled != '1'" type="button" class="hara btn btn-md mx-1 d-flex"
+                                                  (click)="enableDisbaleUser(users.userId,true)" 
+                                                  > <i data-feather="unlock"
+                                                      class="mr-1"></i>Enable</button>
+                                              </td>
                                             </tr>
                                         </ng-template>
                                     </p-table>  
@@ -201,5 +232,21 @@
   >
     <app-new-user-sidebar></app-new-user-sidebar>
   </core-sidebar>
+
+  <core-sidebar
+  class="modal modal-slide-in sidebar-todo-modal fade"
+  name="change-password-sidebar"
+  overlayClass="modal-backdrop"
+>
+  <app-change-password-sidebar></app-change-password-sidebar>
+</core-sidebar>
+
+<core-sidebar
+class="modal modal-slide-in sidebar-todo-modal fade"
+name="reset-password-sidebar"
+overlayClass="modal-backdrop"
+>
+<app-reset-password-sidebar></app-reset-password-sidebar>
+</core-sidebar>
 
 </div>

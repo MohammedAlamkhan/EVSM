@@ -53,11 +53,11 @@
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Date of Assignment </span>
                                                     </td>
-                                                    <td>{{irf?.dateOfAssignment | date:'shortDate':'IST'}}</td>
+                                                    <td>{{irf?.dateOfAssignment | date:'dd-MM-yyyy' }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td><span class="text-gray">Tentative Plan Date</span></td>
-                                                    <td>{{irf?.tentativePlan | date:'shortDate':'IST'}}</td>
+                                                    <td>{{irf?.tentativePlan | date:'dd-MM-yyyy' }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td> </td>
@@ -85,7 +85,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td><span class="text-gray">PO No. & Date </span></td>
-                                                    <td>{{irf?.poNo}} {{irf?.poDate}}</td>
+                                                    <td>{{irf?.poNo}} {{irf?.poDate | date:'dd-MM-yyyy' }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td width="40%"> <span class="text-gray">Contact Person Name </span>
@@ -113,7 +113,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="row">
+                            <div class="row">
                                  
                                
                                     <div class="col-md-12 border-bottom-dc mb-1">
@@ -121,8 +121,8 @@
                                         </h5>
                                     </div>
                                  
-                            </div> -->
-                            <!-- <div class="row p-0 hd-mgr12">
+                            </div>
+                            <div class="row p-0 hd-mgr12">
                                 <div class="col-lg-6">
                                     <div class="in-table-st11ab p-0">
                                         <div class="table-responsive-sm">
@@ -130,12 +130,12 @@
                                                 
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Type of Charger </span></td>
-                                                    <td>{{irf?.createByName}}</td>
+                                                    <td>{{irf?.typeOfChargerName}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Rating of Charger </span>
                                                     </td>
-                                                    <td>{{irf?.createByName}}</td>
+                                                    <td>{{irf?.ratingOfCharger}}</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -148,16 +148,16 @@
                                                 
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Quantity </span></td>
-                                                    <td>{{irf?.createByName}}</td>
+                                                    <td>{{irf?.quantity}}</td>
                                                 </tr>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row"> -->
+                            <div class="row">
                         
-                                <!-- <div class="col-md-12 border-bottom-dc mb-1">
+                                <div class="col-md-12 border-bottom-dc mb-1">
                                     <h5 class="card-titleb blue-clr ">I & C PO Details
                                     </h5>
                                 </div>
@@ -170,11 +170,11 @@
                                                 
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">I & C PO Status </span></td>
-                                                    <td>{{irf?.createByName}}</td>
+                                                    <td>{{irf?.icPoStatus}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">I & C PO </span></td>
-                                                    <td>{{irf?.createByName}}</td>
+                                                    <td>{{irf?.icPo}}</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -187,13 +187,13 @@
                                                 
                                                 <tr>
                                                     <td width="40%"><span class="text-gray">Quantity </span></td>
-                                                    <td>I&C Price</td>
+                                                    <td>{{irf?.icPrice}}</td>
                                                 </tr>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
                             <div class="row">
                                 <div class="col-md-12 border-bottom-dc mb-1">
                                     <h5 class="card-titleb blue-clr ">Activity Type
@@ -228,12 +228,12 @@
                                                     <td  *ngIf="irf.isCommissioningRequired"><i data-feather="check"></i></td>
                                                     <td  *ngIf="!irf.isCommissioningRequired"><i data-feather="x"></i></td>
                                                 </tr>
-                                                <tr>
+                                                <!-- <tr>
                                                     <td width="60%"><span class="text-gray">Other Visit (Please Specify) </span>
                                                     </td>
                                                     <td  *ngIf="irf.isOtherRequired"><i data-feather="check"></i></td>
                                                     <td  *ngIf="!irf.isOtherRequired"><i data-feather="x"></i></td>
-                                                </tr>
+                                                </tr> -->
                                             </table>
                                         </div>
                                     </div>

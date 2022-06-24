@@ -43,21 +43,28 @@ export class CommissioningService {
     
     private notify: Notify, private _Router: Router) { }
  
-  public getCommisioning(params?: any): Observable<any> {
-    return this.httpClient.get<any>(environment.baseApiUrl + this.openCommisioningDetailsUrl, { params: params }).pipe(
-      retryWhen((err) => err.pipe(
-        scan((count) => {
-          if (count > 5) {
-            throw err;
-          }
-        })
-      )),
-    
+  public getCommisioning(qp?: any): Observable<any> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("page", qp.page);
+    queryParams = queryParams.append("size", qp.size);
+    queryParams = queryParams.append("sort", "created_date,DESC");
+
+    return this.httpClient.get<any>(environment.baseApiUrl + this.openCommisioningDetailsUrl, { params: queryParams }).pipe(
+      tap((x) => {
+        if (x != null && x !== undefined) {
+          // this.notify.show("Approved Successfully.", NotificationType.Info);
+          
+        }
+      }),
       catchError((x: HttpErrorResponse) => {
-        this.notify.show(AppConstants.ApiErrorMessage, NotificationType.Error);
-        return EMPTY;
-      }
-      )
+        if (x.status == AppConstants.HTTPSTATUS_INTERNAL_SERVER_ERROR) {
+          this.notify.show(x.error.message, NotificationType.Error)
+        }
+        else
+          this.notify.show(x.error.message, NotificationType.Error);
+          return EMPTY;
+      })
+  
     );
 
   }
@@ -67,6 +74,12 @@ export class CommissioningService {
     return this.httpClient.get<any>(environment.baseApiUrl + this.userGetAllEngineerUrl, { params: params });
 
   }
+
+
+  getHistory(id):Observable<any>
+{
+  return this.httpClient.get<any>(environment.baseApiUrl + "commissioning/approval/history/"+id);
+}
 
 
   public getCommisioningDeatil(value: string): Observable<any> {
@@ -129,29 +142,21 @@ export class CommissioningService {
   // }
 
   PostCommisioningForm(commissionId:string,params?:any): Observable<any> {
-    return this.httpClient.put<any>(`${environment.baseApiUrl + this.featchCommisioningDetailsUrl + commissionId}`, params,{ observe: 'response' }) 
-  
-    .pipe(
-      shareReplay(),
+    return this.httpClient.put<any>(`${environment.baseApiUrl + this.featchCommisioningDetailsUrl + commissionId}`, params,{ observe: 'response' }).pipe(
       tap((x) => {
-     
-        if (x != null && x !== undefined && x.status === 200) {
-          this.notify.show("Data submitted successfully", NotificationType.Info);
-          this._Router.navigate(['/request/commissioning']);
-        }
-        else
-        {
-         
-          this.notify.show(x.statusText, NotificationType.Error);
+        if (x != null && x !== undefined) {
+          this.notify.show("Commisioning Updated Successfully.", NotificationType.Info);
+          
         }
       }),
-      
       catchError((x: HttpErrorResponse) => {
-    
+        if (x.status == AppConstants.HTTPSTATUS_INTERNAL_SERVER_ERROR) {
+          this.notify.show(x.error.message, NotificationType.Error)
+        }
+        else
           this.notify.show(x.error.message, NotificationType.Error);
           return EMPTY;
       })
-
     );
   }
   //v1 public putApprovalModerate(commissionId,Approvalremarks,approvalStatus,RequestType): Observable<any> {
@@ -160,7 +165,7 @@ export class CommissioningService {
   //      .pipe(
   //       shareReplay(),
   //       tap((x) => {
-  //         debugger;
+  //         
   //         if (x ??  x.statusCode === "600") {
   //           this.notify.show(x.error.message, NotificationType.Info);
   //           this._Router.navigate(['/approval/commissioning']);
@@ -243,10 +248,29 @@ export class CommissioningService {
     // let head = new HttpHeaders().append('Content-Type', "multipart/form-data");
   
     // 'Content-Type':  'Multipart'
-    return this.httpClient.post<any>(environment.baseApiUrl + this.featCommissionImagesUrl + "?type=" + params.file + "&commissioningId=" + params.commissioningId, file);
+    this.notify.show("Uploading...", NotificationType.Info);
+    return this.httpClient.post<any>(environment.baseApiUrl + this.featCommissionImagesUrl + "?type=" + params.file + "&commissioningId=" + params.commissioningId, file).pipe(
+      tap((x) => {
+        if (x != null && x !== undefined) {
+          this.notify.show(params.file+"Uploaded Successfully.", NotificationType.Info);
+          
+        }
+      }),
+      catchError((x: HttpErrorResponse) => {
+        if (x.status == AppConstants.HTTPSTATUS_INTERNAL_SERVER_ERROR) {
+          this.notify.show(x.error.message, NotificationType.Error)
+        }
+        else
+          this.notify.show(x.error.message, NotificationType.Error);
+          return EMPTY;
+      })
+
+    );
+
     
 
   }
+
 
   
 getCircleMap():Observable<any>

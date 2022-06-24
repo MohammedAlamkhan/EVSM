@@ -12,101 +12,105 @@
         </div>
         <div class="modal-body flex-grow-1">
           <div class="form-group">
-            <label class="form-label" for="fullName">Full Name</label>
-            <input type="text" formControlName="fullName" [class.is-invalid]="userForm.get('fullName').errors && (userForm.get('fullName').touched || userForm.get('fullName').dirty)" class="form-control dt-full-name" id="basic-icon-default-fullname"
-              placeholder="Enter Your Full Name" name="user-fullname" 
+            <label class="form-label" for="account">Account</label>
+            <input list="accountlist" (change)=" getAccountId($event)" (keydown)="getAccounts($event)" type="text" formControlName="account" [class.is-invalid]="userForm.get('account').errors && (userForm.get('account').touched || userForm.get('account').dirty)" class="form-control dt-full-name" id="basic-icon-default-account"
+              placeholder="Search" name="user-account" 
                />
-            <span *ngIf="userForm.get('fullName').errors && (userForm.get('fullName').touched || userForm.get('fullName').dirty)" class="invalid-form">
+            <datalist id="accountlist">
+                <option *ngFor="let a of accounts"  [value]="a.name" >{{a.name}}</option>
+            </datalist> 
+            <span *ngIf="userForm.get('account').errors && (userForm.get('account').touched || userForm.get('account').dirty)" class="invalid-form">
+              <small class="form-text text-danger">This field is required !</small>
+            </span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="contact">Contact</label>
+            <input list="contactlist"  (change)=" getContactId($event)" (keydown)="getContacts($event)" type="text" formControlName="contact" [class.is-invalid]="userForm.get('contact').errors && (userForm.get('contact').touched || userForm.get('contact').dirty)" class="form-control dt-full-name" id="basic-icon-default-contact"
+              placeholder="Search" name="user-contact" 
+               />
+            <datalist id="contactlist">
+                <option *ngFor="let c of contacts" [value]="c.fullName" >{{c.fullName}}</option>
+            </datalist> 
+            <span *ngIf="userForm.get('contact').errors && (userForm.get('contact').touched || userForm.get('contact').dirty)" class="invalid-form">
+              <small class="form-text text-danger">This field is required !</small>
+            </span>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="role">Role</label>
+            <input list="rolelist"  (keydown)="getRoles($event)" type="text" formControlName="role" [class.is-invalid]="userForm.get('role').errors && (userForm.get('role').touched || userForm.get('role').dirty)" class="form-control dt-full-name" id="basic-icon-default-role"
+              placeholder="Search" name="user-role" 
+               />
+            <datalist id="rolelist">
+                <option *ngFor="let r of roles" [value]="r.role" >{{r.role}}</option>
+            </datalist> 
+            <span *ngIf="userForm.get('role').errors && (userForm.get('role').touched || userForm.get('role').dirty)" class="invalid-form">
+              <small class="form-text text-danger">This field is required !</small>
+            </span>
+          </div>
+
+
+          <div class="form-group">
+            <label class="form-label" for="manager">Manager</label>
+            <input list="managerlist"  (change)=" getManagerId($event)" (keydown)="getManagers($event)" type="text" formControlName="manager" [class.is-invalid]="userForm.get('manager').errors && (userForm.get('manager').touched || userForm.get('manager').dirty)" class="form-control dt-full-name" id="basic-icon-default-manager"
+              placeholder="Search" name="user-manager" 
+               />
+            <datalist id="managerlist">
+                <option *ngFor="let m of managers" [value]="m.name" >{{m.name}}</option>
+            </datalist> 
+            <span *ngIf="userForm.get('manager').errors && (userForm.get('manager').touched || userForm.get('manager').dirty)" class="invalid-form">
               <small class="form-text text-danger">This field is required !</small>
             </span>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="userRoleId">User Role</label>
-            <select formControlName="userRoleId" [class.is-invalid]="userForm.get('userRoleId').errors && (userForm.get('userRoleId').touched || userForm.get('userRoleId').dirty)" id="user-role" class="form-control">
-
-              <option value="">Select</option>
-              <option value="1">Admin</option>
-              <option value="2">Engineer</option>
+            <label class="form-label" for="profile">Profile</label>
+            <input list="profilelist"  (change)=" getProfileId($event)" (keydown)="getProfiles($event)" type="text" formControlName="profile" [class.is-invalid]="userForm.get('profile').errors && (userForm.get('profile').touched || userForm.get('profile').dirty)" class="form-control dt-full-name" id="basic-icon-default-profile"
+              placeholder="Search" name="user-profile" 
+               />
+            <datalist id="profilelist">
+                <option *ngFor="let p of profiles" [value]="p.name" >{{p.name}}</option>
+            </datalist> 
+            <span *ngIf="userForm.get('profile').errors && (userForm.get('profile').touched || userForm.get('profile').dirty)" class="invalid-form">
+              <small class="form-text text-danger">This field is required !</small>
+            </span>
+          </div>
+        
+          <div class="form-group">
+            <label class="form-label" for="circleId">Circle</label>
+            <select formControlName="circleId" [class.is-invalid]="userForm.get('circleId').errors && (userForm.get('circleId').touched || userForm.get('circleId').dirty)" id="user-role" class="form-control">
+              <option value="">Select Circle</option>
+              <option *ngFor="let c of circles" [value]="c.id" >{{c.name}}</option>
             </select>
-            <span *ngIf="userForm.get('userRoleId').errors && (userForm.get('userRoleId').touched || userForm.get('userRoleId').dirty)" class="invalid-form">
+            <span *ngIf="userForm.get('circleId').errors && (userForm.get('circleId').touched || userForm.get('circleId').dirty)" class="invalid-form">
               <small class="form-text text-danger">This field is required !</small>
             </span>
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="email">Email</label>
-            <input type="text" formControlName="email" [class.is-invalid]="userForm.get('email').errors && (userForm.get('email').touched || userForm.get('email').dirty)" [class.is-invalid]="userForm.get('email').errors && (userForm.get('email').touched || userForm.get('email').dirty)" id="basic-icon-default-email" class="form-control dt-email"
-              placeholder="admin@example.com" 
-               name="user-email" 
-               />
-               
-               <span *ngIf="userForm.get('email').errors && (userForm.get('email').touched || userForm.get('email').dirty)" class="invalid-form">
-                
-                <span *ngIf="userForm.get('email').errors?.required" class="invalid-form">
-                  <small class="form-text text-danger">This field is required !</small>
-                </span>
-
-                <span *ngIf="userForm.get('email').errors?.email" class="invalid-form">
-                  <small class="form-text text-danger">Email is invalid !</small>
-                </span>
-                </span>
-             
-          </div>
-
+         
           <div class="form-group">
             <label class="form-label" for="password">Password </label>
-            <input type="password" formControlName="password" [class.is-invalid]="userForm.get('password').errors && (userForm.get('password').touched || userForm.get('password').dirty)" id="basic-icon-default-password" class="form-control dt-password"
+            <input type="password" formControlName="password" [class.is-invalid]="userForm.get('password').errors && (userForm.get('password').touched || userForm.get('password').dirty)" id="basic-icon-default-password2" class="form-control dt-password"
               placeholder="*********"  name="user-password"/>
               <span *ngIf="userForm.get('password').errors && (userForm.get('password').touched || userForm.get('password').dirty)" class="invalid-form">
                 <small class="form-text text-danger">This field is required !</small>
               </span>
 
           </div>
-
           <div class="form-group">
-            <label class="form-label" for="mobileNo">Mobile Number</label>
-            <input type="number" formControlName="mobileNo" [class.is-invalid]="userForm.get('mobileNo').errors && (userForm.get('mobileNo').touched || userForm.get('mobileNo').dirty)" id="basic-icon-default-mobile" class="form-control dt-mobile" placeholder="9999100200"
-               name="user-mobile"
-               maxlength="10" />
-               <span *ngIf="userForm.get('mobileNo').errors && (userForm.get('mobileNo').touched || userForm.get('mobileNo').dirty)" class="invalid-form">
+            <label class="form-label" for="repassword">Re-Enter Password </label>
+            <input type="password" formControlName="repassword" [class.is-invalid]="userForm.get('repassword').errors && (userForm.get('repassword').touched || userForm.get('repassword').dirty)" id="basic-icon-default-repassword2" class="form-control dt-repassword"
+              placeholder="*********"  name="user-repassword"/>
+              <span *ngIf="userForm.get('repassword').errors && (userForm.get('repassword').touched || userForm.get('repassword').dirty)" class="invalid-form">
                 <small class="form-text text-danger">This field is required !</small>
               </span>
-
+        
           </div>
-          <div class="form-group mb-2">
-            <label class="form-label" for="userTypeId">Select User Type</label>
-            <select formControlName="userTypeId" id="user-plan" [class.is-invalid]="userForm.get('userTypeId').errors && (userForm.get('userTypeId').touched || userForm.get('userTypeId').dirty)" class="form-control">
-              <option value="">Select</option>
-              <option value="E">Exicom User</option>
-              <option value="O">Other User</option>
-            </select>
-            <span *ngIf="userForm.get('userTypeId').errors && (userForm.get('userTypeId').touched || userForm.get('userTypeId').dirty)" class="invalid-form">
-              <small class="form-text text-danger">This field is required !</small>
-            </span>
-           </div>
 
-          <!-- <div class=" mb-2 d-flex">
-            <div class="custom-radio mr-2">
+        
+         
 
-              <label class="custom-control-label" >
-                <input type="radio" value="1" formControlName="isActive" >
-                  <span>Active</span>
-              </label>&nbsp; &nbsp; &nbsp;
-
-              <label class="custom-control-label">
-                <input type="radio" value="0" formControlName="isActive" >
-                  <span>InActive</span>
-              </label>
-              <input type="radio"  value="1"  class="custom-control-input" />
-              <label class="custom-control-label" >Active</label> 
-            </div>
-            
-          </div> -->
-          <div class=" mb-2 d-flex">
-            <input type="checkbox" formControlName="isActive" [class.is-invalid]="userForm.get('isActive').errors && (userForm.get('isActive').touched || userForm.get('isActive').dirty)" name="myCheckbox">
-            <label class="form-label" for="isActive">&nbsp; Is Active</label>
-          </div>
+         
 
           <button type="submit" [disabled]="userForm.invalid" class="btn btn-primary mr-1" rippleEffect>Submit</button>
           <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar('new-user-sidebar')"

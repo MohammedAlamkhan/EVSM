@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Assest } from 'app/Models/Sales';
-import { LazyLoadEvent } from '../../../../Models/lazyloadevent'
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommissioningService } from '../../approval/commissioning/commissioning.service';
-
+import { IrfService } from '../../irf/irf.service';
 
 @Component({
   selector: 'app-commissioning',
@@ -14,13 +10,19 @@ import { CommissioningService } from '../../approval/commissioning/commissioning
 })
 export class CommissioningComponent implements OnInit {
 public contentHeader :object
-assests: any[];
-noOfRows: number = 5;
+assests: any;
+noOfRows: number = 20;
 
 totalRecords: number;
 loading: boolean = false;
-  constructor(private _Commissioning:CommissioningService,
-    private route: ActivatedRoute) { }
+cols: any[];
+irf: any;
+commissions:any;
+first: any;
+  constructor(
+    private _Commissioning:CommissioningService,private router: Router,
+    private route: ActivatedRoute,private irfService: IrfService, 
+ ) { }
 
   ngOnInit(): void {
     this.contentHeader = {
@@ -47,23 +49,63 @@ loading: boolean = false;
       }
     };
     }
-    loadData($event) {
-      debugger
-      const req={
-        "page":$event.first/this.noOfRows,
-        "size":$event.rows
-      }
-      this.loading = true;
-            this._Commissioning.getCommisioning(req).subscribe(
-              (data) => {
-               // console.log(data);
-              
-                this.assests = data.content;
-             //   console.log('zdzsdsad', this.assests);
-                this.totalRecords = data.totalRecords;
-                this.loading = false;
-              }
-            )
+
+    
+//     loadData($event) {
+//       this.first = $event.first;
+//       const req={
+//         "page":$event.first/this.noOfRows,
+//         "size":$event.rows
+//       }
+//       this.loading = true;
+//             this._Commissioning.getCommisioning(req).subscribe(
+//               (data) => {
+//                // console.log(data);
+               
+//                 this.assests = data.content;
+//              //   console.log('zdzsdsad', this.assests);
+//                 this.totalRecords = data.totalRecords;
+//                 this.loading = false;
+//               }
+//             )
+// }
+
+loadData($event) {
+  this.first = $event.first;
+  const req={
+    "page":$event.first/this.noOfRows,
+    "size":$event.rows
+  }
+  this.loading = true;
+  this.assests =   this._Commissioning.getCommisioning(req).subscribe(
+    (data) => {
+      this.assests = data.content;
+      this.totalRecords = data.totalElements;
+      this.loading = false;
+    }
+  )
 }
+
+
+passIrfData(index){
+  
+  this.irfService.irfId = this.assests[index-this.first].irfId;
+  this.irf =   this.irfService.getIrfInformationById().subscribe(
+    (data) => {
+      this.irfService.selectedIrf = data;
+      this.loading = true;
+      this.go_next('\irf-details');
+    }
+  )
+}
+
+go_next(route){
+  setTimeout(() => {
+      this.loading = false;
+      this.router.navigate([route])
+    }
+    , 100);
+}
+
 }
 

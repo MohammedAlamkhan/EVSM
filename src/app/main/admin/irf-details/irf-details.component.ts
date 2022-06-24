@@ -36,30 +36,28 @@ public contentHeader : object
       ]
       }
     };
-
     this.irf = this.irfService.selectedIrf;
-    
     this.irfworklistMap={
-      "1":"Civil Plinth/Stand",
-      "2":"Commissioning",
-      "3":"Earthing Pit Material",
-      "4":"Electric Vehicle for Testing",
-      "5":"Fork Lift/Hydra Crane for Charger Mounting",
-      "6":"Installation",
-      "7":"Installation-DB Box",
-      "8":"Installation-Earthing Pit",
-      "9":"Installation-Energy Meter",
-      "10":"Installation-MCB/MCCB",
-      "11":"Installation-Meter Box",
-      "12":"Laying/Fixing-Earth Cable",
-      "13":"Laying/Fixing-Input Cable",
-      "14":"Site Survey",
-      "15":"Supply of DB Box",
-      "16":"Supply of Earth Cable",
-      "17":"Supply of Energy Meter",
-      "18":"Supply of Input Cable",
-      "19":"Supply of IP/MCB/MCCB",
-      "20":"Supply of Meter Box"
+      "1":"Site Survey",
+      "2":"Installation",
+      "3":"Commissioning",
+      "4":"Civil Plinth/Stand",
+      "5":"Supply of Input Cable",
+      "6":"Supply of DB Box",
+      "7":"Supply of IP/MCB/MCCB",
+      "8":"Supply of Energy Meter",
+      "9":"Supply of Meter Box",
+      "10":"Supply of Earth Cable",
+      "11":"Earthing Pit Material",
+      "12":"Laying/Fixing-Input Cable",
+      "13":"Installation-DB Box",
+      "14":"Installation-MCB/MCCB",
+      "15":"Fork Lift/Hydra Crane for Charger Mounting",
+      "16":"Installation-Earthing Pit",
+      "17":"Installation-Energy Meter",
+      "18":"Installation-Meter Box",
+      "19":"Laying/Fixing-Earth Cable",
+      "20":"Electric Vehicle for Testing"
     }
        
   

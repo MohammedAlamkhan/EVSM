@@ -21,6 +21,9 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
   circleId: any;
   requestRaisedByIdMap: any;
   hideAll= false;
+  installCommissioning: any;
+  installActivityCount: any;
+  commisoningActivityCount: any;
   constructor(private fb: FormBuilder,
     private assetsService: AssetsService,
     private sales: SalesService,
@@ -111,14 +114,17 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
     console.log(this.holdAssetDetails);
     this.accessIrfForm['dateOfAssignment'].patchValue(new Date ());
     this.accessIrfForm['tentativePlanDate'].patchValue(new Date ());
-    this.accessIrfForm['salesOrderNo'].patchValue(this.holdAssetDetails.manualId);
+    this.accessIrfForm['salesOrderNo'].patchValue(this.holdAssetDetails.salesOrderNo);
     this.accessIrfForm['ownerName'].patchValue(this.credentials.ownerName);
     this.accessIrfForm['AccountName'].patchValue(this.holdAssetDetails.accountName);
     this.accessIrfForm['address'].patchValue(this.holdAssetDetails.address);
-    this.accessIrfForm['pONoAndDate'].patchValue(this.holdAssetDetails.purchaseOrderNumber + ' ' +  this.formatDate(this.holdAssetDetails.purchaseOrderDate));
     this.accessIrfForm['contactPersonName'].patchValue(this.holdAssetDetails.customerName);
     this.accessIrfForm['contactPersonPhone'].patchValue(this.holdAssetDetails.customerPhone);
     this.accessIrfForm['contactPersonEmail'].patchValue(this.holdAssetDetails.customerEmail);
+    if(this.holdAssetDetails.purchaseOrderNumber && this.holdAssetDetails.purchaseOrderDate){
+      this.accessIrfForm['pONoAndDate'].patchValue(this.holdAssetDetails.purchaseOrderNumber + ' ' +  this.formatDate(this.holdAssetDetails.purchaseOrderDate));
+    }
+    
     // this.accessIrfForm['contactNumber'].patchValue("");
     // this.accessIrfForm['emailId'].patchValue("");
 
@@ -143,13 +149,13 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
     const yourWorkActivities =  this.accessTrFormArray.value.map(x=>{
       const container = {};
       container["irfWorkListId"]=+x.workId,
-      container["isExicomScope"]=x.exicomScope == true ? true:false,
-      container["isCustomerScope"]=x.customerScope == true ? true:false,
+      container["exicomScope"]=x.exicomScope == true ? true:false,
+      container["customerScope"]=x.customerScope == true ? true:false,
       container["makeModelDescription"]=x.specification == undefined || null ? '':x.specification,
       container["maxNoOfVisit"]=x.maxNoOfVisit == undefined || null ? '':x.maxNoOfVisit,
       container["extraVisitCharge"]=x.extraCharge == undefined || null ? '':x.extraCharge,
       container["salesOrderId"]=x.id,
-      container["requestRaisedById"]=x.requestRaisedById
+      // container["requestRaisedById"]=x.requestRaisedById
       container["contactPersonName"]=x.contactPersonName
       container["contactPersonPhone"]=x.contactPersonPhone
       container["contactPersonEmail"]=x.contactPersonEmail
@@ -171,7 +177,7 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
       installationRequired:  this.accessIrfForm['activityTypeInstallation'].value == true ? true:false,
       commissioningRequired: this.accessIrfForm['activityTypeCommisioning'].value == true ? true:false,
       salesOrderId: this.holdAssetDetails.salesOrderId,
-      requestRaisedById:  (<HTMLInputElement>document.getElementById("oid")).value, 
+      // requestRaisedById:  (<HTMLInputElement>document.getElementById("oid")).value, 
       circleId: (<HTMLInputElement>document.getElementById("cid")).value, 
       typeOfChargerId: (<HTMLInputElement>document.getElementById("typeOfCharger")).value, 
       ratingOfCharger: (<HTMLInputElement>document.getElementById("ratingOfCharger")).value, 
@@ -184,7 +190,10 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
       contactPersonEmail: (<HTMLInputElement>document.getElementById("contactPersonEmailIP")).value, 
       irfWorkList: yourWorkActivities
     }
-      
+    if(!this.accessIrfForm['activityTypeInstallation'].value && !this.accessIrfForm['activityTypeCommisioning'].value){
+      this.notify.show("Activity Type is mandatory.", NotificationType.Info);     
+      return {}  
+    } 
       return requestBodyToSend
   }
 
@@ -317,15 +326,39 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
   }
 
   submit() {
+    this.validateTrForm();
     
+    if (this.accessTrFormArray.controls.length === 1 && this.commisoningActivityCount<1 ) {
+      this.notify.show("Please Select Commissioning Activity Type", NotificationType.Info);     
+      return {}  
+    }
+    if (this.accessTrFormArray.controls.length === 8 && this.installActivityCount<1) {
+      this.notify.show("Please Select Installation Activity Type", NotificationType.Info);     
+      return {}  
+    }
+    if (this.accessTrFormArray.controls.length === 9 && this.installCommissioning<2) {
+      this.notify.show("Please select Installation and Commissioning Activity Type", NotificationType.Info);     
+      return {}  
+    }
+    if (this.accessTrFormArray.controls.length === 9 && !(this.accessTrFormArray.controls[8].value.exicomScope ||  this.accessTrFormArray.controls[8].value.customerScope)) {
+      this.notify.show("Please select Commissioning Activity Type", NotificationType.Info);     
+      return {}  
+    }
     this.admin.postSingleIrf(this.createDataToSend()).pipe(
       takeUntil(this.unsubscribe$)
-    ).subscribe();
-   
-    
-   
-    console.log(this.irfCreationForm);
+    ).subscribe(
+      (data) => {
+        this.go_next('\irf');
+      }
+    );
   }
+
+  go_next(route){
+    setTimeout(() => {
+        this.router.navigate([route])
+      }
+      , 1000);
+}
 
   get accessIrfForm() {
     return this.irfCreationForm.controls
@@ -345,6 +378,45 @@ export class EditAssetIrfComponent implements OnInit, OnDestroy {
 
   getWorkActivityControlsFromAPI() {
 
+  }
+
+
+
+  validateTrForm(){
+    this.installActivityCount = 0;
+    this.commisoningActivityCount = 0;
+    this.installCommissioning =0;
+    for (let i = 0; i < this.accessTrFormArray.controls.length; i++) {
+      if (this.accessTrFormArray.controls.length === 20){      
+      }
+      if (this.accessTrFormArray.controls.length === 8) { //installation checked
+        if(
+          this.accessTrFormArray.controls[i].get('customerScope').value ||
+          this.accessTrFormArray.controls[i].get('exicomScope').value
+        ){
+          this.installActivityCount =   this.installActivityCount + 1;
+        }
+     
+      }
+      if (this.accessTrFormArray.controls.length === 9){ //installation and commissioning checked
+        if(
+          this.accessTrFormArray.controls[i].get('customerScope').value ||
+          this.accessTrFormArray.controls[i].get('exicomScope').value
+        ){
+          this.installCommissioning =   this.installCommissioning + 1;
+        }
+      }
+      if (this.accessTrFormArray.controls.length === 1) // commisioning  is checked
+      {
+        if(
+          this.accessTrFormArray.controls[i].get('customerScope').value ||
+          this.accessTrFormArray.controls[i].get('exicomScope').value
+        ){
+          this.commisoningActivityCount =   this.commisoningActivityCount + 1;
+        }
+     
+    }
+  }
   }
 
   setLabelsDynamically() {

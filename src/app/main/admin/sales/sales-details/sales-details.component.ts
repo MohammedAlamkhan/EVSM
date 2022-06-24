@@ -4,8 +4,9 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { SalesService } from '../sales.service'
 import { LazyLoadEvent } from '../../../../Models/lazyloadevent'
 import { Assest } from '../../../../Models/Sales';
+import { AssetsService } from './../../assetsitems/assetsitems.service'
 import { ActivatedRoute } from '@angular/router';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sales-details',
@@ -32,7 +33,7 @@ export class SalesDetailsComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   salesOrderNo: string
   title: string = 'Sales Details(';
-  constructor(private salesService: SalesService,
+  constructor(private salesService: SalesService,private assetsService: AssetsService , private router: Router,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -44,7 +45,7 @@ export class SalesDetailsComponent implements OnInit, OnDestroy {
       );
     // content header
     this.contentHeader = {
-      headerTitle: this.salesOrderNo,
+      headerTitle: "Sales Order",
       actionButton: true,
       breadcrumb: {
         type: '',
@@ -61,12 +62,32 @@ export class SalesDetailsComponent implements OnInit, OnDestroy {
 
   }
 
+  passAssetData(id){
+    this.assetsService.getSingleAssetsInformation(id).subscribe(
+      (data) => {
+        this.assetsService.selectedAsset = data;
+        this.go_next('\comp-assets');
+      }
+    )
+   
+  }
+
+
+  go_next(route){
+    setTimeout(() => {
+        this.loading = false;
+        this.router.navigate([route])
+      }
+      , 1000);
+}
+
 
 
 
 
   loadDispatchData($event){
     this.salesOrder=this.salesService.selectedSalesOrder;
+    this.salesOrderNo = this.salesOrder.salesOrderNo;
     const req={
       "page":$event.first/this.noOfRows,
       "size":$event.rows

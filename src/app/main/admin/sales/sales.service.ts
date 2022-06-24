@@ -55,23 +55,23 @@ export class SalesService {
 
   getSalesDetails(soNumber: string): Observable<any> {
     return this.httpClient.get<Observable<any>>(environment.baseApiUrl + this.salesDetailsUrl + soNumber)
-      .pipe(
-        retryWhen((err) => err.pipe(
-          scan((count) => {
-            if (count > 5) {
-              throw err;
-            }
-          })
-        )),
-        tap((x) => {
-          this.salesInformation$.next(x);
-        }),
-        catchError((x: HttpErrorResponse) => {
+    .pipe(
+      tap((x) => {
+        if (x != null && x !== undefined) {
+          // this.notify.show("Approved Successfully.", NotificationType.Info);
+          
+        }
+      }),
+      catchError((x: HttpErrorResponse) => {
+        if (x.status == AppConstants.HTTPSTATUS_INTERNAL_SERVER_ERROR) {
+          this.notify.show(x.error.message, NotificationType.Error)
+        }
+        else
           this.notify.show(x.error.message, NotificationType.Error);
           return EMPTY;
-        }
-        )
-      )
+      })
+  
+    );
   }
 
   public getSalesInformation(params?: any): Observable<SalesObject> {

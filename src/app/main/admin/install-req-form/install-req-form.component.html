@@ -1,6 +1,9 @@
 <div class="content-wrapper">
     <app-content-header [contentHeader]="contentHeader"></app-content-header>
     <div class="content-body">
+        <div *ngIf="loading">
+            <app-spinner></app-spinner>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-primary">
@@ -124,8 +127,11 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group">
                                         <label for="siteId">Site ID</label>
-                                        <input (keydown)="getSiteData($event)" formControlName="siteId" type="fdf" class="form-control form-control-sm"
+                                        <input list="sitelist" (keydown)="getSiteData($event)" formControlName="siteId" type="fdf" class="form-control form-control-sm"
                                             placeholder="Please Enter">
+                                        <datalist id="sitelist">
+                                            <option *ngFor="let c of siteidlist" [value]="c" >{{c}}</option>
+                                        </datalist>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -249,8 +255,8 @@
                                         <select formControlName="installationTypeId" class="form-control form-control-sm" id="basicSelect" type="text"
                                             (change)="onChange($event); toggleTable()" >
                                             <option selected>Select Menu</option>
-                                            <option value="2"> DC Charger</option>
-                                            <option value="1"> AC001</option>
+                                            <option value="1"> DC Charger</option>
+                                            <option value="2"> AC001</option>
                                             <option value="3"> Type 2 EV Charger</option>
                                         </select>
                                     </div>
@@ -258,12 +264,20 @@
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group">
+                                        <label for="password">Work Completion Status
+                                        </label>
+                                        <input formControlName="workCompletionStatus" type="fdf" class="form-control form-control-sm"
+                                            placeholder="Please Enter">
+                                    </div>
+                                </div>
+                                <!-- <div class="col-lg-3 col-md-6">
+                                    <div class="form-group">
                                         <label for="password">Installation Status
                                         </label>
                                         <input formControlName="installationStatus" type="fdf" class="form-control form-control-sm"
                                             placeholder="Please Enter">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group">
                                         <label for="name">Installed By (vendor Name)
@@ -281,7 +295,7 @@
                                             Cable Size
 
                                         </label>
-                                        <input formControlName="cableSize" type="name" class="form-control form-control-sm"
+                                        <input formControlName="cableSize" type="number" class="form-control form-control-sm"
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
@@ -289,18 +303,11 @@
                                     <div class="form-group">
                                         <label for="password">Cable Length Used (in meters)
                                         </label>
-                                        <input formControlName="cableLength" type="fdf" class="form-control form-control-sm"
+                                        <input formControlName="cableLength" type="number" class="form-control form-control-sm"
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label for="password">Work Completion Status
-                                        </label>
-                                        <input formControlName="workCompletionStatus" type="fdf" class="form-control form-control-sm"
-                                            placeholder="Please Enter">
-                                    </div>
-                                </div>
+                               
                               
                             </div>
 
@@ -312,14 +319,15 @@
                                                 <tr>
                                                     <th width="40%" scope="col" class="text-nowrap">Description </th>
                                                     <th scope="col" class="text-nowrap"> Responsibility </th>
-                                                    <th  scope="col" class="text-nowrap">
+                                                    <th *ngIf="selectedType === '1'" scope="col" class="text-nowrap">
                                                         DC Charger </th>
-                                                    <th scope="col" class="text-nowrap">
+                                                    <th *ngIf="selectedType === '2'" scope="col" class="text-nowrap">
                                                         AC001 Charger </th>
-                                                    <th scope="col"
+                                                    <th *ngIf="selectedType === '3'" scope="col"
                                                         class="text-nowrap"> Type 2 EV Charger </th>
                                                     <th scope="col" class="text-nowrap"> Remarks </th>
                                                 </tr>
+
                                             </thead>
                                             <tbody formArrayName="installationWorkRequestList">
                                                 <tr *ngFor="let itemrow of accessInstallationWorkRequestListArray.controls; let i=index;"
@@ -327,18 +335,18 @@
 
                                                 <th class="dark-heading">{{accessInstallationWorkRequestListArray.controls[i].get('description')?.value}}</th>
                                                 <td> <input formControlName="responsibility" type="text" class="form-control form-control-sm"></td>
-                                                <td *ngIf="selectedType === '2'"> <input formControlName="DC001Charger" type="text"
+                                                <td *ngIf="selectedType === '1'"> <input formControlName="dc001Charger" type="text"
                                                         class="form-control form-control-sm"></td>
-                                                <td *ngIf="selectedType !== '2'"> <input [attr.disabled]="true" formControlName="DC001Charger" type="text"
+                                                <!-- <td *ngIf="selectedType !== '1'"> <input [attr.disabled]="true" formControlName="dc001Charger" type="text"
+                                                        class="form-control form-control-sm"></td> -->
+                                                <td *ngIf="selectedType === '2'"> <input formControlName="ac001Charger" type="text"
                                                         class="form-control form-control-sm"></td>
-                                                <td *ngIf="selectedType === '1'"> <input formControlName="AC001Charger" type="text"
+                                                <!-- <td *ngIf="selectedType !== '2'"> <input [attr.disabled]="true" formControlName="ac001Charger" type="text"
+                                                        class="form-control form-control-sm"></td> -->
+                                                <td *ngIf="selectedType === '3'"> <input formControlName="type2evCharger" type="text"
                                                         class="form-control form-control-sm"></td>
-                                                <td *ngIf="selectedType !== '1'"> <input [attr.disabled]="true" formControlName="AC001Charger" type="text"
-                                                        class="form-control form-control-sm"></td>
-                                                <td *ngIf="selectedType === '3'"> <input formControlName="type2EvCharger" type="text"
-                                                        class="form-control form-control-sm"></td>
-                                                <td *ngIf="selectedType !== '3'"> <input [attr.disabled]="true" formControlName="type2EvCharger" type="text"
-                                                        class="form-control form-control-sm"></td>
+                                                <!-- <td *ngIf="selectedType !== '3'"> <input [attr.disabled]="true" formControlName="type2evCharger" type="text"
+                                                        class="form-control form-control-sm"></td> -->
                                                 <td> <input formControlName="remark" type="text" class="form-control form-control-sm"></td>
                                             </tr>
                                       
@@ -671,16 +679,8 @@
                                             placeholder="Please Enter">
                                     </div>
                                 </div>
-                                <div class="col-lg-3 ">
-                                    <div class="form-group">
-                                        <label for="password">Employee Code
-
-                                        </label>
-                                        <input formControlName="employeeCode" type="fdf" class="form-control form-control-sm"
-                                            placeholder="Please Enter">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
+                               
+                                <div class="col-lg-3">
                                     <label for="exampleInputFile">Signature
                                     </label>
                                     <div *ngIf="showengineerSignature">
@@ -716,7 +716,15 @@
                                         </div>
                                     </fieldset> -->
                                 </div>
+                                <div class="col-lg-3 ">
+                                    <div class="form-group">
+                                        <label for="password">Employee Code
 
+                                        </label>
+                                        <input formControlName="employeeCode" type="fdf" class="form-control form-control-sm"
+                                            placeholder="Please Enter">
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-3  ">

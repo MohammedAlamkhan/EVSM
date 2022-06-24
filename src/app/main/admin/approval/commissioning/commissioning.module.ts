@@ -18,17 +18,17 @@ const routes: Routes = [
     data: { animation: 'commissioning' }
   },
 
-  {
-    path: 'commission/commission-details/:commissionId',
-    component: CommissionDetailsComponent,
+  // {
+  //   path: 'commission/commission-details/:commissionId',
+  //   component: CommissionDetailsComponent,
     
-  },
+  // },
 
-  {
-    path: 'commission-details/commission-form/:commissionId',
-    component: CommissionFormComponent,
+  // {
+  //   path: 'commission-details/commission-form/:commissionId',
+  //   component: CommissionFormComponent,
     
-  },
+  // },
 ];
 @NgModule({
   declarations: [CommissioningComponent],

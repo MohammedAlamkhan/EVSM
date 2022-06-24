@@ -13,7 +13,7 @@ import { HorizontalLayoutComponent } from 'app/layout/horizontal/horizontal-layo
 
 @NgModule({
   declarations: [HorizontalLayoutComponent],
-  imports: [RouterModule, CoreCommonModule, CoreSidebarModule, NavbarModule, ContentModule, MenuModule, FooterModule],
+  imports: [RouterModule, CoreCommonModule, NavbarModule, ContentModule, MenuModule, FooterModule],
   exports: [HorizontalLayoutComponent]
 })
 export class HorizontalLayoutModule {}

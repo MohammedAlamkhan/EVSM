@@ -10,12 +10,14 @@ import { Router } from '@angular/router';
 import { ServicesService as Admin } from '../../admin/services.service';
 import { InstallationService } from '../../admin/request/installation/installation.service';
 import { environment } from 'environments/environment';
+import { DatePipe } from '@angular/common';
 const URL = 'https://your-url.com';
 
 @Component({
   selector: 'app-install-req-form',
   templateUrl: './install-req-form.component.html',
-  styleUrls: ['./install-req-form.component.scss']
+  styleUrls: ['./install-req-form.component.scss'],
+  providers: [DatePipe]
 })
 export class InstallReqFormComponent implements OnInit {
   public contentHeader: object
@@ -40,6 +42,19 @@ export class InstallReqFormComponent implements OnInit {
   mcbdcb: any;
   canopyType: any;
   earthingStatus: any;
+  loading=false;
+  siteidlist=[];
+  descMap= {
+    "8":"Total Charger Supplied",
+    "3":"Charger Mounting Type",
+    "4":"Civil Foundation Status",
+    "6":"MCB with DB Box",
+    "0":"Cabling Status from DB to Charger",
+    "7":"Total Cable Consumed",
+    "5":"Earthling Status",
+    "1":"Canopy Status",
+    "2":"Canopy Type"
+  }
   countryMap = [{
       "countryId": 1,
       "countryName": "India"  
@@ -190,7 +205,8 @@ export class InstallReqFormComponent implements OnInit {
      "stateName": "WEST BENGAL"
     }
    ]
-  baseUrl="http://evsepulseapi.exicom.in:8282"
+  // baseUrl="http://evsepulseapitest.exicom.in:8282"
+  baseUrl = environment.imageApiIUrl;
   chargerPictureFileDownloadUrl: string='';
   installationReportFileDownloadUrl: string='';
   cablingPictureFileDownloadUrl: string='';
@@ -210,7 +226,8 @@ export class InstallReqFormComponent implements OnInit {
     private notify: Notify,
     private router: Router,
     private admin: Admin,
-    private installationService: InstallationService
+    private installationService: InstallationService,
+    private datePipe: DatePipe
   ) { }
   replytype: any
   selectedValue: any
@@ -237,40 +254,45 @@ export class InstallReqFormComponent implements OnInit {
     };
     this.createMainForm();
     this.pushInstallationWorkRequestList();
-    this.setDescription();
+    // this.setDescription();
     this.holdInstallValue = this.installationService.selectedInstall;
   
 
-    this.holdInstallValue.installationWorkList.forEach(element => {
-      if(element.installationWorkListId === 9 ){
-        this.totalChargerSupplied = element;
-      }
-      if(element.installationWorkListId === 4){
-        this.chargerMountingType = element;
-      }
-      if(element.installationWorkListId === 5){
-        this.civilFoundationStatus = element;
-      }
-      if(element.installationWorkListId === 7){
-        this.mcbdcb = element;
-      }
-      if(element.installationWorkListId === 1){
-        this.cablingStatus = element;
-      }
-      if(element.installationWorkListId === 8){  
-        this.cableConsumed = element;
-      }
-      if(element.installationWorkListId === 6){
-        this.earthingStatus = element;
-      }
-      if(element.installationWorkListId === 2){
-        this.canopyStatus = element;
-      }
-      if(element.installationWorkListId === 3){
-        this.canopyType = element;
-      }
+    for(let i=0;i<this.holdInstallValue.installationWorkList.length;i++){
+      this.accessInstallationWorkRequestListArray.controls[i]?.patchValue(this.holdInstallValue.installationWorkList[i]);
+      this.accessInstallationWorkRequestListArray.controls[i].get('description')?.patchValue(this.descMap[i+""]);
+    }
+
+    // this.holdInstallValue.installationWorkList.forEach(element => {
+    //   if(element.installationWorkListId === 9 ){
+    //     this.totalChargerSupplied = element;
+    //   }
+    //   if(element.installationWorkListId === 4){
+    //     this.chargerMountingType = element;
+    //   }
+    //   if(element.installationWorkListId === 5){
+    //     this.civilFoundationStatus = element;
+    //   }
+    //   if(element.installationWorkListId === 7){
+    //     this.mcbdcb = element;
+    //   }
+    //   if(element.installationWorkListId === 1){
+    //     this.cablingStatus = element;
+    //   }
+    //   if(element.installationWorkListId === 8){  
+    //     this.cableConsumed = element;
+    //   }
+    //   if(element.installationWorkListId === 6){
+    //     this.earthingStatus = element;
+    //   }
+    //   if(element.installationWorkListId === 2){
+    //     this.canopyStatus = element;
+    //   }
+    //   if(element.installationWorkListId === 3){
+    //     this.canopyType = element;
+    //   }
       
-    });
+    // });
     this.setValuesFromInstallPage();
     // this.go_next();
 
@@ -369,9 +391,9 @@ export class InstallReqFormComponent implements OnInit {
       description: [''],
       installationWorkListId: [''],
       responsibility: [''],
-      AC001Charger: [''],
-      DC001Charger: [''],
-      type2EvCharger: [''],
+      ac001Charger: [''],
+      dc001Charger: [''],
+      type2evCharger: [''],
       remark: [''],
     });
   }
@@ -388,51 +410,55 @@ export class InstallReqFormComponent implements OnInit {
     this.accessInstallationForm['stateId'].patchValue(this.holdInstallValue.stateId);
     this.accessInstallationForm['countryId'].patchValue(this.holdInstallValue.countryId);
     this.accessInstallationForm['pointOfInstallation'].patchValue(this.holdInstallValue.pointOfInstallation);
-    this.accessInstallationForm['installationDate'].patchValue(this.holdInstallValue.installationDate);
     this.accessInstallationForm['siteId'].patchValue(this.holdInstallValue.siteId);
     this.accessInstallationForm['siteName'].patchValue(this.holdInstallValue.siteName);
     this.accessInstallationForm['contactPersonAtSite'].patchValue(this.holdInstallValue.contactPersonAtSite);
     this.accessInstallationForm['contactNumber'].patchValue(this.holdInstallValue.contactNumber);
-    this.accessInstallationForm['alternateContactNumber'].patchValue(this.holdInstallValue.alternateContactnumber);
-    this.accessInstallationForm['email'].patchValue(this.holdInstallValue.accountContactPersonEmail);
+    this.accessInstallationForm['alternateContactNumber'].patchValue(this.holdInstallValue.alternateContactNumber);
+    this.accessInstallationForm['email'].patchValue(this.holdInstallValue.contactPersonEmail);
     this.accessInstallationForm['installationTypeId'].patchValue(this.holdInstallValue.installationTypeId);
-    this.accessInstallationForm['installationStatusId'].patchValue(this.holdInstallValue.installationStatusId);
     this.accessInstallationForm['installedByVendor'].patchValue(this.holdInstallValue.installedByVendor);
     this.accessInstallationForm['cableLength'].patchValue(this.holdInstallValue.cableLength);
     this.accessInstallationForm['workCompletionStatus'].patchValue(this.holdInstallValue.workCompletionStatus);
     this.accessInstallationForm['cableSize'].patchValue(this.holdInstallValue.cableSize);
-    this.accessInstallationForm['responsibility'].patchValue(this.holdInstallValue.responsibility);
+    // this.accessInstallationForm['responsibility'].patchValue(this.holdInstallValue.responsibility);
     this.accessInstallationForm['remark'].patchValue(this.holdInstallValue.remark);
     this.accessInstallationForm['exicomRepresentativeName'].patchValue(this.holdInstallValue.exicomRepresentativeName);
     this.accessInstallationForm['employeeCode'].patchValue(this.holdInstallValue.employeeCode);
     this.accessInstallationForm['customerRepresentativeName'].patchValue(this.holdInstallValue.customerRepresentativeName);
+    this.accessInstallationForm['installationWorkRequestList'].patchValue(this.holdInstallValue.installationWorkList);
+    const date=this.datePipe.transform(this.holdInstallValue.installationDate, 'yyyy-MM-dd');
+    this.accessInstallationForm['installationDate'].patchValue(date);
+    this.selectedType = this.holdInstallValue.installationTypeId+"";
+    // (<HTMLInputElement>document.getElementById("idate")).value =  "2014-02-09";;
+   //    this.accessInstallationForm['installationStatus'].patchValue(this.holdInstallValue.installationStatusName);
   }
 
 
-  setDescription() {
+  // setDescription() {
 
-    this.accessInstallationWorkRequestListArray.controls[0]?.patchValue(this.totalChargerSupplied);
-    this.accessInstallationWorkRequestListArray.controls[0]?.patchValue(this.totalChargerSupplied);
-    this.accessInstallationWorkRequestListArray.controls[1]?.patchValue(this.chargerMountingType);
-    this.accessInstallationWorkRequestListArray.controls[2]?.patchValue(this.civilFoundationStatus);
-    this.accessInstallationWorkRequestListArray.controls[3]?.patchValue(this.mcbdcb);
-    this.accessInstallationWorkRequestListArray.controls[4]?.patchValue(this.cablingStatus);
-    this.accessInstallationWorkRequestListArray.controls[5]?.patchValue(this.cableConsumed);
-    this.accessInstallationWorkRequestListArray.controls[6]?.patchValue(this.earthingStatus);
-    this.accessInstallationWorkRequestListArray.controls[7]?.patchValue(this.canopyStatus);
-    this.accessInstallationWorkRequestListArray.controls[8]?.patchValue(this.canopyType);
+  //   this.accessInstallationWorkRequestListArray.controls[0]?.patchValue(this.totalChargerSupplied);
+  //   this.accessInstallationWorkRequestListArray.controls[0]?.patchValue(this.totalChargerSupplied);
+  //   this.accessInstallationWorkRequestListArray.controls[1]?.patchValue(this.chargerMountingType);
+  //   this.accessInstallationWorkRequestListArray.controls[2]?.patchValue(this.civilFoundationStatus);
+  //   this.accessInstallationWorkRequestListArray.controls[3]?.patchValue(this.mcbdcb);
+  //   this.accessInstallationWorkRequestListArray.controls[4]?.patchValue(this.cablingStatus);
+  //   this.accessInstallationWorkRequestListArray.controls[5]?.patchValue(this.cableConsumed);
+  //   this.accessInstallationWorkRequestListArray.controls[6]?.patchValue(this.earthingStatus);
+  //   this.accessInstallationWorkRequestListArray.controls[7]?.patchValue(this.canopyStatus);
+  //   this.accessInstallationWorkRequestListArray.controls[8]?.patchValue(this.canopyType);
 
    
-    this.accessInstallationWorkRequestListArray.controls[0].get('description')?.patchValue('Total Charger Supplied');
-    this.accessInstallationWorkRequestListArray.controls[1].get('description')?.patchValue('Charger Mounting Type');
-    this.accessInstallationWorkRequestListArray.controls[2].get('description')?.patchValue('Civil Foundation Status');
-    this.accessInstallationWorkRequestListArray.controls[3].get('description')?.patchValue('MCB with DB Box');
-    this.accessInstallationWorkRequestListArray.controls[4].get('description')?.patchValue('Cabling Status from DB to Charger');
-    this.accessInstallationWorkRequestListArray.controls[5].get('description')?.patchValue('Total Cable Consumed');
-    this.accessInstallationWorkRequestListArray.controls[6].get('description')?.patchValue('Earthling Status');
-    this.accessInstallationWorkRequestListArray.controls[7].get('description')?.patchValue('Canopy Status');
-    this.accessInstallationWorkRequestListArray.controls[8].get('description')?.patchValue('Canopy Type');
-  }
+  //   this.accessInstallationWorkRequestListArray.controls[0].get('description')?.patchValue('Total Charger Supplied');
+  //   this.accessInstallationWorkRequestListArray.controls[1].get('description')?.patchValue('Charger Mounting Type');
+  //   this.accessInstallationWorkRequestListArray.controls[2].get('description')?.patchValue('Civil Foundation Status');
+  //   this.accessInstallationWorkRequestListArray.controls[3].get('description')?.patchValue('MCB with DB Box');
+  //   this.accessInstallationWorkRequestListArray.controls[4].get('description')?.patchValue('Cabling Status from DB to Charger');
+  //   this.accessInstallationWorkRequestListArray.controls[5].get('description')?.patchValue('Total Cable Consumed');
+  //   this.accessInstallationWorkRequestListArray.controls[6].get('description')?.patchValue('Earthling Status');
+  //   this.accessInstallationWorkRequestListArray.controls[7].get('description')?.patchValue('Canopy Status');
+  //   this.accessInstallationWorkRequestListArray.controls[8].get('description')?.patchValue('Canopy Type');
+  // }
 
   // getFile(event: any) {
   //   this.uploadImages(event,"chargerPicture");
@@ -451,7 +477,7 @@ export class InstallReqFormComponent implements OnInit {
   //   }
   //   //500000 bytes = 500 kb
   //   //700000
-  //   debugger;
+  //   
   //   console.log(event);
   // }
   saveAsDraft()
@@ -511,29 +537,34 @@ export class InstallReqFormComponent implements OnInit {
   }
 
   getSiteData($event){
+    this.siteidlist=[];
     if($event.keyCode !== 8 && $event.keyCode !== 46 ){
       this.installationService.getSiteData($event.target.value).subscribe(
         (data) => {
           console.log(data);
           let siteData = data[0]
           this.accessInstallationForm['address'].patchValue(siteData.address);
-          this.accessInstallationForm['email'].patchValue(siteData.emailId);
-          this.accessInstallationForm['alternateContactNumber'].patchValue(siteData.alternateContactnumber);
+          //this.accessInstallationForm['email'].patchValue(siteData.emailId);
+         // this.accessInstallationForm['alternateContactNumber'].patchValue(siteData.alternateContactnumber);
           // this.accessInstallationForm['customerName'].patchValue(siteData.customerName);
           this.accessInstallationForm['city'].patchValue(siteData.city);
           this.accessInstallationForm['pincode'].patchValue(siteData.pincode);
-          this.accessInstallationForm['siteId'].patchValue(siteData.siteId);
+          //this.accessInstallationForm['siteId'].patchValue(siteData.siteId);
           this.accessInstallationForm['stateId'].patchValue(siteData.stateId);
           this.accessInstallationForm['siteName'].patchValue(siteData.siteName);
           this.accessInstallationForm['countryId'].patchValue(siteData.countryId);
           this.accessInstallationForm['contactNumber'].patchValue(siteData.contactNumber);
+
+          data.forEach(element => {
+            this.siteidlist.push(element.siteId)
+          });
         }
       )
     }
   }
 
   submitF(draft?) {
-    debugger;
+   
     if(draft==="draft"){
       this.installationForm.value.installationStatusId=3
     }else{
@@ -544,6 +575,8 @@ export class InstallReqFormComponent implements OnInit {
     this.installationService.installationId = this.holdInstallValue.id;
     const req = this.installationForm.value;
     req["id"]=this.holdInstallValue.id;
+    req["installationDate"] = new Date(req["installationDate"]);
+    // req["installationDate"] = this.datePipe.transform(req["installationDate"], 'dd-MM-yyyy');
     delete req["soNumber"];
     delete req["clientName"];
     delete req["clientCode"];
@@ -558,26 +591,19 @@ export class InstallReqFormComponent implements OnInit {
     
     //need to add email and country in ai key
 
-    for(let i=0;i<9;i++){
+    for(let i=0;i< req.installationWorkRequestList.length;i++){
       delete req.installationWorkRequestList[i].description;
       req.installationWorkRequestList[i]["installationsId"]=this.holdInstallValue.id;
+      req.installationWorkRequestList[i]["type2EvCharger"]= req.installationWorkRequestList[i]["type2evCharger"]
+      delete req.installationWorkRequestList[i]["type2evCharger"]
     }
 
-    req.installationWorkRequestList[0].installationWorkListId = 9
-    req.installationWorkRequestList[1].installationWorkListId = 4
-    req.installationWorkRequestList[2].installationWorkListId = 5
-    req.installationWorkRequestList[3].installationWorkListId = 7
-    req.installationWorkRequestList[4].installationWorkListId = 1
-    req.installationWorkRequestList[5].installationWorkListId = 8
-    req.installationWorkRequestList[6].installationWorkListId = 6
-    req.installationWorkRequestList[7].installationWorkListId = 2
-    req.installationWorkRequestList[8].installationWorkListId = 3
-
-    console.log(req);
-   
+ 
+    this.loading=true;
     this.installationService.updateInstallation(req).subscribe(
       (data) => {
-        this.router.navigate(['\comp-req-installations'])
+        this.loading=false;
+        this.router.navigate(['/request/installation'])
       
 
       }

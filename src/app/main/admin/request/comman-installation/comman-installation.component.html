@@ -1,13 +1,16 @@
 <div class="content-wrapper">
     <app-content-header [contentHeader]="contentHeader"></app-content-header>
     <div class="content-body">
+        <div *ngIf="loading">
+            <app-spinner></app-spinner>
+        </div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Details</h4>
+                        <h4 class="card-title">Installation Details</h4>
                         <div class="col-sm-9 text-right p-0">
-                            <a routerLink="/Installation-commissioning-pdf" class="btn btn-outline-warning btn-sm mx-1">
+                            <a *ngIf="installation?.installationStatusId == 1" (click)="downloadPdf()" class="btn btn-outline-warning btn-sm mx-1">
                                 <i data-feather="file-plus"></i> Generate Installation Report
                             </a>
                             <a *ngIf="creds.roleGroupAndAccount.roleGroup==='SCH' && installation?.installationStatusId == 4 && installation?.assignByName === null" class="btn btn-outline-warning  text-warning btn-sm mx-1"  (click)="modalOpenSM(modalSM)" data-toggle="modal"
@@ -20,7 +23,7 @@
                                 <i data-feather="check-square"></i> Approve / <i data-feather="x-square"></i> Reject
                             </a>
 
-                            <a *ngIf="creds.fullname === installation?.ownerName  && installation?.installationStatusId != 6" routerLink="/install-req-form" class="btn btn-outline-primary btn-sm">
+                            <a *ngIf="creds.fullname === installation?.ownerName  && installation?.installationStatusId != 1  && installation?.installationStatusId != 2  && installation?.installationStatusId != 6" routerLink="/install-req-form" class="btn btn-outline-primary btn-sm">
                                 <i data-feather="edit"></i> Edit
                             </a>
                         </div>
@@ -215,18 +218,14 @@
                                                         <td> </td>
                                                         <td></td>
                                                     </tr>
-                                                    <tr>
-                                                        <td width="40%"><span class="text-gray">Installation Address
-                                                            </span></td>
-                                                        <td>{{installation?.address}}</td>
-                                                    </tr>
+                                                   
                                                     <tr>
                                                         <td><span class="text-gray">City</span></td>
                                                         <td>{{installation?.city}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td><span class="text-gray">Installation Date</span></td>
-                                                        <td>{{installation?.installationDate}}</td>
+                                                        <td>{{installation?.installationDate | date:'dd-MM-yyyy' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td><span class="text-gray">Site Name</span></td>
@@ -239,7 +238,7 @@
                                                     <tr>
                                                         <td><span class="text-gray">Alternate Contact Number
                                                             </span></td>
-                                                        <td>{{installation?.alternateContactnumber}}</td>
+                                                        <td>{{installation?.alternateContactNumber}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td><span class="text-gray">Installation Status</span></td>
@@ -253,6 +252,12 @@
                                                         <td><span class="text-gray">Work Completion Status</span></td>
                                                         <td>{{installation?.workCompletionStatus}}</td>
                                                     </tr>
+                                                    <tr>
+                                                        <td width="40%"><span class="text-gray">Installation Address
+                                                            </span></td>
+                                                        <td>{{installation?.address}}</td>
+                                                    </tr>
+                                                   
                                                 </tbody>
                                             </table>
                                         </div>
@@ -285,6 +290,11 @@
                                                         <td>{{installation?.stateName}}</td>
                                                     </tr>
                                                     <tr>
+                                                        <td><span class="text-gray">Country</span>
+                                                        </td>
+                                                        <td>{{installation?.countryName}}</td>
+                                                    </tr>
+                                                    <tr>
                                                         <td><span class="text-gray">Point of Installation</span></td>
                                                         <td>{{installation?.pointOfInstallation}}</td>
                                                     </tr>
@@ -314,6 +324,10 @@
                                                         </td>
                                                         <td>{{installation?.cableLength}}</td>
                                                     </tr>
+                                                    <tr>
+                                                        <td><span class="text-gray">Email</span></td>
+                                                        <td>{{installation?.contactPersonEmail}}</td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -327,6 +341,7 @@
 
 
                             </div>
+                           
 
                             <div class="row">
                                 <div class="col-12">
@@ -341,13 +356,13 @@
                                                         <th scope="col" class="pb-1 pt-3">Responsibility
                                                             <hr class="mt-4vvvvawqqq mb-0">
                                                         </th>
-                                                        <th scope="col" class="pb-1 pt-3">DC001 Charger
+                                                        <th *ngIf="installation.installationTypeId==1" scope="col" class="pb-1 pt-3">DC001 Charger
                                                             <hr class="mt-4vvvvawqqq mb-0">
                                                         </th>
-                                                        <th scope="col" class="pb-1 pt-3">AC001 Charger
+                                                        <th *ngIf="installation.installationTypeId==2" scope="col" class="pb-1 pt-3">AC001 Charger
                                                             <hr class="mt-4vvvvawqqq mb-0">
                                                         </th>
-                                                        <th scope="col" class="pb-1 pt-3">Type 2 EV Charger
+                                                        <th *ngIf="installation.installationTypeId==3" scope="col" class="pb-1 pt-3">Type 2 EV Charger
                                                             <hr class="mt-4vvvvawqqq mb-0">
                                                         </th>
                                                         <th scope="col" class="pb-1 pt-3">Remarks
@@ -357,122 +372,6 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <th scope="row" class="tvnbr123"><span class="text-gray"> Total
-                                                                Charger Supplied</span></th>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{totalChargerSupplied?.responsibility}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{totalChargerSupplied?.dc001Charger}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{totalChargerSupplied?.ac001Charger}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{totalChargerSupplied?.type2evCharger}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{totalChargerSupplied?.remark}}
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row" class="tvnbr123"><span class="text-gray">
-                                                                Charger Mounting Type</span></th>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{chargerMountingType?.responsibility}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{chargerMountingType?.dc001Charger}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{chargerMountingType?.ac001Charger}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{chargerMountingType?.type2evCharger}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{chargerMountingType?.remark}}
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row" class="tvnbr123"><span class="text-gray"> Civil
-                                                                Foundation Status</span></th>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{civilFoundationStatus?.responsibility}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{civilFoundationStatus?.dc001Charger}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{civilFoundationStatus?.ac001Charger}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{civilFoundationStatus?.type2evCharger}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{civilFoundationStatus?.remark}}
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row" class="tvnbr123"><span class="text-gray"> MCB
-                                                                with DB Box</span></th>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{mcbdcb?.responsibility}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{mcbdcb?.dc001Charger}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{mcbdcb?.ac001Charger}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{mcbdcb?.type2evCharger}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{mcbdcb?.remark}}
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
                                                         <th scope="row" class="tvnbr123"><span class="text-gray">
                                                                 Cabling Status from DB to Charger</span></th>
                                                         <td class="tvnbr123">
@@ -480,17 +379,17 @@
                                                                 {{cablingStatus?.responsibility}}
                                                             </div>
                                                         </td>
-                                                        <td class="tvnbr123">
+                                                        <td *ngIf="installation.installationTypeId==1" class="tvnbr123">
                                                             <div class="form-group pt-1">
                                                                 {{cablingStatus?.dc001Charger}}
                                                             </div>
                                                         </td>
-                                                        <td class="tvnbr123">
+                                                        <td *ngIf="installation.installationTypeId==2" class="tvnbr123">
                                                             <div class="form-group pt-1">
                                                                 {{cablingStatus?.ac001Charger}}
                                                             </div>
                                                         </td>
-                                                        <td class="tvnbr123">
+                                                        <td *ngIf="installation.installationTypeId==3" class="tvnbr123">
                                                             <div class="form-group pt-1">
                                                                 {{cablingStatus?.type2evCharger}}
                                                             </div>
@@ -502,64 +401,6 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row" class="tvnbr123"><span class="text-gray"> Total
-                                                                Cable Consumed</span></th>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{cableConsumed?.responsibility}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{cableConsumed?.dc001Charger}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{cableConsumed?.ac001Charger}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{cableConsumed?.type2evCharger}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{cableConsumed?.remark}}
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row" class="tvnbr123"><span
-                                                                class="text-gray">Earthling Status</span></th>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{earthingStatus?.responsibility}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{earthingStatus?.dc001Charger}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{earthingStatus?.ac001Charger}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{earthingStatus?.type2evCharger}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="tvnbr123">
-                                                            <div class="form-group pt-1">
-                                                                {{earthingStatus?.remark}}
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
                                                         <th scope="row" class="tvnbr123"><span class="text-gray"> Canopy
                                                                 Status</span></th>
                                                         <td class="tvnbr123">
@@ -567,17 +408,17 @@
                                                                 {{canopyStatus?.responsibility}}
                                                             </div>
                                                         </td>
-                                                        <td class="tvnbr123">
+                                                        <td *ngIf="installation.installationTypeId==1" class="tvnbr123">
                                                             <div class="form-group pt-1">
                                                                 {{canopyStatus?.dc001Charger}}
                                                             </div>
                                                         </td>
-                                                        <td class="tvnbr123">
+                                                        <td *ngIf="installation.installationTypeId==2" class="tvnbr123">
                                                             <div class="form-group pt-1">
                                                                 {{canopyStatus?.ac001Charger}}
                                                             </div>
                                                         </td>
-                                                        <td class="tvnbr123">
+                                                        <td *ngIf="installation.installationTypeId==3"  class="tvnbr123">
                                                             <div class="form-group pt-1">
                                                                 {{canopyStatus?.type2evCharger}}
                                                             </div>
@@ -596,17 +437,17 @@
                                                                 {{canopyType?.responsibility}}
                                                             </div>
                                                         </td>
-                                                        <td class="tvnbr123">
+                                                        <td *ngIf="installation.installationTypeId==1" class="tvnbr123">
                                                             <div class="form-group pt-1">
                                                                 {{canopyType?.dc001Charger}}
                                                             </div>
                                                         </td>
-                                                        <td class="tvnbr123">
+                                                        <td *ngIf="installation.installationTypeId==2"  class="tvnbr123">
                                                             <div class="form-group pt-1">
                                                                 {{canopyType?.ac001Charger}}
                                                             </div>
                                                         </td>
-                                                        <td class="tvnbr123">
+                                                        <td *ngIf="installation.installationTypeId==3" class="tvnbr123">
                                                             <div class="form-group pt-1">
                                                                 {{canopyType?.type2evCharger}}
                                                             </div>
@@ -617,6 +458,183 @@
                                                             </div>
                                                         </td>
                                                     </tr>
+                                                    <tr>
+                                                        <th scope="row" class="tvnbr123"><span class="text-gray">
+                                                                Charger Mounting Type</span></th>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{chargerMountingType?.responsibility}}
+                                                            </div>
+                                                        </td>
+                                                        <td *ngIf="installation.installationTypeId==1" class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{chargerMountingType?.dc001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td *ngIf="installation.installationTypeId==2" class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{chargerMountingType?.ac001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td *ngIf="installation.installationTypeId==3" class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{chargerMountingType?.type2evCharger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{chargerMountingType?.remark}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row" class="tvnbr123"><span class="text-gray"> Civil
+                                                                Foundation Status</span></th>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{civilFoundationStatus?.responsibility}}
+                                                            </div>
+                                                        </td>
+                                                        <td *ngIf="installation.installationTypeId==1" class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{civilFoundationStatus?.dc001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td *ngIf="installation.installationTypeId==2" class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{civilFoundationStatus?.ac001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td *ngIf="installation.installationTypeId==3" class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{civilFoundationStatus?.type2evCharger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{civilFoundationStatus?.remark}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row" class="tvnbr123"><span
+                                                                class="text-gray">Earthling Status</span></th>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{earthingStatus?.responsibility}}
+                                                            </div>
+                                                        </td>
+                                                        <td *ngIf="installation.installationTypeId==1" class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{earthingStatus?.dc001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td *ngIf="installation.installationTypeId==2" class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{earthingStatus?.ac001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td *ngIf="installation.installationTypeId==3"  class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{earthingStatus?.type2evCharger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{earthingStatus?.remark}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row" class="tvnbr123"><span class="text-gray"> MCB
+                                                                with DB Box</span></th>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{mcbdcb?.responsibility}}
+                                                            </div>
+                                                        </td>
+                                                        <td *ngIf="installation.installationTypeId==1" class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{mcbdcb?.dc001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td *ngIf="installation.installationTypeId==2" class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{mcbdcb?.ac001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td *ngIf="installation.installationTypeId==3" class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{mcbdcb?.type2evCharger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{mcbdcb?.remark}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                    
+                                                    <tr>
+                                                        <th scope="row" class="tvnbr123"><span class="text-gray"> Total
+                                                                Cable Consumed</span></th>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{cableConsumed?.responsibility}}
+                                                            </div>
+                                                        </td>
+                                                        <td *ngIf="installation.installationTypeId==1" class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{cableConsumed?.dc001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td *ngIf="installation.installationTypeId==2" class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{cableConsumed?.ac001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td *ngIf="installation.installationTypeId==3" class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{cableConsumed?.type2evCharger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{cableConsumed?.remark}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row" class="tvnbr123"><span class="text-gray"> Total
+                                                                Charger Supplied</span></th>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{totalChargerSupplied?.responsibility}}
+                                                            </div>
+                                                        </td>
+                                                        <td *ngIf="installation.installationTypeId==1" class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{totalChargerSupplied?.dc001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td *ngIf="installation.installationTypeId==2" class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{totalChargerSupplied?.ac001Charger}}
+                                                            </div>
+                                                        </td>
+                                                        <td *ngIf="installation.installationTypeId==3" class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{totalChargerSupplied?.type2evCharger}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="tvnbr123">
+                                                            <div class="form-group pt-1">
+                                                                {{totalChargerSupplied?.remark}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                   
+                                                   
                                                 </tbody>
                                             </table>
                                         </div>
@@ -894,7 +912,54 @@
                     </form>
 
 
-
+                    <div class="row">
+                        <div class="card-body">
+                            <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
+                                <h6 class="ml-1">Approval History({{history.length}})
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="table-responsive border">
+                                   
+                                    <p-table [value]="history" [lazy]="false" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+                                                responsiveLayout="scroll" 
+                                               
+                                               >
+                                                <ng-template pTemplate="header">
+                                                    <tr class="bg-white">
+                                                    
+                                                        <th scope="col" field="assetSerialNumber">Sr. No.</th>
+                                                        <th scope="col" field="assetSerialNumber">Approval Stage</th>
+                                                        <th scope="col" field="sites.siteName" class="text-nowrap">Assigned Date</th>
+                                                        <th scope="col" field="clients.clientName" class="text-nowrap">Assigned To</th>
+                                                        <th scope="col" field="partCode" class="text-nowrap">Action</th>
+                                                        <th scope="col" field="assestDescription" > Approval Date</th>
+                                                        <th scope="col" field="warrantyStatus" >Remark</th>
+                                                    
+                                                    
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-historyItem let-rowIndex="rowIndex">
+                                                   
+                                                    <tr>
+                                                        <td class="no-st-text-b">{{rowIndex+1}}</td>
+                                                        <td class="no-st-text-b">{{historyItem.approvalStage}}</td>
+                                                        <td class="no-st-text-b">{{historyItem.approvedDate  | date:'dd-MM-yyyy'}}</td>
+                                                        <td class="no-st-text-b">{{historyItem.assignedToName}}</td>
+                                                        <td class="no-st-text-b">{{historyItem.action}}</td>
+                                                        <td class="no-st-text-b">{{historyItem.approvedDate | date:'dd-MM-yyyy'}}</td>
+                                                        <td class="no-st-text-b">{{historyItem.remark}}</td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Modal -->
 <ng-template #modalSM let-modal>
     <div class="modal-header bg-dark" style="padding: 5px;">

@@ -1,0 +1,173 @@
+<div class="content-wrapper">
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
+    <div class="content-body">
+        <section class="users-list-wrapper">
+            <div class="card">
+                <div class="card-body" style="padding: 5px ;">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-sm-6">
+                                <h5 class="card-titleb ">User Id :
+                                    <strong>{{user?.userId}} </strong>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Details</h4>
+                    </div>
+                    <div class="card-body">
+                        <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
+                            <h6 class="ml-1"> User Information
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row px-2">
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm ">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                    Account Name </span></td>
+                                            <td> {{user?.accountName}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Email Id</span></td>
+                                            <td>{{user?.emailId}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Circle Name </span></td>
+                                            <td>{{user?.circleName}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">SAP Code</span></td>
+                                            <td>{{user?.sapCode}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Profile Name </span></td>
+                                            <td>{{user?.profileName}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Manager </span></td>
+                                            <td>{{user?.managerFullName}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Full Name </span></td>
+                                            <td>{{user?.fullname}}</td>
+                                        </tr>
+                                       
+                                        <tr>
+                                            <td><span class="text-gray">Employee Code </span></td>
+                                            <td>{{user?.employeeCode}}</td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td><span class="text-gray">Contact Person Name </span></td>
+                                            <td>{{user?.contactPersonName}} </td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-6 px-2">
+                            <div class="table-responsive">
+                                <table class="table table-sm ">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">Manager Phone </span></td>
+                                            <td>{{user?.managerPhone}} </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Account Locked</span></td>
+                                            <td>{{resMap[user?.accountNonLocked]}}</td>
+                                        </tr>
+                                   
+                                        <tr>
+                                            <td><span class="text-gray">Account Expired</span></td>
+                                            <td>{{resMap[user?.accountNonExpired]}}</td>
+                                        </tr>
+                                       
+                                        <tr>
+                                            <td><span class="text-gray">Enabled </span></td>
+                                            <td>{{revresMap[user?.enabled]}} </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Credentials Expired </span></td>
+                                            <td>{{resMap[user?.credentialsNonExpired]}} </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Circle Id </span></td>
+                                            <td>{{user?.circleId}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">Profile Id </span></td>
+                                            <td>{{user?.profileId}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                  
+
+                    <div class="card-body">
+                        <div style="background-color: #f4f5f5; padding: 6px 0 0 0;  border: 1px solid #6e63e5; ">
+                            <h6 class="ml-1">System Information
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row px-2">
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                    Created By</span></td>
+                                            <td>{{user?.createdByName}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                    Created Date </span></td>
+                                            <td> {{user?.createdDate  | date:'dd-MM-yyyy'  }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="text-gray">
+
+                                                    Last Modified By</span></td>
+                                            <td>{{user?.modifiedByName}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="text-gray">
+                                                    Last Modified Date </span></td>
+                                            <td> {{user?.modifiedDate  | date:'dd-MM-yyyy'  }}</td>
+                                        </tr>
+                                     </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -9,7 +9,7 @@
                             <li ngbNavItem>
                                 <ng-template ngbNavContent>
                                     <div class="table-responsive border">
-                                        <p-table (onLazyLoad)="loadData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="top" [value]="accounts" [lazy]="true" styleClass="p-datatable-gridlines p-datatable-striped"
+                                        <p-table (onLazyLoad)="loadData($event)" [rowsPerPageOptions]="[5,10,15,20]" paginatorPosition="bottom" [value]="accounts" [lazy]="true" styleClass="p-datatable-gridlines p-datatable-striped"
                                          responsiveLayout="scroll" 
                                         dataKey="id" [paginator]="true" [rows]="noOfRows"
                                         [totalRecords]="totalRecords">
@@ -37,7 +37,7 @@
                                                 <td class="bd-top">{{ account?.billingStateName }}</td>
                                                 <!-- <td class="bd-top">{{ account?.contactPersonPhone }}</td> -->
                                                 <td class="bd-top">{{ account?.ownerName }}</td>
-                                                <td class="bd-top">{{ account?.createdDate | date:'shortDate':'IST' }}</td>
+                                                <td class="bd-top">{{ account?.createdDate | date:'dd-MM-yyyy'  }}</td>
                                                 <!-- <td> <button type="button" class="btn   btn-outline-secondary btn-sm pl-3 pr-3"> <i class="fas fa-edit" aria-hidden="true"></i> Edit</button></td>                       -->
                                             </tr>
                                         </ng-template>

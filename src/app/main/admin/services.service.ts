@@ -26,7 +26,7 @@ export class ServicesService {
         .pipe(
           tap((x) => {
             if (x != null && x !== undefined) {
-              this.notify.show("IRF Generated Successfully.", NotificationType.Info);
+              this.notify.show("IRF Generated Successfully.", NotificationType.Error);
               
             }
           }),
@@ -75,6 +75,11 @@ getInstallationListInApproval(qp):Observable<any>
 getCircleMap():Observable<any>
 {
   return this.httpClient.get<any>(environment.baseApiUrl + this.circleMapUrl);
+}
+
+getHistory(id):Observable<any>
+{
+  return this.httpClient.get<any>(environment.baseApiUrl + "installation/approval/history/"+id);
 }
 
 getRequestRaisedById():Observable<any>

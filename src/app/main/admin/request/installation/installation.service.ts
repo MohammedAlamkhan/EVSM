@@ -75,7 +75,7 @@ export class InstallationService {
     return this.httpClient.put<any>(environment.baseApiUrl + this.toBeApprovedUrl + req.id, req).pipe(
       tap((x) => {
         if (x != null && x !== undefined) {
-          this.notify.show("Approved Successfully.", NotificationType.Info);
+          this.notify.show(x.action +" Successfully.", NotificationType.Info);
           
         }
       }),
@@ -149,6 +149,7 @@ export class InstallationService {
     // let head = new HttpHeaders().append('Content-Type', "multipart/form-data");
   
     // 'Content-Type':  'Multipart'
+    this.notify.show("Uploading...", NotificationType.Info);
     return this.httpClient.post<any>(environment.baseApiUrl + this.reportUploadUrl + "?type=" + params.file + "&installationId=" + params.installationId, file).pipe(
       tap((x) => {
         if (x != null && x !== undefined) {

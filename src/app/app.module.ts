@@ -26,6 +26,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatButtonModule} from '@angular/material/button';
 import { SharedModule } from './shared/shared.module';
 import { CalendarModule } from 'primeng/calendar';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 const appRoutes: Routes = [
@@ -114,7 +115,7 @@ const appRoutes: Routes = [
     SharedModule
    
   ],
-  providers: [],
+  providers: [Location, {provide: LocationStrategy, useClass: HashLocationStrategy}],
 
   bootstrap: [AppComponent]
 })

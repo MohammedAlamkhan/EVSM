@@ -79,7 +79,7 @@
       <div ngbDropdownMenu aria-labelledby="navbarUserDropdown" class="dropdown-menu dropdown-menu-right">
         <a ngbDropdownItem [routerLink]="['/']"><span [data-feather]="'user'" [class]="'mx-0'"></span> Profile</a
         ><a ngbDropdownItem [routerLink]="['/']"><span [data-feather]="'settings'" [class]="'mx-0'"></span> Setting</a
-        ><a ngbDropdownItem [routerLink]="['/']"><span [data-feather]="'repeat'" [class]="'mx-0 '"></span> Change Password</a>
+        ><a  ngbDropdownItem (click)="toggleSidebar('change-password-sidebar')"><span [data-feather]="'repeat'" [class]="'mx-0 '"></span> Change Password</a>
         
         <div class="dropdown-divider"></div>
          <!-- <input type="button" (click)="logOut()" class="mx-0" value="Log out">     -->
@@ -88,4 +88,14 @@
     </li>
     <!--/ User Dropdown -->
   </ul>
+
+  
+  <core-sidebar
+  class="modal modal-slide-in sidebar-todo-modal fade"
+  name="change-password-sidebar"
+  overlayClass="modal-backdrop"
+>
+  <change-password-sidebar></change-password-sidebar>
+</core-sidebar>
+
 </div>

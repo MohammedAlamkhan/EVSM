@@ -19,7 +19,7 @@ public contentHeader : object
 
   ngOnInit(): void {
     this.contentHeader = {
-      headerTitle: 'Installation',
+      headerTitle: 'EVSE Installation',
       actionButton: true,
       breadcrumb: {
       type: '',
@@ -45,7 +45,8 @@ public contentHeader : object
     }
 
     passInstallData(index){
-      this.installationService.installationId = this.installations[index].id;
+      
+      this.installationService.installationId = this.installations[index-this.first].id;
       this.installationService.getInstallationInformationById().subscribe(
         (data) => {
           this.installationService.selectedInstall = data;

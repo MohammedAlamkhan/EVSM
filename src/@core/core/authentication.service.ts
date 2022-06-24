@@ -1,12 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
-import { UserDetails } from '../../app/Models/User';
 import { Router } from '@angular/router';
-
-
+import { EMPTY, Observable } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { UserDetails } from '../../app/Models/User';
+import { environment } from '../../environments/environment';
+import { NotificationService as Notify } from './../../../src/app/shared/services/notification.service';
+import { NotificationType } from 'app/Models/NotificationMessage';
 export interface LoginContext {
   userId: string;
   password: string;
@@ -20,7 +20,7 @@ export class AuthenticationService {
   readonly userAuthRefreshEndpoint: string = 'refreshToken';
   _credentials: UserDetails | null;
   token: string = '';
-  constructor(public httpClient: HttpClient, private router: Router) {
+  constructor(public httpClient: HttpClient, private router: Router, private notify: Notify) {
 
     const savedCredentials = localStorage.getItem(credentialsKey);
     if (savedCredentials) {
@@ -36,9 +36,9 @@ export class AuthenticationService {
   }
 
 
-  login(context: LoginContext): Observable<UserDetails> {
+  login(context: LoginContext): Observable<any> {
 
-    return this.httpClient.post<UserDetails>(environment.baseApiUrl + this.loginEndpoint, context)
+    return this.httpClient.post<any>(environment.baseApiUrl + this.loginEndpoint, context)
       .pipe(
         tap(x => {
           if (
@@ -48,6 +48,10 @@ export class AuthenticationService {
           }
           else
             this.unSetCredentials();
+        }),
+        catchError((x: HttpErrorResponse) => {
+            this.notify.show(x.error.message, NotificationType.Error);
+            return EMPTY;
         })
       )
   }

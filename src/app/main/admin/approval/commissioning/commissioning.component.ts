@@ -40,7 +40,7 @@ export class CommissioningComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    debugger;
+    
     // content header
     this.contentHeader = {
       headerTitle: 'Inbox',

@@ -21,6 +21,7 @@ import { EditIrfComponent } from './edit-irf/edit-irf.component';
 import { EditAssetIrfComponent } from './edit-assetirf/edit-assetirf.component';
 import { CommissionDetailsComponent } from './commission-details/commission-details.component';
 import { CommissionFormComponent } from './commission-form/commission-form.component';
+import { CommissioningComponent } from './request/commissioning/commissioning.component'
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
 import { EvReportPdfComponent } from './ev-report-pdf/ev-report-pdf.component';
 import { SurveyPdfComponent } from './survey-pdf/survey-pdf.component';
@@ -31,6 +32,7 @@ import { HomeModule } from './home/home.module';
 import { SharedModule } from './../../shared/shared.module';
 import {CalendarModule} from 'primeng/calendar';
 import { CommanAccountsComponent } from './comman-account/comman-accounts.component';
+import {CommanUserComponent} from './../admin/manageuser/comman-user/comman-user.component'
 import {CommanInstallationsComponent} from './request/comman-installation/comman-installation.component';
 const routes: Routes = [
   {
@@ -46,6 +48,11 @@ const routes: Routes = [
   {
     path: 'comp-accounts',
     component: CommanAccountsComponent,
+    data: { animation: 'accounts' }
+  },
+  {
+    path: 'detail-user',
+    component: CommanUserComponent,
     data: { animation: 'accounts' }
   },
   {
@@ -102,6 +109,23 @@ const routes: Routes = [
     path: 'Installation-commissioning-pdf',
     component: EvReportPdfComponent,
     data: { animation: 'install&coommissionPdf' }
+  },
+  {
+    path: 'commissioning',
+    component: CommissioningComponent ,
+    data: { animation: 'commissioning' },
+    
+  },
+  {
+    path: 'commission/commission-details/:commissionId',
+    component: CommissionDetailsComponent,
+    
+  },
+
+  {
+    path: 'commission-details/commission-form/:commissionId',
+    component: CommissionFormComponent,
+    
   },
 
 ];

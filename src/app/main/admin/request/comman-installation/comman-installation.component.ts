@@ -4,7 +4,8 @@ import { InstallationService } from '../installation/installation.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ServicesService as Admin } from '../../../admin/services.service';
 import { AuthenticationService } from './../../../../../@core/core/authentication.service';
-
+import { Router } from '@angular/router';
+import { environment } from 'environments/environment';
 @Component({
   selector: 'app-comman-installations',
   templateUrl: './comman-installation.component.html',
@@ -18,8 +19,9 @@ export class CommanInstallationsComponent implements OnInit {
     altInput: true,
     dateFormat:'d.m.Y H:i'
   };
+  loading=false;
   installation: any;
-  baseUrl="http://evsepulseapi.exicom.in:8282";
+  baseUrl = environment.imageApiIUrl;
   totalChargerSupplied: any;
   chargerMountingType: any;
   civilFoundationStatus: any;
@@ -35,7 +37,8 @@ export class CommanInstallationsComponent implements OnInit {
   approvalAction: any;
   
   creds = this.authService.getCredentials;
-  constructor(  public authService: AuthenticationService,private admin : Admin, private installationsService: InstallationService,private modalService: NgbModal) { }
+  history: any;
+  constructor(  public authService: AuthenticationService,private admin : Admin, private installationsService: InstallationService,private modalService: NgbModal, private router: Router,) { }
   modalOpenDefault(modalDefault) {
     this.modalService.open(modalDefault, {
       centered: true
@@ -58,7 +61,7 @@ export class CommanInstallationsComponent implements OnInit {
   ngOnInit(): void {
     // content header
     this.contentHeader = {
-      headerTitle: 'Installations',
+      headerTitle: 'EVSE Installations',
       actionButton: true,
       breadcrumb: {
         type: '',
@@ -82,7 +85,7 @@ export class CommanInstallationsComponent implements OnInit {
     };
 
     this.installation=   this.installationsService.selectedInstall;
-
+    this.getHistory()
     this.installation.installationWorkList.forEach(element => {
       if(element.installationWorkListId === 9 ){
         this.totalChargerSupplied = element;
@@ -124,15 +127,29 @@ export class CommanInstallationsComponent implements OnInit {
     }
     this.installationsService.reassignInstallation(req).subscribe(
       (data) => {
+        this.go_next('/request/installation');
       }
     )
 
   }
 
-
+  downloadPdf(){
+    location.href = this.baseUrl +"/api/installation/file/report/download?id="+this.installation.id;
+   }
 
   
+  getHistory(){
+    this.admin.getHistory(this.installation.id).subscribe(
+       (data) => {
+         this.history = data;
+       }
+     )
+   }
+
+
+
   approveOrReject(){
+    
     const req ={
       "id":this.installation.tobeApprovedId,
       "action": this.approvalAction,
@@ -141,10 +158,19 @@ export class CommanInstallationsComponent implements OnInit {
     }
     this.installationsService.approveRejectInstallation(req).subscribe(
       (data) => {
+        this.go_next('/request/installation');
       }
     )
 
   }
+
+
+  go_next(route){
+    setTimeout(() => {
+        this.router.navigate([route])
+      }
+      , 1000);
+}
 
 
   getEngineerList($event){
@@ -186,7 +212,7 @@ export class CommanInstallationsComponent implements OnInit {
     if(fileName==="customerSignature"){
       uri=this.installation.file.customerSignatureFileDownloadUri;
     }
-
+    
     location.href = this.baseUrl+uri;
 
 

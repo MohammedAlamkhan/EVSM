@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '@core/core/authentication.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'environments/environment';
@@ -27,12 +27,14 @@ export class CommissionDetailsComponent implements OnInit {
   assignForm:FormGroup;
   assignSubmitted = false;
   engineerMap: any;
-  baseUrl="http://evsepulseapi.exicom.in:8282";
+  baseUrl = environment.imageApiIUrl;
   approvalRemark: any;
   approvalAction: any;
   creds = this.authService.getCredentials;
+  history: any;
+  id: any;
   constructor(private modalService: NgbModal, public authService: AuthenticationService,
-    private _route: ActivatedRoute,
+    private _route: ActivatedRoute,private _Router: Router,
      private _Commissioning: CommissioningService,
      private formBuilder: FormBuilder ) { }
   modalOpenSM(modalSM) {
@@ -113,6 +115,8 @@ assignFormInit()
       (res) => {
         
         this.getDetails = res;
+        this.id = res.id;
+        this.getHistory(res.id);
         // if((this.getDetails.commissioningStatusId===6 ))
         // {
         //   this.isShowApprove= true;
@@ -129,6 +133,7 @@ assignFormInit()
       error => {
         console.log('There was an error while retrieving Comments !!!' + error);
       });
+     
   }
 
 //   onSubmit(){
@@ -196,7 +201,7 @@ assignFormInit()
 
 
 downloadInstallationReport(fileName){
-  debugger
+  
   let uri="";
   if(fileName==="phaseToNeurtal"){
   //  uri="/api/installation/file/download?id=3&file=forramji-Copy.jpg";
@@ -208,18 +213,24 @@ downloadInstallationReport(fileName){
    uri=this.getDetails.file.neutralToEarthFileDownloadUri;
   }
   if(fileName==="distributionBox"){
-   // uri=this.getDetails.file.distributionBoxFileDownloadUri;
+    uri=this.getDetails.file.distributionBoxFileDownloadUri;
   }
   if(fileName==="vehicleCharging"){
-  //  uri=this.getDetails.file.vehicleChargingFileDownloadUri;
+    uri=this.getDetails.file.vehicleChargingFileDownloadUri;
   }
   if(fileName==="engineerSignature"){
-   // uri=this.getDetails.file.engineerSignatureFileDownloadUri;
+    uri=this.getDetails.file.engineerSignatureFileDownloadUri;
   }
   if(fileName==="customerSignature"){
-   // uri=this.getDetails.file.customerSignatureFileDownloadUri;
+   uri=this.getDetails.file.customerSignatureFileDownloadUri;
   }
-debugger
+  if(fileName==="commissioningReport"){
+    uri=this.getDetails.file.commissioningReportFileDownloadUri;
+  }
+  if(fileName==="softwareUpdImage"){
+   uri=this.getDetails.file.softwareUpdImageFileDownloadUri;
+  }
+
 
  location.href = this.baseUrl+uri;
 
@@ -248,10 +259,26 @@ getCircleMap(){
   }
   this._Commissioning.approveRejectCommision(req).subscribe(
     (data) => {
+      //this._route.navigate()['/request/commissioning']);
+      this._Router.navigate(['request/commissioning'])
     }
   )
-
+  
 }
+
+ 
+getHistory(id){
+  this._Commissioning.getHistory(id).subscribe(
+     (data) => {
+       this.history = data;
+     }
+   )
+ }
+
+
+ downloadPdf(){
+  location.href = this.baseUrl +"commissioning/file/report/download?id="+this.id;
+ }
 
 
 reassign(){
@@ -261,9 +288,10 @@ reassign(){
   }
   this._Commissioning.reassignInstallation(req).subscribe(
     (data) => {
+      
     }
   )
-
+  this._Router.navigate(['request/commissioning'])
 }
 
 getEngineerList($event){
